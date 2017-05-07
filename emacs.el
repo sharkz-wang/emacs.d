@@ -164,12 +164,9 @@
 					 (unless (string-match "\\(?:/\\|\\`\\)\\.\\{1\\}\\'" file)
 					   (funcall fcn file))))
 		   ))
-   (:name helm-ag)
    (:name helm-gtags)
 
    (:name f)
-   (:name projectile)
-   (:name helm-projectile)
 
    (:name uncrustify-mode
 		:type git
@@ -294,8 +291,6 @@
 
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file "~/.emacs")))
 
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(define-key evil-normal-state-map (kbd "SPC f o") 'helm-find-files)
 
 (global-set-key (kbd "C-c C") 'calendar)
 
@@ -376,8 +371,6 @@
 
 (global-set-key (kbd "C-x C-x") 'ido-switch-buffer)
 (define-key evil-normal-state-map (kbd "SPC x x") 'ido-switch-buffer)
-(define-key evil-normal-state-map (kbd "SPC \'") 'helm-buffers-list)
-(define-key evil-normal-state-map (kbd "SPC \;") 'ido-switch-buffer)
 
 (define-key evil-normal-state-map (kbd "SPC i w") 'toggle-truncate-lines)
 
@@ -436,10 +429,6 @@
 
 (global-set-key (kbd "C-q") 'delete-other-windows)
 (define-key evil-normal-state-map (kbd "SPC q") 'delete-other-windows)
-
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(define-key evil-normal-state-map (kbd "SPC x b") 'helm-buffers-list)
 
 (global-set-key (kbd "C-x B") 'ibuffer)
 (define-key evil-normal-state-map (kbd "SPC B") 'ibuffer)
@@ -850,28 +839,7 @@ scroll-down-aggressively 0.01)
 (require 'saveplace)
 (setq-default save-place t)
 
-(require 'helm-files)
-(require 'helm-config)
-(require 'helm-grep)
-
-(helm-mode 1)
-;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
-(define-key evil-normal-state-map (kbd "SPC h") 'helm-command-prefix)
-
-(global-unset-key (kbd "C-x c"))
-(define-key helm-map (kbd "C-h") 'delete-backward-char)
-
 (global-set-key (kbd "C-c h o") 'helm-org-agenda-files-headings)
-
-(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-o") 'helm-execute-persistent-action)
-(define-key helm-map (kbd "C-j") 'helm-next-line)
-(define-key helm-map (kbd "C-k") 'helm-previous-line)
-(define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
-(define-key helm-map (kbd "C-l") 'helm-find-files-down-last-level)
 
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-o") 'helm-execute-persistent-action)
@@ -907,19 +875,6 @@ scroll-down-aggressively 0.01)
     helm-gtags-prefix-key "\C-c g"
     helm-gtags-suggested-key-mapping t
 )
-
-(global-set-key (kbd "C-c h i") 'helm-imenu)
-(define-key evil-normal-state-map (kbd "SPC h i") 'helm-imenu)
-(global-set-key (kbd "C-c h r") 'helm-resume)
-(define-key evil-normal-state-map (kbd "SPC h r") 'helm-resume)
-(global-set-key (kbd "C-c h b") 'helm-bookmark)
-(define-key evil-normal-state-map (kbd "SPC h b") 'helm-bookmark)
-(global-set-key (kbd "C-c h g") 'helm-occur)
-(global-set-key (kbd "C-c g g") 'helm-occur)
-(define-key evil-normal-state-map (kbd "SPC h g") 'helm-occur)
-(define-key evil-normal-state-map (kbd "SPC g g") 'helm-occur)
-(define-key evil-normal-state-map (kbd "SPC t") 'helm-occur)
-(define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
 
 (define-key helm-gtags-mode-map (kbd "C-c g S") 'helm-gtags-select)
 (define-key evil-normal-state-map (kbd "SPC g S") 'helm-gtags-select)
@@ -1275,32 +1230,6 @@ scroll-down-aggressively 0.01)
 )
 (add-hook 'R-mode-hook 'load-company-ess)
 
-(require 'projectile)
-(projectile-global-mode 1)
-(setq projectile-indexing-method 'native)
-(setq projectile-enable-caching t)
-(setq projectile-completion-system 'helm)
-
-(require 'helm-projectile)
-(helm-projectile-on)
-
-(define-key projectile-mode-map (kbd "C-c p p") 'helm-projectile-switch-project)
-(define-key evil-normal-state-map (kbd "SPC p p") 'helm-projectile-switch-project)
-(define-key projectile-mode-map (kbd "C-c p f") 'helm-projectile-find-file)
-(define-key evil-normal-state-map (kbd "SPC p f") 'helm-projectile-find-file)
-(define-key evil-normal-state-map (kbd "C-p") 'helm-projectile-find-file-dwim)
-(define-key projectile-mode-map (kbd "C-c p r") 'helm-projectile-recentf)
-(define-key evil-normal-state-map (kbd "SPC p r") 'helm-projectile-recentf)
-(define-key projectile-mode-map (kbd "C-c p g") 'helm-projectile-grep)
-(define-key evil-normal-state-map (kbd "SPC p g") 'helm-projectile-grep)
-(define-key projectile-mode-map (kbd "C-c p a") 'helm-projectile-ag)
-(define-key evil-normal-state-map (kbd "SPC p a") 'helm-projectile-ag)
-(define-key projectile-mode-map (kbd "C-c p o") 'helm-projectile-find-other-file)
-(define-key evil-normal-state-map (kbd "SPC p o") 'helm-projectile-find-other-file)
-(define-key evil-normal-state-map (kbd "SPC p i") 'projectile-invalidate-cache)
-
-(define-key evil-normal-state-map (kbd "SPC \\") 'helm-projectile-find-file-dwim)
-(define-key evil-normal-state-map (kbd "SPC \`") 'helm-projectile-switch-project)
 
 (require 'dtrt-indent)
 (dtrt-indent-mode 1)

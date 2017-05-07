@@ -4,3 +4,4 @@
 
 (require 'init-basics)
 (require 'init-appearance)
+(require 'init-helm)
