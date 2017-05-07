@@ -6,3 +6,4 @@
 (require 'init-appearance)
 (require 'init-helm)
 (require 'init-magit)
+(require 'init-company)

@@ -52,7 +52,6 @@
 	  :url "https://github.com/syohex/emacs-git-gutter")
    (:name ztree)
 
-   (:name company-mode)
    (:name company-statistics)
    (:name emacs-ycmd
 	  :type git
@@ -901,28 +900,6 @@ scroll-down-aggressively 0.01)
 (require 'srefactor)
 (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-
-(require 'company)
-(add-hook 'after-init-hook #'global-company-mode)
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 1)
-(setq company-show-numbers t)
-(setq company-selection-wrap-around t)
-(define-key company-active-map (kbd "C-j") 'company-select-next)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-k") 'company-select-previous)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "TAB") 'company-select-next)
-(define-key company-active-map (kbd "C-h") 'delete-backward-char)
-(define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
-
-;(define-key company-active-map (kbd "SPC") (lambda () (interactive) (company-complete-selection) (insert " ")))
-;(define-key company-active-map (kbd ".") (lambda () (interactive) (company-complete-selection) (insert ".")))
-;(define-key company-active-map (kbd "-") (lambda () (interactive) (company-complete-selection) (insert "-")))
-;(define-key company-active-map (kbd ")") (lambda () (interactive) (company-complete-selection) (insert ")")))
-;(define-key company-active-map (kbd "}") (lambda () (interactive) (company-complete-selection) (insert "}")))
-;(define-key company-active-map (kbd ">") (lambda () (interactive) (company-complete-selection) (insert ">")))
-;(define-key company-active-map (kbd ";") (lambda () (interactive) (company-complete-selection) (insert ";")))
 
 ;; ycmd Installation
 ;; 1) git clone https://github.com/Valloric/ycmd.git
