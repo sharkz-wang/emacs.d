@@ -7,3 +7,4 @@
 (require 'init-helm)
 (require 'init-magit)
 (require 'init-company)
+(require 'init-python)
