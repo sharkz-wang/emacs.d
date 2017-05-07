@@ -15,11 +15,26 @@
 			  (car (get-buffer-window-list (current-buffer) nil t))
 			  3)))
 
+(require 'init-evil)
+
+;; misc ugly but useful key-bindings
+(define-key evil-normal-state-map (kbd "SPC s") 'save-buffer)
+(define-key evil-normal-state-map (kbd "SPC j") 'switch-to-last-buffer)
+
+(defun switch-to-last-buffer ()
+  "Switch to previously open buffer.
+   Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+(global-set-key (kbd "C-x l") 'switch-to-last-buffer)
+(define-key evil-normal-state-map (kbd "SPC l") (lambda () (interactive)
+						  (flop-frame)
+						  (other-window 1)))
+
+(require 'init-navigation)
+
 (require-package 'undo-tree)
 (global-undo-tree-mode 1)
-
-(require 'init-evil)
-(require 'init-navigation)
 
 ;; settings for smex
 (require-package 'ido)

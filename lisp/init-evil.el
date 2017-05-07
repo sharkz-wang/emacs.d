@@ -8,6 +8,10 @@
 (define-key evil-normal-state-map "'" 'evil-goto-mark)
 (define-key evil-normal-state-map "`" 'evil-goto-mark-line)
 
+;; bind "j" and "k" for visual line
+(define-key evil-normal-state-map "j" 'evil-next-visual-line)
+(define-key evil-normal-state-map "k" 'evil-previous-visual-line)
+
 ;; set starting state to normal state
 (setq evil-emacs-state-modes nil)
 (setq evil-insert-state-modes nil)

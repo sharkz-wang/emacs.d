@@ -277,7 +277,6 @@
 			      ("c" "Trace code note" entry (file+olp "~/gtd.org" "Trace Code")
 			       "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n%c")))
 
-(define-key evil-normal-state-map (kbd "SPC s") 'save-buffer)
 
 (global-set-key (kbd "C-x C-x") 'ido-switch-buffer)
 (define-key evil-normal-state-map (kbd "SPC x x") 'ido-switch-buffer)
@@ -305,18 +304,6 @@
 						     ))
 (define-key evil-normal-state-map (kbd "SPC e l") 'eval-last-sexp)
 (define-key evil-normal-state-map (kbd "SPC e e") 'eval-last-sexp)
-
-(defun switch-to-last-buffer ()
-  "Switch to previously open buffer.
-   Repeated invocations toggle between the two most recently open buffers."
-  (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
-(global-set-key (kbd "C-x l") 'switch-to-last-buffer)
-(define-key evil-normal-state-map (kbd "SPC l") (lambda () (interactive)
-						  (flop-frame)
-						  (other-window 1)))
-(define-key evil-normal-state-map (kbd "SPC j") 'switch-to-last-buffer)
-(define-key evil-normal-state-map (kbd "SPC x l") 'switch-to-last-buffer)
 
 (define-key evil-normal-state-map (kbd "SPC x c") 'save-buffers-kill-terminal)
 
@@ -597,8 +584,6 @@
 ;; (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
 ;; Cursor motion in wrapped lines
-(define-key evil-normal-state-map "j" 'evil-next-visual-line)
-(define-key evil-normal-state-map "k" 'evil-previous-visual-line)
 (define-key evil-normal-state-map "$" 'evil-end-of-visual-line)
 
 
