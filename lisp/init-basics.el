@@ -15,6 +15,12 @@
 			  (car (get-buffer-window-list (current-buffer) nil t))
 			  3)))
 
+;; make emacs know last opened position of a file
+(require-package 'saveplace)
+(save-place-mode)
+(setq-default save-place t)
+(setq save-place-file (expand-file-name ".saveplace" user-emacs-directory))
+
 (require 'init-evil)
 
 ;; misc ugly but useful key-bindings

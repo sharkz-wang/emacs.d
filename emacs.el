@@ -660,8 +660,6 @@ scroll-down-aggressively 0.01)
                               (or (getenv "CFLAGS") "-ansi -pedantic -Wall -g")
 			      file (format "%s%s" "&& ./" (file-name-sans-extension file))))))))
 
-(require 'saveplace)
-(setq-default save-place t)
 
 (global-set-key (kbd "C-c h o") 'helm-org-agenda-files-headings)
 
