@@ -47,89 +47,6 @@
 
    (:name smooth-scroll)
 
-
-   (:name evil-magit
-		:type git
-		:url "https://github.com/justbur/evil-magit")
-
-   (:name magit				; git meet emacs, and a binding
-	  :after (progn
-		   (setq magit-log-margin (quote (t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)))
-
-		   ;; set magit popup windows default to full-screen
-		   (setq magit-display-buffer-function
-			 #'magit-display-buffer-fullframe-status-v1)
-
-		   ;; Unbind SPC - leading key of many useful key-bindings
-		   (eval-after-load 'magit '(define-key magit-mode-map (kbd "SPC") nil))
-		   (eval-after-load 'magit '(define-key magit-diff-mode-map (kbd "SPC") nil))
-		   (eval-after-load 'magit '(define-key magit-blame-mode-map (kbd "SPC") nil))
-
-		   (define-key evil-normal-state-map (kbd "SPC m 1 TAB") 'magit-section-show-level-1-all)
-		   (global-set-key (kbd "C-c m 1 TAB") 'magit-section-show-level-1-all)
-		   (define-key evil-normal-state-map (kbd "SPC m 2 TAB") 'magit-section-show-level-2-all)
-		   (global-set-key (kbd "C-c m 2 TAB") 'magit-section-show-level-2-all)
-		   (define-key evil-normal-state-map (kbd "SPC m 3 TAB") 'magit-section-show-level-3-all)
-		   (global-set-key (kbd "C-c m 3 TAB") 'magit-section-show-level-3-all)
-		   (define-key evil-normal-state-map (kbd "SPC m 4 TAB") 'magit-section-show-level-4-all)
-		   (global-set-key (kbd "C-c m 4 TAB") 'magit-section-show-level-4-all)
-
-		   (define-key evil-normal-state-map (kbd "SPC m e") 'magit-ediff-stage)
-
-		   (define-key evil-normal-state-map (kbd "SPC m m") 'magit-status)
-		   (define-key evil-normal-state-map (kbd "SPC TAB") 'magit-status)
-		   (global-set-key (kbd "C-c m s") 'magit-status)
-		   (define-key evil-normal-state-map (kbd "SPC m s") 'magit-status)
-		   (global-set-key (kbd "C-c m $") 'magit-process-buffer)
-		   (define-key evil-normal-state-map (kbd "SPC m $") 'magit-process-buffer)
-		   (global-set-key (kbd "C-c m 4") 'magit-process-buffer)
-		   (define-key evil-normal-state-map (kbd "SPC m 4") 'magit-process-buffer)
-		   (global-set-key (kbd "C-c m B") 'magit-show-refs-popup)
-		   (define-key evil-normal-state-map (kbd "SPC m B") 'magit-show-refs-popup)
-		   (defun selectively-show-magit-diff (arg) (interactive "P")
-						     (if (equal current-prefix-arg '(4))
-							   (magit-diff-staged)
-							   (magit-diff-unstaged)
-						       )
-						     )
-		   (global-set-key (kbd "C-c m d") 'selectively-show-magit-diff)
-		   (define-key evil-normal-state-map (kbd "SPC m d") 'selectively-show-magit-diff)
-		   (global-set-key (kbd "C-c m f d") 'magit-diff-buffer-file)
-		   (define-key evil-normal-state-map (kbd "SPC m f d") 'magit-diff-buffer-file)
-		   (global-set-key (kbd "C-c m f b d") 'magit-ediff-compare)
-		   (define-key evil-normal-state-map (kbd "SPC m f b d") 'magit-ediff-compare)
-		   (global-set-key (kbd "C-c m D") 'magit-diff)
-		   (define-key evil-normal-state-map (kbd "SPC m D") 'magit-diff)
-		   (global-set-key (kbd "C-c m f l") 'magit-log-buffer-file)
-		   (define-key evil-normal-state-map (kbd "SPC m f l") 'magit-log-buffer-file)
-		   (global-set-key (kbd "C-c m b") 'magit-blame)
-		   (define-key evil-normal-state-map (kbd "SPC m b") 'magit-blame)
-		   (global-set-key (kbd "C-c m c") 'magit-commit)
-		   (define-key evil-normal-state-map (kbd "SPC m c") 'magit-commit)
-		   (global-set-key (kbd "C-c m r") 'magit-rebase-interactive)
-		   (define-key evil-normal-state-map (kbd "SPC m r") 'magit-rebase-interactive)
-		   (global-set-key (kbd "C-c m a") 'magit-commit-amend)
-		   (define-key evil-normal-state-map (kbd "SPC m a") 'magit-commit-amend)
-		   (global-set-key (kbd "C-c m i") 'magit-rebase-continue)
-		   (define-key evil-normal-state-map (kbd "SPC m i") 'magit-rebase-continue)
-		   (global-set-key (kbd "C-c m R") 'magit-ediff-resolve)
-		   (define-key evil-normal-state-map (kbd "SPC m R") 'magit-ediff-resolve)
-		   (global-set-key (kbd "C-c m p") 'magit-push)
-		   (define-key evil-normal-state-map (kbd "SPC m p") 'magit-push)
-		   (global-set-key (kbd "C-c m P") 'magit-pull)
-		   (define-key evil-normal-state-map (kbd "SPC m P") 'magit-pull)
-		   (global-set-key (kbd "C-c m l") 'magit-log-current)
-		   (define-key evil-normal-state-map (kbd "SPC m l") 'magit-log-current)
-		   (global-set-key (kbd "C-c m L") 'magit-log)
-		   (define-key evil-normal-state-map (kbd "SPC m L") 'magit-log)
-		   (global-set-key (kbd "C-c m C") 'magit-clean)
-		   (define-key evil-normal-state-map (kbd "SPC m C") 'magit-clean)
-		   (global-set-key (kbd "C-c m o") 'magit-checkout)
-		   (define-key evil-normal-state-map (kbd "SPC m o") 'magit-checkout)
-		   (global-set-key (kbd "C-c m z") 'magit-stash)
-		   (define-key evil-normal-state-map (kbd "SPC m z") 'magit-stash)
-		   (global-set-key (kbd "C-c m w") 'magit-diff-toggle-refine-hunk)))
-
    (:name emacs-git-gutter
 	  :type git
 	  :url "https://github.com/syohex/emacs-git-gutter")
@@ -1428,10 +1345,6 @@ scroll-down-aggressively 0.01)
 						 (if (eq linum-format 'linum-format-func)
 						     (setq linum-format 'linum-relative)
 						   (setq linum-format 'linum-format-func))))
-
-(require 'evil-magit)
-(evil-define-key evil-magit-state magit-mode-map "=" 'magit-diff-less-context)
-(define-key magit-log-mode-map (kbd "TAB") 'magit-cycle-margin-style)
 
 (require 'gud)
 

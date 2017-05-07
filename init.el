@@ -5,3 +5,4 @@
 (require 'init-basics)
 (require 'init-appearance)
 (require 'init-helm)
+(require 'init-magit)
