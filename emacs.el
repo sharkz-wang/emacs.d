@@ -248,13 +248,6 @@
    (:name hl-spotlight
       :type elpa)
 
-   (:name molokai-theme
-	  :type git
-	  :url "https://github.com/hbin/molokai-theme")
-
-   (:name monokai-emacs-theme
-	  :type git
-	  :url "https://github.com/oneKelvinSmith/monokai-emacs")
    ))
 
 ;; install new packages and init already installed packages
@@ -908,8 +901,6 @@
 )
 ;; (add-hook 'org-mode-hook 'nolinum)
 
-;(require 'molokai-theme)
-(require 'monokai-theme)
 (custom-set-faces
  `(company-tooltip-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
  `(company-tooltip-common-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
