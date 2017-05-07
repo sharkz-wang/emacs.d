@@ -47,23 +47,6 @@
 
    (:name smooth-scroll)
 
-   (:name smex				; a better (ido like) M-x
-	  :after (progn
-		(setq smex-save-file "~/.emacs.d/.smex-items")
-		(add-hook 'ido-setup-hook
-		    (lambda ()
-			(define-key ido-completion-map (kbd "C-h") 'delete-backward-char)
-
-			(define-key ido-completion-map (kbd "C-j") 'ido-next-match)
-			(define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-			(define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
-			(define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
-
-			(define-key ido-completion-map (kbd "C-? f") 'smex-describe-function)
-			(define-key ido-completion-map (kbd "C-? w") 'smex-where-is)))
-
-			(global-set-key (kbd "M-x") 'smex)
-			(global-set-key (kbd "M-X") 'smex-major-mode-commands)))
 
    (:name evil-magit
 		:type git
@@ -308,13 +291,6 @@
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
-
-(require 'ido)
-(ido-mode t)
-(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
-(setq ido-enable-flex-matching t)
-(setq ido-use-filename-at-point 'guess)
-(setq ido-show-dot-for-dired t)
 
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file "~/.emacs")))
 
