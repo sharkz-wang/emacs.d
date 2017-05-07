@@ -21,9 +21,6 @@
    (:name el-get)
 
    ;; Vim-emulation
-   (:name evil)
-   (:name evil-matchit)
-   (:name evil-surround)
    (:name evil-indent-textobject)
    (:name evil-numbers)
    (:name evil-leader)
@@ -36,10 +33,6 @@
 	  :url "https://github.com/roman/evil-visual-mark-mode")
 
    (:name evil-jumper)
-
-   (:name evil-snipe
-	  :type git
-	  :url "https://github.com/hlissner/evil-snipe")
 
    ;; (:name golden-ratio)
    (:name transpose-frame)
@@ -551,21 +544,6 @@
 (require 'evil)
 (evil-mode t)
 
-(require 'evil-snipe)
-(evil-snipe-mode t)
-
-(setq evil-snipe-repeat-keys nil)
-(setq evil-snipe-smart-case t)
-;; (setq evil-snipe-repeat-scope 'whole-visible)
-;; (setq evil-snipe-scope 'whole-visible)
-
-(push '(?\[ "[[{(]") evil-snipe-aliases)
-(push '(?\] "[]})]") evil-snipe-aliases)
-(push '(?' "[\"']") evil-snipe-aliases)
-(make-variable-buffer-local 'evil-snipe-aliases)
-
-(add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
-
 (evil-jumper-mode t)
 (evil-visual-mark-mode t)
 
@@ -750,7 +728,6 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "\\")
 
-(require 'evil-surround)
 (require 'evil-nerd-commenter)
 
 (defun evilnc-invert-comment-line-by-line (&optional NUM) (interactive "p")

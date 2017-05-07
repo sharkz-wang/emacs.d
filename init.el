@@ -2,4 +2,5 @@
 
 (require 'init-package)
 
+(require 'init-basics)
 (require 'init-appearance)
