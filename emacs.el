@@ -23,8 +23,6 @@
    ;; Vim-emulation
    (:name evil-indent-textobject)
    (:name evil-numbers)
-   (:name evil-leader)
-   (:name evil-nerd-commenter)
    (:name evil-org-mode
 	  :type git
 	  :url "https://github.com/edwtjo/evil-org-mode")
@@ -581,59 +579,7 @@
 			    'elisp-insert-formatted-string-print)
 	    ))
 
-(require 'evil-leader)
-(global-evil-leader-mode)
-(evil-leader/set-leader "\\")
 
-(require 'evil-nerd-commenter)
-
-(defun evilnc-invert-comment-line-by-line (&optional NUM) (interactive "p")
-       (setq evilnc-invert-comment-line-by-line t)
-       (evilnc-comment-or-uncomment-lines NUM)
-       (setq evilnc-invert-comment-line-by-line nil))
-
-(defun comment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
-  (interactive)
-  (let (beg end)
-    (if (region-active-p)
-	(setq beg (region-beginning) end (region-end))
-      (setq beg (line-beginning-position) end (line-end-position)))
-    (comment-region beg end)))
-
-(defun uncomment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
-  (interactive)
-  (let (beg end)
-    (if (region-active-p)
-	(setq beg (region-beginning) end (region-end))
-      (setq beg (line-beginning-position) end (line-end-position)))
-    (uncomment-region beg end)))
-
-(defun current-line-empty-p ()
-  (save-excursion
-    (beginning-of-line)
-    (looking-at "[[:space:]]*$")))
-
-(evil-leader/set-key
-  "cc" 'comment-region-or-line
-  "cu" 'uncomment-region-or-line
-  "ci" 'evilnc-invert-comment-line-by-line
-  "cy" 'evilnc-copy-and-comment-lines
-  "cf" '(lambda() (interactive)
-	  (srecode-document-insert-comment)
-	  (evil-insert-state)
-	  (previous-line)
-	  (previous-line)
-	  (end-of-line)
-	  (if (current-line-empty-p)
-	      nil
-	      (newline-and-indent))
-	  (next-line)
-	  (next-line)
-	  (end-of-line)
-	  )
-  "\\" 'evilnc-comment-operator)
 
 (require 'evil-org)
 
