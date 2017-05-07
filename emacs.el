@@ -37,7 +37,6 @@
    ;; (:name golden-ratio)
    (:name transpose-frame)
 
-   (:name adaptive-wrap)
    (:name ace-window
 	  :type git
 	  :url "https://github.com/abo-abo/ace-window")
@@ -46,9 +45,6 @@
    (:name paredit)
    (:name highlight-parentheses)
 
-   (:name history
-		:type git
-		:url "https://github.com/boyw165/history")
    (:name smooth-scroll)
 
    (:name smex				; a better (ido like) M-x
@@ -72,8 +68,6 @@
    (:name evil-magit
 		:type git
 		:url "https://github.com/justbur/evil-magit")
-
-   (:name with-editor)
 
    (:name magit				; git meet emacs, and a binding
 	  :after (progn
@@ -158,9 +152,6 @@
 	  :url "https://github.com/syohex/emacs-git-gutter")
    (:name ztree)
 
-   (:name deferred)
-   (:name popup)
-
    (:name company-mode)
    (:name company-statistics)
    (:name emacs-ycmd
@@ -173,8 +164,6 @@
    (:name elpy)
 
    (:name helm-dash)
-
-   (:name emacs-w3m)
 
    (:name semantic-refactor
 	  :type git
@@ -240,24 +229,15 @@
 
    ))
 
-;; install new packages and init already installed packages
-(el-get 'sync (loop for src in el-get-sources collect (el-get-source-name src)))
-
-(setq inhibit-splash-screen t)		; no splash screen, thanks
 (line-number-mode 1)			; have line numbers and
-(column-number-mode 1)			; column numbers in the mode line
 
-(set-default-font "Deja Vu Sans Mono-16")
 ;(set-face-attribute 'default nil :height 140)
 
-(tool-bar-mode -1)			; no tool bar with icons
 ;(scroll-bar-mode -1)			; no scroll bars
-(menu-bar-mode -1)
 
 (global-hl-line-mode)			; highlight current line
 
 ;; (global-linum-mode 1)			; add line numbers on the left
-(setq left-margin-width 3)
 
 (defun toggle-linum-mode ()
   (interactive)
@@ -306,7 +286,6 @@
 ;; (setq browse-url-browser-function (quote browse-url-firefox))
 (setq browse-url-browser-function 'w3m-goto-url-new-session)
 
-(define-key global-map (kbd "C-w") 'evil-delete-backward-word)
 (define-key global-map (kbd "C-x C-o") 'ff-find-other-file)
 
 (setq-default indent-tabs-mode t)
@@ -818,47 +797,10 @@
 (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
 (define-key evil-normal-state-map "$" 'evil-end-of-visual-line)
 
-(defadvice evil-insert-state (around emacs-state-instead-of-insert-state activate)
-  (evil-emacs-state))
 
 (define-key evil-emacs-state-map (kbd "C-r") 'evil-paste-from-register)
 (define-key evil-emacs-state-map (kbd "C-o") 'evil-execute-in-normal-state)
 
-(define-key evil-emacs-state-map [escape] 'evil-normal-state)
-(define-key evil-emacs-state-map "k" #'cofi/maybe-exit-kj)
-(define-key evil-emacs-state-map "j" #'cofi/maybe-exit-jk)
-
-(evil-define-command cofi/maybe-exit-kj ()
-  :repeat change
-  (interactive)
-  (let ((modified (buffer-modified-p)))
-    (insert "k")
-    (let ((evt (read-event (format "Insert %c to exit insert state" ?j)
-               nil 0.5)))
-      (cond
-       ((null evt) (message ""))
-       ((and (integerp evt) (char-equal evt ?j))
-    (delete-char -1)
-    (set-buffer-modified-p modified)
-    (push 'escape unread-command-events))
-       (t (setq unread-command-events (append unread-command-events
-                          (list evt))))))))
-
-(evil-define-command cofi/maybe-exit-jk ()
-  :repeat change
-  (interactive)
-  (let ((modified (buffer-modified-p)))
-    (insert "j")
-    (let ((evt (read-event (format "Insert %c to exit insert state" ?k)
-               nil 0.5)))
-      (cond
-       ((null evt) (message ""))
-       ((and (integerp evt) (char-equal evt ?k))
-    (delete-char -1)
-    (set-buffer-modified-p modified)
-    (push 'escape unread-command-events))
-       (t (setq unread-command-events (append unread-command-events
-                          (list evt))))))))
 
 (require 'org)
 (setq org-startup-indented 1)
@@ -931,9 +873,6 @@ scroll-down-aggressively 0.01)
 
 (require 'saveplace)
 (setq-default save-place t)
-
-(require 'undo-tree)
-(global-undo-tree-mode 1)
 
 (require 'helm-files)
 (require 'helm-config)
@@ -1475,15 +1414,8 @@ scroll-down-aggressively 0.01)
 
 ;; Line wrapping settings
 (setq-default truncate-lines nil)
-(require 'adaptive-wrap)
 (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
 (global-visual-line-mode 1)
-
-(require 'history)
-(history-mode 1)
-(define-key global-map (kbd "C-x .") 'history-next-history)
-(define-key global-map (kbd "C-x ,") 'history-prev-history)
-(define-key global-map (kbd "C-x /") 'history-add-history)
 
 (paredit-mode 1)
 (define-key global-map (kbd "M-)") 'paredit-forward-slurp-sexp)
