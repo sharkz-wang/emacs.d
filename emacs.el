@@ -41,9 +41,6 @@
 
    (:name smooth-scroll)
 
-   (:name emacs-git-gutter
-	  :type git
-	  :url "https://github.com/syohex/emacs-git-gutter")
    (:name ztree)
 
    (:name company-statistics)
@@ -1346,38 +1343,6 @@ scroll-down-aggressively 0.01)
 						  (evil-next-line (- region-line-num 1))
 						  )
 						))
-
-(global-git-gutter-mode 1)
-
-(setq git-gutter:ask-p nil)
-
-(setq git-gutter:added-sign " + ")
-(setq git-gutter:deleted-sign " - ")
-(setq git-gutter:modified-sign " * ")
-
-(global-set-key (kbd "C-c m g TAB") 'global-git-gutter-mode)
-(define-key evil-normal-state-map (kbd "SPC m g TAB") 'global-git-gutter-mode)
-
-(global-set-key (kbd "C-c m g g") 'git-gutter)
-(define-key evil-normal-state-map (kbd "SPC m g g") 'git-gutter)
-(global-set-key (kbd "C-c m g SPC") 'git-gutter:popup-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g SPC") 'git-gutter:popup-hunk)
-
-(global-set-key (kbd "C-c m g s") 'git-gutter:stage-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g s") 'git-gutter:stage-hunk)
-(global-set-key (kbd "C-c m g d") 'git-gutter:revert-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g d") 'git-gutter:popup-diff)
-(global-set-key (kbd "C-c m g r") 'git-gutter:popup-diff)
-(define-key evil-normal-state-map (kbd "SPC m g r") 'git-gutter:revert-hunk)
-
-(global-set-key (kbd "C-c m g n") 'git-gutter:next-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g n") 'git-gutter:next-hunk)
-(global-set-key (kbd "C-c m g j") 'git-gutter:next-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g j") 'git-gutter:next-hunk)
-(global-set-key (kbd "C-c m g p") 'git-gutter:previous-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g p") 'git-gutter:previous-hunk)
-(global-set-key (kbd "C-c m g k") 'git-gutter:previous-hunk)
-(define-key evil-normal-state-map (kbd "SPC m g k") 'git-gutter:previous-hunk)
 
 (global-set-key (kbd "C-x t t") 'transpose-frame)
 (define-key evil-normal-state-map (kbd "SPC x t t") 'transpose-frame)

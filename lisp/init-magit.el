@@ -54,4 +54,26 @@
 (evil-define-key evil-magit-state magit-mode-map "=" 'magit-diff-less-context)
 (define-key magit-log-mode-map (kbd "TAB") 'magit-cycle-margin-style)
 
+;; TODO: move it to init-git.el
+(require-package 'git-gutter)
+
+(global-git-gutter-mode 1)
+
+(setq git-gutter:ask-p nil)
+
+(setq git-gutter:added-sign " + ")
+(setq git-gutter:deleted-sign " - ")
+(setq git-gutter:modified-sign " * ")
+
+(define-key evil-normal-state-map (kbd "SPC m g SPC") 'git-gutter:popup-hunk)
+
+(define-key evil-normal-state-map (kbd "SPC m g s") 'git-gutter:stage-hunk)
+(define-key evil-normal-state-map (kbd "SPC m g d") 'git-gutter:popup-diff)
+(define-key evil-normal-state-map (kbd "SPC m g r") 'git-gutter:revert-hunk)
+
+(define-key evil-normal-state-map (kbd "SPC m g n") 'git-gutter:next-hunk)
+(define-key evil-normal-state-map (kbd "SPC m g j") 'git-gutter:next-hunk)
+(define-key evil-normal-state-map (kbd "SPC m g p") 'git-gutter:previous-hunk)
+(define-key evil-normal-state-map (kbd "SPC m g k") 'git-gutter:previous-hunk)
+
 (provide 'init-magit)
