@@ -4,6 +4,10 @@
 ;; bind C-w back in evil emacs state
 (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
 
+;; swap key-bindings "'" and "`" for convenience
+(define-key evil-normal-state-map "'" 'evil-goto-mark)
+(define-key evil-normal-state-map "`" 'evil-goto-mark-line)
+
 ;; set starting state to normal state
 (setq evil-emacs-state-modes nil)
 (setq evil-insert-state-modes nil)

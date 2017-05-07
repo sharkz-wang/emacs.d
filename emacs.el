@@ -35,10 +35,6 @@
    ;; (:name golden-ratio)
    (:name transpose-frame)
 
-   (:name ace-window
-	  :type git
-	  :url "https://github.com/abo-abo/ace-window")
-
    (:name undo-tree)
    (:name paredit)
    (:name highlight-parentheses)
@@ -594,25 +590,6 @@
 							 0
 							 -1))))
 
-(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-(define-key evil-normal-state-map (kbd "C-w") 'ace-window)
-(define-key evil-normal-state-map (kbd "SPC w") 'ace-window)
-(define-key evil-normal-state-map (kbd "SPC x o") 'ace-window)
-
-(define-key global-map (kbd "C-c w") 'ace-window)
-(defvar aw-dispatch-alist
-  '((?x aw-delete-window " Ace - Delete Window")
-    (?m aw-swap-window " Ace - Swap Window")
-    (?n aw-flip-window)
-    (?l aw-flip-window)
-    (?v aw-split-window-vert " Ace - Split Vert Window")
-    (?b aw-split-window-horz " Ace - Split Horz Window")
-    (?i delete-other-windows " Ace - Maximize Window")
-    (?o delete-other-windows))
-  "List of actions for `aw-dispatch-default'.")
-
-(define-key evil-normal-state-map "'" 'evil-goto-mark)
-(define-key evil-normal-state-map "`" 'evil-goto-mark-line)
 
 ;; (setcdr evil-insert-state-map [escape])
 ;; (define-key evil-insert-state-map
