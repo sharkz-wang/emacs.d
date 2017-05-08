@@ -1,8 +1,20 @@
+(add-to-list 'package-archives
+             '("elpy" . "https://jorgenschaefer.github.io/packages/"))
+
 (add-hook
  'python-mode-hook
  (lambda
    ()
+
    (modify-syntax-entry ?_ "w")
+
+   (require-package 'elpy)
+   (elpy-enable)
+   (elpy-use-ipython)
+
+   (when (executable-find "ipython")
+     (setq pthon-shell-interpreter "ipython"
+	   python-shell-interpreter-args "--simple-prompt -i"))
 
    (defun python-insert-print ()
      (interactive)
