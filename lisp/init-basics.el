@@ -16,9 +16,13 @@
 			  3)))
 
 ;; make emacs know last opened position of a file
-(require-package 'saveplace)
-(save-place-mode)
-(setq-default save-place t)
+(if (< emacs-major-version 25)
+    (progn
+      (require-package 'saveplace)
+      (setq-default save-place t))
+  (progn
+    (save-place-mode 1))
+  )
 (setq save-place-file (expand-file-name ".saveplace" user-emacs-directory))
 
 (require 'init-evil)
