@@ -33,6 +33,8 @@
 (define-key evil-normal-state-map (kbd "SPC s") 'save-buffer)
 (define-key evil-normal-state-map (kbd "SPC j") 'switch-to-last-buffer)
 
+(define-key evil-normal-state-map (kbd "SPC 1") 'delete-other-windows)
+
 (defun switch-to-last-buffer ()
   "Switch to previously open buffer.
    Repeated invocations toggle between the two most recently open buffers."
