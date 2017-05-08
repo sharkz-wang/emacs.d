@@ -489,10 +489,6 @@ scroll-conservatively 0)
 (setq-default scroll-up-aggressively 0.01
 scroll-down-aggressively 0.01)
 
-(require 'compile)
-
-(setq compilation-scroll-output t)
-
 ;; (add-hook 'c-mode-hook
 ;; 	  (lambda ()
 ;; 		 (unless (file-exists-p "Makefile")
@@ -975,10 +971,6 @@ scroll-down-aggressively 0.01)
    (propertize " "  'display endless/margin-display)))
 
 ; (add-hook 'linum-before-numbering-hook #'endless/setup-margin-overlays)
-
-;; Set default splitting approach to vertical split
-;(setq split-height-threshold nil)
-;(setq split-width-threshold 80)
 
 ;(require 'golden-ratio)
 ;(golden-ratio-mode 1)
