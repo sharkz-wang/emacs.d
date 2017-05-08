@@ -7,6 +7,8 @@
 (tool-bar-mode -1)
 ;; no memu bar
 (menu-bar-mode -1)
+; no scroll bars
+(scroll-bar-mode -1)
 
 ;; set left margin size and make it take effect now
 (add-hook 'window-configuration-change-hook
