@@ -118,8 +118,6 @@
 
 ;(set-face-attribute 'default nil :height 140)
 
-;(scroll-bar-mode -1)			; no scroll bars
-
 (global-hl-line-mode)			; highlight current line
 
 ;; (global-linum-mode 1)			; add line numbers on the left
@@ -310,7 +308,6 @@
 (define-key evil-normal-state-map (kbd "SPC x 3") (lambda () (interactive) (split-window-right) (other-window 1)))
 (define-key evil-normal-state-map (kbd "SPC 3") (lambda () (interactive) (split-window-right) (other-window 1)))
 
-(define-key evil-normal-state-map (kbd "SPC 1") 'delete-other-windows)
 (define-key evil-normal-state-map (kbd "SPC 0") 'delete-window)
 
 (define-key evil-normal-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
@@ -318,9 +315,6 @@
 (define-key evil-normal-state-map (kbd "SPC 5") 'evil-jump-item)
 
 (define-key evil-normal-state-map (kbd "SPC b g ") 'end-of-buffer)
-
-(global-set-key (kbd "C-q") 'delete-other-windows)
-(define-key evil-normal-state-map (kbd "SPC q") 'delete-other-windows)
 
 (global-set-key (kbd "C-x B") 'ibuffer)
 (define-key evil-normal-state-map (kbd "SPC B") 'ibuffer)
