@@ -24,7 +24,7 @@
 (helm-projectile-on)
 
 (projectile-global-mode 1)
-(setq projectile-indexing-method 'native)
+(setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'helm)
 
