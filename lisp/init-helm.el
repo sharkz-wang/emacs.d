@@ -1,4 +1,5 @@
 (require-package 'helm)
+(helm-mode 1)
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (define-key evil-normal-state-map (kbd "SPC f o") 'helm-find-files)
