@@ -37,5 +37,6 @@
 
 (require-package 'helm-ag)
 (define-key evil-normal-state-map (kbd "SPC p a") 'helm-projectile-ag)
+(define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
 
 (provide 'init-helm)
