@@ -76,4 +76,20 @@
 (define-key evil-normal-state-map (kbd "SPC m g p") 'git-gutter:previous-hunk)
 (define-key evil-normal-state-map (kbd "SPC m g k") 'git-gutter:previous-hunk)
 
+(require-package 'git-timemachine)
+(add-hook
+ 'git-timemachine-mode-hook
+ (lambda
+   ()
+   ;; XXX: using evil-normal-state will pollute key-bindings in other modes
+   (evil-motion-state)
+   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "p") 'git-timemachine-show-previous-revision)
+   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "n") 'git-timemachine-show-next-revision)
+   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "q") 'git-timemachine-quit)
+   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "w") 'git-timemachine-kill-abbreviated-revision)
+   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "W") 'git-timemachine-kill-revision)
+   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "b") 'git-timemachine-blame)))
+
+(define-key evil-normal-state-map (kbd "SPC m t") 'git-timemachine)
+
 (provide 'init-magit)
