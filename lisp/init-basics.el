@@ -7,8 +7,11 @@
 (tool-bar-mode -1)
 ;; no memu bar
 (menu-bar-mode -1)
-; no scroll bars
+;; no scroll bars
 (scroll-bar-mode -1)
+
+;; always use y/n instead of yes/no
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; set left margin size and make it take effect now
 (add-hook 'window-configuration-change-hook

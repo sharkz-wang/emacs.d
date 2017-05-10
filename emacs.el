@@ -1203,8 +1203,6 @@ scroll-down-aggressively 0.01)
 
 (add-hook 'find-file-hooks 'hexl-if-binary)
 
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 ;; XXX: an upstream bug: the first and-clause determining whether two files are equal
 ;; in func. ztree-diff-model-files-equal of ztree-diff-model.el should
 ;; be removed
