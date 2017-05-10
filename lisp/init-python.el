@@ -16,6 +16,14 @@
   '(progn
      (define-key elpy-mode-map (kbd "C-c C-k") 'elpy-shell-kill)
      (define-key elpy-mode-map (kbd "C-c C-p") 'run-python)
+     (define-key elpy-mode-map (kbd "C-c l")
+       (lambda ()
+	  (interactive)
+	  (switch-to-buffer "*Python*")
+	  (let ((comint-buffer-maximum-size 0))
+	    (comint-truncate-buffer))
+	  (switch-to-last-buffer)
+	  ))
      ))
 
 (add-hook
