@@ -300,16 +300,6 @@
 
 (define-key evil-normal-state-map (kbd "SPC x c") 'save-buffers-kill-terminal)
 
-(global-set-key (kbd "C-x 2") (lambda () (interactive) (split-window-below) (other-window 1)))
-(define-key evil-normal-state-map (kbd "SPC x 2") (lambda () (interactive) (split-window-below) (other-window 1)))
-(define-key evil-normal-state-map (kbd "SPC 2") (lambda () (interactive) (split-window-below) (other-window 1)))
-
-(global-set-key (kbd "C-x 3") (lambda () (interactive) (split-window-right) (other-window 1)))
-(define-key evil-normal-state-map (kbd "SPC x 3") (lambda () (interactive) (split-window-right) (other-window 1)))
-(define-key evil-normal-state-map (kbd "SPC 3") (lambda () (interactive) (split-window-right) (other-window 1)))
-
-(define-key evil-normal-state-map (kbd "SPC 0") 'delete-window)
-
 (define-key evil-normal-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
 (define-key evil-visual-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
 (define-key evil-normal-state-map (kbd "SPC 5") 'evil-jump-item)
