@@ -1,6 +1,23 @@
 (add-to-list 'package-archives
              '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
+(require-package 'elpy)
+(elpy-enable)
+
+(setq elpy-modules
+      (remove 'elpy-module-highlight-indentation elpy-modules))
+(setq elpy-modules
+      (remove 'elpy-module-flymake elpy-modules))
+
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
+
+(eval-after-load "elpy"
+  '(progn
+     (define-key elpy-mode-map (kbd "C-c C-k") 'elpy-shell-kill)
+     (define-key elpy-mode-map (kbd "C-c C-p") 'run-python)
+     ))
+
 (add-hook
  'python-mode-hook
  (lambda
@@ -8,13 +25,14 @@
 
    (modify-syntax-entry ?_ "w")
 
-   (require-package 'elpy)
-   (elpy-enable)
-   (elpy-use-ipython)
-
-   (when (executable-find "ipython")
-     (setq pthon-shell-interpreter "ipython"
-	   python-shell-interpreter-args "--simple-prompt -i"))
+   (define-key evil-normal-state-map (kbd "SPC p 3")
+     (lambda
+       ()
+       (interactive)
+       (split-window-right)
+       (other-window 1)
+       (switch-to-buffer "*Python*")
+       (other-window 1)))
 
    (defun python-insert-print ()
      (interactive)
