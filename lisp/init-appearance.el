@@ -4,4 +4,6 @@
 
 (load-theme 'monokai t)
 
+(require-package 'zone-rainbow)
+
 (provide 'init-appearance)
