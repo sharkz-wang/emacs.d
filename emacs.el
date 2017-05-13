@@ -315,9 +315,6 @@
 (define-key evil-normal-state-map (kbd "SPC x k b") 'ido-kill-buffer)
 
 (global-set-key (kbd "C-x K") 'kill-buffer-and-window)
-(define-key evil-normal-state-map (kbd "SPC k") 'kill-buffer-and-window)
-(define-key evil-normal-state-map (kbd "SPC x k k") 'kill-buffer-and-window)
-(define-key evil-normal-state-map (kbd "SPC K") 'kill-buffer-and-window)
 
 (global-set-key (kbd "C-x C-d") 'ediff-buffers)
 (define-key evil-normal-state-map (kbd "SPC x d") 'ediff-buffers)
