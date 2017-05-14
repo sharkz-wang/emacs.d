@@ -113,13 +113,13 @@
   :repeat change
   (interactive)
   (let ((modified (buffer-modified-p)))
-	(insert "k")
+	(ignore-errors (insert "k"))
 	(let ((evt (read-event (format "Insert %c to exit insert state" ?j)
 						   nil 0.5)))
 	  (cond
 		((null evt) (message ""))
 		((and (integerp evt) (char-equal evt ?j))
-		 (delete-char -1)
+		 (ignore-errors (delete-char -1))
 		 (set-buffer-modified-p modified)
 		 (push 'escape unread-command-events))
 		(t (setq unread-command-events (append unread-command-events
@@ -131,13 +131,13 @@
   :repeat change
   (interactive)
   (let ((modified (buffer-modified-p)))
-	(insert "j")
+	(ignore-errors (insert "j"))
 	(let ((evt (read-event (format "Insert %c to exit insert state" ?k)
 						   nil 0.5)))
 	  (cond
 		((null evt) (message ""))
 		((and (integerp evt) (char-equal evt ?k))
-		 (delete-char -1)
+		 (ignore-errors (delete-char -1))
 		 (set-buffer-modified-p modified)
 		 (push 'escape unread-command-events))
 		(t (setq unread-command-events (append unread-command-events
@@ -149,13 +149,13 @@
   :repeat change
   (interactive)
   (let ((modified (buffer-modified-p)))
-	(insert "f")
+	(ignore-errors (insert "f"))
 	(let ((evt (read-event (format "Insert %c to exit insert state" ?d)
 						   nil 0.5)))
 	  (cond
 		((null evt) (message ""))
 		((and (integerp evt) (char-equal evt ?d))
-		 (delete-char -1)
+		 (ignore-errors (delete-char -1))
 		 (set-buffer-modified-p modified)
 		 (push 'escape unread-command-events))
 		(t (setq unread-command-events (append unread-command-events
@@ -167,13 +167,13 @@
   :repeat change
   (interactive)
   (let ((modified (buffer-modified-p)))
-	(insert "d")
+	(ignore-errors (insert "d"))
 	(let ((evt (read-event (format "Insert %c to exit insert state" ?f)
 						   nil 0.5)))
 	  (cond
 		((null evt) (message ""))
 		((and (integerp evt) (char-equal evt ?f))
-		 (delete-char -1)
+		 (ignore-errors (delete-char -1))
 		 (set-buffer-modified-p modified)
 		 (push 'escape unread-command-events))
 		(t (setq unread-command-events (append unread-command-events
