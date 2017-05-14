@@ -15,6 +15,22 @@
 (eval-after-load 'magit '(define-key magit-diff-mode-map (kbd "SPC") nil))
 (eval-after-load 'magit '(define-key magit-blame-mode-map (kbd "SPC") nil))
 
+;; require `cl' to support following snippet
+(require-package 'cl)
+(require 'cl)
+(eval-after-load "projectile"
+  '(progn
+     (setq magit-repository-directories
+	   (mapcar (lambda (dir)
+		     (substring dir 0 -1))
+		   (remove-if-not
+		    (lambda (project)
+		      (file-directory-p (concat project "/.git")))
+		    (projectile-relevant-known-projects))))
+     (setq magit-repository-directories-depth 1)
+     )
+  )
+
 (defun selectively-show-magit-diff (arg) (interactive "P")
   (if (equal current-prefix-arg '(4))
 	(magit-diff-staged)
