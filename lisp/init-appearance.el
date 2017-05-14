@@ -6,6 +6,8 @@
 (require-package 'moe-theme)
 (require 'moe-theme)
 
+(require-package 'solarized-theme)
+
 (require-package 'zone-rainbow)
 
 (require-package 'nyan-mode)
