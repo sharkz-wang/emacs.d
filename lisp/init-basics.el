@@ -58,6 +58,8 @@
 						  (split-window-right)
 						  (other-window 1)))
 
+(define-key evil-normal-state-map (kbd "SPC x") 'smex)
+
 (require 'init-navigation)
 
 (require-package 'undo-tree)
