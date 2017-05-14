@@ -1204,15 +1204,6 @@ scroll-down-aggressively 0.01)
 ;; in func. ztree-diff-model-files-equal of ztree-diff-model.el should
 ;; be removed
 
-(eval-after-load "projectile"
-  '(progn (setq magit-repo-dirs (mapcar (lambda (dir)
-					  (substring dir 0 -1))
-					(remove-if-not (lambda (project)
-							 (file-directory-p (concat project "/.git/")))
-						       (projectile-relevant-known-projects))))
-
-	  (setq magit-repo-dirs-depth 1)))
-
 (require 'fill-column-indicator)
 (define-globalized-minor-mode fci-global-mode fci-mode turn-on-fci-mode)
 (setq fci-rule-column 74)
