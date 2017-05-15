@@ -32,6 +32,8 @@
 
 (require 'init-evil)
 
+(define-key evil-normal-state-map (kbd "SPC TAB") 'toggle-frame-fullscreen)
+
 (defun switch-to-last-buffer ()
   "Switch to previously open buffer.
    Repeated invocations toggle between the two most recently open buffers."
