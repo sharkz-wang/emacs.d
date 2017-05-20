@@ -32,7 +32,16 @@
 
 (require 'init-evil)
 
-(define-key evil-normal-state-map (kbd "SPC TAB") 'toggle-frame-fullscreen)
+(define-key evil-normal-state-map
+  (kbd "SPC TAB")
+  (lambda (arg) (interactive "P")
+    (if (equal current-prefix-arg '(4))
+	(progn
+	  (set-frame-parameter nil 'fullscreen 'maximized)
+	)
+      (set-frame-parameter nil 'fullscreen 'fullboth)
+      )
+    ))
 
 (defun switch-to-last-buffer ()
   "Switch to previously open buffer.
