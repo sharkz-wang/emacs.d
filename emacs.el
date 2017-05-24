@@ -51,8 +51,6 @@
 
    (:name elpy)
 
-   (:name helm-dash)
-
    (:name semantic-refactor
 	  :type git
 	  :url "https://github.com/tuhdo/semantic-refactor")
@@ -1030,12 +1028,6 @@ scroll-down-aggressively 0.01)
   (w3m-goto-url-new-session
    (concat "http://" site))) 
  
-(setq helm-dash-docsets-path (expand-file-name "~/.emacs.d/docsets"))
-(setq helm-dash-common-docsets '("C" "C++" "Perl" "Python 2" "Python 3" "Clojure" "R"))
-
-(global-set-key (kbd "C-c h d") 'helm-dash)
-(define-key evil-normal-state-map (kbd "SPC h d") 'helm-dash)
-
 ;; AucTeX
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)

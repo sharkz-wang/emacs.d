@@ -5,6 +5,7 @@
 (require 'init-basics)
 (require 'init-appearance)
 (require 'init-helm)
+(require 'init-dash)
 (require 'init-magit)
 (require 'init-company)
 (require 'init-python)
