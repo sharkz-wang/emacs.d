@@ -7,6 +7,8 @@
 (require 'moe-theme)
 
 (require-package 'solarized-theme)
+(require-package 'dracula-theme)
+(require-package 'ujelly-theme)
 
 (require-package 'zone-rainbow)
 
