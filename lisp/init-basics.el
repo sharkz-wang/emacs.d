@@ -2,7 +2,7 @@
 (setq inhibit-splash-screen t)
 ;; display column numbers in mode-line
 (column-number-mode 1)
-(set-default-font "Monaco-16")
+(set-default-font "Monaco-15")
 ;; no tool bars
 (tool-bar-mode -1)
 ;; no memu bar
