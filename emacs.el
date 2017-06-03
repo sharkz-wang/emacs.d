@@ -74,8 +74,6 @@
 		:type git
 		:url "https://github.com/koko1000ban/emacs-uncrustify-mode")
 
-   (:name linum-relative)
-
    (:name dtrt-indent)
 
    ;(:name ess)
@@ -110,53 +108,6 @@
 
    ))
 
-(line-number-mode 1)			; have line numbers and
-
-;(set-face-attribute 'default nil :height 140)
-
-(global-hl-line-mode)			; highlight current line
-
-;; (global-linum-mode 1)			; add line numbers on the left
-
-(defun toggle-linum-mode ()
-  (interactive)
-  (if (bound-and-true-p linum-mode)
-      (progn
-	(linum-mode 0)
-	(setq left-margin-width 3))
-    (linum-mode 1))
-  )
-
-(setq linum-format 'linum-relative)
-
-(require 'linum-relative)
-(setq linum-relative-current-symbol "")
-(custom-set-faces
-  '(linum-relative-current-face ((t :inherit hl-spotlight :foreground "#FF8700"))))
-
-(defadvice linum-update (around hl-linum-update)
-		     (let ((linum-current-line-number (line-number-at-pos)))
-			       ad-do-it))
-(ad-activate 'linum-update)
-
-(add-hook 'linum-before-numbering-hook
-	  (lambda ()
-	    (if (eq linum-format 'linum-format-func)
-		(setq-local linum-format-fmt
-			    (let ((w (length (number-to-string
-					      (count-lines (point-min) (point-max))))))
-			      (concat " %" (number-to-string w) "d   ")))
-	      (setq linum-relative-format
-		    (let ((w (length (number-to-string
-				      (count-lines (point-min) (point-max))))))
-		      (concat " %" (number-to-string w) "s   "))))))
-
-(defun linum-format-func (line)
-  (concat
-   (propertize (format linum-format-fmt line) 'face
-			   (if (eq linum-current-line-number line)
-			   '((t :inherit hl-spotlight :foreground "#FF8700"))
-			   '((t :inherit linum))))))
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -184,8 +135,6 @@
 (global-auto-revert-mode 1)
 
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file "~/.emacs")))
-
-(define-key evil-normal-state-map (kbd "SPC i l") 'toggle-linum-mode)
 
 (global-set-key (kbd "C-c i e") (lambda () (interactive) (find-file "~/.emacs")))
 (define-key evil-normal-state-map (kbd "SPC i e") (lambda () (interactive) (find-file "~/.emacs")))
@@ -368,13 +317,6 @@
 
 (custom-set-faces
   '(org-todo ((t :foreground "#FF1493" :weight bold))))
-
-(defun nolinum ()
-  (interactive)
-  (global-linum-mode 0)
-  (linum-mode 0)
-)
-;; (add-hook 'org-mode-hook 'nolinum)
 
 (custom-set-faces
  `(company-tooltip-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
@@ -779,18 +721,6 @@ scroll-down-aggressively 0.01)
   ;(set-face-background 'highlight-indentation-face "#303030"))
 ;(add-hook 'emacs-lisp-mode-hook 'my-emacs-lisp-mode-hook)
 
-;; (add-hook 'window-scroll-functions 'update-linum-format nil t)
-;; (defun update-linum-format (window start)
-;;     (interactive)
-;;     (setq linum-format "%9d "))
-
-(defvar endless/margin-display
-    `((margin left-margin) ,(propertize "-----" 'face 'linum))
-	  "String used on the margin.")
-
-(defvar-local endless/margin-overlays nil
-  "List of overlays in current buffer.")
-
 (defun endless/setup-margin-overlays ()
   "Put overlays on each line which is visually wrapped."
   (interactive)
@@ -816,8 +746,6 @@ scroll-down-aggressively 0.01)
   (overlay-put
    (car endless/margin-overlays) 'before-string
    (propertize " "  'display endless/margin-display)))
-
-; (add-hook 'linum-before-numbering-hook #'endless/setup-margin-overlays)
 
 ;(require 'golden-ratio)
 ;(golden-ratio-mode 1)
@@ -923,14 +851,7 @@ scroll-down-aggressively 0.01)
 (setq TeX-view-program-list
      '(("PDF Viewer" "xpdf -g %n %o %b")))
 
-(define-key evil-normal-state-map (kbd "C-_") '(lambda () (interactive)
-						 (if (eq linum-format 'linum-format-func)
-						     (setq linum-format 'linum-relative)
-						   (setq linum-format 'linum-format-func))))
-
 (require 'gud)
-
-(add-hook 'gdb-mode-hook '(lambda () (nolinum)))
 
 (global-set-key (kbd "C-c d g") 'gdb)
 (global-set-key (kbd "C-c d r") 'gud-run)
