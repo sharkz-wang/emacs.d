@@ -66,6 +66,7 @@
 (define-key evil-normal-state-map (kbd "SPC m C") 'magit-clean)
 (define-key evil-normal-state-map (kbd "SPC m o") 'magit-checkout)
 (define-key evil-normal-state-map (kbd "SPC m z") 'magit-stash)
+(define-key evil-normal-state-map (kbd "SPC m Z") 'magit-stash-pop)
 
 (evil-define-key evil-magit-state magit-mode-map "=" 'magit-diff-less-context)
 (define-key magit-log-mode-map (kbd "TAB") 'magit-cycle-margin-style)
