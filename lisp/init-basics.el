@@ -83,6 +83,24 @@
 (define-key evil-normal-state-map (kbd "SPC i f") 'describe-function)
 (define-key evil-normal-state-map (kbd "SPC i v") 'describe-variable)
 
+(evil-global-set-key 'normal (kbd "C-f") (lambda () (interactive)
+					   (evil-scroll-page-down 1)
+					   (evil-window-middle)))
+(evil-global-set-key 'normal (kbd "C-b") (lambda () (interactive)
+					   (evil-scroll-page-up 1)
+					   (evil-window-middle)))
+(evil-global-set-key 'normal (kbd "C-d") (lambda () (interactive)
+					   (evil-window-bottom)
+					   (recenter)))
+(evil-global-set-key 'normal (kbd "C-u") (lambda () (interactive)
+					   (evil-window-top)
+					   (recenter)))
+
+(evil-global-set-key 'normal (kbd "z m") 'evil-scroll-line-to-center)
+(evil-global-set-key 'normal (kbd "z z") (lambda () (interactive)
+					   (evil-scroll-line-to-center (line-number-at-pos))
+					   (evil-scroll-line-down (/ (window-total-height) 5))))
+
 (require 'init-navigation)
 
 (require-package 'undo-tree)
