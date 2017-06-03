@@ -9,5 +9,6 @@
 (require 'init-magit)
 (require 'init-company)
 (require 'init-python)
+(require 'init-elisp)
 (require 'init-misc)
 
