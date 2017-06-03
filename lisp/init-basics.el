@@ -9,6 +9,11 @@
 (menu-bar-mode -1)
 ;; no scroll bars
 (scroll-bar-mode -1)
+;; whenever an external process changes a file underneath emacs, and there
+;; was no unsaved changes in the corresponding buffer, just revert its
+;; content to reflect what's on-disk.
+(global-auto-revert-mode 1)
+
 
 ;; always use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)

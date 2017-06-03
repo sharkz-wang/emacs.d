@@ -86,11 +86,6 @@
 (setq-default tab-width 8)
 ;(defvaralias 'c-basic-offset 'tab-width)
 
-;; whenever an external process changes a file underneath emacs, and there
-;; was no unsaved changes in the corresponding buffer, just revert its
-;; content to reflect what's on-disk.
-(global-auto-revert-mode 1)
-
 (add-hook 'org-mode-hook (lambda ()
 			   (require 'ob-ditaa)
 			   (require 'ob-dot)
