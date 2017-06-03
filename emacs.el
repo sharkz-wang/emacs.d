@@ -1,35 +1,13 @@
 ;; -*- lexical-binding: t; -*-
 
-(require 'cl)				; common lisp goodies, loop
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://github.com/dimitri/el-get/raw/master/el-get-install.el"
-   (lambda (s)
-     (end-of-buffer)
-     (eval-print-last-sexp))))
-
-;; now either el-get is `require'd already, or have been `load'ed by the
-;; el-get installer.
-
 ;; set recipes
  (setq
  el-get-sources
  '(
-   (:name el-get)
-
    ;; Vim-emulation
-   (:name evil-numbers)
    (:name evil-org-mode
 	  :type git
 	  :url "https://github.com/edwtjo/evil-org-mode")
-   (:name evil-visual-mark-mode
-	  :type git
-	  :url "https://github.com/roman/evil-visual-mark-mode")
-
-   (:name evil-jumper)
 
    (:name transpose-frame)
 
@@ -67,20 +45,11 @@
 		   ))
    (:name helm-gtags)
 
-   (:name f)
-
    (:name uncrustify-mode
 		:type git
 		:url "https://github.com/koko1000ban/emacs-uncrustify-mode")
 
    (:name dtrt-indent)
-
-   ;(:name ess)
-
-   (:name auctex
-		:type git
-		:url "https://github.com/jwiegley/auctex")
-   (:name langtool)
 
    (:name cperl-mode)
 
@@ -110,9 +79,6 @@
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-;; (setq browse-url-browser-function (quote browse-url-firefox))
-(setq browse-url-browser-function 'w3m-goto-url-new-session)
-
 (define-key global-map (kbd "C-x C-o") 'ff-find-other-file)
 
 (setq-default indent-tabs-mode t)
@@ -120,26 +86,10 @@
 (setq-default tab-width 8)
 ;(defvaralias 'c-basic-offset 'tab-width)
 
-;; under mac, have Command as Meta and keep Option for localized input
-(when (string-match "apple-darwin" system-configuration)
-  (setq mac-allow-anti-aliasing t)
-  (setq mac-command-modifier 'meta)
-  (setq mac-option-modifier 'none))
-
-;; Use the clipboard, pretty please, so that copy/paste "works"
-
 ;; whenever an external process changes a file underneath emacs, and there
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
-
-(global-set-key (kbd "C-c r") (lambda () (interactive) (load-file "~/.emacs")))
-
-(global-set-key (kbd "C-c i e") (lambda () (interactive) (find-file "~/.emacs")))
-(define-key evil-normal-state-map (kbd "SPC i e") (lambda () (interactive) (find-file "~/.emacs")))
-
-(define-key evil-normal-state-map (kbd "SPC x c") 'save-buffers-kill-terminal)
-(define-key evil-normal-state-map (kbd "SPC x q") 'save-buffers-kill-terminal)
 
 (add-hook 'org-mode-hook (lambda ()
 			   (require 'ob-ditaa)
@@ -198,13 +148,6 @@
 							   (message "Stop paste state.")))
 						     ))
 
-(global-set-key (kbd "C-x m") 'evil-visual-mark-mode)
-(define-key evil-normal-state-map (kbd "SPC x m") 'evil-visual-mark-mode)
-
-(define-key evil-normal-state-map (kbd "SPC x k b") 'ido-kill-buffer)
-
-(global-set-key (kbd "C-x K") 'kill-buffer-and-window)
-
 (global-set-key (kbd "C-x C-d") 'ediff-buffers)
 (define-key evil-normal-state-map (kbd "SPC x d") 'ediff-buffers)
 
@@ -214,33 +157,8 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 
-(defvar global-keybinding-minor-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-M-q") 'kill-buffer-and-window)
-    map)
-  "global-keybinding-minor-mode keymap.")
-
-(define-minor-mode global-keybinding-minor-mode
-  "A minor mode for overriding all mode-specific key-bindings"
-  :init-value t
-  :lighter "global-keybinding")
-
-(global-keybinding-minor-mode 1)
-
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
-
-;; full screen
-(defun fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen
-		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
-
-(require 'evil)
-(evil-mode t)
-
-(evil-jumper-mode t)
-(evil-visual-mark-mode t)
 
 (require 'evil-org)
 
@@ -271,8 +189,6 @@
     (lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'c++-mode-hook
     (lambda () (modify-syntax-entry ?_ "w")))
-(add-hook 'shellscript-mode-hook
-    (lambda () (define-key shellscript-mode-map (kbd "C-c C-c") 'compile)))
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (modify-syntax-entry ?_ "w")
@@ -288,8 +204,6 @@
 			    'elisp-insert-formatted-string-print)
 	    ))
 
-
-
 (require 'evil-org)
 
 (define-key evil-normal-state-map (kbd "_") '(lambda () (interactive)
@@ -302,12 +216,6 @@
 							  "git rev-parse --abbrev-ref HEAD")
 							 0
 							 -1))))
-
-
-;; (setcdr evil-insert-state-map [escape])
-;; (define-key evil-insert-state-map
-;; 	(read-kbd-macro evil-toggle-key) 'evil-emacs-state)
-;; (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
 (require 'org)
 (setq org-startup-indented 1)
@@ -326,29 +234,6 @@
 (setq hl-spotlight-height 0)
 (custom-set-faces
   '(hl-spotlight ((t :inherit highlight :weight bold))))
-
-;; make scroll smooth
-(setq scroll-step 1)
-(setq scroll-margin 0
-scroll-conservatively 0)
-(setq-default scroll-up-aggressively 0.01
-scroll-down-aggressively 0.01)
-
-;; (add-hook 'c-mode-hook
-;; 	  (lambda ()
-;; 		 (unless (file-exists-p "Makefile")
-;; 			  (set (make-local-variable 'compile-command)
-;; 		   ;; emulate make's .c.o implicit pattern rule, but with
-;; 		   ;; different defaults for the CC, CPPFLAGS, and CFLAGS
-;; 		   ;; variables:
-;; 		   ;; $(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $<
-;; 				   (let ((file (file-name-nondirectory buffer-file-name)))
-;; 		     (format "%s -c -o %s.o %s %s %s"
-;; 			     (or (getenv "CC") "gcc")
-;; 			     (file-name-sans-extension file)
-;; 			     (or (getenv "CPPFLAGS") "-DDEBUG=9")
-;; 			     (or (getenv "CFLAGS") "-ansi -pedantic -Wall -g")
-;; 			       file))))))
 
 (setq compile-command "make")
  (add-hook 'c-mode-hook
@@ -715,40 +600,6 @@ scroll-down-aggressively 0.01)
 
 (setq undo-tree-auto-save-history t)
 
-;(defun my-emacs-lisp-mode-hook ()
-  ;(highlight-indentation)
-  ;(set-face-background 'highlight-indentation-face "#303030"))
-;(add-hook 'emacs-lisp-mode-hook 'my-emacs-lisp-mode-hook)
-
-(defun endless/setup-margin-overlays ()
-  "Put overlays on each line which is visually wrapped."
-  (interactive)
-  (let ((ww (- (window-width)
-               (if (= 0 (or (cdr fringe-mode) 1)) 1 0)))
-        ov)
-    (mapc #'delete-overlay endless/margin-overlays)
-    (save-excursion
-      (goto-char (point-min))
-      (while (null (eobp))
-        ;; On each logical line
-        (forward-line 1)
-        (save-excursion
-          (forward-char -1)
-          ;; Check if it has multiple visual lines.
-          (while (>= (current-column) ww)
-            (endles/make-overlay-at (point))
-            (forward-char (- ww))))))))
-
-(defun endles/make-overlay-at (p)
-  "Create a margin overlay at position P."
-  (push (make-overlay p (1+ p)) endless/margin-overlays)
-  (overlay-put
-   (car endless/margin-overlays) 'before-string
-   (propertize " "  'display endless/margin-display)))
-
-;(require 'golden-ratio)
-;(golden-ratio-mode 1)
-
 ;; Line wrapping settings
 (setq-default truncate-lines nil)
 (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode)
@@ -783,72 +634,6 @@ scroll-down-aggressively 0.01)
 			   ))
 ;;change w3m user-agent to android
 (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
-
-;;quick access hacker news
-(defun hn ()
-  (interactive)
-  (browse-url "http://news.ycombinator.com"))
-
-;;quick access reddit
-(defun reddit (reddit)
-  "Opens the REDDIT in w3m-new-session"
-  (interactive (list
-                (read-string "Enter the reddit (default: Linux): " nil nil "Linux" nil)))
-  (browse-url (format "http://m.reddit.com/r/%s" reddit))
-  )
-
-;;i need this often
-(defun wikipedia-search (search-term)
-  "Search for SEARCH-TERM on wikipedia"
-  (interactive
-   (let ((term (if mark-active
-                   (buffer-substring (region-beginning) (region-end))
-                 (word-at-point))))
-     (list
-      (read-string
-       (format "Wikipedia (%s):" term) nil nil term)))
-   )
-  (browse-url
-   (concat
-    "http://en.m.wikipedia.org/w/index.php?search="
-    search-term
-    ))
-  )
-
-;;when I want to enter the web address all by hand
-(defun w3m-open-site (site)
-  "Opens site in new w3m session with 'http://' appended"
-  (interactive
-   (list (read-string "Enter website address(default: w3m-home):" nil nil w3m-home-page nil )))
-  (w3m-goto-url-new-session
-   (concat "http://" site))) 
- 
-;; AucTeX
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
-(add-hook 'LaTeX-mode-hook 'visual-line-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-;(require 'langtool)
-(setq langtool-language-tool-jar "~/LanguageTool-3.0/languagetool-commandline.jar")
-(setq reftex-plug-into-AUCTeX t)
-(setq TeX-PDF-mode t)
- 
-;; Use Skim as viewer, enable source <-> PDF sync
-;; make latexmk available via C-c C-c
-;; Note: SyncTeX is setup via ~/.latexmkrc (see below)
-(add-hook 'LaTeX-mode-hook (lambda ()
-  (push
-    '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
-      :help "Run latexmk on file")
-    TeX-command-list)))
-(add-hook 'TeX-mode-hook '(lambda () (setq TeX-command-default "latexmk")))
- 
-(setq TeX-view-program-selection '((output-pdf "PDF Viewer")))
-(setq TeX-view-program-list
-     '(("PDF Viewer" "xpdf -g %n %o %b")))
 
 (require 'gud)
 
@@ -1101,48 +886,6 @@ scroll-down-aggressively 0.01)
 
 (require 'company-statistics)
 (company-statistics-mode)
-
-(require 'ecb)
-
-(setq ecb-tip-of-the-day nil)
-
-(ecb-layout-define "right-side-simplistic" right nil
-		   (ecb-split-ver 0.696969696969697 t)
-		   (if (fboundp (quote ecb-set-methods-buffer)) (ecb-set-methods-buffer) (ecb-set-default-ecb-buffer))
-		   (dotimes (i 1) (other-window 1) (if (equal (selected-window) ecb-compile-window) (other-window 1)))
-		   (if (fboundp (quote ecb-set-history-buffer)) (ecb-set-history-buffer) (ecb-set-default-ecb-buffer))
-		   (dotimes (i 2) (other-window 1) (if (equal (selected-window) ecb-compile-window) (other-window 1)))
-		   (dotimes (i 2) (other-window 1) (if (equal (selected-window) ecb-compile-window) (other-window 1)))
-		   )
-
-(setq ecb-windows-width 35)
-(ecb-layout-switch "right-side-simplistic")
-
-(setq ecb-highlight-token-with-point t)
-(setq ecb-auto-expand-token-tree t)
-(setq expand-methods-switch-off-auto-expand t)
-
-;; ECB does not provide a major mode to bind key-bindings,
-;; so use motion-state instead
-(define-key evil-motion-state-map (kbd "RET") nil)
-;; move evil-ret onto evil normal state
-(define-key evil-normal-state-map (kbd "RET") 'evil-ret)
-(add-hook 'ecb-history-buffer-after-create-hook 'evil-motion-state)
-(add-hook 'ecb-directories-buffer-after-create-hook 'evil-motion-state)
-(add-hook 'ecb-methods-buffer-after-create-hook 'evil-motion-state)
-(add-hook 'ecb-sources-buffer-after-create-hook 'evil-motion-state)
-
-(global-set-key (kbd "C-M-\\") 'ecb-toggle-ecb-windows)
-
-(global-set-key (kbd "C-c e m") 'ecb-goto-window-methods)
-(define-key evil-normal-state-map (kbd "SPC e m") 'ecb-goto-window-methods)
-(global-set-key (kbd "C-c e c") 'ecb-clear-history)
-(define-key evil-normal-state-map (kbd "SPC e c") 'ecb-clear-history)
-(global-set-key (kbd "C-c e RET") 'ecb-expand-methods-nodes)
-(define-key evil-normal-state-map (kbd "SPC e RET") 'ecb-expand-methods-nodes)
-
-(ecb-activate)
-(ecb-hide-ecb-windows)
 
 (define-key evil-normal-state-map (kbd "SPC i 3") (lambda () (interactive)
 						    (evil-scroll-line-to-center (line-number-at-pos))
