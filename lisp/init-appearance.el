@@ -15,6 +15,14 @@
 (require-package 'nyan-mode)
 (nyan-mode 1)
 
+(require-package 'dashboard)
+(setq dashboard-startup-banner 2)
+(setq dashboard-items '(
+			(recents  . 10)
+			(projects . 10)
+			(bookmarks . 10)))
+(dashboard-setup-startup-hook)
+
 (require-package 'hl-anything)
 (global-hl-line-mode)
 
