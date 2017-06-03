@@ -5,24 +5,16 @@
  el-get-sources
  '(
    ;; Vim-emulation
-   (:name evil-org-mode
-	  :type git
-	  :url "https://github.com/edwtjo/evil-org-mode")
-
    (:name transpose-frame)
 
-   (:name undo-tree)
    (:name paredit)
    (:name highlight-parentheses)
-
-   (:name smooth-scroll)
 
    (:name company-statistics)
    (:name emacs-ycmd
 	  :type git
 	  :url "https://github.com/abingham/emacs-ycmd")
    (:name cedet)
-   (:name ecb)
    (:name yasnippet)
 
    (:name elpy)
@@ -30,8 +22,6 @@
    (:name semantic-refactor
 	  :type git
 	  :url "https://github.com/tuhdo/semantic-refactor")
-
-   (:name function-args)
 
    (:name ggtags)
    (:name helm
@@ -49,30 +39,17 @@
 		:type git
 		:url "https://github.com/koko1000ban/emacs-uncrustify-mode")
 
-   (:name dtrt-indent)
-
-   (:name cperl-mode)
-
    (:name clojure-mode)
    (:name cider)
    (:name ac-cider
 		:type git
 		:url "https://github.com/clojure-emacs/ac-cider")
 
-   (:name org-mode
-	  :after (progn
-		   (global-set-key (kbd "C-c t") 'org-todo)))
-
-   (:name markdown-mode)
-
    (:name indent-guide)
 
    (:name Fill-Column-Indicator
       :type git
       :url "https://github.com/alpaker/Fill-Column-Indicator")
-
-   (:name hl-spotlight
-      :type elpa)
 
    ))
 
@@ -85,43 +62,6 @@
 (setq c-default-style "k&r")
 (setq-default tab-width 8)
 ;(defvaralias 'c-basic-offset 'tab-width)
-
-(add-hook 'org-mode-hook (lambda ()
-			   (require 'ob-ditaa)
-			   (require 'ob-dot)
-			   ))
-(setq org-ditaa-jar-path "/opt/ditaa/ditaa.jar")
-
-(add-to-list 'auto-mode-alist '("\\.org.txt\\'" . org-mode))
-
-(setq org-agenda-files '("~/gtd.org"))
-(global-set-key (kbd "C-c o o") (lambda () (interactive) (find-file "~/gtd.org")))
-(define-key evil-normal-state-map (kbd "SPC o o")
-  (lambda () (interactive) (find-file "~/gtd.org")))
-
-(global-set-key (kbd "C-c o a") 'org-agenda)
-(define-key evil-normal-state-map (kbd "SPC o a") 'org-agenda)
-(global-set-key (kbd "C-c o t") 'org-todo-list)
-(define-key evil-normal-state-map (kbd "SPC o t") 'org-todo-list)
-(global-set-key (kbd "C-c o l") 'org-agenda-list)
-(define-key evil-normal-state-map (kbd "SPC o l") 'org-agenda-list)
-(global-set-key (kbd "C-c o T") 'org-set-tags)
-(define-key evil-normal-state-map (kbd "SPC o T") 'org-set-tags)
-(global-set-key (kbd "C-c o c") 'org-capture)
-(define-key evil-normal-state-map (kbd "SPC o c") 'org-capture)
-(global-set-key (kbd "C-c o C") 'org-columns)
-(define-key evil-normal-state-map (kbd "SPC o C") 'org-columns)
-(global-set-key (kbd "C-c o p") 'org-set-property)
-(define-key evil-normal-state-map (kbd "SPC o p") 'org-set-property)
-
-(define-key evil-normal-state-map  (kbd "SPC o O") 'org-open-at-point)
-
-(defalias 'outline-show-all 'show-all)
-
-(setq org-capture-templates '(("t" "Todo" entry (file+headline "~/gtd.org" "Tasks")
-			       "* TODO %?%i\t%^g\n%T")
-			      ("c" "Trace code note" entry (file+olp "~/gtd.org" "Trace Code")
-			       "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n%c")))
 
 ;; Toggling paste state - something like vim's `set paste' mode
 (define-key evil-normal-state-map (kbd "C-c i p") '(lambda () (interactive)
@@ -155,31 +95,6 @@
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
 
-(require 'evil-org)
-
-(add-hook 'evil-org-mode-hook
-	  (lambda ()
-	    (evil-define-key 'normal evil-org-mode-map (kbd "TAB") 'org-cycle)
-	    (evil-define-key 'normal evil-org-mode-map (kbd "M-<") 'org-metaleft)
-	    (evil-define-key 'normal evil-org-mode-map (kbd "M->") 'org-metaright)
-	    (evil-define-key 'normal evil-org-mode-map (kbd "<") 'evil-shift-left)
-	    (evil-define-key 'normal evil-org-mode-map (kbd ">") 'evil-shift-right)
-	    (evil-define-key 'normal evil-org-mode-map (kbd "H") 'evil-window-top)
-	    (evil-define-key 'normal evil-org-mode-map (kbd "L") 'evil-window-bottom)
-	    (define-key org-mode-map (kbd "M-RET") (lambda (arg) (interactive "P")
-						     (org-insert-heading-after-current)
-						     (end-of-line)
-						     (evil-insert-state)
-						     (when (equal current-prefix-arg '(4))
-						       (org-move-subtree-up))
-						     ))
-	    ))
-
-(add-hook 'org-mode-hook
-	  (lambda () (modify-syntax-entry ?_ "w")
-	    (add-to-list 'org-modules "org-habit")))
-(add-hook 'org-capture-mode-hook
-	  (lambda () (evil-emacs-state)))
 (add-hook 'c-mode-hook
     (lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'c++-mode-hook
@@ -199,8 +114,6 @@
 			    'elisp-insert-formatted-string-print)
 	    ))
 
-(require 'evil-org)
-
 (define-key evil-normal-state-map (kbd "_") '(lambda () (interactive)
 					       (message (buffer-file-name
 							 (window-buffer (minibuffer-selected-window))))))
@@ -212,23 +125,10 @@
 							 0
 							 -1))))
 
-(require 'org)
-(setq org-startup-indented 1)
-(setq org-clock-sound t)
-(setq org-timer-default-timer 25)
-
-(custom-set-faces
-  '(org-todo ((t :foreground "#FF1493" :weight bold))))
-
 (custom-set-faces
  `(company-tooltip-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
  `(company-tooltip-common-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
  `(company-tooltip-common ((t (:foreground ,"#F5F5F5" :background ,"#444444")))))
-
-(hl-spotlight-mode 1)
-(setq hl-spotlight-height 0)
-(custom-set-faces
-  '(hl-spotlight ((t :inherit highlight :weight bold))))
 
 (setq compile-command "make")
  (add-hook 'c-mode-hook
@@ -247,8 +147,6 @@
                               (or (getenv "CFLAGS") "-ansi -pedantic -Wall -g")
 			      file (format "%s%s" "&& ./" (file-name-sans-extension file))))))))
 
-
-(global-set-key (kbd "C-c h o") 'helm-org-agenda-files-headings)
 
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-o") 'helm-execute-persistent-action)
@@ -533,37 +431,6 @@
 (define-key evil-normal-state-map (kbd "SPC c r") 'recompile)
 
 (add-hook 'c++-mode-hook 'private-c-c++-mode-hook)
-
-(defun private-cperl-mode-hook ()
-	;; (defun cperl-mode-insert-lcurly ()
-	;;   (interactive)
-	;;   (insert "{")
-	;;   (let ((pps (syntax-ppss)))
-	;; 	(when (and (eolp) (not (or (nth 3 pps) (nth 4 pps)))) ;; EOL and not in string or comment
-	;; 	  (c-indent-line)
-	;; 	  (insert "\n\n}")
-	;; 	  (c-indent-line)
-	;; 	  (forward-line -1)
-	;; 	  (c-indent-line))))
-	;; (define-key global-map "{" 'cperl-mode-insert-lcurly)
-	(define-key global-map (kbd "C-c C-c") 'compile)
-	(define-key evil-normal-state-map (kbd "SPC c c") 'compile)
-	(define-key global-map (kbd "C-c C-k") 'mode-compile-kill)
-	(define-key evil-normal-state-map (kbd "SPC c k") 'mode-compile-kill)
-	(define-key global-map (kbd "C-c C-r") 'recompile)
-	(define-key evil-normal-state-map (kbd "SPC c r") 'recompile)
-)
-(add-hook 'cperl-mode-hook 'private-cperl-mode-hook)
-
-(add-to-list 'auto-mode-alist '("\\.R\\'" . R-mode))
-(defun load-company-ess ()
-)
-(add-hook 'R-mode-hook 'load-company-ess)
-
-
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
-(setq dtrt-indent-verbosity 0)
 
 (setq gdb-many-windows t)
 (setq gdb-show-main t)
@@ -864,20 +731,6 @@
 (define-key evil-normal-state-map (kbd "SPC x t r l") 'rotate-frame-clockwise)
 (global-set-key (kbd "C-x t r h") 'rotate-frame-anticlockwise)
 (define-key evil-normal-state-map (kbd "SPC x t r h") 'rotate-frame-anticlockwise)
-
-(define-key evil-normal-state-map (kbd "SPC i a a") 'artist-mode)
-
-(evil-define-key 'normal artist-mode-map (kbd "RET") 'artist-key-set-point)
-(evil-define-key 'normal artist-mode-map (kbd "j") 'artist-next-line)
-(evil-define-key 'normal artist-mode-map (kbd "k") 'artist-previous-line)
-(evil-define-key 'normal artist-mode-map (kbd "h") 'artist-backward-char)
-(evil-define-key 'normal artist-mode-map (kbd "l") 'artist-forward-char)
-(evil-define-key 'normal artist-mode-map (kbd "<") 'artist-toggle-first-arrow)
-(evil-define-key 'normal artist-mode-map (kbd ">") 'artist-toggle-second-arrow)
-
-(evil-define-key 'normal artist-mode-map (kbd "SPC i a o") 'artist-select-operation)
-(evil-define-key 'normal artist-mode-map (kbd "SPC i a r") 'artist-select-op-rectangle)
-(evil-define-key 'normal artist-mode-map (kbd "SPC i a l") 'artist-select-op-poly-line)
 
 (require 'company-statistics)
 (company-statistics-mode)
