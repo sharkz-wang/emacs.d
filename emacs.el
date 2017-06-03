@@ -21,7 +21,6 @@
    (:name el-get)
 
    ;; Vim-emulation
-   (:name evil-indent-textobject)
    (:name evil-numbers)
    (:name evil-org-mode
 	  :type git

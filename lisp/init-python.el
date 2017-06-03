@@ -32,6 +32,8 @@
    ()
 
    (modify-syntax-entry ?_ "w")
+   
+   (require-package 'evil-indent-textobject)
 
    (define-key evil-normal-state-map (kbd "SPC p 3")
      (lambda
