@@ -77,7 +77,6 @@
 
    (:name linum-relative)
 
-   (:name sr-speedbar)
    (:name dtrt-indent)
 
    ;(:name ess)
@@ -508,63 +507,6 @@ scroll-down-aggressively 0.01)
 (define-key evil-normal-state-map (kbd "SPC g s") 'helm-gtags-find-symbol)
 (define-key helm-gtags-mode-map (kbd "C-c g t") 'helm-gtags-find-tag)
 (define-key evil-normal-state-map (kbd "SPC g t") 'helm-gtags-find-tag)
-
-(require 'sr-speedbar)
-(setq sr-speedbar-width 25)
-(setq sr-speedbar-auto-refresh t)
-(setq sr-speedbar-right-side nil)
-(setq speedbar-show-unknown-files t)
-(setq speedbar-use-images nil)
-
-(global-set-key (kbd "C-\\") '(lambda () (interactive)
-				(if (sr-speedbar-exist-p)
-				    (sr-speedbar-close)
-				  (if (sr-speedbar-buffer-exist-p speedbar-buffer)
-				      (sr-speedbar-open)
-				    (progn (sr-speedbar-open) (evil-goto-first-line))))))
-(defun ido-speedbar-buffers-to-end ()
-  (let ((speedbar-buffer (delq nil (mapcar
-			      (lambda (x)
-				(if (string-match "SPEEDBAR" x)
-				    x))
-			      ido-temp-list))))
-    (ido-to-end speedbar-buffer)))
-(add-hook 'ido-make-buffer-list-hook 'ido-speedbar-buffers-to-end)
-
-;; (add-hook 'emacs-startup-hook (lambda () (sr-speedbar-open) (other-window 1)))
-(defun speedbar-edit-line-and-close () (interactive)
-  (speedbar-edit-line)
-  (sr-speedbar-close))
-
-(setq speedbar-show-hidden-file "^$")
-(setq speedbar-default-visibility speedbar-directory-unshown-regexp)
-(add-hook 'speedbar-mode-hook '(lambda () ()
-				 (linum-mode 0)
-				 (visual-line-mode 0)
-				 (setq case-fold-search t)
-
-				 (define-key speedbar-file-key-map
-				   "."
-				   '(lambda () (interactive)
-				      (if (eq speedbar-directory-unshown-regexp speedbar-show-hidden-file)
-					  (setq  speedbar-directory-unshown-regexp speedbar-default-visibility)
-					(setq speedbar-directory-unshown-regexp speedbar-show-hidden-file))
-				      (speedbar-refresh)))
-				 ;; (define-key speedbar-file-key-map (kbd "SPC SPC") 'avy-goto-char-2)
-				 (evil-define-key 'motion speedbar-file-key-map
-				   (kbd "TAB") 'speedbar-toggle-line-expansion)
-				 (define-key speedbar-file-key-map "n" 'evil-search-next)
-				 (define-key speedbar-file-key-map "N" 'evil-search-previous)
-				 (define-key speedbar-file-key-map "q" '(lambda () (interactive)
-									  (kill-buffer "*SPEEDBAR*")))
-				 (evil-define-key 'motion speedbar-file-key-map (kbd "RET") 'speedbar-edit-line)
-				 (define-key speedbar-file-key-map "e" 'speedbar-edit-line)
-				 (define-key speedbar-file-key-map "d" 'speedbar-item-delete)
-				 (define-key speedbar-file-key-map "y" 'speedbar-item-copy)
-				 (define-key speedbar-file-key-map "c" 'speedbar-item-copy)
-				 (define-key speedbar-file-key-map "r" 'speedbar-item-rename)
-				 (define-key speedbar-file-key-map "m" 'speedbar-item-rename)
-				 (define-key speedbar-key-map "g" 'evil-goto-first-line)))
 
 (require 'semantic)
 ;(global-semanticdb-minor-mode 1)
