@@ -77,6 +77,12 @@
 
 (define-key evil-normal-state-map (kbd "SPC x") 'smex)
 
+(define-key evil-normal-state-map (kbd "SPC i w") 'toggle-truncate-lines)
+
+(define-key evil-normal-state-map (kbd "SPC i k") 'describe-key)
+(define-key evil-normal-state-map (kbd "SPC i f") 'describe-function)
+(define-key evil-normal-state-map (kbd "SPC i v") 'describe-variable)
+
 (require 'init-navigation)
 
 (require-package 'undo-tree)

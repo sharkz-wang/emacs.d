@@ -32,7 +32,6 @@
 
    (:name evil-jumper)
 
-   ;; (:name golden-ratio)
    (:name transpose-frame)
 
    (:name undo-tree)
@@ -207,11 +206,6 @@
 (define-key evil-normal-state-map (kbd "SPC o o")
   (lambda () (interactive) (find-file "~/gtd.org")))
 
-(global-set-key (kbd "C-c i k") 'describe-key)
-(define-key evil-normal-state-map (kbd "SPC i k") 'describe-key)
-(global-set-key (kbd "C-c i f") 'describe-function)
-(define-key evil-normal-state-map (kbd "SPC i f") 'describe-function)
-
 (evil-global-set-key 'normal (kbd "z m") 'evil-scroll-line-to-center)
 (evil-global-set-key 'normal (kbd "z z") (lambda () (interactive)
 					   (evil-scroll-line-to-center (line-number-at-pos))
@@ -253,9 +247,6 @@
 			       "* TODO %?%i\t%^g\n%T")
 			      ("c" "Trace code note" entry (file+olp "~/gtd.org" "Trace Code")
 			       "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n%c")))
-
-
-(define-key evil-normal-state-map (kbd "SPC i w") 'toggle-truncate-lines)
 
 ;; Toggling paste state - something like vim's `set paste' mode
 (define-key evil-normal-state-map (kbd "C-c i p") '(lambda () (interactive)
