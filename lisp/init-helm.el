@@ -4,6 +4,7 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (define-key evil-normal-state-map (kbd "SPC f o") 'helm-find-files)
 (define-key evil-normal-state-map (kbd "SPC \;") 'helm-buffers-list)
+(define-key evil-normal-state-map (kbd "SPC \:") 'ibuffer)
 
 (require 'helm-config)
 (define-key evil-normal-state-map (kbd "SPC h") 'helm-command-prefix)

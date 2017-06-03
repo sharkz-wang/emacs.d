@@ -161,8 +161,6 @@
 			   '((t :inherit linum))))))
 
 (global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-(define-key isearch-mode-map (kbd "C-h") 'isearch-del-char)
 
 ;; (setq browse-url-browser-function (quote browse-url-firefox))
 (setq browse-url-browser-function 'w3m-goto-url-new-session)
@@ -181,9 +179,6 @@
   (setq mac-option-modifier 'none))
 
 ;; Use the clipboard, pretty please, so that copy/paste "works"
-(setq x-select-enable-clipboard t)
-
-(setq windmove-wrap-around t)
 
 ;; whenever an external process changes a file underneath emacs, and there
 ;; was no unsaved changes in the corresponding buffer, just revert its
@@ -191,9 +186,6 @@
 (global-auto-revert-mode 1)
 
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file "~/.emacs")))
-
-
-(global-set-key (kbd "C-c C") 'calendar)
 
 (define-key evil-normal-state-map (kbd "SPC i l") 'toggle-linum-mode)
 
@@ -215,11 +207,6 @@
 (global-set-key (kbd "C-c o o") (lambda () (interactive) (find-file "~/gtd.org")))
 (define-key evil-normal-state-map (kbd "SPC o o")
   (lambda () (interactive) (find-file "~/gtd.org")))
-
-(global-set-key (kbd "C-x C") 'calc-dispatch)
-
-(global-set-key (kbd "M-z") 'smex)
-(define-key evil-normal-state-map (kbd "SPC z") 'smex)
 
 (global-set-key (kbd "C-c i k") 'describe-key)
 (define-key evil-normal-state-map (kbd "SPC i k") 'describe-key)
@@ -269,9 +256,6 @@
 			       "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n%c")))
 
 
-(global-set-key (kbd "C-x C-x") 'ido-switch-buffer)
-(define-key evil-normal-state-map (kbd "SPC x x") 'ido-switch-buffer)
-
 (define-key evil-normal-state-map (kbd "SPC i w") 'toggle-truncate-lines)
 
 ;; Toggling paste state - something like vim's `set paste' mode
@@ -293,19 +277,6 @@
 							   (company-mode t)
 							   (message "Stop paste state.")))
 						     ))
-(define-key evil-normal-state-map (kbd "SPC e l") 'eval-last-sexp)
-(define-key evil-normal-state-map (kbd "SPC e e") 'eval-last-sexp)
-
-(define-key evil-normal-state-map (kbd "SPC x c") 'save-buffers-kill-terminal)
-
-(define-key evil-normal-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
-(define-key evil-visual-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
-(define-key evil-normal-state-map (kbd "SPC 5") 'evil-jump-item)
-
-(define-key evil-normal-state-map (kbd "SPC b g ") 'end-of-buffer)
-
-(global-set-key (kbd "C-x B") 'ibuffer)
-(define-key evil-normal-state-map (kbd "SPC B") 'ibuffer)
 
 (global-set-key (kbd "C-x m") 'evil-visual-mark-mode)
 (define-key evil-normal-state-map (kbd "SPC x m") 'evil-visual-mark-mode)
@@ -344,14 +315,6 @@
   (interactive)
   (set-frame-parameter nil 'fullscreen
 		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
-
-(require 'package)
-; marmalade repo
-(add-to-list 'package-archives
-	'("marmalade" . "http://marmalade-repo.org/packages/") t)
-; MELPA repo
-(add-to-list 'package-archives
-	'("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (require 'evil)
 (evil-mode t)
@@ -427,14 +390,6 @@
 ;; (define-key evil-insert-state-map
 ;; 	(read-kbd-macro evil-toggle-key) 'evil-emacs-state)
 ;; (define-key evil-insert-state-map [escape] 'evil-normal-state)
-
-;; Cursor motion in wrapped lines
-(define-key evil-normal-state-map "$" 'evil-end-of-visual-line)
-
-
-(define-key evil-emacs-state-map (kbd "C-r") 'evil-paste-from-register)
-(define-key evil-emacs-state-map (kbd "C-o") 'evil-execute-in-normal-state)
-
 
 (require 'org)
 (setq org-startup-indented 1)

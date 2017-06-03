@@ -69,6 +69,12 @@
 						  (split-window-right)
 						  (other-window 1)))
 
+(define-key evil-normal-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
+
+(define-key evil-normal-state-map (kbd "SPC 5") 'evil-jump-item)
+(define-key evil-visual-state-map (kbd "SPC 5") 'evil-jump-item)
+
 (define-key evil-normal-state-map (kbd "SPC x") 'smex)
 
 (require 'init-navigation)
