@@ -29,6 +29,8 @@
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'helm)
 
+(define-key evil-normal-state-map (kbd "SPC d") 'helm-projectile-find-file)
+
 (define-key evil-normal-state-map (kbd "SPC \`") 'helm-projectile-switch-project)
 (define-key evil-normal-state-map (kbd "SPC p p") 'helm-projectile-switch-project)
 (define-key evil-normal-state-map (kbd "SPC p f") 'helm-projectile-find-file)

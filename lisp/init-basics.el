@@ -50,6 +50,7 @@
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
 ;; misc ugly but useful key-bindings
+(define-key evil-normal-state-map (kbd "SPC u") 'universal-argument)
 (define-key evil-normal-state-map (kbd "SPC s") 'save-buffer)
 (define-key evil-normal-state-map (kbd "SPC j") 'switch-to-last-buffer)
 
@@ -69,7 +70,10 @@
 						  (split-window-right)
 						  (other-window 1)))
 
+;; cursor motion in wrapped lines
+(define-key evil-normal-state-map "$" 'evil-end-of-visual-line)
 (define-key evil-normal-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map "$" 'evil-end-of-visual-line)
 (define-key evil-visual-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
 
 (define-key evil-normal-state-map (kbd "SPC 5") 'evil-jump-item)
@@ -82,6 +86,10 @@
 (define-key evil-normal-state-map (kbd "SPC i k") 'describe-key)
 (define-key evil-normal-state-map (kbd "SPC i f") 'describe-function)
 (define-key evil-normal-state-map (kbd "SPC i v") 'describe-variable)
+
+(define-key evil-normal-state-map (kbd "SPC i t") 'load-theme)
+
+(define-key evil-normal-state-map (kbd "SPC i z") 'zone-rainbow)
 
 (evil-global-set-key 'normal (kbd "C-f") (lambda () (interactive)
 					   (evil-scroll-page-down 1)
