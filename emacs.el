@@ -74,15 +74,8 @@
 							   (message "Stop paste state.")))
 						     ))
 
-(global-set-key (kbd "C-x C-d") 'ediff-buffers)
-(define-key evil-normal-state-map (kbd "SPC x d") 'ediff-buffers)
-
-(global-set-key (kbd "C-x D") 'ediff-files)
-(define-key evil-normal-state-map (kbd "SPC f d f") 'ediff-files)
-
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
-
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
 

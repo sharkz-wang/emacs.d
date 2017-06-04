@@ -13,7 +13,7 @@
 (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
 
 ;; set starting state to normal state
-(setq evil-emacs-state-modes nil)
+(setq evil-emacs-state-modes '(ediff-mode))
 (setq evil-insert-state-modes nil)
 (setq evil-motion-state-modes nil)
 (setq evil-default-state 'normal)

@@ -14,6 +14,8 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
 
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ;; always use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
