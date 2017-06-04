@@ -50,6 +50,8 @@
 (defun exand-yasnippet-from-keyword (keyword)
   (interactive)
   (indent-according-to-mode)
-  (yas-expand-snippet (yas-lookup-snippet keyword)))
+  (evil-emacs-state)
+  (yas-expand-snippet (yas-lookup-snippet keyword))
+  )
 
 (provide 'init-company)
