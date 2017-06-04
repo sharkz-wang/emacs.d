@@ -446,16 +446,6 @@
 (require 'highlight-parentheses)
 (global-highlight-parentheses-mode 1)
 
-(defun beginning-of-indentation-or-line ()
-  "Move point to the beginning of text on the current line; if that is already
-   the current position of point, then move it to the beginning of the line."
-  (interactive)
-  (let ((pt (point)))
-    (beginning-of-line-text)
-    (when (eq pt (point))
-      (beginning-of-line))))
-(global-set-key (kbd "C-a") 'beginning-of-indentation-or-line)
-
 (add-hook 'w3m-mode-hook (lambda ()
 			   (indent-guide-mode 0)
 			   (evil-normal-state)
