@@ -35,6 +35,7 @@
    ;; (require 'init-semantic)
    (require 'init-gtags)
    (require 'init-company)
+   (require 'init-ycmd)
 
    (require-package 'evil-indent-textobject)
 
