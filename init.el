@@ -12,5 +12,6 @@
 (require 'init-elisp)
 (require 'init-hex-file)
 (require 'init-gtags)
+(require 'init-semantic)
 (require 'init-misc)
 

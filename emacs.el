@@ -13,7 +13,6 @@
    (:name emacs-ycmd
 	  :type git
 	  :url "https://github.com/abingham/emacs-ycmd")
-   (:name cedet)
    (:name yasnippet)
 
    (:name elpy)
@@ -115,15 +114,6 @@
                               (or (getenv "CPPFLAGS") "-DDEBUG=9")
                               (or (getenv "CFLAGS") "-ansi -pedantic -Wall -g")
 			      file (format "%s%s" "&& ./" (file-name-sans-extension file))))))))
-
-(require 'semantic)
-;(global-semanticdb-minor-mode 1)
-;(global-semantic-idle-scheduler-mode 1)
-(semantic-mode 1)
-;(global-semantic-idle-summary-mode 1)
-(global-semantic-stickyfunc-mode 1)
-
-(define-key semantic-mode-map (kbd "C-c g i") 'semantic-ia-show-summary)
 
 ;(semantic-add-system-include "/usr/include/boost" 'c++-mode)
 ;(semantic-add-system-include "~/linux/kernel")
