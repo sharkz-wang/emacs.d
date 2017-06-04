@@ -10,7 +10,6 @@
    (:name paredit)
 
    (:name company-statistics)
-   (:name yasnippet)
 
    (:name elpy)
 
@@ -117,20 +116,6 @@
 (require 'srefactor)
 (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-
-(require 'yasnippet)
-(yas-global-mode 1)
-
-(global-set-key (kbd "M-/") 'yas-expand)
-
-(defvar company-mode/enable-yas t
-  "Enable yasnippet for all backends.")
-(defun company-mode/backend-with-yas (backend)
-  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-	  backend
-	(append (if (consp backend) backend (list backend))
-			'(:with company-yasnippet))))
-(setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
 (require 'cc-mode)
 
