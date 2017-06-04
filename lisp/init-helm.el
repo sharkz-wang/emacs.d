@@ -20,6 +20,16 @@
 (define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
 (define-key helm-map (kbd "C-l") 'helm-find-files-down-last-level)
 
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "C-o") 'helm-execute-persistent-action)
+(define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
+(define-key helm-find-files-map (kbd "C-l") 'helm-find-files-down-last-level)
+
+(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "C-o") 'helm-execute-persistent-action)
+(define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
+(define-key helm-read-file-map (kbd "C-l") 'helm-find-files-down-last-level)
+
 (require-package 'projectile)
 (require-package 'helm-projectile)
 (helm-projectile-on)

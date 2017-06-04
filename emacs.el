@@ -24,15 +24,7 @@
 	  :url "https://github.com/tuhdo/semantic-refactor")
 
    (:name ggtags)
-   (:name helm
-	  ;; hides `.' in file list (hiding both `.' and `..`'
-	  ;; invalidate helm-find-files-up-one-level)
-	  :after (progn
-		   (advice-add 'helm-ff-filter-candidate-one-by-one
-			       :around (lambda (fcn file)
-					 (unless (string-match "\\(?:/\\|\\`\\)\\.\\{1\\}\\'" file)
-					   (funcall fcn file))))
-		   ))
+   
    (:name helm-gtags)
 
    (:name uncrustify-mode
@@ -146,19 +138,6 @@
                               (or (getenv "CPPFLAGS") "-DDEBUG=9")
                               (or (getenv "CFLAGS") "-ansi -pedantic -Wall -g")
 			      file (format "%s%s" "&& ./" (file-name-sans-extension file))))))))
-
-
-(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-find-files-map (kbd "C-o") 'helm-execute-persistent-action)
-(define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
-(define-key helm-find-files-map (kbd "C-l") 'helm-find-files-down-last-level)
-
-(define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "C-o") 'helm-execute-persistent-action)
-(define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
-(define-key helm-read-file-map (kbd "C-l") 'helm-find-files-down-last-level)
-
-(define-key evil-normal-state-map (kbd "SPC h j") (lambda () (interactive) (helm-resume ()) (helm-next-line)))
 
 ;; Making GNU Global support more languages
 ;; 1) Install Exuberant Ctags
