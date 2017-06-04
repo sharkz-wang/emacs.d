@@ -7,11 +7,9 @@
 (require 'init-helm)
 (require 'init-dash)
 (require 'init-magit)
-(require 'init-company)
 (require 'init-python)
+(require 'init-c)
 (require 'init-elisp)
 (require 'init-hex-file)
-(require 'init-gtags)
-(require 'init-semantic)
 (require 'init-misc)
 

@@ -71,8 +71,6 @@
 ;; C-x C-j opens dired with the cursor right on the file you're editing
 (require 'dired-x)
 
-(add-hook 'c-mode-hook
-    (lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'c++-mode-hook
     (lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'emacs-lisp-mode-hook
@@ -143,37 +141,9 @@
 
 (defun private-c-c++-mode-hook ()
 
-  (eval-after-load 'c-mode '(define-key c-mode-map (kbd "M-j") nil))
-  ;; Auto indenting and pairing curly brace
-  (defun c-mode-insert-lcurly ()
-	(interactive)
-	(insert "{")
-	(let ((pps (syntax-ppss)))
-	  (when (and (eolp) (not (or (nth 3 pps) (nth 4 pps)))) ;; EOL and not in string or comment
-		(c-indent-line)
-		(insert "\n\n}")
-		(c-indent-line)
-		(forward-line -1)
-		(c-indent-line))))
-  (define-key c-mode-base-map "{" 'c-mode-insert-lcurly)
-
   (require 'uncrustify-mode)
   ;(uncrustify-mode 1)
   (setq uncrustify-config-path "~/.uncrustify/linux-kernel.cfg")
-
-  (defun company-transform-c-c++ (candidates)
-	(let ((deleted))
-	  (mapcar #'(lambda (c)
-				  (if (string-prefix-p "_" c)
-					(progn
-					  (add-to-list 'deleted c)
-					  (setq candidates (delete c candidates)))))
-			  candidates)
-	  (append candidates (nreverse deleted))))
-  (setq-local company-transformers
-	      (append company-transformers
-		      '(company-sort-by-occurrence
-			company-transform-c-c++)))
 
   (defun insert-printf-stderr ()
 	(interactive)
