@@ -11,5 +11,6 @@
 (require 'init-python)
 (require 'init-elisp)
 (require 'init-hex-file)
+(require 'init-gtags)
 (require 'init-misc)
 
