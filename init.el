@@ -10,5 +10,6 @@
 (require 'init-company)
 (require 'init-python)
 (require 'init-elisp)
+(require 'init-hex-file)
 (require 'init-misc)
 
