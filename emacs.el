@@ -8,7 +8,6 @@
    (:name transpose-frame)
 
    (:name paredit)
-   (:name highlight-parentheses)
 
    (:name company-statistics)
    (:name emacs-ycmd
@@ -442,9 +441,6 @@
 (define-key global-map (kbd "M-{") 'paredit-backward-barf-sexp)
 
 ;(show-paren-mode 1)
-
-(require 'highlight-parentheses)
-(global-highlight-parentheses-mode 1)
 
 (add-hook 'w3m-mode-hook (lambda ()
 			   (indent-guide-mode 0)

@@ -99,4 +99,7 @@
       )
     ))
 
+(require-package 'highlight-parentheses)
+(global-highlight-parentheses-mode 1)
+
 (provide 'init-appearance)
