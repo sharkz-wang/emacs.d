@@ -10,9 +10,6 @@
    (:name paredit)
 
    (:name company-statistics)
-   (:name emacs-ycmd
-	  :type git
-	  :url "https://github.com/abingham/emacs-ycmd")
    (:name yasnippet)
 
    (:name elpy)
@@ -122,23 +119,6 @@
 (require 'srefactor)
 (define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
 (define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
-
-;; ycmd Installation
-;; 1) git clone https://github.com/Valloric/ycmd.git
-;; 2) git submodule update --init --recursive
-;; 3) install mono-xbuild and mono-devel
-;; 4) ./build.py --clang-completer --omnisharp-completer --gocode-completer --system-libclang
-
-;(add-hook 'after-init-hook #'global-flycheck-mode)
-(require 'ycmd)
-(add-hook 'after-init-hook #'global-ycmd-mode)
-(setq ycmd-force-semantic-completion t)
-(set-variable 'ycmd-server-command (list "python" (expand-file-name "/opt/ycmd/ycmd")))
-(set-variable 'ycmd-global-config "/opt/ycmd/cpp/ycm/.ycm_extra_conf.py")
-(require 'company-ycmd)
-(company-ycmd-setup)
-;(require 'flycheck-ycmd)
-;(flycheck-ycmd-setup)
 
 (require 'yasnippet)
 (yas-global-mode 1)
