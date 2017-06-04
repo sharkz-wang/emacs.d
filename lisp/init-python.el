@@ -30,9 +30,12 @@
  'python-mode-hook
  (lambda
    ()
-
    (modify-syntax-entry ?_ "w")
    
+   ;; (require 'init-semantic)
+   (require 'init-gtags)
+   (require 'init-company)
+
    (require-package 'evil-indent-textobject)
 
    (define-key evil-normal-state-map (kbd "SPC p 3")
