@@ -114,6 +114,17 @@
 					   (evil-scroll-line-to-center (line-number-at-pos))
 					   (evil-scroll-line-down (/ (window-total-height) 5))))
 
+(define-key evil-normal-state-map (kbd "_") '(lambda () (interactive)
+					       (message (buffer-file-name
+							 (window-buffer (minibuffer-selected-window))))))
+
+(define-key evil-normal-state-map (kbd "B") '(lambda () (interactive)
+					       (message (substring
+							 (shell-command-to-string
+							  "git rev-parse --abbrev-ref HEAD")
+							 0
+							 -1))))
+
 (require 'init-navigation)
 
 (require-package 'undo-tree)

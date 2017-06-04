@@ -106,17 +106,6 @@
 			    'elisp-insert-formatted-string-print)
 	    ))
 
-(define-key evil-normal-state-map (kbd "_") '(lambda () (interactive)
-					       (message (buffer-file-name
-							 (window-buffer (minibuffer-selected-window))))))
-
-(define-key evil-normal-state-map (kbd "B") '(lambda () (interactive)
-					       (message (substring
-							 (shell-command-to-string
-							  "git rev-parse --abbrev-ref HEAD")
-							 0
-							 -1))))
-
 (custom-set-faces
  `(company-tooltip-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
  `(company-tooltip-common-selection ((t (:foreground ,"#F5F5F5" :background ,"#444444"))))
