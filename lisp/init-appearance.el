@@ -38,6 +38,10 @@
 ;;  it's an hack and not consistent)
 (setq linum-format 'linum-relative)
 
+;; setup highlight face
+(custom-set-faces
+ '(linum-relative-current-face ((t :inherit hl-spotlight :foreground "#FF8700"))))
+
 ;; advice linum-mode to remember current line number
 (defadvice linum-update (around hl-linum-update)
 		     (let ((linum-current-line-number (line-number-at-pos)))
