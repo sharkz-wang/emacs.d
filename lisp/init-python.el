@@ -37,6 +37,39 @@
    (require 'init-company)
    (require 'init-ycmd)
 
+   (setq-default flymake-no-changes-timeout '2)
+
+   (eval-after-load
+       'flymake
+     (lambda ()
+       (defun flymake-pylint-init ()
+	 (let* ((temp-file (flymake-init-create-temp-buffer-copy
+			    'flymake-create-temp-inplace))
+		(local-file (file-relative-name
+			     temp-file
+			     (file-name-directory buffer-file-name))))
+	   (list "/usr/local/bin/epylint" (list local-file))))
+       (add-to-list 'flymake-allowed-file-name-masks
+		    '("\\.py\\'" flymake-pylint-init)))
+     )
+   
+   (defun show-fly-err-at-point ()
+     "If the cursor is sitting on a flymake error, display the message in the minibuffer"
+     (require 'cl)
+     (interactive)
+     (let ((line-no (line-number-at-pos)))
+       (dolist (elem flymake-err-info)
+	 (if (eq (car elem) line-no)
+	     (let ((err (car (second elem))))
+	       (message "%s" (flymake-ler-text err)))))))
+
+   (add-hook 'post-command-hook 'show-fly-err-at-point)
+
+   (evil-define-key 'normal python-mode-map (kbd "SPC SPC g j") 'flymake-goto-next-error)
+   (evil-define-key 'normal python-mode-map (kbd "SPC SPC g k") 'flymake-goto-prev-error)
+   
+   (flymake-mode 1)
+   
    (require-package 'evil-indent-textobject)
 
    (define-key evil-normal-state-map (kbd "SPC p 3")
