@@ -1,6 +1,7 @@
 (add-to-list 'package-archives
              '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
+;; dependency python packages: jedi flake8 importmagic autopep8
 (require-package 'elpy)
 (elpy-enable)
 
@@ -14,6 +15,8 @@
 
 (eval-after-load "elpy"
   '(progn
+     (semantic-mode)
+     
      (define-key elpy-mode-map (kbd "C-c C-k") 'elpy-shell-kill)
      (define-key elpy-mode-map (kbd "C-c C-p") 'run-python)
      (define-key elpy-mode-map (kbd "C-c l")
@@ -24,6 +27,7 @@
 	    (comint-truncate-buffer))
 	  (switch-to-last-buffer)
 	  ))
+     (evil-define-key 'normal python-mode-map (kbd "SPC SPC g d") 'elpy-goto-definition)
      ))
 
 (add-hook
