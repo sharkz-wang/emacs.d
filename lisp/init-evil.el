@@ -75,11 +75,12 @@
 	(looking-at "[[:space:]]*$")))
 
 (evil-leader/set-key
-  "cc" 'comment-region-or-line
-  "cu" 'uncomment-region-or-line
-  "ci" 'evilnc-invert-comment-line-by-line
-  "cy" 'evilnc-copy-and-comment-lines
-  "cf" '(lambda()
+  ";;" 'evilnc-invert-comment-line-by-line
+  ";c" 'comment-region-or-line
+  ";u" 'uncomment-region-or-line
+  ";i" 'evilnc-invert-comment-line-by-line
+  ";y" 'evilnc-copy-and-comment-lines
+  ";f" '(lambda()
 		  (interactive)
 		  (srecode-document-insert-comment)
 		  (evil-insert-state)

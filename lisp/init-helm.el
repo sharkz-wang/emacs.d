@@ -2,15 +2,18 @@
 (helm-mode 1)
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(define-key evil-normal-state-map (kbd "SPC f o") 'helm-find-files)
-(define-key evil-normal-state-map (kbd "SPC \;") 'helm-buffers-list)
-(define-key evil-normal-state-map (kbd "SPC \:") 'ibuffer)
 
 (require 'helm-config)
-(define-key evil-normal-state-map (kbd "SPC h") 'helm-command-prefix)
-(define-key evil-normal-state-map (kbd "SPC h r") 'helm-resume)
-(define-key evil-normal-state-map (kbd "SPC h b") 'helm-bookmark)
-(define-key evil-normal-state-map (kbd "SPC t") 'helm-occur)
+
+(evil-leader/set-key
+  "bb" 'helm-buffers-list
+  "rl" 'helm-resume
+  "fr" 'helm-recentf
+  "fb" 'helm-bookmark
+  "ss" 'helm-occur
+  "sf" 'helm-do-ag
+  "ry" 'helm-show-kill-ring
+  )
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)

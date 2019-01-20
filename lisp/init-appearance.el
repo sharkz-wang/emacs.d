@@ -12,9 +12,6 @@
 
 (require-package 'zone-rainbow)
 
-(require-package 'nyan-mode)
-(nyan-mode 1)
-
 (require-package 'dashboard)
 (setq dashboard-startup-banner 2)
 (setq dashboard-items '(
@@ -92,16 +89,20 @@
   (switch-to-last-buffer)
   )
 
-(define-key evil-normal-state-map (kbd "SPC i l") 'toggle-linum-mode)
+(evil-leader/set-key
+  "tl" 'toggle-linum-mode
+  "tr" 'toggle-relative-linum
+  "tt" 'toggle-truncate-lines
+  )
+
 ;; toggling relative mode
-(define-key evil-normal-state-map (kbd "SPC i r")
-  (lambda ()
-    (interactive)
-    (if (eq linum-format 'linum-format-func)
-	(setq linum-format 'linum-relative)
-      (setq linum-format 'linum-format-func)
-      )
-    ))
+(defun toggle-relative-linum ()
+  (interactive)
+  (if (eq linum-format 'linum-format-func)
+      (setq linum-format 'linum-relative)
+    (setq linum-format 'linum-format-func)
+    )
+  )
 
 (require-package 'highlight-parentheses)
 (global-highlight-parentheses-mode 1)

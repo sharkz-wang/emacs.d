@@ -13,3 +13,4 @@
 (require 'init-hex-file)
 (require 'init-misc)
 
+(require 'init-org)

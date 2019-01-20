@@ -66,44 +66,64 @@
       (beginning-of-line))))
 (global-set-key (kbd "C-a") 'beginning-of-indentation-or-line)
 
-;; misc ugly but useful key-bindings
-(define-key evil-normal-state-map (kbd "SPC u") 'universal-argument)
-(define-key evil-normal-state-map (kbd "SPC s") 'save-buffer)
-(define-key evil-normal-state-map (kbd "SPC j") 'switch-to-last-buffer)
+(require-package 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
 
-(define-key evil-normal-state-map (kbd "SPC l") (lambda ()
-						  (interactive)
-						  (kill-buffer (current-buffer))))
+(evil-leader/set-key
+  "bB" 'ibuffer
+  )
 
-(define-key evil-normal-state-map (kbd "SPC 0") 'delete-window)
-(define-key evil-normal-state-map (kbd "SPC 1") 'delete-other-windows)
+(evil-leader/set-key
+  "ee" 'eval-last-sexp
+  )
 
-(define-key evil-normal-state-map (kbd "SPC 2") (lambda ()
-						  (interactive)
-						  (split-window-below)
-						  (other-window 1)))
-(define-key evil-normal-state-map (kbd "SPC 3") (lambda ()
-						  (interactive)
-						  (split-window-right)
-						  (other-window 1)))
+(evil-leader/set-key
+  "u" 'universal-argument
+  "SPC" 'smex
+  "x" 'smex
+  "TAB" 'switch-to-last-buffer
+  "qq" 'save-buffers-kill-terminal
+  )
+
+(evil-leader/set-key
+  "fs" 'save-buffer
+  "ff" 'helm-find-files
+  )
+
+(evil-leader/set-key
+  "bd" (lambda () (interactive) (kill-buffer (current-buffer)))
+  )
+
+(evil-leader/set-key
+  "ww" 'other-window
+  "wd" 'delete-window
+  "wm" 'delete-other-windows
+  "w/" (lambda ()
+	 (interactive)
+	 (split-window-below)
+	 (other-window 1))
+  "w-" (lambda ()
+	 (interactive)
+	 (split-window-right)
+	 (other-window 1))
+  )
+
+(evil-leader/set-key
+  "4" 'evil-end-of-visual-line
+  "5" 'evil-jump-item
+  )
+
+(evil-leader/set-key
+  "hi" 'info
+  "hdk" 'describe-key
+  "hdf" 'describe-function
+  "hdv" 'describe-variable
+  )
 
 ;; cursor motion in wrapped lines
-(define-key evil-normal-state-map "$" 'evil-end-of-visual-line)
-(define-key evil-normal-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
-(define-key evil-visual-state-map "$" 'evil-end-of-visual-line)
-(define-key evil-visual-state-map (kbd "SPC 4") 'evil-end-of-visual-line)
-
-(define-key evil-normal-state-map (kbd "SPC 5") 'evil-jump-item)
-(define-key evil-visual-state-map (kbd "SPC 5") 'evil-jump-item)
-
-(define-key evil-normal-state-map (kbd "SPC x") 'smex)
 
 (define-key evil-normal-state-map (kbd "SPC i w") 'toggle-truncate-lines)
-
-(define-key evil-normal-state-map (kbd "SPC i k") 'describe-key)
-(define-key evil-normal-state-map (kbd "SPC i f") 'describe-function)
-(define-key evil-normal-state-map (kbd "SPC i v") 'describe-variable)
-
 (define-key evil-normal-state-map (kbd "SPC i t") 'load-theme)
 
 (define-key evil-normal-state-map (kbd "SPC i z") 'zone-rainbow)
@@ -226,7 +246,6 @@
 			))
 
 (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 ;; end settings for smex
 
 (provide 'init-basics)

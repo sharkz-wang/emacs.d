@@ -8,7 +8,7 @@
 (require-package 'ace-window)
 
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
-(define-key evil-normal-state-map (kbd "SPC w") 'ace-window)
+;; (define-key evil-normal-state-map (kbd "SPC w") 'ace-window)
 
 (require-package 'smooth-scrolling)
 (smooth-scrolling-mode 1)
