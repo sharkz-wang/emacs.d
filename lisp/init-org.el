@@ -5,16 +5,19 @@
   (setq org-startup-indented 1)
   (setq org-clock-sound t)
   (setq org-timer-default-timer 25)
+  (setq org-log-into-drawer t)
 
   (evil-leader/set-key
     "aoo" 'org-agenda
     "aoa" 'org-agenda-list
     "aol" 'helm-org-agenda-files-headings
-    "ot" 'org-todo-list
+    "atl" 'org-todo-list
     "aoc" 'org-capture
+    "ati" 'org-toggle-inline-images
     )
   
   (evil-define-key 'normal org-mode-map (kbd "TAB") 'org-cycle)
+  (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
   (evil-define-key 'normal org-mode-map (kbd "<") 'org-metaleft)
   (evil-define-key 'normal org-mode-map (kbd ">") 'org-metaright)
   (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo)
@@ -38,6 +41,16 @@
   
   (custom-set-faces
    '(org-todo ((t :foreground "#FF1493" :weight bold))))
+
+  (setq org-file-apps
+	'(("\\.gif\\'" . (lambda (file link)
+			   (let ((my-image (create-image file))
+				 (tmpbuf (get-buffer-create "*gif-preview*")))
+			     (switch-to-buffer tmpbuf)
+			     (erase-buffer)
+			     (insert-image my-image)
+			     (image-animate my-image))))
+	  ))
   )
 
 (add-hook 'org-mode-hook 'init-org-handler)

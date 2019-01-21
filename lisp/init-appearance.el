@@ -107,4 +107,49 @@
 (require-package 'highlight-parentheses)
 (global-highlight-parentheses-mode 1)
 
+(require-package 'all-the-icons)
+(require 'all-the-icons)
+;; (all-the-icons-install-fonts)
+
+(require-package 'doom-modeline)
+(require 'doom-modeline)
+
+(setq doom-modeline-height 25)
+(setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+
+(setq doom-modeline-icon t)
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-major-mode-color-icon t)
+
+(setq doom-modeline-minor-modes nil)
+
+(setq doom-modeline-persp-name t)
+(setq doom-modeline-github nil)
+(setq doom-modeline-version t)
+
+(doom-modeline-mode 1)
+
+(require-package 'sublimity)
+(require 'sublimity-scroll)
+(require 'sublimity-attractive)
+
+(setq sublimity-attractive-centering-width 80)
+
+(evil-leader/set-key
+  "tc" (lambda () (interactive)
+	 (if (bound-and-true-p sublimity-mode)
+	     (progn
+	       (sublimity-mode -1)
+	       (redraw-display)
+	       )
+	   (progn
+	     (sublimity-mode 1)
+	     ;; hacky trick to force redrawing screen
+	     (switch-to-last-buffer)
+	     (switch-to-last-buffer)
+	     )
+	   )
+	 )
+  )
+
 (provide 'init-appearance)

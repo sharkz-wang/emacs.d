@@ -32,7 +32,7 @@
 ;; TODO: move it to init-git.el
 (require-package 'git-gutter)
 
-(global-git-gutter-mode 1)
+;; (global-git-gutter-mode 1)
 
 (setq git-gutter:ask-p nil)
 
@@ -41,6 +41,7 @@
 (setq git-gutter:modified-sign " * ")
 
 (evil-leader/set-key
+  "g.." 'git-gutter-mode
   "g.s" 'git-gutter:stage-hunk
   "g.d" 'git-gutter:popup-diff
   "g.r" 'git-gutter:revert-hunk

@@ -13,10 +13,6 @@
 (require-package 'smooth-scrolling)
 (smooth-scrolling-mode 1)
 
-(require-package 'sublimity)
-(require 'sublimity-scroll)
-(sublimity-mode 1)
-
 (require-package 'vimish-fold)
 
 (defun vimish-action (arg) (interactive "P")
