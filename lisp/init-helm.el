@@ -9,11 +9,19 @@
   "bb" 'helm-buffers-list
   "rl" 'helm-resume
   "fr" 'helm-recentf
-  "fb" 'helm-bookmark
-  "ss" 'helm-occur
-  "sf" 'helm-do-ag
+  "fb" 'helm-bookmarks
   "ry" 'helm-show-kill-ring
   )
+
+;; default search functions that could be overriden by special major mode functions
+(evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
+(evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-ag)
+(evil-global-set-key 'normal (kbd "SPC s f") 'helm-do-ag)
+(evil-global-set-key
+ 'normal (kbd "SPC s d")
+ (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name))))
+ )
+(evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)

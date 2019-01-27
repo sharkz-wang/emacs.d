@@ -9,6 +9,8 @@
 (menu-bar-mode -1)
 ;; no scroll bars
 (scroll-bar-mode -1)
+;; no blinking cursor
+(blink-cursor-mode -1)
 ;; whenever an external process changes a file underneath emacs, and there
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
@@ -72,6 +74,9 @@
 
 (evil-leader/set-key
   "bB" 'ibuffer
+  "bw" 'read-only-mode
+  "br" 'rename-buffer
+  "bs" (lambda () (interactive) (switch-to-buffer "*scratch*"))
   )
 
 (evil-leader/set-key
@@ -99,18 +104,18 @@
   "ww" 'other-window
   "wd" 'delete-window
   "wm" 'delete-other-windows
-  "w/" (lambda ()
+  "w-" (lambda ()
 	 (interactive)
 	 (split-window-below)
 	 (other-window 1))
-  "w-" (lambda ()
+  "w/" (lambda ()
 	 (interactive)
 	 (split-window-right)
 	 (other-window 1))
   )
 
 (evil-leader/set-key
-  "4" 'evil-end-of-visual-line
+  "4" 'evil-end-of-line
   "5" 'evil-jump-item
   )
 
@@ -119,6 +124,13 @@
   "hdk" 'describe-key
   "hdf" 'describe-function
   "hdv" 'describe-variable
+  )
+
+(evil-leader/set-key
+  "nf" 'narrow-to-defun
+  "nr" 'narrow-to-region
+  "np" 'narrow-to-page
+  "nw" 'widen
   )
 
 ;; cursor motion in wrapped lines
@@ -247,5 +259,19 @@
 
 (global-set-key (kbd "M-x") 'smex)
 ;; end settings for smex
+
+(evil-define-key 'normal Info-mode-map
+  "gg" 'evil-goto-first-line
+  "d" 'Info-directory
+  "i" 'Info-goto-node
+  "q" 'Info-exit
+  )
+
+
+(with-current-buffer "*Messages*"
+  (evil-normalize-keymaps)
+  (evil-leader-mode 1)
+  (evil-local-set-key 'normal "q" 'quit-window)
+  )
 
 (provide 'init-basics)

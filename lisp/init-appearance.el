@@ -13,11 +13,14 @@
 (require-package 'zone-rainbow)
 
 (require-package 'dashboard)
-(setq dashboard-startup-banner 2)
+(setq dashboard-startup-banner 'logo)
 (setq dashboard-items '(
+			agenda
 			(recents  . 10)
 			(projects . 10)
-			(bookmarks . 10)))
+			(bookmarks . 10)
+			))
+(setq show-week-agenda-p t)
 (dashboard-setup-startup-hook)
 
 (require-package 'hl-anything)
@@ -136,7 +139,7 @@
 (setq sublimity-attractive-centering-width 80)
 
 (evil-leader/set-key
-  "tc" (lambda () (interactive)
+  "tw" (lambda () (interactive)
 	 (if (bound-and-true-p sublimity-mode)
 	     (progn
 	       (sublimity-mode -1)

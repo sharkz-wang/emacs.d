@@ -1,9 +1,8 @@
 (require-package 'avy)
-(define-key global-map (kbd "C-c SPC") 'avy-goto-char-2)
-(define-key evil-normal-state-map (kbd "SPC k") 'avy-goto-char-2)
-(define-key evil-visual-state-map (kbd "SPC k") 'avy-goto-char-2)
-(define-key evil-normal-state-map (kbd "SPC RET") 'avy-goto-char-2)
-(define-key evil-visual-state-map (kbd "SPC RET") 'avy-goto-char-2)
+
+(evil-leader/set-key
+  "jj" 'avy-goto-char
+  )
 
 (require-package 'ace-window)
 
