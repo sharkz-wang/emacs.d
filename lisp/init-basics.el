@@ -121,6 +121,7 @@
 
 (evil-leader/set-key
   "hi" 'info
+  "hr" 'info-emacs-manual
   "hdk" 'describe-key
   "hdf" 'describe-function
   "hdv" 'describe-variable
@@ -267,11 +268,18 @@
   "q" 'Info-exit
   )
 
-
 (with-current-buffer "*Messages*"
   (evil-normalize-keymaps)
   (evil-leader-mode 1)
   (evil-local-set-key 'normal "q" 'quit-window)
+  )
+
+(evil-define-key 'normal help-mode-map
+  "q" 'quit-window
+  )
+
+(evil-define-key 'normal debugger-mode-map
+  "q" 'quit-window
   )
 
 (provide 'init-basics)

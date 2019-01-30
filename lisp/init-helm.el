@@ -13,6 +13,20 @@
   "ry" 'helm-show-kill-ring
   )
 
+(evil-leader/set-key
+  "hl" 'helm-info-elisp
+  )
+
+(setq bookmarked-search-directories '())
+
+(defun helm-do-custom-ag ()
+  (interactive)
+  (helm-do-ag
+   (helm :sources
+	 (helm-build-sync-source "bookmarked directories"
+	   :candidates bookmarked-search-directories)
+	 )))
+
 ;; default search functions that could be overriden by special major mode functions
 (evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
 (evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-ag)
@@ -21,7 +35,9 @@
  'normal (kbd "SPC s d")
  (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name))))
  )
+(evil-global-set-key 'normal (kbd "SPC s D") 'helm-do-custom-ag)
 (evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
+(evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu)
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)

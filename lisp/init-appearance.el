@@ -139,7 +139,7 @@
 (setq sublimity-attractive-centering-width 80)
 
 (evil-leader/set-key
-  "tw" (lambda () (interactive)
+  "tww" (lambda () (interactive)
 	 (if (bound-and-true-p sublimity-mode)
 	     (progn
 	       (sublimity-mode -1)
@@ -152,6 +152,26 @@
 	     (switch-to-last-buffer)
 	     )
 	   )
+	 )
+  "tw-" (lambda () (interactive)
+	 (setq sublimity-attractive-centering-width
+	       (- sublimity-attractive-centering-width 5))
+	 ;; hacky trick to force redrawing screen
+	 (switch-to-last-buffer)
+	 (switch-to-last-buffer)
+	 )
+  "tw=" (lambda () (interactive)
+	 (setq sublimity-attractive-centering-width
+	       (+ sublimity-attractive-centering-width 5))
+	 ;; hacky trick to force redrawing screen
+	 (switch-to-last-buffer)
+	 (switch-to-last-buffer)
+	 )
+  "tw0" (lambda () (interactive)
+	 (setq sublimity-attractive-centering-width 80)
+	 ;; hacky trick to force redrawing screen
+	 (switch-to-last-buffer)
+	 (switch-to-last-buffer)
 	 )
   )
 

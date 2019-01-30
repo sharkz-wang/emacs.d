@@ -76,7 +76,22 @@
 
 (add-hook 'magit-popup-mode-hook
 	  (lambda ()
-	    (setq evil-default-state 'emacs)
+	    (setq-local evil-default-state 'emacs)
 	    ))
+
+(evil-define-key 'normal magit-diff-mode-map
+  (kbd "SPC s s") 'helm-occur
+  )
+
+(defun projectile-git-repo-list ()
+  (remove-if-not
+   (lambda (project)
+     (file-directory-p (concat project "/.git/")))
+   (projectile-relevant-known-projects)))
+
+(eval-after-load "projectile"
+  '(progn (setq magit-repository-directories
+		(mapcar (lambda (dir) (cons dir 0))
+		(projectile-git-repo-list)))))
 
 (provide 'init-magit)

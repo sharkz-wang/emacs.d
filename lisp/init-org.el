@@ -27,8 +27,8 @@
 (setq org-todo-keywords
       '(
 	(sequence "TODO(t)" "WAIT(W@/!)" "|" "DONE(d!)" "ABORTED(a@)" "SUSPENDED(p@)")
-	(sequence "WEEKLY(w)" "|" "REPORT(r)")
-	(sequence "STUDY(s)" "|" "RECAP(R)")
+	(sequence "WEEKLY(w)" "REPORT(r)" "|" "DONE(d!)")
+	(sequence "STUDY(s)" "RECAP(R)" "|" "DONE(d!)")
 	))
 (setq org-tag-alist
       '(
@@ -42,7 +42,7 @@
 	 "* TODO %?%i\t%^g\n%T")
 	("c" "Trace code note"
 	 entry (file+olp "~/gtd.org" "Trace Code")
-	 "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n%c")
+	 "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
 	)
       )
 
@@ -51,6 +51,7 @@
   "atl" 'org-todo-list
   "aoc" 'org-capture
   "asp" 'helm-org-rifle-agenda-files
+  "aor" 'org-refile
   )
 
 (require-package 'helm-org-rifle)
@@ -66,7 +67,7 @@
 	       :order 2
 	       )
 	(:name "Weekly goal"
-	       :todo "WEEKLY"
+	       :todo ("WEEKLY" "REPORT")
 	       :order 0
 	       )
 	(:name "Today"
@@ -75,7 +76,7 @@
 	       :order 1
 	       )
 	(:name "Study"
-	       :todo "STUDY"
+	       :todo ("STUDY" "RECAP")
 	       :order 3
 	       )
 	(:name "This Week"
@@ -127,10 +128,6 @@
 		      (org-move-subtree-up))
 		    ))
   
-  (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
-  (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
-  (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
-
   (add-hook 'org-capture-mode-hook
 	    (lambda () (evil-emacs-state)))
   
@@ -152,5 +149,13 @@
   )
 
 (add-hook 'org-mode-hook 'init-org-handler)
+
+(add-hook 'org-agenda-mode-hook
+	  (lambda () (interactive)
+	    (evil-define-key 'normal org-agenda-mode-map (kbd "RET") 'org-agenda-switch-to)
+	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
+	    (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
+	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
+	    ))
 
 (provide 'init-org)
