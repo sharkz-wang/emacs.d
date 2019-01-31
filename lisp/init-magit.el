@@ -65,10 +65,26 @@
    (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "W") 'git-timemachine-kill-revision)
    (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "b") 'git-timemachine-blame)))
 
+(defun helm-magit-dispatch-popup (arg)
+  (interactive "P")
+  (if (equal current-prefix-arg '(4))
+      (let ((aux-buf-name (make-temp-name "magit-dispatch-popup-aux-"))
+	    (repo-dir (helm :sources
+			    (helm-build-sync-source "repositories"
+			      :candidates (mapcar (lambda (x) (car x)) magit-repository-directories)))))
+	(generate-new-buffer aux-buf-name)
+	(with-current-buffer aux-buf-name
+	  (message repo-dir)
+	  (cd repo-dir)
+	  (magit-dispatch-popup))
+	;; (kill-buffer aux-buf-name)
+	)
+    (magit-dispatch-popup)
+    ))
 
 (evil-leader/set-key
   "gs" 'magit-status
-  "gm" 'magit-dispatch-popup
+  "gm" 'helm-magit-dispatch-popup
   "gb" 'magit-blame
   "gfh" 'magit-log-buffer-file
   "gt" 'git-timemachine

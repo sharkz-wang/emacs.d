@@ -132,6 +132,9 @@
 
 (doom-modeline-mode 1)
 
+(require-package 'page-break-lines)
+(global-page-break-lines-mode 1)
+
 (require-package 'sublimity)
 (require 'sublimity-scroll)
 (require 'sublimity-attractive)
