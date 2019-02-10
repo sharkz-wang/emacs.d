@@ -166,4 +166,30 @@
 						  (evil-scroll-line-up 1)
 						  ))
 
+(setq evil-global-markers-alist '())
+
+(defun evil-set-marker-local-global (char &optional pos advance)
+  (interactive (list (read-char)))
+  (evil-set-marker char)
+  (evil-add-to-alist
+   'evil-global-markers-alist
+   char
+   (list (buffer-name) (point) (set-marker (make-marker) (point))))
+  )
+
+(defun evil-goto-global-mark-line (char &optional noerror)
+  "Go to the line of the marker specified by CHAR."
+  (interactive (list (read-char)))
+  (let (
+	(mark (cdr-safe (assq char (default-value
+				     'evil-global-markers-alist))))
+	)
+    (switch-to-buffer (car mark))
+    (goto-char (nth 2 mark))
+    )
+  )
+
+(evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
+(evil-global-set-key 'normal "`" 'evil-goto-global-mark-line)
+
 (provide 'init-evil)

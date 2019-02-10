@@ -119,12 +119,27 @@
   "5" 'evil-jump-item
   )
 
+(defun describe-key-and-switch-to-window ()
+  (interactive)
+  (call-interactively 'describe-key)
+  (switch-to-buffer-other-window "*Help*"))
+
+(defun describe-function-and-switch-to-window ()
+  (interactive)
+  (call-interactively 'describe-function)
+  (switch-to-buffer-other-window "*Help*"))
+
+(defun describe-variable-and-switch-to-window ()
+  (interactive)
+  (call-interactively 'describe-variable)
+  (switch-to-buffer-other-window "*Help*"))
+
 (evil-leader/set-key
   "hi" 'info
   "hr" 'info-emacs-manual
-  "hdk" 'describe-key
-  "hdf" 'describe-function
-  "hdv" 'describe-variable
+  "hdk" 'describe-key-and-switch-to-window
+  "hdf" 'describe-function-and-switch-to-window
+  "hdv" 'describe-variable-and-switch-to-window
   )
 
 (evil-leader/set-key
@@ -280,6 +295,29 @@
 
 (evil-define-key 'normal debugger-mode-map
   "q" 'quit-window
+  )
+
+;; TODO: move to init-edit
+(require-package 'multiple-cursors)
+
+(evil-leader/set-key
+  ",i" 'mc/edit-lines
+  )
+
+(defun dired-current-dir (arg)
+  (interactive "P")
+  (dired (f-dirname (buffer-file-name)))
+  )
+
+(evil-leader/set-key
+  "ad" 'dired-current-dir
+  )
+
+(defun browser-google-search (query)
+  (interactive)
+  (browse-url (format
+	       "https://www.google.com/search?q=%s"
+	       (url-encode-url query)))
   )
 
 (provide 'init-basics)

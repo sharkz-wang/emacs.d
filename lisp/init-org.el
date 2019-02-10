@@ -1,5 +1,7 @@
 (require-package 'org)
 
+(setq org-agenda-window-setup 'only-window)
+
 ;; recursively find .org files in provided directory
 (defun sa-find-org-file-recursively (&optional directory filext)
   "Return .org and .org_archive files recursively from DIRECTORY.
@@ -8,7 +10,7 @@
   (let* (org-file-list
          (case-fold-search t)         ; filesystems are case sensitive
          (file-name-regex "^[^.#].*") ; exclude dot, autosave, and backupfiles
-         (filext (or filext "org$\\\|org_archive"))
+         (filext (or filext "org"))
          (fileregex (format "%s\\.\\(%s$\\)" file-name-regex filext))
          (cur-dir-list (directory-files directory t file-name-regex)))
     ;; loop over directory listing
@@ -22,7 +24,8 @@
                           org-file-list) ; add files found to result
           (add-to-list 'org-file-list org-file)))))))
 
-(setq org-agenda-files '("~/org"))
+(setq org-agenda-dir "")
+(setq org-agenda-files (sa-find-org-file-recursively org-agenda-dir))
 
 (setq org-todo-keywords
       '(
@@ -41,14 +44,24 @@
 	 entry (file+headline "~/note-system.org" "Tasks")
 	 "* TODO %?%i\t%^g\n%T")
 	("c" "Trace code note"
-	 entry (file+olp "~/gtd.org" "Trace Code")
+	 entry (file+olp "~/gtd.org" "Trace code")
 	 "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
 	)
       )
 
+(defun org-todo-list-position-to-first-heading ()
+  (interactive)
+  (org-todo-list)
+  (switch-to-buffer "*Org Agenda*"
+    (org-agenda-next-item 1))
+  )
+
 (evil-leader/set-key
+  "aoo" (lambda () (interactive)
+	  (find-file (format "%s/inbox.org" org-agenda-dir))
+	  )
   "aoa" 'org-agenda-list
-  "atl" 'org-todo-list
+  "atl" 'org-todo-list-position-to-first-heading
   "aoc" 'org-capture
   "asp" 'helm-org-rifle-agenda-files
   "aor" 'org-refile
@@ -86,6 +99,8 @@
 
 (defun init-org-handler ()
   
+  (modify-syntax-entry ?- "w")
+
   (setq org-startup-indented 1)
   (setq org-clock-sound t)
   (setq org-timer-default-timer 25)
@@ -102,22 +117,51 @@
     "aid" 'org-deadline
     )
   
+  (evil-define-operator org-google-search-visual (beg end type)
+    :move-point nil
+    :repeat nil
+    (browser-google-search (buffer-substring beg end)))
+
+  (evil-leader/set-key
+    "aog" 'org-google-search-visual
+  )
+
+  (defun helm-org-rifle-current-buffer-or-occur (arg)
+    (interactive "P")
+    (if (equal current-prefix-arg '(4))
+	(helm-org-rifle-agenda-files)
+      (helm-occur)
+      ))
+
   (evil-define-key 'normal org-mode-map
     "gk" 'org-backward-heading-same-level
     "gj" 'org-forward-heading-same-level
     "gh" 'outline-up-heading
     "gl" 'org-next-visible-heading
+    "gn" 'org-next-link
+    "gp" 'org-previous-link
     (kbd "TAB") 'org-cycle
     (kbd "RET") 'org-open-at-point
     "<" 'org-metaleft
     ">" 'org-metaright
     "t" 'org-todo
-    (kbd "SPC s s") 'helm-org-rifle-current-buffer
+    (kbd "SPC s s") 'helm-org-rifle-current-buffer-or-occur
     (kbd "SPC s p") 'helm-org-rifle-agenda-files
     (kbd "SPC s f") 'helm-org-rifle-directories
     (kbd "SPC s d") (lambda () (interactive) (helm-org-rifle-directories (f-dirname (buffer-file-name))))
     )
   
+  (evil-define-operator org-open-at-point-visaul (beg end type)
+  :move-point nil
+  :repeat nil
+    (cond
+     ((eq type 'line)
+      (mapcar 'org-open-link-from-string (split-string (buffer-substring beg end)))
+      )))
+
+  (evil-define-key 'visual org-mode-map
+    (kbd "RET") 'org-open-at-point-visaul)
+
   ;; append same level heading right after current heading
   (define-key org-mode-map
     (kbd "M-RET") (lambda (arg) (interactive "P")
@@ -153,9 +197,11 @@
 (add-hook 'org-agenda-mode-hook
 	  (lambda () (interactive)
 	    (evil-define-key 'normal org-agenda-mode-map (kbd "RET") 'org-agenda-switch-to)
-	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
 	    (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
 	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
+	    (evil-define-key 'normal org-agenda-mode-map "t" 'org-agenda-todo)
+	    (evil-define-key 'normal org-agenda-mode-map (kbd "C-c C-c") 'org-agenda-set-tags)
+	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
 	    ))
 
 (provide 'init-org)

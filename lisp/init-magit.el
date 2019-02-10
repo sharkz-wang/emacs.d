@@ -87,6 +87,7 @@
   "gm" 'helm-magit-dispatch-popup
   "gb" 'magit-blame
   "gfh" 'magit-log-buffer-file
+  "gr" 'magit-diff-toggle-refine-hunk
   "gt" 'git-timemachine
   )
 
