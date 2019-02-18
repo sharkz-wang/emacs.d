@@ -16,4 +16,6 @@
 (set-variable 'ycmd-server-command (list "python" (expand-file-name "/opt/ycmd/ycmd")))
 (set-variable 'ycmd-global-config "/opt/ycmd/cpp/ycm/.ycm_extra_conf.py")
 
+(setq request-message-level -1)
+
 (provide 'init-ycmd)

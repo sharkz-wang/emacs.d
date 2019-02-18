@@ -38,6 +38,7 @@
 (evil-global-set-key 'normal (kbd "SPC s D") 'helm-do-custom-ag)
 (evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
 (evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu)
+(evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers)
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)

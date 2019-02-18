@@ -42,10 +42,10 @@
       '(
 	("t" "Todo"
 	 entry (file+headline "~/note-system.org" "Tasks")
-	 "* TODO %?%i\t%^g\n%T")
+	 "* TODO %?%i\n%T")
 	("c" "Trace code note"
 	 entry (file+olp "~/gtd.org" "Trace code")
-	 "* %?%i\t%^g\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
+	 "* %?%i\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
 	)
       )
 
@@ -175,6 +175,9 @@
   (add-hook 'org-capture-mode-hook
 	    (lambda () (evil-emacs-state)))
   
+  (load-file "~/.emacs.d/elpa/org-pdfview-20180225.1006/org-pdfview.el")
+  (require-package 'org-pdfview)
+
   (setq org-file-apps
 	'(("\\.gif\\'" . (lambda (file link)
 			   (let ((my-image (create-image file))
@@ -185,7 +188,10 @@
 			     (image-animate my-image))))
 	  ("\\.org\\'" . (lambda (file link)
 			    (find-file file)
-			    )))
+			    ))
+	  ("\\.pdf\\'" . (lambda (file link)
+			   (org-pdfview-open link)))
+	  )
 	)
 
   (custom-set-faces

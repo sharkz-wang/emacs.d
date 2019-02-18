@@ -10,6 +10,7 @@
 (require 'init-python)
 (require 'init-c)
 (require 'init-elisp)
+(require 'init-ebook)
 (require 'init-hex-file)
 (require 'init-misc)
 

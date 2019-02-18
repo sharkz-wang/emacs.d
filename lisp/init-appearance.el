@@ -157,21 +157,21 @@
 	   )
 	 )
   "tw-" (lambda () (interactive)
-	 (setq sublimity-attractive-centering-width
+	 (setq-local sublimity-attractive-centering-width
 	       (- sublimity-attractive-centering-width 5))
 	 ;; hacky trick to force redrawing screen
 	 (switch-to-last-buffer)
 	 (switch-to-last-buffer)
 	 )
   "tw=" (lambda () (interactive)
-	 (setq sublimity-attractive-centering-width
+	 (setq-local sublimity-attractive-centering-width
 	       (+ sublimity-attractive-centering-width 5))
 	 ;; hacky trick to force redrawing screen
 	 (switch-to-last-buffer)
 	 (switch-to-last-buffer)
 	 )
   "tw0" (lambda () (interactive)
-	 (setq sublimity-attractive-centering-width 80)
+	 (setq-local sublimity-attractive-centering-width 80)
 	 ;; hacky trick to force redrawing screen
 	 (switch-to-last-buffer)
 	 (switch-to-last-buffer)

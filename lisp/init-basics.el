@@ -8,13 +8,17 @@
 ;; no memu bar
 (menu-bar-mode -1)
 ;; no scroll bars
-(scroll-bar-mode -1)
+(when (not (equal window-system nil))
+    (scroll-bar-mode -1)
+ )
 ;; no blinking cursor
 (blink-cursor-mode -1)
 ;; whenever an external process changes a file underneath emacs, and there
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
+
+(setq recentf-max-saved-items 200)
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -73,7 +77,7 @@
 (evil-leader/set-leader "<SPC>")
 
 (evil-leader/set-key
-  "bB" 'ibuffer
+  "bi" 'ibuffer
   "bw" 'read-only-mode
   "br" 'rename-buffer
   "bs" (lambda () (interactive) (switch-to-buffer "*scratch*"))
@@ -141,6 +145,9 @@
   "hdf" 'describe-function-and-switch-to-window
   "hdv" 'describe-variable-and-switch-to-window
   )
+
+(global-set-key (kbd "C-c h d k") 'describe-key-and-switch-to-window)
+(define-key minibuffer-local-map (kbd "C-c C-c") 'helm-select-action)
 
 (evil-leader/set-key
   "nf" 'narrow-to-defun
@@ -319,5 +326,34 @@
 	       "https://www.google.com/search?q=%s"
 	       (url-encode-url query)))
   )
+
+(defun create-extended-window ()
+  (interactive)
+  (recenter)
+  (split-window-horizontally)
+  (other-window 1)
+  (recenter)
+  (scroll-up-line (- (window-total-height) 3))
+  (evil-window-middle)
+  (other-window 1)
+  (scroll-all-mode 1)
+ )
+
+(evil-leader/set-key
+  "wv" 'create-extended-window
+  )
+
+(push 'ibuffer-mode evil-snipe-disabled-modes)
+(add-hook 'ibuffer-mode-hook
+	  (lambda ()
+	    (interactive)
+	    (turn-off-evil-mode)
+	    (evil-normal-state)
+	    (evil-define-key 'normal ibuffer-mode-map (kbd "SPC s s") 'helm-occur)
+	    (evil-define-key 'normal ibuffer-mode-map (kbd "s a") 'ibuffer-do-sort-by-alphabetic)
+	    (evil-define-key 'normal ibuffer-mode-map (kbd "s f") 'ibuffer-do-sort-by-filename/process)
+	    (evil-define-key 'normal ibuffer-mode-map (kbd "s m") 'ibuffer-do-sort-by-major-mode)
+	    (evil-define-key 'normal ibuffer-mode-map (kbd "s r") 'ibuffer-do-sort-by-recency)
+	    ))
 
 (provide 'init-basics)
