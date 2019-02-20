@@ -32,6 +32,11 @@
   (evil-define-key 'normal pdf-view-mode-map (kbd "-") 'pdf-view-shrink)
   (evil-define-key 'normal pdf-view-mode-map (kbd "0") 'pdf-view-scale-reset)
 
+  ;; TODO: integrate it to evil-mark
+  (evil-define-key 'normal pdf-view-mode-map (kbd "m") 'pdf-view-position-to-register)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "`") 'pdf-view-jump-to-register)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "'") 'pdf-view-jump-to-register)
+
   (evil-define-key 'normal pdf-view-mode-map
     (kbd "SPC s s") 'pdf-occur
     (kbd "SPC i d") 'pdf-view-midnight-minor-mode

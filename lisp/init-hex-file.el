@@ -15,6 +15,7 @@
     (when
       (and
        (buffer-binary-p)
+       (not (string= file-ext "pdf"))
        (not (string= file-ext "png"))
        (not (string= file-ext "jpg"))
        (not (string= file-ext "jpeg"))
