@@ -35,7 +35,27 @@
  'normal (kbd "SPC s d")
  (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name))))
  )
-(evil-global-set-key 'normal (kbd "SPC s D") 'helm-do-custom-ag)
+
+(require-package 'transient)
+(load-file "/Users/sharkz/.emacs.d/elpa/transient-20190219.1346/transient.el")
+
+(defmacro define-search-dir-func (name dir)
+  (list 'defun name ()
+	(list 'interactive)
+	(list 'helm-do-ag dir)))
+
+(define-search-dir-func search-lisp-dir "~/.emacs.d/lisp")
+(define-search-dir-func search-emacsd-dir "~/.emacs.d")
+
+(define-transient-command search-bookmarked-dirs ()
+ ["Transient and dwim commands"
+   [
+    ("m" "helm menu"       helm-do-custom-ag)
+    ("l" "~/.emacs.d/lisp" search-lisp-dir)
+    ("e" "~/.emacs.d"      search-emacsd-dir)
+    ]])
+
+(evil-global-set-key 'normal (kbd "SPC s m") 'search-bookmarked-dirs)
 (evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
 (evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu)
 (evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers)
