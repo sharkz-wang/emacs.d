@@ -1,4 +1,5 @@
 (require-package 'org)
+(load-file "~/.emacs.d/elpa/org-pdfview-20180225.1006/org-pdfview.el")
 
 (setq org-agenda-window-setup 'only-window)
 
@@ -27,6 +28,7 @@
 (setq org-agenda-dir "")
 (setq org-agenda-files (sa-find-org-file-recursively org-agenda-dir))
 
+(setq org-startup-folded 'nofold)
 (setq org-todo-keywords
       '(
 	(sequence "TODO(t)" "WAIT(W@/!)" "|" "DONE(d!)" "ABORTED(a@)" "SUSPENDED(p@)")
@@ -175,7 +177,6 @@
   (add-hook 'org-capture-mode-hook
 	    (lambda () (evil-emacs-state)))
   
-  (load-file "~/.emacs.d/elpa/org-pdfview-20180225.1006/org-pdfview.el")
   (require-package 'org-pdfview)
 
   (setq org-file-apps
@@ -191,6 +192,7 @@
 			    ))
 	  ("\\.pdf\\'" . (lambda (file link)
 			   (org-pdfview-open link)))
+	  (auto-mode . emacs)
 	  )
 	)
 

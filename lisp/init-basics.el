@@ -2,7 +2,8 @@
 (setq inhibit-splash-screen t)
 ;; display column numbers in mode-line
 (column-number-mode 1)
-(set-default-font "Monaco-15")
+(set-frame-font "MonacoB-17")
+(set-fontset-font "fontset-default" 'han '("蘋芳-繁" . "unicode-bmp"))
 ;; no tool bars
 (tool-bar-mode -1)
 ;; no memu bar
@@ -81,10 +82,12 @@
   "bw" 'read-only-mode
   "br" 'rename-buffer
   "bs" (lambda () (interactive) (switch-to-buffer "*scratch*"))
+  "bq" 'bury-buffer
   )
 
 (evil-leader/set-key
   "ee" 'eval-last-sexp
+  "eb" 'eval-buffer
   )
 
 (evil-leader/set-key
@@ -101,7 +104,12 @@
   )
 
 (evil-leader/set-key
-  "bd" (lambda () (interactive) (kill-buffer (current-buffer)))
+  "bd" (lambda ()
+	 (interactive)
+	 (kill-buffer (current-buffer))
+	 (if (> (length (window-list)) 1)
+	     (delete-window))
+	 )
   )
 
 (evil-leader/set-key
@@ -112,11 +120,11 @@
 	 (interactive)
 	 (split-window-below)
 	 (other-window 1))
-  "w/" (lambda ()
-	 (interactive)
-	 (split-window-right)
-	 (other-window 1))
   )
+(evil-global-set-key 'normal (kbd "SPC w /") (lambda ()
+					       (interactive)
+					       (split-window-right)
+					       (other-window 1)))
 
 (evil-leader/set-key
   "4" 'evil-end-of-line
@@ -138,12 +146,28 @@
   (call-interactively 'describe-variable)
   (switch-to-buffer-other-window "*Help*"))
 
+(defun describe-mode-and-switch-to-window ()
+  (interactive)
+  (call-interactively 'describe-mode)
+  (switch-to-buffer-other-window "*Help*"))
+
+(defun man-and-switch-to-window ()
+  (interactive)
+  (call-interactively 'man)
+  (other-window 1))
+
 (evil-leader/set-key
   "hi" 'info
-  "hr" 'info-emacs-manual
+  "he" 'info-emacs-manual
+  "hm" 'man-and-switch-to-window
   "hdk" 'describe-key-and-switch-to-window
   "hdf" 'describe-function-and-switch-to-window
   "hdv" 'describe-variable-and-switch-to-window
+  "hdm" 'describe-mode-and-switch-to-window
+  )
+
+(evil-define-key 'normal Man-mode-map
+  "q" 'quit-window
   )
 
 (global-set-key (kbd "C-c h d k") 'describe-key-and-switch-to-window)

@@ -6,7 +6,7 @@
 	    (require 'init-semantic)
 	    (require 'init-gtags)
 	    (require 'init-company)
-	    (require 'init-ycmd)
+	    ;; (require 'init-ycmd)
 	    
 	    ;; auto indenting and pairing curly brace
 	    (defun c-mode-insert-lcurly ()

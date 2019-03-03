@@ -100,4 +100,13 @@
 (define-key evil-normal-state-map (kbd "SPC p a") 'helm-projectile-ag)
 (define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
 
+(evil-define-key 'normal helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump)
+(evil-define-key 'normal helm-ag-mode-map (kbd "q") 'quit-window)
+
+(add-hook 'helm-ag-mode-hook
+	  (lambda ()
+	    (interactive)
+	    (read-only-mode -1)
+	   ))
+
 (provide 'init-helm)

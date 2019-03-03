@@ -21,7 +21,14 @@
 			(bookmarks . 10)
 			))
 (setq show-week-agenda-p t)
-(dashboard-setup-startup-hook)
+
+;; (dashboard-setup-startup-hook)
+;; 1. needs a hook that invoked right after dashboard buffer inited
+;; 2. dashboard-next-section not working through elisp
+;; (add-hook 'after-init-hook (lambda ()
+				 ;; (with-current-buffer "*dashboard*"
+				 ;; (next-line 10))
+				 ;; ))
 
 (require-package 'hl-anything)
 (global-hl-line-mode)
@@ -140,6 +147,8 @@
 (require 'sublimity-attractive)
 
 (setq sublimity-attractive-centering-width 80)
+
+(sublimity-mode 1)
 
 (evil-leader/set-key
   "tww" (lambda () (interactive)
