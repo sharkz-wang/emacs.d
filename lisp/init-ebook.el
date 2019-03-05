@@ -85,8 +85,8 @@
 
   ;; TODO: integrate it to evil-mark
   (evil-define-key 'normal pdf-view-mode-map (kbd "m") 'pdf-view-position-to-register)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "`") 'evil-goto-global-mark-line)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "'") 'pdf-view-jump-to-register)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "'") 'evil-goto-global-mark-line)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "`") 'pdf-view-jump-to-register)
 
   (evil-define-key 'normal pdf-view-mode-map
     (kbd "SPC s s") 'pdf-occur

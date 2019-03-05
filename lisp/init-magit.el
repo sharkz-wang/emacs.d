@@ -1,6 +1,9 @@
 ;; TODO: load magit only since first time in git repo
 (require-package 'magit)
 
+(custom-set-variables
+ '(magit-log-arguments '("-n32" "--decorate")))
+
 ;; set magit popup windows default to full-screen
 (setq magit-display-buffer-function
 	  #'magit-display-buffer-fullframe-status-v1)
@@ -82,9 +85,21 @@
     (magit-dispatch-popup)
     ))
 
+(defun magit-status-simplified ()
+  (interactive)
+       (let ((magit-status-sections-hook
+	      '(magit-insert-unstaged-changes
+		magit-insert-staged-changes))
+	     )
+	 (magit-status))
+  (beginning-of-buffer)
+  (magit-section-forward)
+ )
+
 (evil-leader/set-key
-  "gs" 'magit-status
-  "gm" 'helm-magit-dispatch-popup
+  "gS" 'magit-status
+  "gs" 'magit-status-simplified
+  "gm" 'helm-magit-dispatch
   "gb" 'magit-blame
   "gfh" 'magit-log-buffer-file
   "gr" 'magit-diff-toggle-refine-hunk

@@ -4,9 +4,9 @@
 ;; bind C-w back in evil emacs state
 (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
 
-;; swap key-bindings "'" and "`" for convenience
+;; both key-bindings "'" and "`" set to `evil-goto-mark' for convenience
 (define-key evil-normal-state-map "'" 'evil-goto-mark)
-(define-key evil-normal-state-map "`" 'evil-goto-mark-line)
+(define-key evil-normal-state-map "`" 'evil-goto-mark)
 
 ;; bind "j" and "k" for visual line
 (define-key evil-normal-state-map "j" 'evil-next-visual-line)
@@ -190,6 +190,6 @@
   )
 
 (evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
-(evil-global-set-key 'normal "`" 'evil-goto-global-mark-line)
+(evil-global-set-key 'normal "'" 'evil-goto-global-mark-line)
 
 (provide 'init-evil)
