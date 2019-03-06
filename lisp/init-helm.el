@@ -29,6 +29,20 @@
 	   :candidates bookmarked-search-directories)
 	 )))
 
+(defun projectile-dirs ()
+  (seq-uniq
+   (sort
+    (mapcar
+     'file-name-directory (projectile-relevant-known-projects))
+    'string<)))
+
+(defun helm-do-ag-projectile-dirs ()
+  (interactive)
+  (helm-do-ag
+   (helm :sources
+	 (helm-build-sync-source "recentf directories"
+	   :candidates (projectile-dirs)))))
+
 (defun recentf-dirs ()
   (seq-uniq
    (sort
@@ -45,6 +59,7 @@
 ;; default search functions that could be overriden by special major mode functions
 (evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
 (evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-ag)
+(evil-global-set-key 'normal (kbd "SPC s P") 'helm-do-ag-projectile-dirs)
 (evil-global-set-key 'normal (kbd "SPC s f") 'helm-do-ag)
 (evil-global-set-key
  'normal (kbd "SPC s d")
