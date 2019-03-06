@@ -29,14 +29,27 @@
 	   :candidates bookmarked-search-directories)
 	 )))
 
+(defun recentf-dirs ()
+  (seq-uniq
+   (sort
+    (mapcar 'file-name-directory recentf-list)
+    'string<)))
+
+(defun helm-do-ag-recentf-dirs ()
+  (interactive)
+  (helm-do-ag
+   (helm :sources
+	 (helm-build-sync-source "recentf directories"
+	   :candidates (recentf-dirs)))))
+
 ;; default search functions that could be overriden by special major mode functions
 (evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
 (evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-ag)
 (evil-global-set-key 'normal (kbd "SPC s f") 'helm-do-ag)
 (evil-global-set-key
  'normal (kbd "SPC s d")
- (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name))))
- )
+ (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name)))))
+(evil-global-set-key 'normal (kbd "SPC s D") 'helm-do-ag-recentf-dirs)
 
 (require-package 'transient)
 (load-file "/Users/sharkz/.emacs.d/elpa/transient-20190219.1346/transient.el")
