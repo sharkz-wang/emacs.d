@@ -64,7 +64,7 @@
 (evil-global-set-key
  'normal (kbd "SPC s d")
  (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name)))))
-(evil-global-set-key 'normal (kbd "SPC s D") 'helm-do-ag-recentf-dirs)
+(evil-global-set-key 'normal (kbd "SPC s r") 'helm-do-ag-recentf-dirs)
 
 (require-package 'transient)
 (load-file "/Users/sharkz/.emacs.d/elpa/transient-20190219.1346/transient.el")

@@ -23,4 +23,10 @@
 	    (evil-define-key 'motion ztree-mode-map (kbd "q") 'quit-window)
      ))
 
+(defun copy-file-location ()
+  (interactive)
+  (kill-new (format "%s:%d" (buffer-file-name) (line-number-at-pos))))
+
+(define-key evil-normal-state-map (kbd "SPC t p") 'copy-file-location)
+
 (provide 'init-misc)

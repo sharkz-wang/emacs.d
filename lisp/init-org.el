@@ -204,10 +204,16 @@
 
 (add-hook 'org-agenda-mode-hook
 	  (lambda () (interactive)
-	    (evil-define-key 'normal org-agenda-mode-map (kbd "RET") 'org-agenda-switch-to)
+	    (evil-define-key 'normal org-agenda-mode-map (kbd "RET")
+	      (lambda ()
+		(interactive)
+		(let ((buffer (buffer-name)))
+		  (org-agenda-switch-to)
+		  (bury-buffer buffer))))
 	    (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
 	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
 	    (evil-define-key 'normal org-agenda-mode-map "t" 'org-agenda-todo)
+	    (evil-define-key 'normal org-agenda-mode-map "s" 'helm-occur)
 	    (evil-define-key 'normal org-agenda-mode-map (kbd "C-c C-c") 'org-agenda-set-tags)
 	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
 	    ))
