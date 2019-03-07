@@ -3,3 +3,17 @@
 
 # Packaging
 .cask
+
+# Config files
+bookmarks
+.saveplace
+recentf
+auto-save-list/
+elpa/
+tramp
+semanticdb/
+projectile-bookmarks.eld
+projectile.cache
+smex-items
+nov-places
+transient/
