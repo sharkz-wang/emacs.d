@@ -14,8 +14,7 @@
 
 (require-package 'dashboard)
 (setq dashboard-startup-banner 'logo)
-(setq dashboard-items '(
-			agenda
+(setq dashboard-items '(agenda
 			(recents  . 10)
 			(projects . 10)
 			(bookmarks . 10)

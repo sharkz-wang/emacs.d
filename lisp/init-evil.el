@@ -174,20 +174,38 @@
   (evil-add-to-alist
    'evil-global-markers-alist
    char
-   (list (buffer-name) (point) (set-marker (make-marker) (point))))
-  )
+   (if (buffer-file-name)
+       (list 'file (buffer-file-name) (point))
+       (list 'buffer (buffer-name) (point)))))
+
+(defun get-global-mark (char)
+  (cdr-safe
+   (assq char
+	 (default-value
+	   'evil-global-markers-alist))))
 
 (defun evil-goto-global-mark-line (char &optional noerror)
   "Go to the line of the marker specified by CHAR."
   (interactive (list (read-char)))
-  (let (
-	(mark (cdr-safe (assq char (default-value
-				     'evil-global-markers-alist))))
-	)
-    (switch-to-buffer (car mark))
-    (goto-char (nth 2 mark))
-    )
-  )
+  (let ((mark (get-global-mark char)))
+    (if (not (equalp mark nil))
+	(let ((type (car mark))
+	      (name (nth 1 mark))
+	      (pos (nth 2 mark)))
+	  (progn
+	    (if (equalp (car mark) 'file)
+		(progn
+		  (find-file name)
+		  (goto-char pos))
+	      (progn
+		(if (get-buffer name)
+		    (progn
+		      (switch-to-buffer name)
+		      (goto-char pos))
+		  (message
+		   (format "Buffer `%s' does not exist" (nth 1 mark)))
+		  )))))
+      (progn (message (format "Mark `%c' undefined" char))))))
 
 (evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
 (evil-global-set-key 'normal "'" 'evil-goto-global-mark-line)
