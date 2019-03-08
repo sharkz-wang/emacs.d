@@ -106,6 +106,55 @@
   "gt" 'git-timemachine
   )
 
+(defun magit-section-forward-scroll-to-top ()
+  (interactive)
+  (magit-section-forward)
+  (evil-scroll-line-to-top (line-number-at-pos))
+    )
+
+(defun magit-section-backward-scroll-to-top ()
+  (interactive)
+  (magit-section-backward)
+  (evil-scroll-line-to-top (line-number-at-pos))
+    )
+
+(defun magit-section-forward-sibling-scroll-to-top ()
+  (interactive)
+  (magit-section-forward-sibling)
+  (evil-scroll-line-to-top (line-number-at-pos))
+    )
+
+(defun magit-section-backward-sibling-scroll-to-top ()
+  (interactive)
+  (magit-section-backward-sibling)
+  (evil-scroll-line-to-top (line-number-at-pos))
+    )
+
+(evil-define-key evil-magit-state magit-mode-map
+  (kbd "C-j") 'magit-section-forward-scroll-to-top)
+(evil-define-key evil-magit-state magit-mode-map
+  (kbd "C-k") 'magit-section-backward-scroll-to-top)
+(evil-define-key evil-magit-state magit-mode-map
+  (kbd "gj") 'magit-section-forward-sibling-scroll-to-top)
+(evil-define-key evil-magit-state magit-mode-map
+  (kbd "gk") 'magit-section-backward-sibling-scroll-to-top)
+
+(setq magit-section-cycle-level 2)
+(defun magit-section-cycle-show-level-all ()
+  (interactive)
+  (if (eq magit-section-cycle-level 2)
+      (progn
+	(magit-section-show-level-4-all)
+	(setq magit-section-cycle-level 4)
+	)
+    (progn
+      (magit-section-show-level-2-all)
+      (setq magit-section-cycle-level 2)
+      )))
+
+(evil-define-key evil-magit-state magit-mode-map
+  (kbd "<backtab>") 'magit-section-cycle-show-level-all)
+
 (add-hook 'magit-popup-mode-hook
 	  (lambda ()
 	    (setq-local evil-default-state 'emacs)
