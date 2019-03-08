@@ -5,6 +5,11 @@
 
 (require 'helm-config)
 
+(add-hook 'helm-major-mode-hook
+	  (lambda ()
+	    (setq-local sublimity-attractive-centering-width 130)
+	   ))
+
 (evil-leader/set-key
   "bb" 'helm-buffers-list
   "rl" 'helm-resume
