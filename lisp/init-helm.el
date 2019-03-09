@@ -34,19 +34,42 @@
 	   :candidates bookmarked-search-directories)
 	 )))
 
-(defun projectile-dirs ()
+(defun projectile-projects ()
   (seq-uniq
    (sort
     (mapcar
      'file-name-directory (projectile-relevant-known-projects))
     'string<)))
 
-(defun helm-do-ag-projectile-dirs ()
+(defun helm-projectile-projects ()
+    (helm :sources
+	  (helm-build-sync-source "projectile directories"
+	    :candidates (projectile-projects))))
+
+(defun projectile-project-dirs-list (project-root)
+  (seq-uniq
+   (sort
+    (mapcar
+     'file-name-directory
+     (helm-browse-project-walk-directory project-root))
+    'string<
+    )))
+
+(defun helm-projectile-project-dirs (project-root)
+  (helm :sources
+	  (helm-build-sync-source "recentf directories"
+	    :candidates (projectile-project-dirs-list project-root))))
+
+(defun helm-projectile-dirs-ag ()
   (interactive)
-  (helm-do-ag
-   (helm :sources
-	 (helm-build-sync-source "recentf directories"
-	   :candidates (projectile-dirs)))))
+  (let ((project-root (projectile-project-root)))
+    (helm-do-ag (helm-projectile-project-dirs project-root))))
+
+(defun helm-projectile-project-dirs-ag ()
+  (interactive)
+  (let ((project-root (helm-projectile-projects)))
+    (helm-do-ag (helm-projectile-project-dirs project-root))))
+
 
 (defun recentf-dirs ()
   (seq-uniq
@@ -63,8 +86,9 @@
 
 ;; default search functions that could be overriden by special major mode functions
 (evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
-(evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-ag)
-(evil-global-set-key 'normal (kbd "SPC s P") 'helm-do-ag-projectile-dirs)
+(evil-global-set-key 'normal (kbd "SPC s /") 'helm-projectile-ag)
+(evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-dirs-ag)
+(evil-global-set-key 'normal (kbd "SPC s P") 'helm-projectile-project-dirs-ag)
 (evil-global-set-key 'normal (kbd "SPC s f") 'helm-do-ag)
 (evil-global-set-key
  'normal (kbd "SPC s d")
