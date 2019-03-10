@@ -337,15 +337,6 @@
   ",i" 'mc/edit-lines
   )
 
-(defun dired-current-dir (arg)
-  (interactive "P")
-  (dired (f-dirname (buffer-file-name)))
-  )
-
-(evil-leader/set-key
-  "ad" 'dired-current-dir
-  )
-
 (defun browser-google-search (query)
   (interactive)
   (browse-url (format

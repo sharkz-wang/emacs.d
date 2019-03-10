@@ -63,6 +63,42 @@
 (evil-define-key 'normal dired-mode-map (kbd "SPC w /")
   (lambda () (interactive) (split-window-right) (other-window 1)))
 
+(defun dired-current-dir (arg)
+  (interactive "P")
+  (dired (f-dirname (buffer-file-name)))
+  )
+
+(defun helm-dired-recentf-dirs ()
+  (interactive)
+  (dired
+   (helm :sources
+	 (helm-build-sync-source "recentf directories"
+	   :candidates (recentf-dirs)))))
+
+(defun helm-dired-projectile-dirs ()
+  (interactive)
+  (let ((project-root (projectile-project-root)))
+    (dired (helm-projectile-project-dirs project-root))))
+
+(defun helm-dired-projectile-project-dirs ()
+  (interactive)
+  (let ((project-root (helm-projectile-projects)))
+    (dired (helm-projectile-project-dirs project-root))))
+
+(evil-global-set-key 'normal (kbd "SPC d d") 'dired-current-dir)
+(evil-global-set-key 'normal (kbd "SPC d p") 'helm-dired-projectile-dirs)
+(evil-global-set-key 'normal (kbd "SPC d P") 'helm-dired-projectile-project-dirs)
+(evil-global-set-key 'normal (kbd "SPC d r") 'helm-dired-recentf-dirs)
+
+(evil-define-key 'normal dired-mode-map (kbd "SPC d p") 'helm-dired-projectile-dirs)
+(evil-define-key 'normal dired-mode-map (kbd "SPC d P") 'helm-dired-projectile-project-dirs)
+(evil-define-key 'normal dired-mode-map (kbd "SPC d r") 'helm-dired-recentf-dirs)
+
+(evil-define-key 'normal dired-mode-map "v" 'evil-visual-char)
+(evil-define-key 'normal dired-mode-map "V" 'evil-visual-line)
+(evil-define-key 'normal dired-mode-map "m" 'evil-set-marker-local-global)
+(evil-define-key 'normal dired-mode-map "M" 'dired-mark)
+
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (evil-snipe-mode -1)
