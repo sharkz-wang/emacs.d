@@ -210,4 +210,7 @@
 (evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
 (evil-global-set-key 'normal "'" 'evil-goto-global-mark-line)
 
+(evil-global-set-key 'normal (kbd "C-M-o") 'evil-jump-backward)
+(evil-global-set-key 'normal (kbd "C-M-i") 'evil-jump-forward)
+
 (provide 'init-evil)

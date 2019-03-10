@@ -70,6 +70,8 @@
   (let ((project-root (helm-projectile-projects)))
     (helm-do-ag (helm-projectile-project-dirs project-root))))
 
+(require 'recentf)
+(recentf-load-list)
 
 (defun recentf-dirs ()
   (seq-uniq

@@ -88,6 +88,7 @@
 (evil-leader/set-key
   "ee" 'eval-last-sexp
   "eb" 'eval-buffer
+  "er" 'eval-region
   )
 
 (evil-leader/set-key
@@ -101,6 +102,7 @@
 (evil-leader/set-key
   "fs" 'save-buffer
   "ff" 'helm-find-files
+  "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
   )
 
 (evil-leader/set-key

@@ -214,6 +214,7 @@
 	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
 	    (evil-define-key 'normal org-agenda-mode-map "t" 'org-agenda-todo)
 	    (evil-define-key 'normal org-agenda-mode-map "s" 'helm-occur)
+	    (evil-define-key 'normal org-agenda-mode-map "/" 'helm-occur)
 	    (evil-define-key 'normal org-agenda-mode-map (kbd "C-c C-c") 'org-agenda-set-tags)
 	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
 	    ))

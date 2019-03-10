@@ -44,7 +44,12 @@
 (setq git-gutter:modified-sign " * ")
 
 (evil-leader/set-key
-  "g.." 'git-gutter-mode
+  "g.." (lambda ()
+	  (interactive)
+	  (git-gutter:toggle)
+	  (switch-to-last-buffer)
+	  (switch-to-last-buffer)
+	 )
   "g.s" 'git-gutter:stage-hunk
   "g.d" 'git-gutter:popup-diff
   "g.r" 'git-gutter:revert-hunk
