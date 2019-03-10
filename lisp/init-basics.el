@@ -367,6 +367,7 @@
 	    (turn-off-evil-mode)
 	    (evil-normal-state)
 	    (evil-define-key 'normal ibuffer-mode-map (kbd "SPC s s") 'helm-occur)
+	    (evil-define-key 'normal ibuffer-mode-map (kbd "/") 'helm-occur)
 	    (evil-define-key 'normal ibuffer-mode-map (kbd "s a") 'ibuffer-do-sort-by-alphabetic)
 	    (evil-define-key 'normal ibuffer-mode-map (kbd "s f") 'ibuffer-do-sort-by-filename/process)
 	    (evil-define-key 'normal ibuffer-mode-map (kbd "s m") 'ibuffer-do-sort-by-major-mode)
