@@ -219,4 +219,9 @@
 	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
 	    ))
 
+(require-package 'org-journal)
+(custom-set-variables
+ '(org-journal-dir
+   (concat (file-name-as-directory org-agenda-dir) "journal")))
+
 (provide 'init-org)
