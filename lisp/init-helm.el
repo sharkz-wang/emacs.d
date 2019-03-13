@@ -19,6 +19,7 @@
   )
 
 (global-set-key (kbd "M-SPC") 'helm-buffers-list)
+(evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
 
 (evil-leader/set-key
   "hl" 'helm-info-elisp

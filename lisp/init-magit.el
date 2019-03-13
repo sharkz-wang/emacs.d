@@ -109,6 +109,8 @@
   "gfh" 'magit-log-buffer-file
   "gr" 'magit-diff-toggle-refine-hunk
   "gt" 'git-timemachine
+  "g$" 'magit-process-buffer
+  "g4" 'magit-process-buffer
   )
 
 (defun magit-section-forward-scroll-to-top ()
