@@ -145,7 +145,7 @@
 (helm-projectile-on)
 
 (projectile-global-mode 1)
-(setq projectile-indexing-method 'alien)
+(setq projectile-indexing-method 'hybrid)
 (setq projectile-enable-caching t)
 (setq projectile-completion-system 'helm)
 
