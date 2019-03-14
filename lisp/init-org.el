@@ -28,6 +28,18 @@
 (setq org-agenda-dir "")
 (setq org-agenda-files (sa-find-org-file-recursively org-agenda-dir))
 
+(setq org-snapshot-dir "")
+
+(defun dired-snapshot-dir (arg)
+  (interactive "P")
+  (dired org-snapshot-dir))
+
+(evil-leader/set-key
+  "ds" 'dired-snapshot-dir
+  )
+
+(setq org-link-parameters '(("file" :complete org-file-complete-link)))
+
 (setq org-startup-folded 'nofold)
 (setq org-todo-keywords
       '(
@@ -223,5 +235,18 @@
 (custom-set-variables
  '(org-journal-dir
    (concat (file-name-as-directory org-agenda-dir) "journal")))
+
+(defun org-journal-create-new-entry-and-edit ()
+  (interactive)
+  (org-journal-new-entry nil)
+  (delete-other-windows)
+  (outline-show-all)
+  (evil-insert-state))
+
+(evil-leader/set-key
+  "\\" 'org-journal-create-new-entry-and-edit
+  "ajj" 'org-journal-open-next-entry
+  "ajk" 'org-journal-open-previous-entry
+  )
 
 (provide 'init-org)

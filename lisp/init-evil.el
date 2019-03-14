@@ -93,8 +93,7 @@
 		  (next-line)
 		  (next-line)
 		  (end-of-line)
-		  )
-  "\\" 'evilnc-comment-operator)
+		  ))
 
 ;; set kj and jk as escape keys
 (defadvice

@@ -29,4 +29,6 @@
 
 (define-key evil-normal-state-map (kbd "SPC t p") 'copy-file-location)
 
+(evil-define-key 'normal image-mode-map (kbd "q") 'quit-window)
+
 (provide 'init-misc)
