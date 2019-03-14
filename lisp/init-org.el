@@ -32,10 +32,17 @@
 
 (defun dired-snapshot-dir (arg)
   (interactive "P")
-  (dired org-snapshot-dir))
+  (dired (file-name-as-directory org-snapshot-dir)))
+
+(defun dired-fig-dir (arg)
+  (interactive "P")
+  (dired (concat
+	  (file-name-as-directory (f-dirname (buffer-file-name)))
+	  "fig")))
 
 (evil-leader/set-key
   "ds" 'dired-snapshot-dir
+  "df" 'dired-fig-dir
   )
 
 (setq org-link-parameters '(("file" :complete org-file-complete-link)))
