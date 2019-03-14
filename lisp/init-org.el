@@ -45,7 +45,12 @@
   "df" 'dired-fig-dir
   )
 
-(setq org-link-parameters '(("file" :complete org-file-complete-link)))
+(setq org-link-parameters
+      '(
+	("file" :complete org-file-complete-link)
+	("http" :follow (lambda (path) (browse-url (concat "http:" path))))
+	("https" :follow (lambda (path) (browse-url (concat "https:" path))))
+	))
 
 (setq org-startup-folded 'nofold)
 (setq org-todo-keywords
