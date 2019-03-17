@@ -105,14 +105,12 @@
   "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
   )
 
-(evil-leader/set-key
-  "bd" (lambda ()
-	 (interactive)
-	 (kill-buffer (current-buffer))
-	 (if (> (length (window-list)) 1)
-	     (delete-window))
-	 )
-  )
+(define-key evil-normal-state-map (kbd "SPC b d")
+  '(lambda ()
+     (interactive)
+     (kill-buffer (current-buffer))
+     (if (> (length (window-list)) 1)
+	 (delete-window))))
 
 (evil-leader/set-key
   "ww" 'other-window
@@ -127,6 +125,7 @@
 					       (interactive)
 					       (split-window-right)
 					       (other-window 1)))
+(define-key evil-normal-state-map (kbd "SPC w q") 'quit-window)
 
 (evil-leader/set-key
   "4" 'evil-end-of-line

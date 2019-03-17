@@ -20,6 +20,8 @@
 (require-package 'yasnippet)
 (yas-global-mode 1)
 
+(require-package 'yasnippet-snippets)
+
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 (defun company-mode/backend-with-yas (backend)
@@ -35,5 +37,9 @@
   (evil-emacs-state)
   (yas-expand-snippet (yas-lookup-snippet keyword))
   )
+
+(require-package 'helm-c-yasnippet)
+
+(evil-global-set-key 'normal (kbd "SPC DEL") 'helm-yas-complete)
 
 (provide 'init-company)

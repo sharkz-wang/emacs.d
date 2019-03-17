@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: PlantUML Org Source Block
+# key: plantuml-org-src-blk
+# --
+
+#+BEGIN_SRC plantuml :file (make-temp-file "plantuml-" nil ".png")
+@startuml
+@enduml
+#+END_SRC

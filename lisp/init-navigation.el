@@ -1,7 +1,7 @@
 (require-package 'avy)
 
 (evil-leader/set-key
-  "jj" 'avy-goto-char
+  "j" 'avy-goto-char
   )
 
 (require-package 'ace-window)

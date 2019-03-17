@@ -25,7 +25,7 @@
 
 (defun copy-file-location ()
   (interactive)
-  (kill-new (format "%s:%d" (buffer-file-name) (line-number-at-pos))))
+  (kill-new (format "[file:%s::%d]" (buffer-file-name) (line-number-at-pos))))
 
 (define-key evil-normal-state-map (kbd "SPC t p") 'copy-file-location)
 

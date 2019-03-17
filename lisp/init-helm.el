@@ -1,6 +1,12 @@
 (require-package 'helm)
 (helm-mode 1)
 
+(helm-autoresize-mode t)
+
+(custom-set-variables
+ '(helm-autoresize-max-height 60)
+ '(helm-autoresize-min-height 60))
+
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 (require 'helm-config)
@@ -18,7 +24,6 @@
   "ry" 'helm-show-kill-ring
   )
 
-(global-set-key (kbd "M-SPC") 'helm-buffers-list)
 (evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
 
 (evil-leader/set-key
@@ -47,19 +52,11 @@
 	  (helm-build-sync-source "projectile directories"
 	    :candidates (projectile-projects))))
 
-(defun projectile-project-dirs-list (project-root)
-  (seq-uniq
-   (sort
-    (mapcar
-     'file-name-directory
-     (helm-browse-project-walk-directory project-root))
-    'string<
-    )))
-
 (defun helm-projectile-project-dirs (project-root)
-  (helm :sources
-	  (helm-build-sync-source "recentf directories"
-	    :candidates (projectile-project-dirs-list project-root))))
+  (f-dirname
+   (helm :sources
+	 (helm-build-sync-source "recentf directories"
+	   :candidates (helm-browse-project-walk-directory project-root)))))
 
 (defun helm-projectile-dirs-ag ()
   (interactive)
@@ -74,18 +71,12 @@
 (require 'recentf)
 (recentf-load-list)
 
-(defun recentf-dirs ()
-  (seq-uniq
-   (sort
-    (mapcar 'file-name-directory recentf-list)
-    'string<)))
-
 (defun helm-do-ag-recentf-dirs ()
   (interactive)
-  (helm-do-ag
+  (helm-do-ag (f-dirname
    (helm :sources
 	 (helm-build-sync-source "recentf directories"
-	   :candidates (recentf-dirs)))))
+	   :candidates recentf-list)))))
 
 ;; default search functions that could be overriden by special major mode functions
 (evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
@@ -119,8 +110,32 @@
 
 (evil-global-set-key 'normal (kbd "SPC s m") 'search-bookmarked-dirs)
 (evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
-(evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu)
-(evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers)
+
+(require 'cl)
+;; a `helm-imenu' variation that won't take `thing-at-point' as default input
+(defun helm-imenu-no-default ()
+  (interactive)
+  (cl-letf (((symbol-function 'thing-at-point)
+	     #'(lambda (thing &optional no-properties) nil))
+	    ;; XXX: 90 was the max valid number
+	    (helm-autoresize-max-height 90)
+	    (helm-autoresize-min-height 90)
+	    )
+    (helm-imenu)))
+
+;; ditto `helm-imenu-in-all-buffers'
+(defun helm-imenu-in-all-buffers-no-default ()
+  (interactive)
+  (cl-letf (((symbol-function 'thing-at-point)
+	     #'(lambda (thing &optional no-properties) nil))
+	    ;; XXX: 90 was the max valid number
+	    (helm-autoresize-max-height 90)
+	    (helm-autoresize-min-height 90)
+	    )
+    (helm-imenu-in-all-buffers)))
+
+(evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu-no-default)
+(evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers-no-default)
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)

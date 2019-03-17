@@ -11,9 +11,10 @@
 (require 'init-python)
 (require 'init-c)
 (require 'init-elisp)
+(require 'init-org)
+(require 'init-uml)
 (require 'init-dired)
 (require 'init-ebook)
 (require 'init-hex-file)
 (require 'init-misc)
 
-(require 'init-org)

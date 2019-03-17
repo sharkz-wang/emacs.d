@@ -64,16 +64,19 @@
 	("scheduled" . ?s)
 	))
 
+(defun org-journal-find-location ()
+  (org-journal-new-entry t)
+  (goto-char (point-min)))
+
 (setq org-capture-templates
       '(
 	("t" "Todo"
-	 entry (file+headline "~/note-system.org" "Tasks")
+	 entry (function org-journal-find-location)
 	 "* TODO %?%i\n%T")
 	("c" "Trace code note"
-	 entry (file+olp "~/gtd.org" "Trace code")
-	 "* %?%i\n%T\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
-	)
-      )
+	 entry (function org-journal-find-location)
+	 "* %?%i\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
+	))
 
 (defun org-todo-list-position-to-first-heading ()
   (interactive)
@@ -255,10 +258,47 @@
   (outline-show-all)
   (evil-insert-state))
 
+(defun quit-all-org-journal-window ()
+  (interactive)
+  (dolist (buf (buffer-list))
+    (with-current-buffer (buffer-name buf)
+      (when (eq major-mode 'org-journal-mode)
+	(bury-buffer (buffer-name buf)))))
+  (switch-to-buffer (car (buffer-list))))
+
+(defun kill-all-org-journal-buffer ()
+  (interactive)
+  (dolist (buf (buffer-list))
+    (with-current-buffer (buffer-name buf)
+      (when (eq major-mode 'org-journal-mode)
+	(kill-buffer (buffer-name buf))))))
+
+(defun bury-all-other-journal-and-switch-to-last-buffer ()
+  (interactive)
+  (dolist (buf (buffer-list))
+    (when (not (equal (current-buffer) buf))
+     (with-current-buffer (buffer-name buf)
+      (when (eq major-mode 'org-journal-mode)
+	(message (format "bury: %s" (buffer-name buf)))
+	(bury-buffer (buffer-name buf))))))
+  (switch-to-last-buffer))
+
 (evil-leader/set-key
   "\\" 'org-journal-create-new-entry-and-edit
   "ajj" 'org-journal-open-next-entry
   "ajk" 'org-journal-open-previous-entry
   )
+
+(global-set-key (kbd "M-SPC") 'org-journal-create-new-entry-and-edit)
+
+(evil-define-key 'normal org-journal-mode-map
+  (kbd "SPC <tab>") 'bury-all-other-journal-and-switch-to-last-buffer)
+
+(evil-define-key 'normal org-journal-mode-map
+  (kbd "SPC b d") 'kill-all-org-journal-buffer)
+(evil-define-key 'normal org-journal-mode-map
+  (kbd "SPC w q") 'quit-all-org-journal-window)
+
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
 (provide 'init-org)

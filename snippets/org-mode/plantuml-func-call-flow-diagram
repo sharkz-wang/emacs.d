@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: PlantUML Function Call Flow Diagram
+# key: plantuml-func-call-flow-diagram
+# --
+
+rectangle "function-1" as src
+rectangle "function-2"  as dest
+src --> dest
