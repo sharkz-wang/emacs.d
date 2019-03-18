@@ -8,6 +8,7 @@
 (require 'init-helm)
 (require 'init-dash)
 (require 'init-magit)
+(require 'init-search)
 (require 'init-python)
 (require 'init-c)
 (require 'init-elisp)

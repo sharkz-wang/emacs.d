@@ -78,26 +78,6 @@
  'normal (kbd "SPC s d")
  (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name)))))
 (evil-global-set-key 'normal (kbd "SPC s r") 'helm-do-ag-recentf-dirs)
-
-(require-package 'transient)
-(load-file "/Users/sharkz/.emacs.d/elpa/transient-20190219.1346/transient.el")
-
-(defmacro define-search-dir-func (name dir)
-  (list 'defun name ()
-	(list 'interactive)
-	(list 'helm-do-ag dir)))
-
-(define-search-dir-func search-lisp-dir "~/.emacs.d/lisp")
-(define-search-dir-func search-emacsd-dir "~/.emacs.d")
-
-(define-transient-command search-bookmarked-dirs ()
- ["Transient and dwim commands"
-   [
-    ("l" "~/.emacs.d/lisp" search-lisp-dir)
-    ("e" "~/.emacs.d"      search-emacsd-dir)
-    ]])
-
-(evil-global-set-key 'normal (kbd "SPC s m") 'search-bookmarked-dirs)
 (evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
 
 (require 'cl)
