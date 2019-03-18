@@ -145,7 +145,8 @@
 (require 'sublimity-scroll)
 (require 'sublimity-attractive)
 
-(setq sublimity-attractive-centering-width 80)
+(custom-set-variables
+ '(sublimity-attractive-centering-width 90))
 
 (sublimity-mode 1)
 

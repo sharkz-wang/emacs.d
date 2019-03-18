@@ -3,6 +3,7 @@
  '(org-snapshot-dir (expand-file-name "~/org/snapshots"))
  '(org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
  '(plantuml-jar-path (expand-file-name "~/plantuml.jar"))
+ '(sublimity-attractive-centering-width 90)
  )
 
 (provide 'cust-vars)
