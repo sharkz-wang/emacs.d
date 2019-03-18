@@ -104,7 +104,7 @@
 (evil-leader/set-key
   "gS" 'magit-status
   "gs" 'magit-status-simplified
-  "gm" 'helm-magit-dispatch
+  "gm" 'magit-dispatch
   "gb" 'magit-blame
   "gfh" 'magit-log-buffer-file
   "gr" 'magit-diff-toggle-refine-hunk

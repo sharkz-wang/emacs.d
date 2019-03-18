@@ -18,3 +18,4 @@
 (require 'init-hex-file)
 (require 'init-misc)
 
+(require 'cust-vars)

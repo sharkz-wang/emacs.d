@@ -1,4 +1,22 @@
 (require-package 'org)
+
+(defun update-org-agenda-files (dir path)
+  (set dir path)
+  (when (f-directory? path)
+    (setq org-agenda-files (sa-find-org-file-recursively path))))
+
+(defcustom org-agenda-dir "~/org"
+  "Default directory containing Org agenda files"
+  :type 'string
+  :initialize 'update-org-agenda-files
+  :set 'update-org-agenda-files
+  :group 'init-org)
+
+(defcustom org-snapshot-dir "~/org/snapshots"
+  "Default directory containing Org snapshot images"
+  :type 'string
+  :group 'init-org)
+
 (load-file "~/.emacs.d/elpa/org-pdfview-20180225.1006/org-pdfview.el")
 
 (setq org-agenda-window-setup 'only-window)
@@ -24,11 +42,6 @@
         (dolist (org-file (sa-find-org-file-recursively file-or-dir filext)
                           org-file-list) ; add files found to result
           (add-to-list 'org-file-list org-file)))))))
-
-(setq org-agenda-dir "")
-(setq org-agenda-files (sa-find-org-file-recursively org-agenda-dir))
-
-(setq org-snapshot-dir "")
 
 (defun dired-snapshot-dir (arg)
   (interactive "P")

@@ -30,16 +30,6 @@
   "hl" 'helm-info-elisp
   )
 
-(setq bookmarked-search-directories '())
-
-(defun helm-do-custom-ag ()
-  (interactive)
-  (helm-do-ag
-   (helm :sources
-	 (helm-build-sync-source "bookmarked directories"
-	   :candidates bookmarked-search-directories)
-	 )))
-
 (defun projectile-projects ()
   (seq-uniq
    (sort
@@ -103,7 +93,6 @@
 (define-transient-command search-bookmarked-dirs ()
  ["Transient and dwim commands"
    [
-    ("m" "helm menu"       helm-do-custom-ag)
     ("l" "~/.emacs.d/lisp" search-lisp-dir)
     ("e" "~/.emacs.d"      search-emacsd-dir)
     ]])
