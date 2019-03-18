@@ -81,6 +81,11 @@
   (org-journal-new-entry t)
   (goto-char (point-min)))
 
+(evil-define-operator org-visual-content (beg end type)
+  :move-point nil
+  :repeat nil
+  (buffer-substring beg end))
+
 (setq org-capture-templates
       '(
 	("t" "Todo"
@@ -88,7 +93,7 @@
 	 "* TODO %?%i\n%T")
 	("c" "Trace code note"
 	 entry (function org-journal-find-location)
-	 "* %?%i\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%c\n#+END_SRC")
+	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
 	))
 
 (defun org-todo-list-position-to-first-heading ()
