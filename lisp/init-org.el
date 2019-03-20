@@ -17,8 +17,6 @@
   :type 'string
   :group 'init-org)
 
-(load-file "~/.emacs.d/elpa/org-pdfview-20180225.1006/org-pdfview.el")
-
 (setq org-agenda-window-setup 'only-window)
 
 ;; recursively find .org files in provided directory
@@ -271,10 +269,10 @@
 
 (defun org-journal-create-new-entry-and-edit ()
   (interactive)
-  (org-journal-new-entry nil)
+  (org-journal-new-entry t)
   (delete-other-windows)
   (outline-show-all)
-  (evil-insert-state))
+  (beginning-of-buffer))
 
 (defun quit-all-org-journal-window ()
   (interactive)

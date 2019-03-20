@@ -19,6 +19,12 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
 
+(setq custom-file "~/.emacs.d/.cust-vars.el")
+(when (not (file-exists-p custom-file))
+  (with-temp-buffer (write-file custom-file))
+  )
+(load custom-file)
+
 (setq recentf-max-saved-items 200)
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)

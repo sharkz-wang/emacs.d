@@ -1,6 +1,8 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
+(require 'cust-vars)
+
 (require 'init-package)
 
 (require 'init-basics)
@@ -19,4 +21,3 @@
 (require 'init-hex-file)
 (require 'init-misc)
 
-(require 'cust-vars)

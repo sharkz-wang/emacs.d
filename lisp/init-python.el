@@ -39,7 +39,7 @@
    ;; (require 'init-semantic)
    (require 'init-gtags)
    (require 'init-company)
-   (require 'init-ycmd)
+   ;; (require 'init-ycmd)
 
    (setq-default flymake-no-changes-timeout '2)
 

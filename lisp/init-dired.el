@@ -70,10 +70,10 @@
 
 (defun helm-dired-recentf-dirs ()
   (interactive)
-  (dired
-   (helm :sources
-	 (helm-build-sync-source "recentf directories"
-	   :candidates (recentf-dirs)))))
+  (dired (f-dirname
+	  (helm :sources
+		(helm-build-sync-source "recentf directories"
+		  :candidates recentf-list)))))
 
 (defun helm-dired-projectile-dirs ()
   (interactive)

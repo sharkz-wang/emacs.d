@@ -20,5 +20,8 @@ transient/
 docsets/
 url/
 
+# Auto-generated customization vars
+.cust-vars.el
+
 # Backup files
 *~

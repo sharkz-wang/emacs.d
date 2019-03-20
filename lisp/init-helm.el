@@ -140,8 +140,16 @@
 (define-key evil-normal-state-map (kbd "SPC p o") 'helm-projectile-find-other-file)
 (define-key evil-normal-state-map (kbd "SPC p i") 'projectile-invalidate-cache)
 
+(define-key evil-normal-state-map (kbd "SPC p a")
+  (lambda ()
+    (interactive)
+    (projectile-add-known-project (f-dirname (buffer-file-name)))))
+(define-key evil-normal-state-map (kbd "SPC p d")
+  (lambda ()
+    (interactive)
+    (projectile-remove-known-project (f-dirname (buffer-file-name)))))
+
 (require-package 'helm-ag)
-(define-key evil-normal-state-map (kbd "SPC p a") 'helm-projectile-ag)
 (define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
 
 (evil-define-key 'normal helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump)
