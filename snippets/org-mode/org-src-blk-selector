@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Org Source Block Selector
+# key: org-src-blk-sel
+# --
+
+
+#+BEGIN_SRC `(helm :sources
+                   (helm-build-sync-source "source languages"
+                     :candidates (mapcar 'car org-src-lang-modes)))`
+$0
+#+END_SRC

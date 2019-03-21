@@ -3,7 +3,10 @@
 (defun update-org-agenda-files (dir path)
   (set dir path)
   (when (f-directory? path)
-    (setq org-agenda-files (sa-find-org-file-recursively path))))
+    (setq org-agenda-files (sa-find-org-file-recursively path))
+    (custom-set-variables
+     '(org-journal-dir
+       (concat (file-name-as-directory org-agenda-dir) "journal")))))
 
 (defcustom org-agenda-dir "~/org"
   "Default directory containing Org agenda files"
