@@ -273,6 +273,7 @@
 (custom-set-variables
  '(org-journal-dir
    (concat (file-name-as-directory org-agenda-dir) "journal")))
+(customize-set-variable 'org-journal-file-format "%Y%m%d.org")
 
 (defun org-journal-create-new-entry-and-edit ()
   (interactive)
@@ -323,5 +324,19 @@
   (kbd "SPC w q") 'quit-all-org-journal-window)
 
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
+;; for Linux
+;; export PKG_CONFIG_PATH
+;; export LD_LIBRARY_PATH
+;; with-imagemagick=yes
+;; check ldd
+;; (image-type-available-p 'imagemagick)
+;; (setenv "PATH" (concat (getenv "PATH") ":/path/imagemagick/bin"))
+;; (add-to-list 'exec-path (expand-file-name "/path/imagemagick/bin"))
+
+;; for MacOS
+;; `sudo port install emacs-app +imagemagick`
+
+(setq org-image-actual-width '(500))
 
 (provide 'init-org)
