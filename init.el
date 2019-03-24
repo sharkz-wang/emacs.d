@@ -17,6 +17,7 @@
 (require 'init-dired)
 (require 'init-ebook)
 (require 'init-hex-file)
+(require 'init-image)
 (require 'init-misc)
 
 (require 'cust-vars)
