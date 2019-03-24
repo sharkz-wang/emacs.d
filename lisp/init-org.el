@@ -94,7 +94,7 @@
 	 "* TODO %?%i\n%T")
 	("c" "Trace code note"
 	 entry (function org-journal-find-location)
-	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos)))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
+	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
 	))
 
 (defun org-todo-list-position-to-first-heading ()
@@ -199,6 +199,10 @@
     (kbd "SPC s d") (lambda () (interactive) (helm-org-rifle-directories (f-dirname (buffer-file-name))))
     )
   
+(defun advice-delete-other-windows (&rest args)
+  (delete-other-windows))
+(advice-add 'org-open-at-point :after #'advice-delete-other-windows)
+
   (evil-define-operator org-open-at-point-visaul (beg end type)
   :move-point nil
   :repeat nil
