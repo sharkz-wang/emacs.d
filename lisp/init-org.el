@@ -277,10 +277,17 @@
 
 (defun org-journal-create-new-entry-and-edit ()
   (interactive)
-  (org-journal-new-entry t)
-  (delete-other-windows)
-  (outline-show-all)
-  (beginning-of-buffer))
+  (let ((buf (get-buffer (file-name-nondirectory (org-journal-get-entry-path)))))
+    (if buf
+	(progn
+	  (switch-to-buffer buf)
+	  (delete-other-windows)
+	  )
+      (progn
+	(org-journal-new-entry t)
+	(delete-other-windows)
+	(outline-show-all)
+	(beginning-of-buffer)))))
 
 (defun quit-all-org-journal-window ()
   (interactive)
