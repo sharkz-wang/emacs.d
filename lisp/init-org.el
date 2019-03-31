@@ -70,6 +70,7 @@
 (setq org-todo-keywords
       '(
 	(sequence "TODO(t)" "WAIT(W@/!)" "|" "DONE(d!)" "ABORTED(a@)" "SUSPENDED(p@)")
+	(sequence "PROJECT(P)" "|" "DONE(d!)")
 	(sequence "WEEKLY(w)" "REPORT(r)" "|" "DONE(d!)")
 	(sequence "STUDY(s)" "RECAP(R)" "|" "DONE(d!)")
 	))
@@ -127,6 +128,10 @@
 	       :tag "scheduled"
 	       :order 2
 	       )
+	(:name "Project"
+	       :todo ("PROJECT")
+	       :order 3
+	       )
 	(:name "Weekly goal"
 	       :todo ("WEEKLY" "REPORT")
 	       :order 0
@@ -138,10 +143,10 @@
 	       )
 	(:name "Study"
 	       :todo ("STUDY" "RECAP")
-	       :order 3
+	       :order 4
 	       )
 	(:name "This Week"
-	       :order 4
+	       :order 5
 	       )
       ))
 
