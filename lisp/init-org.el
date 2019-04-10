@@ -351,4 +351,16 @@
 
 (setq org-image-actual-width '(500))
 
+(defun helm-occur-and-jump-org-agenda ()
+  (interactive)
+  (org-todo-list)
+   (with-current-buffer "*Org Agenda*"
+     (helm-occur)
+     (let ((buffer (buffer-name)))
+       (org-agenda-switch-to)
+       (bury-buffer buffer))
+     )
+ )
+(evil-global-set-key 'normal (kbd "SPC s l") 'helm-occur-and-jump-org-agenda)
+
 (provide 'init-org)
