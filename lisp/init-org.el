@@ -159,6 +159,8 @@
   (setq org-timer-default-timer 25)
   (setq org-log-into-drawer t)
 
+  (form-feed-mode 1)
+
   (evil-leader/set-key
     "ati" 'org-toggle-inline-images
     "att" 'org-toggle-link-display

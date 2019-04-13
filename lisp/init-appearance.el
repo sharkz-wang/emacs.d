@@ -140,8 +140,7 @@
 
 (doom-modeline-mode 1)
 
-(require-package 'page-break-lines)
-(global-page-break-lines-mode 1)
+(require-package 'form-feed)
 
 (require-package 'sublimity)
 (require 'sublimity-scroll)
