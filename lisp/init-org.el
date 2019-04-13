@@ -154,6 +154,8 @@
   
   (modify-syntax-entry ?- "w")
 
+  (setq org-imenu-depth 10)
+
   (setq org-startup-indented 1)
   (setq org-clock-sound t)
   (setq org-timer-default-timer 25)
