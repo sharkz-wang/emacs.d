@@ -139,6 +139,7 @@
 (setq doom-modeline-version t)
 
 (doom-modeline-mode 1)
+(display-time-mode 1)
 
 (require-package 'form-feed)
 
