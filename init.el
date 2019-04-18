@@ -15,6 +15,7 @@
 (require 'init-org)
 (require 'init-uml)
 (require 'init-dired)
+(require 'init-ediff)
 (require 'init-ebook)
 (require 'init-hex-file)
 (require 'init-image)
