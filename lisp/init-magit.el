@@ -90,19 +90,32 @@
     (magit-dispatch-popup)
     ))
 
+(setq magit-status-sections-hook-orig
+      magit-status-sections-hook)
+
 (defun magit-status-simplified ()
   (interactive)
-       (let ((magit-status-sections-hook
-	      '(magit-insert-unstaged-changes
-		magit-insert-staged-changes))
-	     )
-	 (magit-status))
+  (setq magit-status-sections-hook
+	'(magit-insert-unstaged-changes
+	  magit-insert-staged-changes))
+  (magit-status)
   (beginning-of-buffer)
   (magit-section-forward)
  )
 
+(defun magit-status-full ()
+  (interactive)
+  (setq magit-status-sections-hook
+	magit-status-sections-hook-orig)
+  (magit-status)
+  (beginning-of-buffer)
+  (magit-section-forward)
+  (magit-section-forward)
+  (magit-section-forward)
+ )
+
 (evil-leader/set-key
-  "gS" 'magit-status
+  "gS" 'magit-status-full
   "gs" 'magit-status-simplified
   "gm" 'magit-dispatch
   "gb" 'magit-blame
