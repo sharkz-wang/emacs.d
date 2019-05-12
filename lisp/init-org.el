@@ -161,6 +161,7 @@
   (setq org-timer-default-timer 25)
   (setq org-log-into-drawer t)
 
+  (org-indent-mode 1)
   (form-feed-mode 1)
 
   (evil-leader/set-key
