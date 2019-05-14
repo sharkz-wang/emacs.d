@@ -63,10 +63,11 @@
 
 (defun helm-do-ag-recentf-dirs ()
   (interactive)
-  (helm-do-ag (f-dirname
-   (helm :sources
-	 (helm-build-sync-source "recentf directories"
-	   :candidates recentf-list)))))
+  (let ((default-directory
+	  (f-dirname (helm :sources
+			   (helm-build-sync-source "recentf directories"
+			     :candidates recentf-list)))))
+    (helm-do-ag default-directory)))
 
 ;; default search functions that could be overriden by special major mode functions
 (evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
