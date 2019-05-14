@@ -50,8 +50,9 @@
 
 (defun helm-projectile-dirs-ag ()
   (interactive)
-  (let ((project-root (projectile-project-root)))
-    (helm-do-ag (helm-projectile-project-dirs project-root))))
+  (let* ((project-root (projectile-project-root))
+	 (default-directory (helm-projectile-project-dirs project-root)))
+    (helm-do-ag default-directory)))
 
 (defun helm-projectile-project-dirs-ag ()
   (interactive)
