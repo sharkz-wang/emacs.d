@@ -97,11 +97,20 @@
   "er" 'eval-region
   )
 
+(defun switch-to-buffer-before-last-buffer ()
+  (interactive)
+  (switch-to-buffer
+   (nth 2 (seq-filter
+	   (lambda (buf)
+	     (not (string-match-p ".*?\*Minibuf.*?\*.*?" (buffer-name buf))))
+	   (buffer-list)))))
+
 (evil-leader/set-key
   "u" 'universal-argument
   "SPC" 'smex
   "x" 'smex
   "TAB" 'switch-to-last-buffer
+  "`" 'switch-to-buffer-before-last-buffer
   "qq" 'save-buffers-kill-terminal
   )
 
