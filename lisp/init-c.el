@@ -7,7 +7,8 @@
 	     '(c-basic-offset 'set-from-style))
 
 	    ;; (require 'init-semantic)
-	    ;; (require 'init-gtags)
+	    (require 'init-gtags)
+	    (helm-gtags-mode t)
 	    ;; (require 'init-company)
 	    ;; (require 'init-ycmd)
 	    
