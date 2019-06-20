@@ -182,6 +182,7 @@
   (setq org-clock-sound t)
   (setq org-timer-default-timer 25)
   (setq org-log-into-drawer t)
+  (setq org-use-tag-inheritance nil)
 
   (org-indent-mode 1)
   (form-feed-mode 1)
