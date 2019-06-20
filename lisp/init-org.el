@@ -192,10 +192,24 @@
     "att" 'org-toggle-link-display
   )
 
+  (defun org-insert-todo-heading-respect-content-and-edit ()
+    (interactive)
+    (org-insert-todo-heading-respect-content)
+    (evil-emacs-state)
+    )
+
+  (defun org-insert-todo-subheading-respect-content ()
+      (interactive)
+      (org-insert-todo-heading-respect-content-and-edit)
+      (org-shiftmetaright)
+      )
+
   (evil-leader/set-key
     "ail" 'org-insert-link
     "ais" 'org-schedule
     "aid" 'org-deadline
+    "aiI" 'org-insert-todo-heading-respect-content
+    "aii" 'org-insert-todo-subheading-respect-content
     )
   
   (evil-define-operator org-google-search-visual (beg end type)
