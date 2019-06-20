@@ -99,6 +99,14 @@
 (evil-define-key 'normal dired-mode-map "m" 'evil-set-marker-local-global)
 (evil-define-key 'normal dired-mode-map "M" 'dired-mark)
 
+(evil-define-key 'normal dired-mode-map (kbd "SPC p f") 'helm-projectile-find-file)
+(evil-define-key 'normal dired-mode-map (kbd "SPC b d")
+  '(lambda ()
+     (interactive)
+     (kill-buffer (current-buffer))
+     (if (> (length (window-list)) 1)
+	 (delete-window))))
+
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (evil-snipe-mode -1)
