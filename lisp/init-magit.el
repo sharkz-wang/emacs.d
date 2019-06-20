@@ -120,6 +120,7 @@
   "gm" 'magit-dispatch
   "gb" 'magit-blame
   "gfh" 'magit-log-buffer-file
+  "gfu" 'magit-diff-buffer-file
   "gr" 'magit-diff-toggle-refine-hunk
   "gt" 'git-timemachine
   "g$" 'magit-process-buffer
