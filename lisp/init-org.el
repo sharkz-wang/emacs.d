@@ -59,6 +59,12 @@
   "df" 'dired-fig-dir
   )
 
+;; org-refile settings
+(setq org-refile-targets '((nil :maxlevel . 5)
+			   (org-agenda-files :maxlevel . 5)))
+(setq org-refile-use-outline-path t)
+(setq org-outline-path-complete-in-steps nil)
+
 (setq org-link-parameters
       '(
 	("file" :complete org-file-complete-link)
