@@ -111,15 +111,31 @@
     (org-agenda-next-item 1))
   )
 
+(defun org-todo-list-position-to-first-heading-or-refresh ()
+  (interactive)
+  (if (get-buffer "*Org Agenda*")
+      (progn
+	(switch-to-buffer "*Org Agenda*")
+	(org-agenda-redo)
+	)
+    (progn
+      (org-todo-list-position-to-first-heading)
+      )))
+
+(global-set-key (kbd "C-\\") 'org-todo-list-position-to-first-heading-or-refresh)
+
 (evil-leader/set-key
-  "aoo" (lambda () (interactive)
+  "\\" (lambda () (interactive)
 	  (find-file (format "%s/inbox.org" org-agenda-dir))
 	  )
-  "aoa" 'org-agenda-list
-  "atl" 'org-todo-list-position-to-first-heading
+  "aoa" (lambda ()
+	  (interactive)
+	  (org-agenda-list 21 "-3d" 21))
+  "atl" 'org-todo-list-position-to-first-heading-or-refresh
   "aoc" 'org-capture
   "asp" 'helm-org-rifle-agenda-files
   "aor" 'org-refile
+  "aw" 'org-refile
   )
 
 (require-package 'helm-org-rifle)
@@ -331,7 +347,6 @@
   (switch-to-last-buffer))
 
 (evil-leader/set-key
-  "\\" 'org-journal-create-new-entry-and-edit
   "ajj" 'org-journal-open-next-entry
   "ajk" 'org-journal-open-previous-entry
   )
