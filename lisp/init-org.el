@@ -311,6 +311,21 @@
 	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
 	    (evil-local-set-key 'normal "p" 'org-agenda-priority)
 	    (evil-local-set-key 'normal "u" 'org-agenda-undo)
+	    (evil-local-set-key 'normal "o"
+				(lambda ()
+				  (interactive)
+				  (evil-define-key 'normal org-mode-map
+				    "q"
+				    (lambda ()
+				      (interactive)
+				      (quit-window)
+				      (evil-define-key 'normal org-mode-map "q" 'evil-record-macro))
+				    )
+				  (let ((split-height-threshold 80)
+					(split-width-threshold 160))
+				    (org-agenda-goto)
+				    )
+				  ))
 	    (evil-define-key 'normal org-agenda-mode-map "t" 'org-agenda-todo)
 	    (evil-define-key 'normal org-agenda-mode-map "s" 'helm-occur)
 	    (evil-define-key 'normal org-agenda-mode-map "/" 'helm-occur)
