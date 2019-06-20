@@ -98,7 +98,7 @@
   (setq magit-status-sections-hook
 	'(magit-insert-unstaged-changes
 	  magit-insert-staged-changes))
-  (magit-status)
+  (call-interactively 'magit-status)
   (beginning-of-buffer)
   (magit-section-forward)
  )
@@ -107,7 +107,7 @@
   (interactive)
   (setq magit-status-sections-hook
 	magit-status-sections-hook-orig)
-  (magit-status)
+  (call-interactively 'magit-status)
   (beginning-of-buffer)
   (magit-section-forward)
   (magit-section-forward)
