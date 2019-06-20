@@ -27,6 +27,13 @@
 
 (setq recentf-max-saved-items 200)
 
+(setq backup-by-copying t)
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 3
+      version-control t)
+(setq backup-directory-alist (list (cons "."  (concat user-emacs-directory "backups"))))
+
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 
