@@ -309,6 +309,8 @@
 		  (bury-buffer buffer))))
 	    (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
 	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
+	    (evil-local-set-key 'normal "p" 'org-agenda-priority)
+	    (evil-local-set-key 'normal "u" 'org-agenda-undo)
 	    (evil-define-key 'normal org-agenda-mode-map "t" 'org-agenda-todo)
 	    (evil-define-key 'normal org-agenda-mode-map "s" 'helm-occur)
 	    (evil-define-key 'normal org-agenda-mode-map "/" 'helm-occur)
