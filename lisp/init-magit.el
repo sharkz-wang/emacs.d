@@ -179,6 +179,8 @@
 (evil-define-key evil-magit-state magit-mode-map (kbd "SPC s i")
   'helm-imenu-no-default)
 
+(evil-define-key evil-magit-state magit-mode-map (kbd "SPC g c") 'magit-copy-buffer-revision)
+
 (add-hook 'magit-popup-mode-hook
 	  (lambda ()
 	    (setq-local evil-default-state 'emacs)
