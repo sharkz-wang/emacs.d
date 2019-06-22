@@ -98,6 +98,7 @@
 (evil-define-key 'normal dired-mode-map "V" 'evil-visual-line)
 (evil-define-key 'normal dired-mode-map "m" 'evil-set-marker-local-global)
 (evil-define-key 'normal dired-mode-map "M" 'dired-mark)
+(evil-define-key 'normal dired-mode-map "." 'dired-omit-mode)
 
 (evil-define-key 'normal dired-mode-map (kbd "SPC p f") 'helm-projectile-find-file)
 (evil-define-key 'normal dired-mode-map (kbd "SPC b d")
