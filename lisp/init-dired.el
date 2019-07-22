@@ -107,6 +107,7 @@
      (kill-buffer (current-buffer))
      (if (> (length (window-list)) 1)
 	 (delete-window))))
+(evil-define-key 'normal dired-mode-map (kbd "SPC RET") 'helm-buffers-list)
 
 (add-hook 'dired-mode-hook
 	  (lambda ()
