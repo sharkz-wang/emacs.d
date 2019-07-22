@@ -233,6 +233,11 @@
     "gj" 'org-forward-heading-same-level
     "gh" 'outline-up-heading
     "gl" 'org-next-visible-heading
+    "gG" (lambda ()
+	   (interactive)
+	   (org-next-visible-heading 1)
+	   (previous-line 1)
+	   )
     "gn" 'org-next-link
     "gp" 'org-previous-link
     (kbd "TAB") 'org-cycle
