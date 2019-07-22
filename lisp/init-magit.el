@@ -181,6 +181,13 @@
 
 (evil-define-key evil-magit-state magit-mode-map (kbd "SPC g c") 'magit-copy-buffer-revision)
 
+(evil-define-key evil-magit-state magit-mode-map (kbd "SPC b d")
+  '(lambda ()
+     (interactive)
+     (kill-buffer (current-buffer))
+     (if (> (length (window-list)) 1)
+	 (delete-window))))
+
 (add-hook 'magit-popup-mode-hook
 	  (lambda ()
 	    (setq-local evil-default-state 'emacs)
