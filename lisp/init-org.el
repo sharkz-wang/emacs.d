@@ -204,8 +204,28 @@
       (org-shiftmetaright)
       )
 
+(defun insert-image-from-screenshot-dir ()
+  (interactive)
+  (let ((src-file
+	 (concat "~/Desktop/" (helm :sources
+	       (helm-build-sync-source "screenshot directory"
+		 :candidates
+		 (mapcar #'car (sort (directory-files-and-attributes "~/Desktop/")
+				     #'(lambda (x y) (time-less-p (nth 6 y) (nth 6 x))))))))
+		 )
+	(dest-dir
+	 (file-name-as-directory (helm :sources
+	       (helm-build-sync-source "target directory"
+		 :candidates (directory-files "."))))))
+    (rename-file src-file (concat dest-dir (file-name-nondirectory src-file)) t)
+    (org-insert-link nil (concat "file:" (concat dest-dir (file-name-nondirectory src-file))))
+    (org-display-inline-images)
+    )
+  )
+
   (evil-leader/set-key
     "ail" 'org-insert-link
+    "aiL" 'insert-image-from-screenshot-dir
     "ais" 'org-schedule
     "aid" 'org-deadline
     "aiI" 'org-insert-todo-heading-respect-content
