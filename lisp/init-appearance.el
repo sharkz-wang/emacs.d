@@ -20,6 +20,27 @@
 (load-theme 'monokai t)
 
 (require-package 'poet-theme)
+
+(setq is-paper-imitation-theme nil)
+
+(defun toggle-paper-imitation-theme ()
+  (interactive)
+  (if is-paper-imitation-theme
+      (progn
+	(load-theme 'monokai t)
+	(set-frame-font "Monaco-17")
+	(setq is-paper-imitation-theme nil)
+	)
+      (progn
+	(load-theme 'poet t)
+	(set-frame-font "Times New Roman-20")
+	(setq is-paper-imitation-theme t)
+	)
+      )
+ )
+
+(define-key evil-normal-state-map (kbd "SPC i TAB") 'toggle-paper-imitation-theme)
+
 (require-package 'moe-theme)
 (require 'moe-theme)
 
