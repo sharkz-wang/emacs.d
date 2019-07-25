@@ -5,6 +5,7 @@
 (require-package 'monokai-theme)
 (load-theme 'monokai t)
 
+(require-package 'poet-theme)
 (require-package 'moe-theme)
 (require 'moe-theme)
 
