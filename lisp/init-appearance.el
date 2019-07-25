@@ -2,6 +2,20 @@
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+(defun disable-all-themes ()
+  (interactive)
+  (mapc #'disable-theme custom-enabled-themes))
+
+(defun load-theme-advice (f theme-id &optional no-confirm no-enable &rest args)
+  (unless no-enable
+    (disable-all-themes))
+  (prog1
+      (apply f theme-id no-confirm no-enable args)))
+
+(advice-add 'load-theme
+            :around
+            #'load-theme-advice)
+
 (require-package 'monokai-theme)
 (load-theme 'monokai t)
 
