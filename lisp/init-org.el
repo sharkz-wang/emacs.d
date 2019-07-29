@@ -226,6 +226,7 @@
   (evil-leader/set-key
     "ail" 'org-insert-link
     "aiL" 'insert-image-from-screenshot-dir
+    "ait" 'org-insert-time-stamp
     "ais" 'org-schedule
     "aid" 'org-deadline
     "aiI" 'org-insert-todo-heading-respect-content
