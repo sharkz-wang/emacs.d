@@ -33,7 +33,7 @@
 	)
       (progn
 	(load-theme 'poet t)
-	(set-frame-font "Times New Roman-20")
+	(set-frame-font "Courier-18")
 	(setq is-paper-imitation-theme t)
 	)
       )
