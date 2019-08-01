@@ -186,6 +186,7 @@
 
   (org-indent-mode 1)
   (form-feed-mode 1)
+  (company-mode -1)
 
   (evil-leader/set-key
     "ati" 'org-toggle-inline-images
