@@ -230,8 +230,8 @@
     "ait" 'org-insert-time-stamp
     "ais" 'org-schedule
     "aid" 'org-deadline
-    "aiI" 'org-insert-todo-heading-respect-content
-    "aii" 'org-insert-todo-subheading-respect-content
+    "aii" 'org-insert-todo-heading-respect-content
+    "aiI" 'org-insert-todo-subheading-respect-content
     )
   
   (evil-define-operator org-google-search-visual (beg end type)
