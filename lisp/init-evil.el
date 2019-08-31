@@ -175,7 +175,11 @@
    char
    (if (buffer-file-name)
        (list 'file (buffer-file-name) (point))
-       (list 'buffer (buffer-name) (point)))))
+     (if (eq major-mode 'nov-mode)
+	 (progn
+	   (nov-save-place char nov-documents-index (point))
+	   (list 'epub (buffer-name) 0))
+       (list 'buffer (buffer-name) (point))))))
 
 (defun get-global-mark (char)
   (cdr-safe
@@ -196,14 +200,22 @@
 		(progn
 		  (find-file name)
 		  (goto-char pos))
-	      (progn
-		(if (get-buffer name)
-		    (progn
+	      (if (equalp (car mark) 'epub)
+		  (progn
+		    (let ((nov-documents-index (cdr (car (nov-saved-place char))))
+			  (pos (cdr (car (cdr (nov-saved-place char))))))
+		      (message name)
 		      (switch-to-buffer name)
-		      (goto-char pos))
-		  (message
-		   (format "Buffer `%s' does not exist" (nth 1 mark)))
-		  )))))
+		      (nov-render-document)
+		      (goto-char pos)))
+		(progn
+		  (if (get-buffer name)
+		      (progn
+			(switch-to-buffer name)
+			(goto-char pos))
+		    (message
+		     (format "Buffer `%s' does not exist" (nth 1 mark)))
+		    ))))))
       (progn (message (format "Mark `%c' undefined" char))))))
 
 (evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
