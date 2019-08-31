@@ -105,6 +105,9 @@
 	("e" "Epub note"
 	 entry (function org-journal-find-location)
 	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
+	("p" "PDF note"
+	 entry (function org-journal-find-location)
+	 "* %?\n[[pdf:%(with-current-buffer (org-capture-get :original-buffer) (pdf-view-buffer-file-name))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (pdf-view-current-page)))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
 	))
 
 (defun org-todo-list-position-to-first-heading ()
@@ -341,6 +344,24 @@
       ))
 
   (org-add-link-type "epub" 'epub-link-open)
+
+  (defun pdf-link-open (path)
+    (let* ((fname (car (split-string path "::")))
+	   (pdf-buf (car (seq-filter
+			  (lambda (buffer)
+			    (with-current-buffer buffer
+			      (string= (pdf-view-buffer-file-name) fname))) (buffer-list)))))
+      (if pdf-buf
+	  (switch-to-buffer pdf-buf)
+	(find-file fname)))
+    (let
+	((fname (car (split-string path "::")))
+	 (pdf-page (string-to-number (car (cdr (split-string path "::")))))
+	 (pos (string-to-number (car (cdr (cdr (split-string path "::")))))))
+      (pdf-view-goto-page pdf-page)
+      (set-window-vscroll nil pos)))
+
+  (org-add-link-type "pdf" 'pdf-link-open)
 
   (custom-set-faces
    '(org-todo ((t :foreground "#FF1493" :weight bold))))
