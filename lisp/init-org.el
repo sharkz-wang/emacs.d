@@ -102,6 +102,9 @@
 	("c" "Trace code note"
 	 entry (function org-journal-find-location)
 	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
+	("e" "Epub note"
+	 entry (function org-journal-find-location)
+	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
 	))
 
 (defun org-todo-list-position-to-first-heading ()
@@ -319,6 +322,25 @@
 	  (auto-mode . emacs)
 	  )
 	)
+
+  (defun epub-link-open (path)
+    (let* ((fname (car (split-string path "::")))
+	   (epub-buf (car (seq-filter
+			   (lambda (buffer)
+			     (with-current-buffer buffer
+			       (string= nov-file-name fname))) (buffer-list)))))
+      (if epub-buf
+	  (switch-to-buffer epub-buf)
+	(find-file fname)))
+    (let
+	((fname (car (split-string path "::")))
+	 (nov-documents-index (string-to-number (car (cdr (split-string path "::")))))
+	 (pos (string-to-number (car (cdr (cdr (split-string path "::")))))))
+      (nov-render-document)
+      (goto-char pos)
+      ))
+
+  (org-add-link-type "epub" 'epub-link-open)
 
   (custom-set-faces
    '(org-todo ((t :foreground "#FF1493" :weight bold))))
