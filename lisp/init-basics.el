@@ -316,7 +316,7 @@
 			(define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
 			))
 
-(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-x") 'helm-M-x)
 ;; end settings for smex
 
 (evil-define-key 'normal Info-mode-map
