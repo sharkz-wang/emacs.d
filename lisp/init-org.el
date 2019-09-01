@@ -94,19 +94,30 @@
   :repeat nil
   (buffer-substring beg end))
 
+;; Looking for evil marker `?o' first when doing org-capture.
+;; Otherwise, insert into inbox.org as first entry.
+(defun org-find-inbox-or-marked-entry ()
+  (if (evil-get-marker ?o)
+      (evil-goto-global-mark-line ?o)
+    (progn
+      (find-file (format "%s/inbox.org" org-agenda-dir))
+      (beginning-of-buffer)
+      )
+  ))
+
 (setq org-capture-templates
       '(
 	("t" "Todo"
-	 entry (function org-journal-find-location)
+	 entry (function org-find-inbox-or-marked-entry)
 	 "* TODO %?%i\n%T")
 	("c" "Trace code note"
-	 entry (function org-journal-find-location)
+	 entry (function org-find-inbox-or-marked-entry)
 	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
 	("e" "Epub note"
-	 entry (function org-journal-find-location)
+	 entry (function org-find-inbox-or-marked-entry)
 	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
 	("p" "PDF note"
-	 entry (function org-journal-find-location)
+	 entry (function org-find-inbox-or-marked-entry)
 	 "* %?\n[[pdf:%(with-current-buffer (org-capture-get :original-buffer) (pdf-view-buffer-file-name))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (pdf-view-current-page)))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
 	))
 
