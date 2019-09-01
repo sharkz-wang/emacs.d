@@ -97,7 +97,7 @@
 ;; Looking for evil marker `?o' first when doing org-capture.
 ;; Otherwise, insert into inbox.org as first entry.
 (defun org-find-inbox-or-marked-entry ()
-  (if (evil-get-marker ?o)
+  (if (get-global-mark ?o)
       (evil-goto-global-mark-line ?o)
     (progn
       (find-file (format "%s/inbox.org" org-agenda-dir))
