@@ -284,9 +284,6 @@
     "<" 'org-metaleft
     ">" 'org-metaright
     "t" 'org-todo
-    (kbd "SPC s s") 'helm-org-rifle-current-buffer-or-occur
-    (kbd "SPC s p") 'helm-org-rifle-agenda-files
-    (kbd "SPC s f") 'helm-org-rifle-directories
     (kbd "SPC s d") (lambda () (interactive) (helm-org-rifle-directories (f-dirname (buffer-file-name))))
     )
   
