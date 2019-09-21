@@ -82,6 +82,9 @@
 ;;  it's an hack and not consistent)
 (setq linum-format 'linum-relative)
 
+;; use absolute line number as current symbol
+(customize-set-variable 'linum-relative-current-symbol "")
+
 ;; setup highlight face
 (custom-set-faces
  '(linum-relative-current-face ((t :inherit hl-spotlight :foreground "#FF8700"))))
