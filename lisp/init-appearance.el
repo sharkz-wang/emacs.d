@@ -39,7 +39,20 @@
       )
  )
 
+(defun increse-font ()
+  (interactive)
+  (let ((old-face-attribute (face-attribute 'default :height)))
+    (set-face-attribute 'default nil :height (+ old-face-attribute 10))))
+
+(defun decrese-font ()
+  (interactive)
+  (let ((old-face-attribute (face-attribute 'default :height)))
+    (set-face-attribute 'default nil :height (- old-face-attribute 10))))
+
 (define-key evil-normal-state-map (kbd "SPC i TAB") 'toggle-paper-imitation-theme)
+(define-key evil-normal-state-map (kbd "SPC i +") 'increse-font)
+(define-key evil-normal-state-map (kbd "SPC i =") 'increse-font)
+(define-key evil-normal-state-map (kbd "SPC i -") 'decrese-font)
 
 (require-package 'moe-theme)
 (require 'moe-theme)
