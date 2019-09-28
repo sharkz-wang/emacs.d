@@ -224,4 +224,15 @@
 (evil-global-set-key 'normal (kbd "C-M-o") 'evil-jump-backward)
 (evil-global-set-key 'normal (kbd "C-M-i") 'evil-jump-forward)
 
+(defun curr-line-remove-trailing-whitespace ()
+  (interactive)
+  (save-excursion
+    (delete-trailing-whitespace
+     (progn (forward-visible-line 0) (point))
+     (progn (forward-visible-line 1) (point)))))
+
+(add-hook 'evil-normal-state-entry-hook
+	  (lambda()
+	    (curr-line-remove-trailing-whitespace)))
+
 (provide 'init-evil)
