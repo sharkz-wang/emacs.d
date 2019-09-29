@@ -371,6 +371,12 @@
 
   (org-add-link-type "pdf" 'pdf-link-open)
 
+  (defun google-search-link-open (path)
+    (browser-google-search path)
+    )
+
+  (org-add-link-type "google" 'google-search-link-open)
+
   (custom-set-faces
    '(org-todo ((t :foreground "#FF1493" :weight bold))))
   )
