@@ -283,8 +283,8 @@
     "gp" 'org-previous-link
     (kbd "TAB") 'org-cycle
     (kbd "RET") 'org-open-at-point
-    "<" 'org-metaleft
-    ">" 'org-metaright
+    "<" 'org-shiftmetaleft
+    ">" 'org-shiftmetaright
     "t" 'org-todo
     (kbd "SPC s d") (lambda () (interactive) (helm-org-rifle-directories (f-dirname (buffer-file-name))))
     )
