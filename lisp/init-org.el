@@ -201,6 +201,8 @@
   (setq org-log-into-drawer t)
   (setq org-use-tag-inheritance nil)
 
+  (setq org-src-tab-acts-natively t)
+
   (org-indent-mode 1)
   (form-feed-mode 1)
   (company-mode -1)
