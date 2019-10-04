@@ -245,6 +245,7 @@
 
   (evil-leader/set-key
     "ail" 'org-insert-link
+    "aiy" 'org-store-link
     "aiL" 'insert-image-from-screenshot-dir
     "ait" 'org-insert-time-stamp
     "ais" 'org-schedule
