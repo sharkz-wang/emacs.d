@@ -93,6 +93,8 @@
     (kbd "SPC i d") 'pdf-view-midnight-minor-mode
     )
 
+  (evil-define-key 'normal pdf-occur-buffer-mode-map (kbd "RET") 'pdf-occur-goto-occurrence)
+
   (evil-define-key 'normal pdf-outline-buffer-mode-map (kbd "RET") (lambda ()
 								     (interactive)
 								     (pdf-outline-follow-link)
