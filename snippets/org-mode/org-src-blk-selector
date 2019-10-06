@@ -6,6 +6,5 @@
 
 #+BEGIN_SRC `(helm :sources
                    (helm-build-sync-source "source languages"
-                     :candidates (mapcar 'car org-src-lang-modes)))`
-$0
+                     :candidates (mapcar 'car org-src-lang-modes)))`$0
 #+END_SRC
