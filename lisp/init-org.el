@@ -247,13 +247,25 @@
     "att" 'org-toggle-link-display
   )
 
+  (defun org-insert-heading-respect-content-and-edit ()
+    (interactive)
+    (org-insert-heading-respect-content)
+    (evil-emacs-state)
+    )
+
   (defun org-insert-todo-heading-respect-content-and-edit ()
     (interactive)
     (org-insert-todo-heading-respect-content)
     (evil-emacs-state)
     )
 
-  (defun org-insert-todo-subheading-respect-content ()
+  (defun org-insert-subheading-respect-content-and-edit ()
+      (interactive)
+      (org-insert-heading-respect-content-and-edit)
+      (org-shiftmetaright)
+      )
+
+  (defun org-insert-todo-subheading-respect-content-and-edit ()
       (interactive)
       (org-insert-todo-heading-respect-content-and-edit)
       (org-shiftmetaright)
@@ -282,11 +294,11 @@
     "ail" 'org-insert-link
     "aiy" 'org-store-link
     "aiL" 'insert-image-from-screenshot-dir
-    "ait" 'org-insert-time-stamp
+    "ait" 'org-time-stamp
     "ais" 'org-schedule
     "aid" 'org-deadline
-    "aii" 'org-insert-todo-heading-respect-content
-    "aiI" 'org-insert-todo-subheading-respect-content
+    "aii" 'org-insert-heading-respect-content-and-edit
+    "aiI" 'org-insert-subheading-respect-content-and-edit
     )
   
   (evil-define-operator org-google-search-visual (beg end type)
