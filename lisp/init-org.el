@@ -113,6 +113,10 @@
 	("c" "Trace code note"
 	 entry (function org-find-inbox-or-marked-entry)
 	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
+	("w" "Work log"
+	 plain (function org-find-inbox-or-marked-entry)
+	 "%(org-time-stamp '(16) nil)\n%?"
+	 )
 	("e" "Epub note"
 	 entry (function org-find-inbox-or-marked-entry)
 	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
