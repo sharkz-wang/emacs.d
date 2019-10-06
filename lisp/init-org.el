@@ -96,9 +96,29 @@
 
 ;; Looking for evil marker `?o' first when doing org-capture.
 ;; Otherwise, insert into inbox.org as first entry.
-(defun org-find-inbox-or-marked-entry ()
+(defun org-find-inbox-or-marked-entry-append ()
+  (interactive)
   (if (get-global-mark ?o)
+    (progn
       (evil-goto-global-mark-line ?o)
+	   (org-next-visible-heading 1)
+	   (previous-line 1)
+      )
+    (progn
+      (find-file (format "%s/inbox.org" org-agenda-dir))
+      (beginning-of-buffer)
+      )
+  ))
+
+;; Looking for evil marker `?i' first when doing org-capture.
+;; Otherwise, insert into inbox.org as first entry.
+(defun org-find-inbox-or-marked-entry-prepend ()
+  (interactive)
+  (if (get-global-mark ?i)
+    (progn
+      (evil-goto-global-mark-line ?i)
+	   (next-line 1)
+      )
     (progn
       (find-file (format "%s/inbox.org" org-agenda-dir))
       (beginning-of-buffer)
@@ -108,21 +128,32 @@
 (setq org-capture-templates
       '(
 	("t" "Todo"
-	 entry (function org-find-inbox-or-marked-entry)
-	 "* TODO %?%i\n%T")
+	 entry (function org-find-inbox-or-marked-entry-prepend)
+	 "* TODO %?%i\n%T"
+	 :prepend t
+	 :empty-lines 1
+	 )
 	("c" "Trace code note"
-	 entry (function org-find-inbox-or-marked-entry)
-	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC")
+	 plain (function org-find-inbox-or-marked-entry-append)
+	 "%?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC"
+	 :empty-lines 1
+	 )
 	("w" "Work log"
-	 plain (function org-find-inbox-or-marked-entry)
+	 ;; Note: keyword :prepend would not work on plain items
+	 plain (function org-find-inbox-or-marked-entry-prepend)
 	 "%(org-time-stamp '(16) nil)\n%?"
+	 :empty-lines 1
 	 )
 	("e" "Epub note"
-	 entry (function org-find-inbox-or-marked-entry)
-	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
+	 plain (function org-find-inbox-or-marked-entry-append)
+	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE"
+	 :empty-lines 1
+	 )
 	("p" "PDF note"
-	 entry (function org-find-inbox-or-marked-entry)
-	 "* %?\n[[pdf:%(with-current-buffer (org-capture-get :original-buffer) (pdf-view-buffer-file-name))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (pdf-view-current-page)))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE")
+	 plain (function org-find-inbox-or-marked-entry-append)
+	 "* %?\n[[pdf:%(with-current-buffer (org-capture-get :original-buffer) (pdf-view-buffer-file-name))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (pdf-view-current-page)))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE"
+	 :empty-lines 1
+	 )
 	))
 
 (defun org-todo-list-position-to-first-heading ()
