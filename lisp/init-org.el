@@ -290,9 +290,23 @@
     )
   )
 
+  (defun org-copy-block ()
+    (interactive)
+    (org-narrow-to-block)
+    (beginning-of-buffer)
+    (next-line)
+    (evil-beginning-of-line)
+    (evil-visual-line)
+    (end-of-buffer)
+    (previous-line)
+    (evil-end-of-line)
+    (kill-ring-save (region-beginning) (region-end))
+    (widen))
+
   (evil-leader/set-key
     "ail" 'org-insert-link
     "aiy" 'org-store-link
+    "aic" 'org-copy-block
     "aiL" 'insert-image-from-screenshot-dir
     "ait" 'org-time-stamp
     "ais" 'org-schedule
