@@ -54,6 +54,8 @@
 (define-key evil-normal-state-map (kbd "SPC i =") 'increse-font)
 (define-key evil-normal-state-map (kbd "SPC i -") 'decrese-font)
 
+(setq text-scale-mode-step 1.05)
+
 (require-package 'moe-theme)
 (require 'moe-theme)
 
