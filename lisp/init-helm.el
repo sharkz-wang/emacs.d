@@ -4,8 +4,8 @@
 (helm-autoresize-mode t)
 
 (custom-set-variables
- '(helm-autoresize-max-height 60)
- '(helm-autoresize-min-height 60))
+ '(helm-autoresize-max-height 30)
+ '(helm-autoresize-min-height 30))
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
