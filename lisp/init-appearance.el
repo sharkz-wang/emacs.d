@@ -1,5 +1,8 @@
 (setq show-trailing-whitespace t)
 
+(add-to-list 'custom-theme-load-path
+	     (expand-file-name "theme" user-emacs-directory))
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (defun disable-all-themes ()
