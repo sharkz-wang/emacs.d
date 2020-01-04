@@ -1,3 +1,4 @@
+(setq-default line-spacing 3)
 (setq show-trailing-whitespace t)
 
 (add-to-list 'custom-theme-load-path
