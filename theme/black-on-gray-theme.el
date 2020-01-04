@@ -163,7 +163,7 @@
   (custom-theme-set-faces
    'black-on-gray
 
-   '(default ((t (:background "white" :foreground "black"))))
+   '(default ((t (:background "#FAFAFA" :foreground "black"))))
    '(border ((t (:foregound "blue"))))
 
    '(blue ((t (:foreground "blue"))))
@@ -217,7 +217,7 @@
    '(green ((t (:foreground "green"))))
    '(gui-button-face ((t (:background "grey75"))))
    '(gui-element ((t (:size "8pt" :background "gray75"))))
-   '(highlight ((t (:background "darkseagreen2"))))
+   '(highlight ((t (:background "gray95"))))
    '(isearch ((t (:background "paleturquoise"))))
    '(isearch-secondary ((t (:foreground "red3"))))
    '(italic ((t (:size "10pt"))))
