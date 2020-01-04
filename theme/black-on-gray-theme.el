@@ -111,7 +111,30 @@
  '(widget-field-face ((t (:background "gray85"))))
  '(widget-inactive-face ((t (nil))))
  '(yellow ((t (:foreground "yellow"))))
- '(zmacs-region ((t (:background "gray65")))))
+ '(zmacs-region ((t (:background "gray65"))))
+
+ ;; org-mode
+
+ '(org-meta-line
+   ((t (:foreground "gray90"))))
+ '(org-block-begin-line
+   ((t (:foreground "gray90" :background "gray90"))))
+ '(org-block-end-line
+   ((t (:foreground "gray90" :background "gray90"))))
+ '(org-block ((t (:background "#F5F5F5"))))
+
+ '(org-todo ((t (:height 1.3 :foreground "purple" :weight bold))))
+ '(org-level-1 ((t (:height 1.6 :weight bold))))
+ '(org-level-2 ((t (:height 1.2 :weight bold))))
+ '(org-level-3 ((t (:height 1.1 :weight bold))))
+ '(org-level-4 ((t (:height 1.0))))
+ '(org-level-5 ((t (:height 1.0))))
+ '(org-level-6 ((t (:height 1.0))))
+ '(org-level-7 ((t (:height 1.0))))
+ '(org-level-8 ((t (:height 1.0))))
+
+ '(org-hide ((t (:foreground "#FAFAFA")))) ;; hide leading bullets
+ )
 
 ;;;###autoload
 (when load-file-name
