@@ -240,6 +240,14 @@
 
   (setq org-src-tab-acts-natively t)
 
+  (setq org-emphasis-alist
+	'(("*" bold)
+	  ("/" italic)
+	  ("_" underline)
+	  ("~" org-verbatim verbatim)
+	  ("=" (:foreground "red"))
+	  ("+" (:strike-through t))))
+
   (org-indent-mode 1)
   (form-feed-mode 1)
   (company-mode -1)
