@@ -32,6 +32,25 @@
 (let*
     ;; color palette of monokai theme
     (
+     ;; Primary colors
+     (monokai-yellow "#E6DB74")
+     (monokai-orange "#FD971F")
+     (monokai-red "#F92672")
+     (monokai-magenta "#FD5FF0")
+     (monokai-blue "#66D9EF")
+     (monokai-green "#A6E22E")
+     (monokai-cyan "#A1EFE4")
+     (monokai-violet "#AE81FF")
+     (monokai-gray "#64645E")
+     (monokai-foreground "#F8F8F2")
+     (monokai-background "#272822")
+     (monokai-comments "#75715E")
+     (monokai-emphasis "#F8F8F0")
+     (monokai-line-number "#8F908A")
+     (monokai-highlight "#49483E")
+     (monokai-highlight-alt "#3E3D31")
+     (monokai-highlight-line "#3C3D37")
+
      ;; Functionality specific colors
      (monokai-diff-blue-base      "#232438")
      (monokai-diff-blue-emphasis  "#1F204E")
@@ -79,11 +98,6 @@
      (monokai-cyan-lc        "#4BBEAE")
      (monokai-green-hc       "#CCF47C")
      (monokai-green-lc       "#679A01")
-
-     ;; Distinct fringe
-     (monokai-fringe-bg (if monokai-distinct-fringe-background
-			    monokai-gray
-			  monokai-background))
 
      ;; Definitions for terminals that do not support 256 colors
      (monokai-256-class '((class color) (min-colors 89)))
@@ -154,11 +168,7 @@
      (monokai-256-cyan-lc        monokai-256-cyan-l)
      (monokai-256-green-hc       monokai-256-green-d)
      (monokai-256-green-lc       monokai-256-green-l)
-
-     ;; Distinct fringe
-     (monokai-256-fringe-bg (if monokai-distinct-fringe-background
-				monokai-256-gray
-			      monokai-256-background)))
+     )
 
   (custom-theme-set-faces
    'black-on-gray
@@ -198,8 +208,7 @@
    `(font-lock-comment-delimiter-face ((t (:foreground ,monokai-comments))))
    `(font-lock-comment-face ((t (:foreground ,monokai-comments))))
    `(font-lock-constant-face ((t (:foreground ,monokai-violet))))
-   `(font-lock-doc-face ((t (:foreground ,(if monokai-doc-face-as-comment
-					      monokai-comments monokai-yellow)))))
+   `(font-lock-doc-face ((t (:foreground ,monokai-yellow))))
    `(font-lock-function-name-face ((t (:foreground ,monokai-green))))
    `(font-lock-keyword-face ((t (:foreground ,monokai-red :weight normal))))
    `(font-lock-negation-char-face ((t (:foreground ,monokai-yellow :weight bold))))
