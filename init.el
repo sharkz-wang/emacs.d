@@ -19,6 +19,7 @@
 (require 'init-ebook)
 (require 'init-hex-file)
 (require 'init-image)
+(require 'init-kernel-dev)
 (require 'init-misc)
 
 (require 'cust-vars)
