@@ -21,27 +21,36 @@
             #'load-theme-advice)
 
 (require-package 'monokai-theme)
-(load-theme 'monokai t)
 
 (require-package 'poet-theme)
 
 (setq is-paper-imitation-theme nil)
 
+(defun turn-on-paper-imitation-theme ()
+  (interactive)
+  (disable-all-themes)
+  (load-theme 'black-on-gray t)
+  (set-frame-font "Courier-18")
+  (toggle-truncate-lines -1)
+  (setq is-paper-imitation-theme t)
+  )
+
+(defun turn-off-paper-imitation-theme ()
+  (interactive)
+  (disable-all-themes)
+  (load-theme 'monokai t)
+  (set-frame-font "Monaco-17")
+  (toggle-truncate-lines 1)
+  (setq is-paper-imitation-theme nil)
+  )
+
 (defun toggle-paper-imitation-theme ()
   (interactive)
   (if is-paper-imitation-theme
-      (progn
-	(load-theme 'monokai t)
-	(set-frame-font "Monaco-17")
-	(setq is-paper-imitation-theme nil)
-	)
-      (progn
-	(load-theme 'poet t)
-	(set-frame-font "Courier-18")
-	(setq is-paper-imitation-theme t)
-	)
-      )
- )
+    (turn-off-paper-imitation-theme)
+    (turn-on-paper-imitation-theme)))
+
+(turn-on-paper-imitation-theme)
 
 (defun increse-font ()
   (interactive)
