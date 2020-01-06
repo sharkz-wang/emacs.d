@@ -114,6 +114,9 @@
 	    (evil-snipe-mode -1)
 	    (dired-omit-mode)
 	    (dired-hide-details-mode -1)
+            (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
+            (define-key dired-mode-map (kbd "^")
+                        (lambda () (interactive) (find-alternate-file "..")))
 	    ))
 
 (provide 'init-dired)
