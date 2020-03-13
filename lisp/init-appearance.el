@@ -24,23 +24,58 @@
 
 (require-package 'poet-theme)
 
+(require-package 'org-bullets)
+(require 'hide-mode-line)
+(require 'org-pretty-table)
+
 (setq is-paper-imitation-theme nil)
 
 (defun turn-on-paper-imitation-theme ()
   (interactive)
   (disable-all-themes)
-  (load-theme 'black-on-gray t)
-  (set-frame-font "Courier-18")
-  (toggle-truncate-lines -1)
+
+  (setq org-startup-indented t
+	org-bullets-bullet-list '(" ") ;; no bullets, needs org-bullets package
+	org-ellipsis "  " ;; folding symbol
+	;; org-pretty-entities t
+	header-line-format " "
+	org-hide-emphasis-markers t
+	;; show actually italicized text instead of /italicized text/
+	org-agenda-block-separator ""
+	org-fontify-whole-heading-line t
+	org-fontify-done-headline t
+	org-fontify-quote-and-verse-blocks t)
+
+  (org-bullets-mode 1)
+  (global-org-pretty-table-mode 1)
+  (variable-pitch-mode 1)
+  (global-hl-line-mode -1)
+  (hide-mode-line-mode 1)
+  (setq line-spacing 0.1)
+
+  (load-theme 'etbembo t)
+  (load-theme 'spacemacs-light t)
+  (enable-theme 'etbembo)
+
+  (text-scale-set -7)
+
   (setq is-paper-imitation-theme t)
   )
 
 (defun turn-off-paper-imitation-theme ()
   (interactive)
+
   (disable-all-themes)
   (load-theme 'monokai t)
   (set-frame-font "Monaco-17")
+
   (toggle-truncate-lines 1)
+  (variable-pitch-mode -1)
+  (global-hl-line-mode 1)
+  (hide-mode-line-mode -1)
+
+  (text-scale-set 0)
+
   (setq is-paper-imitation-theme nil)
   )
 

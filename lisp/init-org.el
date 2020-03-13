@@ -456,9 +456,6 @@
     )
 
   (org-add-link-type "google" 'google-search-link-open)
-
-  (custom-set-faces
-   '(org-todo ((t :foreground "#FF1493" :weight bold))))
   )
 
 (add-hook 'org-mode-hook 'init-org-handler)
