@@ -341,8 +341,14 @@
       (helm-occur)
       ))
 
+  (defun org-back-to-heading-or-backward-heading-same-level (arg)
+    (interactive "P")
+	(org-backward-heading-same-level
+	 (if (org-at-heading-p) 1 0))
+      )
+
   (evil-define-key 'normal org-mode-map
-    "gk" 'org-backward-heading-same-level
+    "gk" 'org-back-to-heading-or-backward-heading-same-level
     "gj" 'org-forward-heading-same-level
     "gh" 'outline-up-heading
     "gl" 'org-next-visible-heading
