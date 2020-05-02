@@ -3,7 +3,8 @@
   (modify-syntax-entry ?_ "w")
   
   (custom-set-variables
-   '(c-basic-offset 'set-from-style))
+   '(c-basic-offset '8))
+  (c-set-style "linux")
 
   ;; (require 'init-semantic)
   (require 'init-gtags)
@@ -66,8 +67,8 @@
 		(format "(%s)"
 			(helm :sources
 			      (helm-build-sync-source "c style setters"
-				:candidates '(change-c-offset
-					      change-c-style
+				:candidates '(change-c-style
+					      change-c-offset
 					      toggle-indent-tabs-mode))))))))
 
   (evil-leader/set-key
