@@ -359,6 +359,8 @@
 	   )
     "gn" 'org-next-link
     "gp" 'org-previous-link
+    (kbd "M-k") 'org-metaup
+    (kbd "M-j") 'org-metadown
     (kbd "TAB") 'org-cycle
     (kbd "RET") 'org-open-at-point
     "<" 'org-shiftmetaleft
