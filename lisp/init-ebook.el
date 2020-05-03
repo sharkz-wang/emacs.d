@@ -79,9 +79,29 @@
 							 (image-forward-hscroll 1)
 							 ))
 
-  (evil-define-key 'normal pdf-view-mode-map (kbd "w") 'pdf-view-fit-width-to-window)
+  (defun set-pdf-view-display-size-to-window-factor (factor)
+    (interactive)
+    (pdf-view-fit-width-to-window)
+    (pdf-view-shrink factor)
+    )
+
+  (evil-define-key 'normal pdf-view-mode-map (kbd "w") (lambda ()
+							 (interactive)
+							 (set-pdf-view-display-size-to-window-factor 1.4)
+							 ))
   (evil-define-key 'normal pdf-view-mode-map (kbd "W") 'pdf-view-fit-width-to-window)
   (evil-define-key 'normal pdf-view-mode-map (kbd "H") 'pdf-view-fit-height-to-window)
+
+  (evil-define-key 'normal pdf-view-mode-map (kbd "a") 'pdf-annot-list-annotations)
+  (evil-define-key 'normal pdf-annot-list-mode-map (kbd "TAB") 'pdf-annot-list-display-annotation-from-id)
+  (evil-define-key 'normal pdf-annot-list-mode-map (kbd "RET") 'tablist-find-entry)
+  (evil-define-key 'normal pdf-annot-list-mode-map (kbd "q") 'tablist-quit)
+
+  (evil-define-key 'visual pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "D") 'pdf-annot-delete)
+
+  (evil-define-key 'normal pdf-view-mode-map [down-mouse-1] 'pdf-view-mouse-set-region)
 
   ;; TODO: integrate it to evil-mark
   (evil-define-key 'normal pdf-view-mode-map (kbd "m") 'pdf-view-position-to-register)
