@@ -363,8 +363,10 @@
     (kbd "M-j") 'org-metadown
     (kbd "TAB") 'org-cycle
     (kbd "RET") 'org-open-at-point
-    "<" 'org-shiftmetaleft
-    ">" 'org-shiftmetaright
+    (kbd "M-h") 'org-shiftmetaleft
+    (kbd "M-l") 'org-shiftmetaright
+    "<" 'org-metaleft
+    ">" 'org-metaright
     "t" 'org-todo
     (kbd "SPC s d") (lambda () (interactive) (helm-org-rifle-directories (f-dirname (buffer-file-name))))
     )
