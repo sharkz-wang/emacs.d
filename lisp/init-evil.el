@@ -167,6 +167,12 @@
 
 (setq evil-global-markers-alist '())
 
+(defun clear-evil-global-markers-alist ()
+  (interactive)
+  (setq evil-global-markers-alist '())
+  (message "All global markers deleted"))
+(evil-global-set-key 'normal (kbd "SPC m c") 'clear-evil-global-markers-alist)
+
 (defun evil-set-marker-local-global (char &optional pos advance)
   (interactive (list (read-char)))
   (evil-set-marker char)
