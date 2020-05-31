@@ -108,6 +108,14 @@
 (evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu-no-default)
 (evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers-no-default)
 
+(defun helm-resize-buffer-to-max ()
+     (interactive)
+     ;; XXX: 90 was the max valid number
+     (let ((helm-autoresize-max-height 90)
+	   (helm-autoresize-min-height 90))
+       (helm-refresh)))
+(define-key helm-map (kbd "C-c C-m") 'helm-resize-buffer-to-max)
+
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-o") 'helm-execute-persistent-action)
