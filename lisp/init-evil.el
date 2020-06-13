@@ -1,4 +1,11 @@
+(setq evil-want-integration t)
+(setq evil-want-keybinding nil)
+
 (require-package 'evil)
+
+(require-package 'evil-collection)
+(evil-collection-init)
+
 (evil-mode t)
 
 ;; bind C-w back in evil emacs state
