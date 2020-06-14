@@ -110,11 +110,7 @@
   "qq" 'save-buffers-kill-terminal
   )
 
-(evil-leader/set-key
-  "fs" 'save-buffer
-  "ff" 'helm-find-files
-  "fed" (lambda () (interactive) (find-file "~/.emacs.d/init.el"))
-  )
+(require 'init-files)
 
 (define-key evil-normal-state-map (kbd "SPC b d")
   '(lambda ()

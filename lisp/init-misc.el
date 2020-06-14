@@ -5,7 +5,7 @@
 (setq split-width-threshold 0)
 
 (require-package 'ztree)
-(define-key evil-normal-state-map (kbd "SPC f d d") 'ztree-diff)
+;; (define-key evil-normal-state-map (kbd "SPC f d d") 'ztree-diff)
 
 (add-hook 'ztree-mode-hook
 	  (lambda ()

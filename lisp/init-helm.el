@@ -19,8 +19,6 @@
 (evil-leader/set-key
   "bb" 'helm-buffers-list
   "rl" 'helm-resume
-  "fr" 'helm-recentf
-  "fb" 'helm-bookmarks
   "ry" 'helm-show-kill-ring
   )
 
