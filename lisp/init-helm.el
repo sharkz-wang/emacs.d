@@ -71,16 +71,9 @@
     (helm-do-ag default-directory)))
 
 ;; default search functions that could be overriden by special major mode functions
-(evil-global-set-key 'normal (kbd "SPC s s") 'helm-occur)
-(evil-global-set-key 'normal (kbd "SPC s /") 'helm-projectile-ag)
-(evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-dirs-ag)
-(evil-global-set-key 'normal (kbd "SPC s P") 'helm-projectile-project-dirs-ag)
-(evil-global-set-key 'normal (kbd "SPC s f") 'helm-do-ag)
-(evil-global-set-key
- 'normal (kbd "SPC s d")
- (lambda () (interactive) (helm-do-ag (f-dirname (buffer-file-name)))))
-(evil-global-set-key 'normal (kbd "SPC s r") 'helm-do-ag-recentf-dirs)
-(evil-global-set-key 'normal (kbd "SPC s b") 'helm-do-ag-buffers)
+;; (evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-dirs-ag)
+;; (evil-global-set-key 'normal (kbd "SPC s P") 'helm-projectile-project-dirs-ag)
+;; (evil-global-set-key 'normal (kbd "SPC s r") 'helm-do-ag-recentf-dirs)
 
 (require 'cl)
 ;; a `helm-imenu' variation that won't take `thing-at-point' as default input
@@ -105,8 +98,8 @@
 	    )
     (helm-imenu-in-all-buffers)))
 
-(evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu-no-default)
-(evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers-no-default)
+;; (evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu-no-default)
+;; (evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers-no-default)
 
 (defun helm-resize-buffer-to-max ()
      (interactive)
