@@ -15,6 +15,8 @@
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "C-w") 'evil-delete-backward-word)
+  ;; prevent <RET> from inserting newlines when in company popup window
+  (define-key company-active-map (kbd "RET") 'company-complete-selection)
   )
 
 (require-package 'yasnippet)
@@ -31,6 +33,20 @@
 
 (require-package 'helm-c-yasnippet)
 
-(evil-global-set-key 'normal (kbd "SPC DEL") 'helm-yas-complete)
+(defhydra hydra-insert-menu (:color pink :hint nil :exit t)
+  "
+^Insert^
+^^^^^^^^-------------------------
+_y_: yasnippet
+"
+  ("y" helm-yas-complete)
+
+  ("c" nil "cancel" :color blue)
+  )
+
+(global-set-key (kbd "C-c i") 'hydra-insert-menu/body)
+(evil-global-set-key 'normal (kbd "SPC i") 'hydra-insert-menu/body)
+
+(advice-add 'helm-yas-complete :after #'evil-insert-state)
 
 (provide 'init-company)
