@@ -40,6 +40,23 @@ _s_: current buffer  _f_: current dir          _d_: current dir
       (call-interactively 'helm-find)
       ))
 
+(setq ffip-use-rust-fd t)
+(setq ffip-rust-fd-extra-opts "--no-ignore --hidden")
+(setq ffip-match-path-instead-of-filename t)
+
+(defun my-find-file-in-project-prompt ()
+  (interactive)
+  (let ((fn (read-string "File name regex: ")))
+    (ffip-find-files fn nil)
+    ))
+
+(defun my-find-file-in-current-directory-prompt ()
+  (interactive)
+  (let* ((fn (read-string "File name regex: "))
+	 (ffip-project-root default-directory))
+    (ffip-find-files fn nil)
+    ))
+
 (defun helm-find-files-in-dir (dir)
   (interactive)
   ;; XXX: trailing slash in path matters in `helm-file-files'

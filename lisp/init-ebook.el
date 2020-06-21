@@ -140,6 +140,7 @@
 (add-hook 'pdf-view-mode-hook 'init-pdf-tools-handler)
 (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
 
+(prefer-coding-system 'utf-8)
 (require-package 'nov)
 (setq nov-text-width 80)
 (custom-set-variables

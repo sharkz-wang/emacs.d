@@ -32,10 +32,6 @@
 
 (evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
 
-(evil-leader/set-key
-  "hl" 'helm-info-elisp
-  )
-
 (require 'cl)
 ;; a `helm-imenu' variation that won't take `thing-at-point' as default input
 (defun helm-imenu-no-default ()
@@ -99,7 +95,7 @@
   (helm-run-after-quit '--helm-save-search-session)
   )
 
-(define-key helm-map (kbd "C-c C-s") helm-save-search-session)
+(define-key helm-map (kbd "C-c C-s") 'helm-save-search-session)
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)

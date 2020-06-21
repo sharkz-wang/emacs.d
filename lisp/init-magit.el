@@ -14,7 +14,6 @@
 (evil-magit-init)
 
 ;; require `cl' to support following snippet
-(require-package 'cl)
 (require 'cl)
 (eval-after-load "projectile"
   '(progn

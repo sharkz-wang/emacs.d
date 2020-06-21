@@ -123,6 +123,8 @@
   "ww" 'other-window
   "wd" 'delete-window
   "wm" 'delete-other-windows
+  ;; TODO: fix incorrect font in new frames
+  "wf" 'make-frame
   "w-" (lambda ()
 	 (interactive)
 	 (split-window-below)
@@ -248,9 +250,6 @@
 
 (require 'init-navigation)
 
-(require-package 'undo-tree)
-(global-undo-tree-mode 1)
-
 ;; settings for smex
 (require-package 'ido)
 (ido-mode t)
@@ -280,11 +279,11 @@
   "q" 'Info-exit
   )
 
-(with-current-buffer "*Messages*"
-  (evil-normalize-keymaps)
-  (evil-leader-mode 1)
-  (evil-local-set-key 'normal "q" 'quit-window)
-  )
+;; (with-current-buffer "*Messages*"
+  ;; (evil-normalize-keymaps)
+  ;; (evil-leader-mode 1)
+  ;; (evil-local-set-key 'normal "q" 'quit-window)
+  ;; )
 
 (evil-define-key 'normal help-mode-map
   "q" 'quit-window

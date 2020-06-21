@@ -1,4 +1,4 @@
-(require-package 'org)
+(require 'org)
 
 (defun update-org-agenda-files (dir path)
   (set dir path)
@@ -59,9 +59,7 @@
   "df" 'dired-fig-dir
   )
 
-;; org-refile settings
-(setq org-refile-targets '((nil :maxlevel . 5)
-			   (org-agenda-files :maxlevel . 5)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 5)))
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
 
@@ -82,7 +80,9 @@
 	))
 (setq org-tag-alist
       '(
+	("today" . ?t)
 	("scheduled" . ?s)
+	("livingroom" . ?l)
 	))
 
 (defun org-journal-find-location ()
@@ -126,12 +126,16 @@
   ))
 
 (setq org-capture-templates
-      '(
-	("t" "Todo"
-	 entry (function org-find-inbox-or-marked-entry-prepend)
-	 "* TODO %?%i\n%T"
+      `(
+	("z" "Quick event"
+	 entry (file+headline ,(concat (file-name-as-directory org-agenda-dir) "quick.org") "Inbox")
+	 "* TODO %?%i"
 	 :prepend t
-	 :empty-lines 1
+	 )
+	("t" "Todo"
+	 entry (file+headline ,(concat (file-name-as-directory org-agenda-dir) "inbox.org") "Inbox")
+	 "* TODO %?%i"
+	 :prepend t
 	 )
 	("c" "Trace code note"
 	 plain (function org-find-inbox-or-marked-entry-append)
@@ -176,6 +180,12 @@
 
 (global-set-key (kbd "C-\\") 'org-todo-list-position-to-first-heading-or-refresh)
 
+(defun org-capture-force-horizontal ()
+  (interactive)
+  (cl-letf ((split-width-threshold nil)
+	    (split-height-threshold 10))
+    (org-capture)))
+
 (evil-leader/set-key
   "\\" (lambda () (interactive)
 	  (find-file (format "%s/inbox.org" org-agenda-dir))
@@ -184,7 +194,7 @@
 	  (interactive)
 	  (org-agenda-list 21 "-3d" 21))
   "atl" 'org-todo-list-position-to-first-heading-or-refresh
-  "aoc" 'org-capture
+  "aoc" 'org-capture-force-horizontal
   "asp" 'helm-org-rifle-agenda-files
   "aor" 'org-refile
   "aw" 'org-refile
@@ -213,7 +223,7 @@
   (setq org-clock-sound t)
   (setq org-timer-default-timer 25)
   (setq org-log-into-drawer t)
-  (setq org-use-tag-inheritance nil)
+  (setq org-use-tag-inheritance t)
 
   (setq org-src-tab-acts-natively t)
 
@@ -234,7 +244,7 @@
 	      ))
 
   (setq org-superstar-headline-bullets-list
-	'("◉" "○" "⬝" "⬞" "⇥" "⇒" "⇛" "·"))
+	'("" "○" "⬝" "⬞" "⇥" "⇒" "⇛" "·"))
   ;; reusing last entry in bullet list is good enough
   (setq org-superstar-cycle-headline-bullets nil)
 
@@ -262,7 +272,6 @@
   (org-indent-mode 1)
   (form-feed-mode 1)
   (company-mode -1)
-  ;; (org-bullets-mode 1)
 
   (global-hl-line-mode -1)
   (setq line-spacing 0.1)
@@ -284,10 +293,24 @@
     (evil-emacs-state)
     )
 
+(defun org-move-to-top ()
+  "Move current org subtree to the end of its parent.
+   With prefix arg move subtree to the start of its parent."
+  (interactive "P")
+  (condition-case err
+      (while t
+        (funcall 'org-move-subtree-up))
+    (user-error
+     (let ((err-msg (cadr err)))
+       (unless (string-match "Cannot move past superior level or buffer limit" err-msg)
+         (signal 'user-error (list err-msg)))))))
+
   (defun org-insert-subheading-respect-content-and-edit ()
       (interactive)
       (org-insert-heading-respect-content-and-edit)
       (org-shiftmetaright)
+      (org-move-to-top)
+      (move-end-of-line nil)
       )
 
   (defun org-insert-todo-subheading-respect-content-and-edit ()
@@ -383,7 +406,6 @@
     "<" 'org-metaleft
     ">" 'org-metaright
     "t" 'org-todo
-    (kbd "SPC s d") (lambda () (interactive) (helm-org-rifle-directories (f-dirname (buffer-file-name))))
     )
   
 (defun advice-delete-other-windows (&rest args)
@@ -488,8 +510,6 @@
 		(let ((buffer (buffer-name)))
 		  (org-agenda-switch-to)
 		  (bury-buffer buffer))))
-	    (define-key org-super-agenda-header-map "j" 'evil-next-visual-line)
-	    (define-key org-super-agenda-header-map "k" 'evil-previous-visual-line)
 	    (evil-local-set-key 'normal "p" 'org-agenda-priority)
 	    (evil-local-set-key 'normal "u" 'org-agenda-undo)
 	    (evil-local-set-key 'normal "o"
@@ -600,7 +620,7 @@
        (bury-buffer buffer))
      )
  )
-(evil-global-set-key 'normal (kbd "SPC s l") 'helm-occur-and-jump-org-agenda)
-(evil-global-set-key 'normal (kbd "SPC s I") 'helm-org-in-buffer-headings)
+;(evil-global-set-key 'normal (kbd "SPC s l") 'helm-occur-and-jump-org-agenda)
+;(evil-global-set-key 'normal (kbd "SPC s I") 'helm-org-in-buffer-headings)
 
 (provide 'init-org)

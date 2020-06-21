@@ -16,15 +16,13 @@
   (prog1
       (apply f theme-id no-confirm no-enable args)))
 
-(advice-add 'load-theme
-            :around
-            #'load-theme-advice)
+;; disable all loaded themes before load a new theme
+;; (advice-add 'load-theme :around #'load-theme-advice)
 
 (require-package 'monokai-theme)
 
 (require-package 'poet-theme)
 
-(require-package 'org-bullets)
 (require 'hide-mode-line)
 (require 'org-pretty-table)
 

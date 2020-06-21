@@ -38,9 +38,11 @@
 
 ;; set starting state to normal state
 (setq evil-emacs-state-modes '(ediff-mode))
+(setq evil-normal-state-modes '(dired-mode))
 (setq evil-insert-state-modes nil)
 (setq evil-motion-state-modes nil)
 (setq evil-default-state 'normal)
+(add-hook 'evil-local-mode-hook #'evil-normal-state)
 ;; end setting starting state
 
 (require-package 'evil-surround)
@@ -260,9 +262,5 @@
     (delete-trailing-whitespace
      (progn (forward-visible-line 0) (point))
      (progn (forward-visible-line 1) (point)))))
-
-(add-hook 'evil-normal-state-entry-hook
-	  (lambda()
-	    (curr-line-remove-trailing-whitespace)))
 
 (provide 'init-evil)

@@ -62,6 +62,30 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
       (call-interactively 'helm-find)
       ))
 
+(defhydra hydra-git-timemachine-menu (:color pink :hint nil)
+  "
+^Revision...^              ^Operate...^
+^^^^^^^^^--------------------------------------------------------------------------------------------------------------
+_n_: next revision         _y_: copy hash id
+_p_: previous revision     _b_: blame
+"
+  ;; revision
+  ("n" git-timemachine-show-next-revision)
+  ("p" git-timemachine-show-previous-revision)
+  ;; operate
+  ("y" git-timemachine-kill-revision)
+  ("b" git-timemachine-blame)
+
+  ("c" git-timemachine-quit "cancel" :color blue)
+  )
+
+(defun git-timemachine-trasient-state ()
+  (interactive)
+  ;; FIXME: not automatically showing transient menu
+  (hydra-git-timemachine-menu/body)
+  (git-timemachine)
+  )
+
 (evil-global-set-key 'normal (kbd "SPC p") 'hydra-project-menu/body)
 (evil-define-key 'normal dired-mode-map (kbd "C-c p") 'hydra-project-menu/body)
 
