@@ -93,12 +93,21 @@
 (setq magit-status-sections-hook-orig
       magit-status-sections-hook)
 
+;; XXX: by default C-u+`magit-status' shows list of known repos with hard-coded `basename',
+;;      which was difficult to interpret.
+;;      here we did the trick to show full path, by overriding
+;;      the function `magit-repos-alist'.
+(defun magit-repos-alist-full-path ()
+   (--map (cons it it)
+          (magit-list-repos)))
+
 (defun magit-status-simplified ()
   (interactive)
   (setq magit-status-sections-hook
 	'(magit-insert-unstaged-changes
 	  magit-insert-staged-changes))
-  (call-interactively 'magit-status)
+  (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
+    (call-interactively 'magit-status))
   (beginning-of-buffer)
   (magit-section-forward)
  )
@@ -107,7 +116,8 @@
   (interactive)
   (setq magit-status-sections-hook
 	magit-status-sections-hook-orig)
-  (call-interactively 'magit-status)
+  (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
+    (call-interactively 'magit-status))
   (beginning-of-buffer)
   (magit-section-forward)
   (magit-section-forward)
