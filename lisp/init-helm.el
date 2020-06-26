@@ -28,51 +28,6 @@
   "hl" 'helm-info-elisp
   )
 
-(defun projectile-projects ()
-  (seq-uniq
-   (sort
-    (mapcar
-     'file-name-directory (projectile-relevant-known-projects))
-    'string<)))
-
-(defun helm-projectile-projects ()
-    (helm :sources
-	  (helm-build-sync-source "projectile directories"
-	    :candidates (projectile-projects))))
-
-(defun helm-projectile-project-dirs (project-root)
-  (f-dirname
-   (helm :sources
-	 (helm-build-sync-source "recentf directories"
-	   :candidates (helm-browse-project-walk-directory project-root)))))
-
-(defun helm-projectile-dirs-ag ()
-  (interactive)
-  (let* ((project-root (projectile-project-root))
-	 (default-directory (helm-projectile-project-dirs project-root)))
-    (helm-do-ag default-directory)))
-
-(defun helm-projectile-project-dirs-ag ()
-  (interactive)
-  (let ((project-root (helm-projectile-projects)))
-    (helm-do-ag (helm-projectile-project-dirs project-root))))
-
-(require 'recentf)
-(recentf-load-list)
-
-(defun helm-do-ag-recentf-dirs ()
-  (interactive)
-  (let ((default-directory
-	  (f-dirname (helm :sources
-			   (helm-build-sync-source "recentf directories"
-			     :candidates recentf-list)))))
-    (helm-do-ag default-directory)))
-
-;; default search functions that could be overriden by special major mode functions
-;; (evil-global-set-key 'normal (kbd "SPC s p") 'helm-projectile-dirs-ag)
-;; (evil-global-set-key 'normal (kbd "SPC s P") 'helm-projectile-project-dirs-ag)
-;; (evil-global-set-key 'normal (kbd "SPC s r") 'helm-do-ag-recentf-dirs)
-
 (require 'cl)
 ;; a `helm-imenu' variation that won't take `thing-at-point' as default input
 (defun helm-imenu-no-default ()
@@ -140,15 +95,6 @@
 (define-key evil-normal-state-map (kbd "SPC p r") 'helm-projectile-recentf)
 (define-key evil-normal-state-map (kbd "SPC p o") 'helm-projectile-find-other-file)
 (define-key evil-normal-state-map (kbd "SPC p i") 'projectile-invalidate-cache)
-
-(define-key evil-normal-state-map (kbd "SPC p a")
-  (lambda ()
-    (interactive)
-    (projectile-add-known-project (f-dirname (buffer-file-name)))))
-(define-key evil-normal-state-map (kbd "SPC p d")
-  (lambda ()
-    (interactive)
-    (projectile-remove-known-project (f-dirname (buffer-file-name)))))
 
 (require-package 'helm-ag)
 (define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
