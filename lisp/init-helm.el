@@ -6,6 +6,8 @@
 (custom-set-variables
  '(helm-autoresize-max-height 30)
  '(helm-autoresize-min-height 30))
+(setq orig-helm-max-height helm-autoresize-max-height)
+(setq orig-helm-min-height helm-autoresize-min-height)
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
@@ -54,12 +56,21 @@
 ;; (evil-global-set-key 'normal (kbd "SPC s i") 'helm-imenu-no-default)
 ;; (evil-global-set-key 'normal (kbd "SPC s I") 'helm-imenu-in-all-buffers-no-default)
 
+;; XXX: in `helm-do-ag', simply using `let' won't work, as minibuffer would still be
+;;      updated after `helm-refresh'
+(add-hook 'helm-quit-hook
+	  (lambda ()
+	    (setq helm-autoresize-max-height orig-helm-max-height)
+	    (setq helm-autoresize-min-height helm-autoresize-min-height)))
+
 (defun helm-resize-buffer-to-max ()
      (interactive)
+     (setq orig-helm-max-height helm-autoresize-max-height)
+     (setq orig-helm-min-height helm-autoresize-min-height)
      ;; XXX: 90 was the max valid number
-     (let ((helm-autoresize-max-height 90)
-	   (helm-autoresize-min-height 90))
-       (helm-refresh)))
+     (setq helm-autoresize-max-height 90)
+     (setq helm-autoresize-min-height 90)
+     (helm-refresh))
 (define-key helm-map (kbd "C-c C-m") 'helm-resize-buffer-to-max)
 
 (require 'helm-files) ;; included in package helm
