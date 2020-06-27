@@ -91,22 +91,6 @@
 (define-key helm-read-file-map (kbd "C-h") 'helm-find-files-up-one-level)
 (define-key helm-read-file-map (kbd "C-l") 'helm-find-files-down-last-level)
 
-(require-package 'projectile)
-(require-package 'helm-projectile)
-(helm-projectile-on)
-
-(projectile-global-mode 1)
-(setq projectile-indexing-method 'hybrid)
-(setq projectile-enable-caching t)
-(setq projectile-completion-system 'helm)
-
-(define-key evil-normal-state-map (kbd "SPC \`") 'helm-projectile-switch-project)
-(define-key evil-normal-state-map (kbd "SPC p p") 'helm-projectile-switch-project)
-(define-key evil-normal-state-map (kbd "SPC p f") 'helm-projectile-find-file)
-(define-key evil-normal-state-map (kbd "SPC p r") 'helm-projectile-recentf)
-(define-key evil-normal-state-map (kbd "SPC p o") 'helm-projectile-find-other-file)
-(define-key evil-normal-state-map (kbd "SPC p i") 'projectile-invalidate-cache)
-
 (require-package 'helm-ag)
 (define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
 
