@@ -7,6 +7,7 @@
 (require 'init-basics)
 (require 'init-appearance)
 (require 'init-helm)
+(require 'init-project)
 (require 'init-dash)
 (require 'init-magit)
 (require 'init-search)
