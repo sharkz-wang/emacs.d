@@ -59,20 +59,6 @@
   "g.k" 'git-gutter:previous-hunk
   )
 
-(require-package 'git-timemachine)
-(add-hook
- 'git-timemachine-mode-hook
- (lambda
-   ()
-   ;; XXX: using evil-normal-state will pollute key-bindings in other modes
-   (evil-motion-state)
-   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "p") 'git-timemachine-show-previous-revision)
-   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "n") 'git-timemachine-show-next-revision)
-   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "q") 'git-timemachine-quit)
-   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "w") 'git-timemachine-kill-abbreviated-revision)
-   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "W") 'git-timemachine-kill-revision)
-   (evil-define-minor-mode-key 'motion 'git-timemachine-mode-map (kbd "b") 'git-timemachine-blame)))
-
 (defun helm-magit-dispatch-popup (arg)
   (interactive "P")
   (if (equal current-prefix-arg '(4))
@@ -125,14 +111,7 @@
  )
 
 (evil-leader/set-key
-  "gS" 'magit-status-full
-  "gs" 'magit-status-simplified
-  "gm" 'magit-dispatch
-  "gb" 'magit-blame
-  "gfh" 'magit-log-buffer-file
-  "gfu" 'magit-diff-buffer-file
   "gr" 'magit-diff-toggle-refine-hunk
-  "gt" 'git-timemachine
   "g$" 'magit-process-buffer
   "g4" 'magit-process-buffer
   )
