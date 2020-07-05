@@ -226,4 +226,7 @@
 
 (require-package 'form-feed)
 
+(require-package 'centered-window)
+(centered-window-mode)
+
 (provide 'init-appearance)
