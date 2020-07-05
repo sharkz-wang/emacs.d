@@ -135,7 +135,7 @@
    `(org-level-1
      ((t (:inherit nil
 		   :family ,et-font
-		   :height 1.8
+		   :height 2.0
 		   :weight bold
 		   :slant normal
 		   :foreground ,bg-dark))))
@@ -143,8 +143,8 @@
      ((t (:inherit nil
 		   :family ,et-font
 		   :weight bold
-		   :height 1.3
-		   :slant italic
+		   :height 1.5
+		   :slant normal
 		   :foreground ,bg-dark))))
    `(org-level-3
      ((t (:inherit nil

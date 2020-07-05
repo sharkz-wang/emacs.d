@@ -43,7 +43,7 @@
      (monokai-violet "#AE81FF")
      (monokai-gray "#64645E")
      (monokai-foreground "#F8F8F2")
-     (monokai-background "#272822")
+     (monokai-background "#b0b0b0")
      (monokai-comments "#75715E")
      (monokai-emphasis "#F8F8F0")
      (monokai-line-number "#8F908A")

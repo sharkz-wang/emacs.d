@@ -46,6 +46,7 @@
 
   (disable-all-themes)
   (load-theme 'monokai t)
+  (load-theme 'gray-on-black t)
   (set-frame-font "Monaco-17")
 
   (toggle-truncate-lines 1)
