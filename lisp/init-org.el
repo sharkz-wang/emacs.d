@@ -240,6 +240,10 @@
 
   (setq org-src-tab-acts-natively t)
 
+  ;; no bullets, needs org-bullets package
+  (setq org-bullets-bullet-list '(" "))
+  (org-bullets-mode 1)
+
   (setq org-emphasis-alist
 	'(("*" bold)
 	  ("/" italic)
@@ -248,9 +252,23 @@
 	  ("=" (:foreground "red"))
 	  ("+" (:strike-through t))))
 
+  (setq org-startup-indented t
+	org-ellipsis "  " ;; folding symbol
+	header-line-format " "
+	org-hide-emphasis-markers t
+	;; show actually italicized text instead of /italicized text/
+	org-agenda-block-separator ""
+	org-fontify-whole-heading-line t
+	org-fontify-done-headline t
+	org-fontify-quote-and-verse-blocks t)
+
   (org-indent-mode 1)
   (form-feed-mode 1)
   (company-mode -1)
+  (org-bullets-mode 1)
+
+  (global-hl-line-mode -1)
+  (setq line-spacing 0.1)
 
   (evil-leader/set-key
     "ati" 'org-toggle-inline-images

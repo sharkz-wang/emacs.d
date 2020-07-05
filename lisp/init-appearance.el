@@ -34,25 +34,6 @@
   (interactive)
   (disable-all-themes)
 
-  (setq org-startup-indented t
-	org-bullets-bullet-list '(" ") ;; no bullets, needs org-bullets package
-	org-ellipsis "  " ;; folding symbol
-	;; org-pretty-entities t
-	header-line-format " "
-	org-hide-emphasis-markers t
-	;; show actually italicized text instead of /italicized text/
-	org-agenda-block-separator ""
-	org-fontify-whole-heading-line t
-	org-fontify-done-headline t
-	org-fontify-quote-and-verse-blocks t)
-
-  (org-bullets-mode 1)
-  (global-org-pretty-table-mode 1)
-  (variable-pitch-mode 1)
-  (global-hl-line-mode -1)
-  (hide-mode-line-mode 1)
-  (setq line-spacing 0.1)
-
   (load-theme 'etbembo t)
   (load-theme 'spacemacs-light t)
   (enable-theme 'etbembo)
