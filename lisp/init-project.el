@@ -10,7 +10,7 @@ _s_: project buffers    _f_: current project         _gs_:  brief status        
 ^^                      _d_: dwim current project    _gS_:  full status            _/_: keyword
 ^^                      _b_: project buffers         _gm_:  magit menu
 ^^                      _D_: project dirs            _gb_:  git blame
-^^                      _p_: other projects          _gfh_: diff current file
+^^                      _p_: other projects          _gfu_: diff current file
 ^^                      _r_: recent files            _gfh_: current file's history
 ^^^^                                                 _gt_:  git timemachine
 "
