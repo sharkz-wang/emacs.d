@@ -61,7 +61,7 @@
 (add-hook 'helm-quit-hook
 	  (lambda ()
 	    (setq helm-autoresize-max-height orig-helm-max-height)
-	    (setq helm-autoresize-min-height helm-autoresize-min-height)))
+	    (setq helm-autoresize-min-height orig-helm-min-height)))
 
 (defun helm-resize-buffer-to-max ()
      (interactive)
