@@ -480,7 +480,8 @@
   (org-add-link-type "google" 'google-search-link-open)
   )
 
-(add-hook 'org-mode-hook 'init-org-handler)
+(eval-after-load 'org
+  '(progn (init-org-handler)))
 
 (add-hook 'org-agenda-mode-hook
 	  (lambda () (interactive)
