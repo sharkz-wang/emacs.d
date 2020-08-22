@@ -35,7 +35,7 @@
 ;; TODO: move it to init-git.el
 (require-package 'git-gutter)
 
-;; (global-git-gutter-mode 1)
+(global-git-gutter-mode 1)
 
 (setq git-gutter:ask-p nil)
 
