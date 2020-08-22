@@ -72,7 +72,7 @@
 	("https" :follow (lambda (path) (browse-url (concat "https:" path))))
 	))
 
-(setq org-startup-folded 'nofold)
+(setq org-startup-folded 'content)
 (setq org-todo-keywords
       '(
 	(sequence "TODO(t)" "WAIT(W@/!)" "|" "DONE(d!)" "ABORTED(a@)" "SUSPENDED(p@)")
