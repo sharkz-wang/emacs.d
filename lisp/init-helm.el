@@ -83,6 +83,20 @@
 
 (define-key helm-map (kbd "C-c C-m") 'helm-toggle-resize-buffer-to-max)
 
+(defun --helm-save-search-session ()
+  (interactive)
+  (let* ((buf-name (helm-buffer-get))
+	 (new-buf-name (helm-buffers-rename-buffer buf-name)))
+    (setq helm-buffers (append helm-buffers (list new-buf-name)))
+    )
+  )
+(defun helm-save-search-session ()
+  (interactive)
+  (helm-run-after-quit '--helm-save-search-session)
+  )
+
+(define-key helm-map (kbd "C-c C-s") helm-save-search-session)
+
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-o") 'helm-execute-persistent-action)
