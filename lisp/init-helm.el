@@ -8,6 +8,8 @@
  '(helm-autoresize-min-height 30))
 (setq orig-helm-max-height helm-autoresize-max-height)
 (setq orig-helm-min-height helm-autoresize-min-height)
+(setq curr-helm-max-height helm-autoresize-max-height)
+(setq curr-helm-min-height helm-autoresize-min-height)
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
@@ -60,18 +62,26 @@
 ;;      updated after `helm-refresh'
 (add-hook 'helm-quit-hook
 	  (lambda ()
-	    (setq helm-autoresize-max-height orig-helm-max-height)
-	    (setq helm-autoresize-min-height orig-helm-min-height)))
+	    (setq helm-autoresize-max-height curr-helm-max-height)
+	    (setq helm-autoresize-min-height curr-helm-min-height)))
 
-(defun helm-resize-buffer-to-max ()
-     (interactive)
-     (setq orig-helm-max-height helm-autoresize-max-height)
-     (setq orig-helm-min-height helm-autoresize-min-height)
-     ;; XXX: 90 was the max valid number
-     (setq helm-autoresize-max-height 90)
-     (setq helm-autoresize-min-height 90)
-     (helm-refresh))
-(define-key helm-map (kbd "C-c C-m") 'helm-resize-buffer-to-max)
+(defun helm-toggle-resize-buffer-to-max ()
+  (interactive)
+  (if (and (equalp curr-helm-max-height orig-helm-max-height)
+	   (equalp curr-helm-min-height orig-helm-min-height))
+      (progn
+	;; XXX: 90 was the max valid number
+	(setq curr-helm-max-height 90)
+	(setq curr-helm-min-height 90))
+    (progn
+      (setq curr-helm-max-height orig-helm-max-height)
+      (setq curr-helm-min-height orig-helm-min-height)
+      ))
+  (setq helm-autoresize-max-height curr-helm-max-height)
+  (setq helm-autoresize-min-height curr-helm-min-height)
+  (helm-refresh))
+
+(define-key helm-map (kbd "C-c C-m") 'helm-toggle-resize-buffer-to-max)
 
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
