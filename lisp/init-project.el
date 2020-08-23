@@ -4,7 +4,7 @@
 
 (defhydra hydra-project-menu (:color pink :hint nil :exit t)
   "
-^Save...^               ^Brose...^                   ^VCS...^                      ^Search...^        ^Operate...^
+^Save...^               ^Browse...^                  ^VCS...^                      ^Search...^        ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------
 _s_: project buffers    _f_: current project         _gs_:  brief status           _o_: other file    _K_: kill project buffers
 ^^                      _d_: dwim current project    _gS_:  full status            _/_: keyword
