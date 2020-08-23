@@ -1,6 +1,7 @@
 (require-package 'hydra)
 (require-package 'git-timemachine)
 (require-package 'magit)
+(require 'dired)
 
 (defhydra hydra-project-menu (:color pink :hint nil :exit t)
   "
@@ -47,5 +48,6 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
   )
 
 (evil-global-set-key 'normal (kbd "SPC p") 'hydra-project-menu/body)
+(evil-define-key 'normal dired-mode-map (kbd "C-c p") 'hydra-project-menu/body)
 
 (provide 'init-project)
