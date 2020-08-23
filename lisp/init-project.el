@@ -6,12 +6,15 @@
   "
 ^Save...^               ^Browse...^                  ^VCS...^                      ^Search...^        ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------
-_s_: project buffers    _f_: current project         _gs_:  brief status           _o_: other file    _K_: kill project buffers
-^^                      _d_: dwim current project    _gS_:  full status            _/_: keyword
-^^                      _b_: project buffers         _gm_:  magit menu
-^^                      _D_: project dirs            _gb_:  git blame
-^^                      _p_: other projects          _gfu_: diff current file
-^^                      _r_: recent files            _gfh_: current file's history
+_s_: project buffers    _f_: current project         _gss_: brief status           _o_: other file    _K_: kill project buffers
+^^                      _d_: dwim current project    _gsm_: brief status on bookmarks ^^              _/_: keyword
+^^                      _b_: project buffers         _gSS_: full status
+^^                      _D_: project dirs            _gSM_: full status on bookmarks
+^^                      _p_: other projects          _gm_:  magit menu
+^^                      _r_: recent files            _gM_:  magit menu on bookmarks
+^^^^                                                 _gb_:  git blame
+^^^^                                                 _gfu_: diff current file
+^^^^                                                 _gfh_: current file's history
 ^^^^                                                 _gt_:  git timemachine
 "
   ;; save ...
@@ -24,9 +27,12 @@ _s_: project buffers    _f_: current project         _gs_:  brief status        
   ("p" helm-projectile-switch-project)
   ("r" helm-projectile-recentf)
   ;; vcs ...
-  ("gs" magit-status-simplified)
-  ("gS" magit-status-full)
+  ("gss" magit-status-simplified)
+  ("gsm" (hydra-bookmarked-repo-menu-action 'magit-status-simplified-on-path))
+  ("gSS" magit-status-full)
+  ("gSM" (hydra-bookmarked-repo-menu-action 'magit-status-full-on-path))
   ("gm" magit-dispatch)
+  ("gM" (hydra-bookmarked-repo-menu-action 'magit-dispatch-on-path))
   ("gb" magit-blame)
   ("gfh" magit-log-buffer-file)
   ("gfu" magit-diff-buffer-file)
