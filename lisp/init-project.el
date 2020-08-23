@@ -13,7 +13,7 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
 ^^                      _D_: project dirs            _gSM_: full status on bookmarks
 ^^                      _p_: other projects          _gm_:  magit menu
 ^^                      _r_: recent files            _gM_:  magit menu on bookmarks
-^^^^                                                 _gb_:  git blame
+^^                      _m_: project in bookmarks    _gb_:  git blame
 ^^^^                                                 _gfu_: diff current file
 ^^^^                                                 _gfh_: current file's history
 ^^^^                                                 _gt_:  git timemachine
@@ -21,12 +21,13 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
   ;; save ...
   ("s" projectile-save-project-buffers)
   ;; browse ...
-  ("f" helm-projectile-find-file)
+  ("f" search-file-in-current-project)
   ("d" projectile-find-file-dwim)
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
   ("p" helm-projectile-switch-project)
   ("r" helm-projectile-recentf)
+  ("m" (hydra-bookmarked-repo-menu-action 'search-file-in-project))
   ;; vcs ...
   ("gss" magit-status-simplified)
   ("gsm" (hydra-bookmarked-repo-menu-action 'magit-status-simplified-on-path))
@@ -46,6 +47,18 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
 
   ("c" nil "cancel" :color blue)
   )
+
+(defun search-file-in-current-project ()
+    (interactive)
+    (let ((default-directory (projectile-project-root)))
+      (call-interactively 'helm-find)
+      ))
+
+(defun search-file-in-project (dir)
+    (interactive)
+    (let ((default-directory (projectile-project-root dir)))
+      (call-interactively 'helm-find)
+      ))
 
 (evil-global-set-key 'normal (kbd "SPC p") 'hydra-project-menu/body)
 (evil-define-key 'normal dired-mode-map (kbd "C-c p") 'hydra-project-menu/body)
