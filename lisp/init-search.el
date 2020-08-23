@@ -35,5 +35,7 @@ _b_: all buffers       _d_: current dir        _O_: all buffers outline
 (setq dumb-jump-selector 'helm)
 
 (evil-global-set-key 'normal (kbd "SPC s") 'hydra-search-menu/body)
+(evil-define-key evil-magit-state magit-mode-map (kbd "SPC s") 'hydra-search-menu/body)
+(evil-define-key 'normal magit-diff-mode-map (kbd "SPC s") 'hydra-search-menu/body)
 
 (provide 'init-search)
