@@ -30,20 +30,15 @@ _s_: current buffer  _f_: current dir          _d_: current dir
 
 (defun search-file-in-current-directory ()
     (interactive)
-    ;; XXX: force projectile to work on non-project directories
-    (cl-letf (((symbol-function 'projectile-project-p) #'(lambda () t))
-	      (projectile-project-root (f-dirname (buffer-file-name)))
-	      (default-directory (f-dirname (buffer-file-name))))
-      (projectile-find-file-in-directory (f-dirname (buffer-file-name)))))
+    (let ((default-directory (f-dirname (buffer-file-name))))
+      (call-interactively 'helm-find)
+      ))
 
 (defun search-file-in-directory (dir)
     (interactive)
-    ;; XXX: force projectile to work on non-project directories
-    (cl-letf (((symbol-function 'projectile-project-p) #'(lambda () t))
-	      (projectile-project-root dir)
-	      (default-directory dir))
-      (projectile-find-file-in-directory dir))
-    )
+    (let ((default-directory dir))
+      (call-interactively 'helm-find)
+      ))
 
 (defun helm-find-files-in-dir (dir)
   (interactive)
