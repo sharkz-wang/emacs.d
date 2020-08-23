@@ -37,9 +37,9 @@
   "
 ^Insert^
 ^^^^^^^^-------------------------
-_y_: yasnippet
+_i_: yasnippet
 "
-  ("y" helm-yas-complete)
+  ("i" helm-yas-complete)
 
   ("c" nil "cancel" :color blue)
   )
