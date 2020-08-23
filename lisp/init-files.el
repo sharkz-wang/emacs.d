@@ -9,7 +9,7 @@
 ^^^^^^^^--------------------------------------------------------------
 _s_: current buffer  _f_: current dir          _d_: current dir
 ^^                   _D_: dired current dir    _/_: bookmarked repos
-^^                   _r_: recent files         _/_: bookmarked repos
+^^                   _r_: recent files
 ^^                   _b_: bookmarks
 ^^                   _m_: bookmarked repos
 "
