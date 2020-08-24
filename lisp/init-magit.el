@@ -110,6 +110,21 @@
   (magit-section-forward)
  )
 
+(defun magit-dispatch-on-path (path)
+  (interactive)
+  (dired path)
+  (magit-dispatch))
+
+(defun magit-status-simplified-on-path (path)
+  (interactive)
+  (dired path)
+  (magit-status-simplified))
+
+(defun magit-status-simplified-on-path (path)
+  (interactive)
+  (dired path)
+  (magit-status-full))
+
 (evil-leader/set-key
   "gr" 'magit-diff-toggle-refine-hunk
   "g$" 'magit-process-buffer
