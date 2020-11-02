@@ -66,7 +66,8 @@
     (turn-off-paper-imitation-theme)
     (turn-on-paper-imitation-theme)))
 
-(turn-on-paper-imitation-theme)
+(load-theme 'monokai t)
+(load-theme 'green-black-org-mode t)
 
 (defun increse-font ()
   (interactive)

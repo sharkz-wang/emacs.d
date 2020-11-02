@@ -240,9 +240,27 @@
 
   (setq org-src-tab-acts-natively t)
 
-  ;; no bullets, needs org-bullets package
-  (setq org-bullets-bullet-list '(" "))
-  (org-bullets-mode 1)
+  ;; reusing level-n style is good enough
+  (setq org-cycle-level-faces nil)
+
+  (require-package 'org-superstar)
+  (add-hook 'org-mode-hook
+	    (lambda ()
+	      (org-superstar-mode 1)
+
+	      (push '("[ ]" . "☐") prettify-symbols-alist)
+	      (push '("[X]" . "✓") prettify-symbols-alist)
+	      (push '("[-]" . "☒") prettify-symbols-alist)
+	      (prettify-symbols-mode 1)))
+
+  (setq org-superstar-headline-bullets-list
+	'("◉" "○" "⬝" "⬞" "⇥" "⇒" "⇛" "·"))
+  ;; reusing last entry in bullet list is good enough
+  (setq org-superstar-cycle-headline-bullets nil)
+
+  ;; space between headlines and underlines,
+  ;; used to make level-1 headlines less strange with underlines
+  (setq underline-minimum-offset 7)
 
   (setq org-emphasis-alist
 	'(("*" bold)
@@ -253,8 +271,7 @@
 	  ("+" (:strike-through t))))
 
   (setq org-startup-indented t
-	org-ellipsis "  " ;; folding symbol
-	header-line-format " "
+	org-ellipsis " ▾ " ;; folding symbol
 	org-hide-emphasis-markers t
 	;; show actually italicized text instead of /italicized text/
 	org-agenda-block-separator ""
@@ -265,7 +282,7 @@
   (org-indent-mode 1)
   (form-feed-mode 1)
   (company-mode -1)
-  (org-bullets-mode 1)
+  ;; (org-bullets-mode 1)
 
   (global-hl-line-mode -1)
   (setq line-spacing 0.1)
