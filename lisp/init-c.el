@@ -6,7 +6,7 @@
    '(c-basic-offset '8))
   (c-set-style "linux")
 
-  ;; (require 'init-semantic)
+  (require 'init-semantic)
   (require 'init-gtags)
   (helm-gtags-mode t)
   (require 'init-ycmd)
