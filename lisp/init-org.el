@@ -190,6 +190,13 @@
   "aw" 'org-refile
   )
 
+(require-package 'org-sticky-header)
+
+(setq org-sticky-header-full-path 'full)
+(setq org-sticky-header-heading-star " ")
+(setq org-sticky-header-always-show-header t)
+(setq org-sticky-header-outline-path-separator " > ")
+
 (require-package 'helm-org-rifle)
 
 (require-package 'org-super-agenda)
@@ -251,7 +258,10 @@
 	      (push '("[ ]" . "☐") prettify-symbols-alist)
 	      (push '("[X]" . "✓") prettify-symbols-alist)
 	      (push '("[-]" . "☒") prettify-symbols-alist)
-	      (prettify-symbols-mode 1)))
+	      (prettify-symbols-mode 1)
+
+	      (org-sticky-header-mode)
+	      ))
 
   (setq org-superstar-headline-bullets-list
 	'("◉" "○" "⬝" "⬞" "⇥" "⇒" "⇛" "·"))
