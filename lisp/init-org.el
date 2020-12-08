@@ -188,6 +188,7 @@
   "asp" 'helm-org-rifle-agenda-files
   "aor" 'org-refile
   "aw" 'org-refile
+  "oa" 'org-agenda
   )
 
 (require-package 'org-sticky-header)
@@ -199,38 +200,7 @@
 
 (require-package 'helm-org-rifle)
 
-(require-package 'org-super-agenda)
-
-(org-super-agenda-mode 1)
-
-(setq org-super-agenda-groups
-      '(
-	(:name "Scheduled"
-	       :tag "scheduled"
-	       :order 2
-	       )
-	(:name "Project"
-	       :todo ("PROJECT")
-	       :order 3
-	       )
-	(:name "Weekly goal"
-	       :todo ("WEEKLY" "REPORT")
-	       :order 0
-	       )
-	(:name "Today"
-	       :deadline today
-	       :scheduled today
-	       :order 1
-	       )
-	(:name "Study"
-	       :todo ("STUDY" "RECAP")
-	       :order 4
-	       )
-	(:name "This Week"
-	       :order 5
-	       )
-      ))
-
+(require 'init-fnaf)
 (defun init-org-handler ()
   
   (modify-syntax-entry ?- "w")
