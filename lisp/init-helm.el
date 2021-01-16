@@ -11,6 +11,10 @@
 (setq curr-helm-max-height helm-autoresize-max-height)
 (setq curr-helm-min-height helm-autoresize-min-height)
 
+;; disable annoying default minibuffer texts when
+;; your cursor happens to be an url
+(setq helm-find-files-ignore-thing-at-point t)
+
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 (require 'helm-config)
