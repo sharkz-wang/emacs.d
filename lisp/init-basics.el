@@ -139,48 +139,6 @@
   "5" 'evil-jump-item
   )
 
-(defun describe-key-and-switch-to-window ()
-  (interactive)
-  (call-interactively 'describe-key)
-  (switch-to-buffer-other-window "*Help*"))
-
-(defun describe-function-and-switch-to-window ()
-  (interactive)
-  (call-interactively 'describe-function)
-  (switch-to-buffer-other-window "*Help*"))
-
-(defun describe-variable-and-switch-to-window ()
-  (interactive)
-  (call-interactively 'describe-variable)
-  (switch-to-buffer-other-window "*Help*"))
-
-(defun describe-mode-and-switch-to-window ()
-  (interactive)
-  (call-interactively 'describe-mode)
-  (switch-to-buffer-other-window "*Help*"))
-
-(defun man-and-switch-to-window ()
-  (interactive)
-  (call-interactively 'man)
-  (other-window 1))
-
-(evil-leader/set-key
-  "hi" 'info
-  "he" 'info-emacs-manual
-  "hm" 'man-and-switch-to-window
-  "hdk" 'describe-key-and-switch-to-window
-  "hdf" 'describe-function-and-switch-to-window
-  "hdv" 'describe-variable-and-switch-to-window
-  "hdm" 'describe-mode-and-switch-to-window
-  )
-
-(evil-define-key 'normal Man-mode-map
-  "q" 'quit-window
-  )
-
-(global-set-key (kbd "C-c h d k") 'describe-key-and-switch-to-window)
-(define-key minibuffer-local-map (kbd "C-c C-c") 'helm-select-action)
-
 (evil-leader/set-key
   "nf" 'narrow-to-defun
   "nr" 'narrow-to-region

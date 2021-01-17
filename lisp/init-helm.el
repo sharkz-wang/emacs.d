@@ -136,7 +136,6 @@
 (define-key helm-read-file-map (kbd "C-l") 'helm-find-files-down-last-level)
 
 (require-package 'helm-ag)
-(define-key evil-normal-state-map (kbd "SPC h a") 'helm-do-ag)
 
 (evil-define-key 'normal helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump)
 (evil-define-key 'normal helm-ag-mode-map (kbd "q") 'quit-window)
