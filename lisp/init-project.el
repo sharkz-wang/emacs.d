@@ -13,8 +13,8 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
 ^^                      _d_: dwim current project    _gsm_: brief status on bookmarks ^^              _/_: keyword
 ^^                      _b_: project buffers         _gSS_: full status
 ^^                      _D_: project dirs            _gSM_: full status on bookmarks
-^^                      _p_: other projects          _gm_:  magit menu
-^^                      _r_: recent files            _gM_:  magit menu on bookmarks
+^^                      _p_: other projects          _gg_:  magit menu
+^^                      _r_: recent files            _gm_:  magit menu on bookmarks
 ^^                      _m_: project in bookmarks    _gb_:  git blame
 ^^^^                                                 _gfu_: diff current file
 ^^^^                                                 _gfh_: current file's history
@@ -35,8 +35,8 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
   ("gsm" (hydra-bookmarked-repo-menu-action 'magit-status-simplified-on-path))
   ("gSS" magit-status-full)
   ("gSM" (hydra-bookmarked-repo-menu-action 'magit-status-full-on-path))
-  ("gm" magit-dispatch)
-  ("gM" (hydra-bookmarked-repo-menu-action 'magit-dispatch-on-path))
+  ("gg" magit-dispatch)
+  ("gm" (hydra-bookmarked-repo-menu-action 'magit-dispatch-on-path))
   ("gb" magit-blame)
   ("gfh" magit-log-buffer-file)
   ("gfu" magit-diff-buffer-file)
