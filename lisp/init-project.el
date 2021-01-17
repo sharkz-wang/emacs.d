@@ -3,6 +3,8 @@
 (require-package 'magit)
 (require 'dired)
 
+(require 'init-find-files)
+
 (defhydra hydra-project-menu (:color pink :hint nil :exit t)
   "
 ^Save...^               ^Browse...^                  ^VCS...^                      ^Search...^        ^Operate...^
@@ -21,7 +23,7 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
   ;; save ...
   ("s" projectile-save-project-buffers)
   ;; browse ...
-  ("f" search-file-in-current-project)
+  ("f" find-file-in-project-prompt)
   ("d" projectile-find-file-dwim)
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
