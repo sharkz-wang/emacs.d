@@ -16,6 +16,7 @@
 (require 'init-c)
 (require 'init-elisp)
 (require 'init-org)
+(require 'init-org-menu)
 (require 'init-uml)
 (require 'init-dired)
 (require 'init-ediff)

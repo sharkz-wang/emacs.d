@@ -186,21 +186,6 @@
 	    (split-height-threshold 10))
     (org-capture)))
 
-(evil-leader/set-key
-  "\\" (lambda () (interactive)
-	  (find-file (format "%s/inbox.org" org-agenda-dir))
-	  )
-  "aoa" (lambda ()
-	  (interactive)
-	  (org-agenda-list 21 "-3d" 21))
-  "atl" 'org-todo-list-position-to-first-heading-or-refresh
-  "aoc" 'org-capture-force-horizontal
-  "asp" 'helm-org-rifle-agenda-files
-  "aor" 'org-refile
-  "aw" 'org-refile
-  "oa" 'org-agenda
-  )
-
 (require-package 'org-sticky-header)
 
 (setq org-sticky-header-full-path 'full)
