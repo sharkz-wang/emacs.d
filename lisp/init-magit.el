@@ -119,7 +119,7 @@
   (dired path)
   (magit-status-simplified))
 
-(defun magit-status-simplified-on-path (path)
+(defun magit-status-full-on-path (path)
   (interactive)
   (dired path)
   (magit-status-full))
