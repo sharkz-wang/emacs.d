@@ -59,6 +59,8 @@ _dF_: face
 (evil-global-set-key 'normal (kbd "SPC h") 'hydra-help-menu/body)
 ;; additional key-binding for minibuffers
 (global-set-key (kbd "C-c h d k") 'describe-key-and-switch-to-window)
+(evil-define-minor-mode-key 'normal 'dired-mode-map
+  (kbd "SPC h") 'hydra-help-menu/body)
 
 ;; make quitting man-mode easier
 (evil-define-key 'normal Man-mode-map "q" 'quit-window)

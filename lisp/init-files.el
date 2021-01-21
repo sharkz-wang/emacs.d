@@ -70,5 +70,7 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   )
 
 (evil-global-set-key 'normal (kbd "SPC f") 'hydra-file-menu/body)
+(evil-define-minor-mode-key 'normal 'dired-mode-map
+  (kbd "SPC f") 'hydra-file-menu/body)
 
 (provide 'init-files)

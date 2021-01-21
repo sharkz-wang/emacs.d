@@ -87,6 +87,7 @@ _p_: previous revision     _b_: blame
   )
 
 (evil-global-set-key 'normal (kbd "SPC p") 'hydra-project-menu/body)
-(evil-define-key 'normal dired-mode-map (kbd "C-c p") 'hydra-project-menu/body)
+(evil-define-minor-mode-key 'normal 'dired-mode-map
+  (kbd "SPC p") 'hydra-project-menu/body)
 
 (provide 'init-project)

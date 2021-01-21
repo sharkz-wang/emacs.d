@@ -25,5 +25,7 @@ _a_: agenda        _c_: cauture       _oo_: inbox
   )
 
 (evil-global-set-key 'normal (kbd "SPC o") 'hydra-org-menu/body)
+(evil-define-minor-mode-key 'normal 'dired-mode-map
+  (kbd "SPC o") 'hydra-org-menu/body)
 
 (provide 'init-org-menu)
