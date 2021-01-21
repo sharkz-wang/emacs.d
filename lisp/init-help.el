@@ -1,3 +1,4 @@
+(require 'help-fns+)
 
 (defhydra hydra-help-menu (:color pink :hint nil :exit t)
   "
@@ -8,6 +9,7 @@ _df_: function                                   ^^  _ie_: info/emacs
 _dv_: variable                                   ^^  _iE_: info/elisp
 _dm_: mode                                       ^^  _ib_: info/bash
 _dF_: face
+_dK_: keymap
 "
 
   ("dk" describe-key-and-switch-to-window)
@@ -15,6 +17,7 @@ _dF_: face
   ("dv" describe-variable-and-switch-to-window)
   ("dm" describe-mode-and-switch-to-window)
   ("dF" describe-face-and-switch-to-window)
+  ("dK" describe-keymap)
 
   ("m" man-and-switch-to-window)
 
