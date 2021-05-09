@@ -1,196 +1,100 @@
+(require 'init-python-defs)
+
+(defhydra python-main-mode-menu (:color pink :hint nil :exit t)
+  "
+^Execute ...^              ^Shell^
+----------------------------------------------------
+_ee_: paragraph	           _s_: shell control ...
+_ek_: until cursor
+_ej_: from cursor
+_el_: statement
+_er_: region or buffer
+"
+  ("ee" elpy-shell-send-paragraph)
+  ("ek" elpy-shell-send-until-cursor-pos)
+  ("ej" elpy-shell-send-from-cursor-pos)
+  ("el" elpy-shell-send-statement)
+  ("er" elpy-shell-send-region-or-buffer)
+
+  ("s" python-shell-control-menu/body)
+
+  ("q" nil "cancel" :color blue)
+  )
+
+(evil-define-key 'normal python-mode-map (kbd ",") 'python-main-mode-menu/body)
+(evil-define-key 'visual python-mode-map (kbd ",") 'python-main-mode-menu/body)
+(global-set-key (kbd "C-c ,") 'hydra-insert-menu/body)
+
+(defhydra python-shell-control-menu (:color pink :hint nil :exit t)
+  "
+^Operations^               ^Window^
+--------------------------------------------------
+_s_: start a new shell     _w_: shell buffer
+_l_: clear buffer
+_k_: kill
+^^
+^^
+"
+  ("s" run-python)
+  ("l" python-shell-clear)
+  ;; TODO: implement following functions
+  ;; ("r" python-shell-clear-and-clear-env)
+  ;; ("R" python-shell-clear-and-reset-env)
+  ;; TODO: add `python-reverse-truth-value' to keybinding menu
+  ("k" elpy-shell-kill)
+
+  ("w" python-open-shell-buffer)
+
+  ("q" nil "cancel" :color blue)
+  )
+
 (add-to-list 'package-archives
-             '("elpy" . "https://jorgenschaefer.github.io/packages/"))
+	     '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
 ;; dependency python packages: jedi flake8 importmagic autopep8
 (require-package 'elpy)
-(elpy-enable)
+;; automatically turn on elpy-mode in *future* python buffers
+(elpy-enable)  ;; it does not turn on now
 
 (setq elpy-modules
       (remove 'elpy-module-highlight-indentation elpy-modules))
 (setq elpy-modules
       (remove 'elpy-module-flymake elpy-modules))
 
+;; TODO: make it compatible to conda
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 
-(eval-after-load "elpy"
+(eval-after-load 'flymake
   '(progn
-     (semantic-mode)
-     
-     (define-key elpy-mode-map (kbd "C-c C-k") 'elpy-shell-kill)
-     (define-key elpy-mode-map (kbd "C-c C-p") 'run-python)
-     (define-key elpy-mode-map (kbd "C-c l")
-       (lambda ()
-	  (interactive)
-	  (switch-to-buffer "*Python*")
-	  (let ((comint-buffer-maximum-size 0))
-	    (comint-truncate-buffer))
-	  (switch-to-last-buffer)
-	  ))
-     (evil-define-key 'normal python-mode-map (kbd "SPC SPC g d") 'elpy-goto-definition)
+     (add-to-list 'flymake-allowed-file-name-masks
+		  '("\\.py\\'" flymake-pylint-init))
+     ;; function `elpy-flymake-error-at-point' was defined in init-python-defs.el
+     (add-hook 'post-command-hook 'elpy-flymake-error-at-point)
      ))
 
-(add-hook
- 'python-mode-hook
- (lambda
-   ()
-   (modify-syntax-entry ?_ "w")
-   
-   ;; (require 'init-semantic)
-   (require 'init-gtags)
-   (require 'init-company)
-   ;; (require 'init-ycmd)
-
-   (setq-default flymake-no-changes-timeout '2)
-
-   (eval-after-load
-       'flymake
-     (lambda ()
-       (defun flymake-pylint-init ()
-	 (let* ((temp-file (flymake-init-create-temp-buffer-copy
-			    'flymake-create-temp-inplace))
-		(local-file (file-relative-name
-			     temp-file
-			     (file-name-directory buffer-file-name))))
-	   (list "/usr/local/bin/epylint" (list local-file))))
-       (add-to-list 'flymake-allowed-file-name-masks
-		    '("\\.py\\'" flymake-pylint-init)))
-     )
-   
-   (defun show-fly-err-at-point ()
-     "If the cursor is sitting on a flymake error, display the message in the minibuffer"
-     (require 'cl)
-     (interactive)
-     (let ((line-no (line-number-at-pos)))
-       (dolist (elem flymake-err-info)
-	 (if (eq (car elem) line-no)
-	     (let ((err (car (second elem))))
-	       (message "%s" (flymake-ler-text err)))))))
-
-   (add-hook 'post-command-hook 'show-fly-err-at-point)
-
-   (evil-define-key 'normal python-mode-map (kbd "SPC SPC g j") 'flymake-goto-next-error)
-   (evil-define-key 'normal python-mode-map (kbd "SPC SPC g k") 'flymake-goto-prev-error)
+(add-hook 'python-mode-hook 'init-python-mode)
+ (defun init-python-mode ()
    
    (flymake-mode 1)
    
+   (modify-syntax-entry ?_ "w")
+
    (require-package 'evil-indent-textobject)
 
-   (define-key evil-normal-state-map (kbd "SPC p 3")
-     (lambda
-       ()
-       (interactive)
-       (split-window-right)
-       (other-window 1)
-       (switch-to-buffer "*Python*")
-       (other-window 1)))
+   (setq-default flymake-no-changes-timeout '2)
 
-   (define-key python-mode-map (kbd "C-c d f")
-     (lambda () (interactive)
-       (exand-yasnippet-from-keyword "for ... in ... : ...")
-       ))
+   ;; setup major-mode interface functions
+   (setq insert-for-loop 'python-insert-for-loop)
+   (setq insert-print 'python-insert-print)
 
-   (define-key python-mode-map (kbd "C-c d p")
-     (lambda () (interactive)
-       (exand-yasnippet-from-keyword "print")
-       ))
+   (setq insert-todo-comment 'python-insert-ptyhon-todo-comment)
+   (setq insert-fixme-comment 'python-insert-ptyhon-fixme-comment)
+   (setq insert-xxx-comment 'python-insert-ptyhon-xxx-comment)
 
-   (defun python-insert-formated-string ()
-     (interactive)
-     (insert "\"\" % ()")
-     (left-char 6)
-     (evil-insert-state)
-     (indent-according-to-mode))
-   (evil-define-key 'motion python-mode-map (kbd "SPC d s") 'python-insert-formated-string)
-
-   (defun python-insert-exit ()
-     (interactive)
-     (insert "exit(1)")
-     (indent-according-to-mode))
-   (define-key python-mode-map (kbd "C-c d e") 'python-insert-exit)
-   (evil-define-key 'motion python-mode-map (kbd "SPC d e") 'python-insert-exit)
-
-   (defun python-insert-new-arg () (interactive)
-	  (search-forward ")")
-	  (left-char)
-	  (insert ", ")
-	  (evil-insert-state))
-   (define-key python-mode-map (kbd "C-c a ,") 'python-insert-new-arg)
-   (evil-define-key 'motion python-mode-map (kbd "SPC a ,") 'python-insert-new-arg)
-
-   (defun python-avy-insert-new-arg () (interactive)
-	  (avy-goto-char-in-line ?,)
-	  (right-char)
-	  (insert " ,")
-	  (left-char)
-	  (evil-insert-state))
-   (define-key python-mode-map (kbd "C-c i ,") 'python-avy-insert-new-arg)
-   (evil-define-key 'motion python-mode-map (kbd "SPC i ,") 'python-avy-insert-new-arg)
-
-   (defun python-reverse-truth-value () (interactive)
-	  (if (string= (thing-at-point 'word) "True")
-	      (progn
-		(evil-backward-word-end 1)
-		(evil-forward-word-end 1)
-		(evil-delete-backward-word)
-		(delete-forward-char 1)
-		(insert "False")
-		)
-	    (if (string= (thing-at-point 'word) "False")
-		(progn
-		  (evil-backward-word-end 1)
-		  (evil-forward-word-end 1)
-		  (evil-delete-backward-word)
-		  (delete-forward-char 1)
-		  (insert "True")
-		  )
-	      )
-	    ))
-   (define-key python-mode-map (kbd "C-c d i") 'python-reverse-truth-value)
-   (evil-define-key 'motion python-mode-map (kbd "SPC d i") 'python-reverse-truth-value)
-
-   (defun python-insert-reminder-comment (keyword) (interactive)
-	  (if (current-line-empty-p)
-	      (progn
-		(end-of-line)
-		(insert (format "# %s: " keyword))
-		(indent-according-to-mode)
-		(evil-insert-state)
-		)
-	    (progn
-	      (beginning-of-line)
-	      (newline)
-	      (previous-line)
-	      (end-of-line)
-	      (insert (format "# %s: " keyword))
-	      (indent-according-to-mode)
-	      (evil-insert-state)
-	      )
-	    ))
-
-   (defun python-insert-ptyhon-todo-comment ()
-     (interactive)
-     (python-insert-reminder-comment "TODO"))
-   (define-key python-mode-map (kbd "C-c d c t")
-     'python-insert-ptyhon-todo-comment)
-   (evil-define-key 'motion python-mode-map (kbd "SPC d c t")
-     'python-insert-ptyhon-todo-comment)
-
-   (defun python-insert-ptyhon-fixme-comment ()
-     (interactive)
-     (python-insert-reminder-comment "FIXME"))
-   (define-key python-mode-map (kbd "C-c d c f")
-     'python-insert-ptyhon-fixme-comment)
-   (evil-define-key 'motion python-mode-map (kbd "SPC d c f")
-     'python-insert-ptyhon-fixme-comment)
-
-   (defun python-insert-ptyhon-xxx-comment ()
-     (interactive)
-     (python-insert-reminder-comment "XXX"))
-   (define-key python-mode-map (kbd "C-c d c x")
-     'python-insert-ptyhon-xxx-comment)
-   (evil-define-key 'motion python-mode-map (kbd "SPC d c x")
-     'python-insert-ptyhon-xxx-comment)
-   ))
+   (setq append-argument 'python-insert-new-arg)
+   (setq insert-argument-select 'python-avy-insert-new-arg)
+   ;; end major-mode interface functions
+   )
 
 (provide 'init-python)
