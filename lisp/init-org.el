@@ -85,10 +85,6 @@
 	("livingroom" . ?l)
 	))
 
-(defun org-journal-find-location ()
-  (org-journal-new-entry t)
-  (goto-char (point-min)))
-
 (evil-define-operator org-visual-content (beg end type)
   :move-point nil
   :repeat nil
@@ -518,66 +514,6 @@
 	    (evil-define-key 'normal org-agenda-mode-map (kbd "C-c C-c") 'org-agenda-set-tags)
 	    (evil-define-key 'normal org-agenda-mode-map "q" 'org-agenda-quit)
 	    ))
-
-(require-package 'org-journal)
-(custom-set-variables
- '(org-journal-dir
-   (concat (file-name-as-directory org-agenda-dir) "journal")))
-(customize-set-variable 'org-journal-file-format "%Y%m%d.org")
-
-(defun org-journal-create-new-entry-and-edit ()
-  (interactive)
-  (let ((buf (get-buffer (file-name-nondirectory (org-journal-get-entry-path)))))
-    (if buf
-	(progn
-	  (switch-to-buffer buf)
-	  (delete-other-windows)
-	  )
-      (progn
-	(org-journal-new-entry t)
-	(delete-other-windows)
-	(outline-show-all)
-	(beginning-of-buffer)))))
-
-(defun quit-all-org-journal-window ()
-  (interactive)
-  (dolist (buf (buffer-list))
-    (with-current-buffer (buffer-name buf)
-      (when (eq major-mode 'org-journal-mode)
-	(bury-buffer (buffer-name buf)))))
-  (switch-to-buffer (car (buffer-list))))
-
-(defun kill-all-org-journal-buffer ()
-  (interactive)
-  (dolist (buf (buffer-list))
-    (with-current-buffer (buffer-name buf)
-      (when (eq major-mode 'org-journal-mode)
-	(kill-buffer (buffer-name buf))))))
-
-(defun bury-all-other-journal-and-switch-to-last-buffer ()
-  (interactive)
-  (dolist (buf (buffer-list))
-    (when (not (equal (current-buffer) buf))
-     (with-current-buffer (buffer-name buf)
-      (when (eq major-mode 'org-journal-mode)
-	(message (format "bury: %s" (buffer-name buf)))
-	(bury-buffer (buffer-name buf))))))
-  (switch-to-last-buffer))
-
-(evil-leader/set-key
-  "ajj" 'org-journal-open-next-entry
-  "ajk" 'org-journal-open-previous-entry
-  )
-
-(global-set-key (kbd "M-SPC") 'org-journal-create-new-entry-and-edit)
-
-(evil-define-key 'normal org-journal-mode-map
-  (kbd "SPC <tab>") 'bury-all-other-journal-and-switch-to-last-buffer)
-
-(evil-define-key 'normal org-journal-mode-map
-  (kbd "SPC b d") 'kill-all-org-journal-buffer)
-(evil-define-key 'normal org-journal-mode-map
-  (kbd "SPC w q") 'quit-all-org-journal-window)
 
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
