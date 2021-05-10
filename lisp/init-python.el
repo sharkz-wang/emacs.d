@@ -74,27 +74,27 @@ _k_: kill
      ))
 
 (add-hook 'python-mode-hook 'init-python-mode)
- (defun init-python-mode ()
-   
-   (flymake-mode 1)
-   
-   (modify-syntax-entry ?_ "w")
+(defun init-python-mode ()
 
-   (require-package 'evil-indent-textobject)
+  (flymake-mode 1)
 
-   (setq-default flymake-no-changes-timeout '2)
+  (modify-syntax-entry ?_ "w")
 
-   ;; setup major-mode interface functions
-   (setq insert-for-loop 'python-insert-for-loop)
-   (setq insert-print 'python-insert-print)
+  (require-package 'evil-indent-textobject)
 
-   (setq insert-todo-comment 'python-insert-ptyhon-todo-comment)
-   (setq insert-fixme-comment 'python-insert-ptyhon-fixme-comment)
-   (setq insert-xxx-comment 'python-insert-ptyhon-xxx-comment)
+  (setq-default flymake-no-changes-timeout '2)
 
-   (setq append-argument 'python-insert-new-arg)
-   (setq insert-argument-select 'python-avy-insert-new-arg)
-   ;; end major-mode interface functions
-   )
+  ;; setup major-mode interface functions
+  (setq insert-for-loop 'python-insert-for-loop)
+  (setq insert-print 'python-insert-print)
+
+  (setq insert-todo-comment 'python-insert-ptyhon-todo-comment)
+  (setq insert-fixme-comment 'python-insert-ptyhon-fixme-comment)
+  (setq insert-xxx-comment 'python-insert-ptyhon-xxx-comment)
+
+  (setq append-argument 'python-insert-new-arg)
+  (setq insert-argument-select 'python-avy-insert-new-arg)
+  ;; end major-mode interface functions
+  )
 
 (provide 'init-python)
