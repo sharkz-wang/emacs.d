@@ -23,7 +23,7 @@ _er_: region or buffer
 
 (evil-define-key 'normal python-mode-map (kbd ",") 'python-main-mode-menu/body)
 (evil-define-key 'visual python-mode-map (kbd ",") 'python-main-mode-menu/body)
-(global-set-key (kbd "C-c ,") 'hydra-insert-menu/body)
+(global-set-key (kbd "C-c ,") 'python-main-mode-menu/body)
 
 (defhydra python-shell-control-menu (:color pink :hint nil :exit t)
   "
