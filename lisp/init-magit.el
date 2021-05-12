@@ -13,8 +13,8 @@
 (require-package 'evil-magit)
 (evil-magit-init)
 
-;; require `cl' to support following snippet
-(require 'cl)
+;; require `cl-lib' to support following snippet
+(require 'cl-lib)
 (eval-after-load "projectile"
   '(progn
      (setq magit-repository-directories

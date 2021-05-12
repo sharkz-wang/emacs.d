@@ -32,7 +32,7 @@
 
 (evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
 
-(require 'cl)
+(require 'cl-lib)
 ;; a `helm-imenu' variation that won't take `thing-at-point' as default input
 (defun helm-imenu-no-default ()
   (interactive)
