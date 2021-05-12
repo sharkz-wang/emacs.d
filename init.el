@@ -14,6 +14,7 @@
 (require 'init-search)
 (require 'init-python)
 (require 'init-c)
+(require 'init-insert-snippets)
 (require 'init-elisp)
 (require 'init-org)
 (require 'init-org-menu)
