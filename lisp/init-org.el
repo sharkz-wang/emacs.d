@@ -252,7 +252,6 @@
 
   (org-indent-mode 1)
   (form-feed-mode 1)
-  (company-mode -1)
 
   (global-hl-line-mode 1)
   (setq line-spacing 0.1)

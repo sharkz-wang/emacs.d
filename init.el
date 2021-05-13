@@ -12,6 +12,7 @@
 (require 'init-dash)
 (require 'init-magit)
 (require 'init-search)
+(require 'init-company)
 (require 'init-python)
 (require 'init-c)
 (require 'init-insert-snippets)
