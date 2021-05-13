@@ -1,16 +1,21 @@
 (require 'init-python-defs)
 
+;; Notes
+;;;; It seemed there's still no method to display inline plots in elpy
+
 (defhydra python-main-mode-menu (:color pink :hint nil :exit t)
   "
 ^Execute ...^              ^Shell^
 ----------------------------------------------------
-_ee_: paragraph	           _s_: shell control ...
+_ep_: paragraph	           _s_: shell control ...
+_ee_: expression
 _ek_: until cursor
 _ej_: from cursor
 _el_: statement
 _er_: region or buffer
 "
-  ("ee" elpy-shell-send-paragraph)
+  ("ep" elpy-shell-send-paragraph)
+  ("ee" elpy-shell-send-expression)
   ("ek" elpy-shell-send-until-cursor-pos)
   ("ej" elpy-shell-send-from-cursor-pos)
   ("el" elpy-shell-send-statement)
@@ -31,15 +36,14 @@ _er_: region or buffer
 --------------------------------------------------
 _s_: start a new shell     _w_: shell buffer
 _l_: clear buffer
+_r_: restart
 _k_: kill
 ^^
 ^^
 "
   ("s" run-python)
   ("l" python-shell-clear)
-  ;; TODO: implement following functions
-  ;; ("r" python-shell-clear-and-clear-env)
-  ;; ("R" python-shell-clear-and-reset-env)
+  ("r" ipython-shell-restart)
   ;; TODO: add `python-reverse-truth-value' to keybinding menu
   ("k" elpy-shell-kill)
 
