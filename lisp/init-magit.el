@@ -31,6 +31,11 @@
 (evil-define-key evil-magit-state magit-mode-map "=" 'magit-diff-less-context)
 (define-key magit-log-mode-map (kbd "TAB") 'magit-cycle-margin-style)
 
+(require 'git-gutter-fringe)
+(require-package 'git-gutter)
+
+(global-git-gutter-mode 1)
+
 ;; TODO: move it to init-git.el
 (require-package 'git-gutter)
 
