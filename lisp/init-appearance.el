@@ -229,4 +229,8 @@
 (require-package 'centered-window)
 (centered-window-mode)
 
+;; TODO: make it animated when not idle
+(require-package 'nyan-mode)
+(nyan-mode t)
+
 (provide 'init-appearance)
