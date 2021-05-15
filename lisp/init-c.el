@@ -9,7 +9,6 @@
   (require 'init-semantic)
   (require 'init-gtags)
   (helm-gtags-mode t)
-  (require 'init-ycmd)
   (require 'init-company)
   
   ;; auto indenting and pairing curly brace
