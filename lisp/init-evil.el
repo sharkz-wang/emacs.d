@@ -13,7 +13,6 @@
   "Select inner word."
   (with-syntax-table (copy-syntax-table (syntax-table))
     (modify-syntax-entry ?\n "w")
-    (modify-syntax-entry ?\( "w")
     (evil-select-inner-object 'evil-word beg end type count))
   )
 
