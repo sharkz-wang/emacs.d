@@ -20,10 +20,10 @@
 
 (defun emacs-lisp-insert-for-loop ()
   (interactive)
-  (exand-yasnippet-from-keyword "mapc"))
+  (expand-yasnippet-from-keyword "mapc"))
 (defun emacs-lisp-insert-print ()
   (interactive)
-  (exand-yasnippet-from-keyword "message"))
+  (expand-yasnippet-from-keyword "message"))
 
 (defun emacs-lisp-insert-todo-comment ()
   (interactive)

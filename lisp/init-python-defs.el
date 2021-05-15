@@ -99,11 +99,11 @@
 
 (defun python-insert-for-loop ()
   (interactive)
-    (exand-yasnippet-from-keyword "for ... in ... : ..."))
+    (expand-yasnippet-from-keyword "for ... in ... : ..."))
 
 (defun python-insert-print ()
   (interactive)
-    (exand-yasnippet-from-keyword "print"))
+    (expand-yasnippet-from-keyword "print"))
 
 (defun python-insert-ptyhon-todo-comment ()
   (interactive) (python-insert-reminder-comment "TODO"))
