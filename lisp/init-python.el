@@ -80,13 +80,9 @@ _k_: kill
 (add-hook 'python-mode-hook 'init-python-mode)
 (defun init-python-mode ()
 
-  (flymake-mode 1)
-
   (modify-syntax-entry ?_ "w")
 
   (require-package 'evil-indent-textobject)
-
-  (setq-default flymake-no-changes-timeout '2)
 
   ;; setup major-mode interface functions
   (setq insert-for-loop 'python-insert-for-loop)
