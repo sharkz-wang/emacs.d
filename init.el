@@ -5,6 +5,8 @@
 ;; TODO: move it elsewhere better
 ;; don't grant outdated *.elc files, it's too dangerous
 (setq load-prefer-newer t)
+;; TODO: move it elsewhere better
+(setq org-agenda-dir "~/org/agenda")
 
 (require 'init-package)
 

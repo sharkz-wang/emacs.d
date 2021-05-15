@@ -1,20 +1,5 @@
 (require 'org)
 
-(defun update-org-agenda-files (dir path)
-  (set dir path)
-  (when (f-directory? path)
-    (setq org-agenda-files (sa-find-org-file-recursively path))
-    (custom-set-variables
-     '(org-journal-dir
-       (concat (file-name-as-directory org-agenda-dir) "journal")))))
-
-(defcustom org-agenda-dir "~/org"
-  "Default directory containing Org agenda files"
-  :type 'string
-  :initialize 'update-org-agenda-files
-  :set 'update-org-agenda-files
-  :group 'init-org)
-
 (defcustom org-snapshot-dir "~/org/snapshots"
   "Default directory containing Org snapshot images"
   :type 'string
