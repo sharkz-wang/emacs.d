@@ -482,6 +482,10 @@
 (eval-after-load 'org
   '(progn (init-org-handler)))
 
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (company-mode -1)))
+
 (add-hook 'org-agenda-mode-hook
 	  (lambda () (interactive)
 	    (evil-define-key 'normal org-agenda-mode-map (kbd "RET")
