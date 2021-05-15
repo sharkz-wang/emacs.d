@@ -2,6 +2,8 @@
 (add-to-list 'load-path (expand-file-name "packages" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
+;; TODO: how to turn off loading of .cust-vars.el
+
 ;; TODO: move it elsewhere better
 ;; don't grant outdated *.elc files, it's too dangerous
 (setq load-prefer-newer t)
