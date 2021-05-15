@@ -152,4 +152,25 @@
        (switch-to-buffer "*Python*")
        (other-window 1))
 
+(defun ipython-shell-restart ()
+  (interactive)
+  (when (comint-check-proc "*Python*")
+    (python-shell-clear)
+    (elpy-shell-kill))
+  (run-python))
+
+;; helper variable for `elpy-shell-send-expression'
+(setq python-expr-for-shell nil)
+(defun elpy-shell-send-expression ()
+  (interactive)
+  (if (region-active-p)
+      (progn
+	(setq python-expr-for-shell
+	      (buffer-substring-no-properties
+	       (region-beginning) (region-end)))
+	(elpy-shell-send-region-or-buffer))
+    (when python-expr-for-shell
+      (python-shell-send-string (concat python-expr-for-shell "\n")))
+    ))
+
 (provide 'init-python-defs)
