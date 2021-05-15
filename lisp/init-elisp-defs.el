@@ -42,4 +42,4 @@
 ;;   (interactive)
 ;;   )
 
-(provide 'init-elisp)
+(provide 'init-elisp-defs)
