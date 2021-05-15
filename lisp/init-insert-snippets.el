@@ -1,6 +1,7 @@
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
 (require-package 'helm-c-yasnippet)
+(require 'init-insert-snippets-defs)
 
 (defhydra hydra-insert-menu (:color pink :hint nil :exit t)
   "

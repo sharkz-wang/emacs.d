@@ -1,3 +1,5 @@
+(require 'init-elisp-defs)
+
 (defhydra emacs-lisp-main-mode-menu (:color pink :hint nil :exit t)
   "
 ^Execute ...^
