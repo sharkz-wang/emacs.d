@@ -34,3 +34,5 @@
 (require 'init-misc)
 
 (require 'cust-vars)
+
+(require 'staging)
