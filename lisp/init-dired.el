@@ -58,9 +58,9 @@
 (evil-define-key 'normal dired-mode-map "h" 'diredp-up-directory)
 (evil-define-key 'normal dired-mode-map "l" 'quit-window)
 
-(evil-define-key 'normal dired-mode-map (kbd "SPC w -")
+(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC w -")
   (lambda () (interactive) (split-window-below) (other-window 1)))
-(evil-define-key 'normal dired-mode-map (kbd "SPC w /")
+(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC w /")
   (lambda () (interactive) (split-window-right) (other-window 1)))
 
 (defun helm-dired-recentf-dirs ()
@@ -86,13 +86,13 @@
 (evil-define-key 'normal dired-mode-map "M" 'dired-mark)
 (evil-define-key 'normal dired-mode-map "." 'dired-omit-mode)
 
-(evil-define-key 'normal dired-mode-map (kbd "SPC b d")
+(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC b d")
   '(lambda ()
      (interactive)
      (kill-buffer (current-buffer))
      (if (> (length (window-list)) 1)
 	 (delete-window))))
-(evil-define-key 'normal dired-mode-map (kbd "SPC RET") 'helm-buffers-list)
+(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC RET") 'helm-buffers-list)
 
 (add-hook 'dired-mode-hook
 	  (lambda ()
