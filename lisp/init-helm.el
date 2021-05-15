@@ -97,6 +97,8 @@
 
 (define-key helm-map (kbd "C-c C-s") 'helm-save-search-session)
 
+(define-key helm-map (kbd "C-c C-c") 'helm-select-action)
+
 (require 'helm-files) ;; included in package helm
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-o") 'helm-execute-persistent-action)
