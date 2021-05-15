@@ -20,8 +20,6 @@ _a_: agenda        _c_: cauture       _oo_: inbox
   ("oo" (find-file (concat (file-name-as-directory org-agenda-dir) "inbox.org")))
   ("oq" (find-file (concat (file-name-as-directory org-agenda-dir) "quick.org")))
   ("oc" (find-file (concat (file-name-as-directory org-directory) "cheatsheet.org")))
-
-  ("q" nil "quit" :color blue)
   )
 
 (evil-global-set-key 'normal (kbd "SPC o") 'hydra-org-menu/body)
