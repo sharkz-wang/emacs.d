@@ -2,6 +2,10 @@
 (add-to-list 'load-path (expand-file-name "packages" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
+;; TODO: move it elsewhere better
+;; don't grant outdated *.elc files, it's too dangerous
+(setq load-prefer-newer t)
+
 (require 'init-package)
 
 (require 'init-basics)
