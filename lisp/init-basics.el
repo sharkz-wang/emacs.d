@@ -124,7 +124,7 @@
   "wd" 'delete-window
   "wm" 'delete-other-windows
   ;; TODO: fix incorrect font in new frames
-  "wf" 'make-frame
+  "wn" 'make-frame
   "w-" (lambda ()
 	 (interactive)
 	 (split-window-below)

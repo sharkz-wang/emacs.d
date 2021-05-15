@@ -60,7 +60,9 @@ _s_: current buffer  _f_: current dir          _d_: current dir
 (defun helm-find-files-in-dir (dir)
   (interactive)
   ;; XXX: trailing slash in path matters in `helm-file-files'
-  (let ((default-directory (file-name-as-directory dir)))
+  (let ((default-directory
+	  (if (file-directory-p dir)
+	      (file-name-as-directory dir) dir)))
     (helm-find-files nil)
   ))
 

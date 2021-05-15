@@ -15,7 +15,7 @@ _b_: all buffers       _d_: current dir        _O_: all buffers outline
   ;; files
   ("f" helm-do-ag)
   ("d" helm-do-ag-curr-dir)
-  ("m" (hydra-bookmarked-repo-menu-action 'helm-do-ag))
+  ("m" (hydra-bookmarked-repo-menu-action 'helm-do-ag-dir-or-file))
   ("/" helm-projectile-ag)
   ;; semantics
   ("o" helm-imenu-no-default)
@@ -24,6 +24,13 @@ _b_: all buffers       _d_: current dir        _O_: all buffers outline
 
   ("c" nil "cancel" :color blue)
   )
+
+(defun helm-do-ag-dir-or-file (path)
+  (interactive)
+  (if (file-directory-p path)
+      (helm-do-ag path)
+      (helm-do-ag (file-name-directory path) (list (file-name-nondirectory path)))
+    ))
 
 (defun helm-do-ag-curr-dir ()
   (interactive)

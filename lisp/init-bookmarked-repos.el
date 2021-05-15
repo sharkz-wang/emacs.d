@@ -2,7 +2,7 @@
 
 (defun bookmarked-repo-do-action (path)
   (interactive)
-  (let ((default-directory path))
+  (let ((default-directory (file-name-directory path)))
     (funcall bookmarked-repo-action path)))
 
 (defhydra hydra-bookmarked-repo-menu (:color pink :exit t)
