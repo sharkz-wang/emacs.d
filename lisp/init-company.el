@@ -1,4 +1,5 @@
 (require-package 'company)
+(require-package 'company-fuzzy)
 
 ;; we use inexpensive backend by default,
 ;; so activate company-mode in all situations
@@ -47,5 +48,38 @@
 ;; when use `company-sort-by-occurrence', sort according
 ;; candidate's relative distance to cursor's position
 (setq company-occurrence-weight-function #'company-occurrence-prefer-any-closest)
+
+;; company-fuzzy part
+;; note: company-flx does not support dabbrev now
+(global-company-fuzzy-mode 1)
+
+;; let's not enable it so it won't look like a mess
+;; e.g.,
+;;         company-fuzzy-show-annotation          <dabbrev-code> 1
+;;                                                ^^^^^^^^^^^^^^
+;; but it's useful for debugging though
+(setq company-fuzzy-show-annotation nil)
+
+;; though we don't usually enable tooltip annotations,
+;; but let;s align it to right if we ever do it
+(setq company-tooltip-align-annotations t)
+
+;; TODO: move it to where it should be
+(custom-set-faces
+ ;; whole company tooltip box
+ '(company-tooltip ((t (:background "#3C3D37"))))
+ ;; highlighted candidate row
+ '(company-tooltip-selection
+   ((t (:background "#64645E" :foreground "#FFFFFF"))))
+ ;; company-fuzzy's matched characters
+ '(company-tooltip-common
+   ((t (:background "#3C3D37" :foreground "#66D9EF" :underline nil))))
+ ;; company-fuzzy's matched characters, selected
+ '(company-tooltip-common-selection
+   ((t (:background "#64645E" :foreground "#66D9EF" :underline nil))))
+ ;; scrollbar's rolling part
+ '(company-scrollbar-fg ((t (:background "#64645E"))))
+ '(company-scrollbar-bg ((t (:background "#3C3D37"))))
+   )
 
 (provide 'init-company)
