@@ -3,6 +3,9 @@
 ;; Notes
 ;;;; It seemed there's still no method to display inline plots in elpy
 
+;; TODO: matplotlib support
+;; TODO: output of numpy/pandas's data struct output were too long
+
 (defhydra python-main-mode-menu (:color pink :hint nil :exit t)
   "
 ^Execute ...^              ^Shell^

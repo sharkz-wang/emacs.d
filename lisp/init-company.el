@@ -33,6 +33,8 @@
 (custom-set-variables
  ;; don't turn expansion into lowercase
  '(company-dabbrev-downcase nil)
+ ;; memo: when dinamically update it, remember to check
+ ;;       `company-safe-backends-p'
  '(company-backends '(company-dabbrev-code)))
 
 ;; TODO: vim-ycmd-like subsequence matching
