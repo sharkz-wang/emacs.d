@@ -48,6 +48,8 @@
 (global-evil-surround-mode t)
 
 (require-package 'evil-snipe)
+;; turn off annoying highlight when matches found
+(setq evil-snipe-enable-highlight nil)
 (evil-snipe-mode t)
 
 (setq evil-snipe-repeat-keys nil)
