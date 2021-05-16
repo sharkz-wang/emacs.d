@@ -58,7 +58,7 @@
 					       "kernel" "events" "core.c"))
        "framework layer\n")
   ("s" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
-					       "drivers" "perf" "arm_pmu.c")
+					       "drivers" "perf" "arm_pmu.c"))
        "ARM family hal layer\n")
   ("d" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
 					       "arch" "arm64"
