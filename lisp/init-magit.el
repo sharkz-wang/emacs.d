@@ -94,7 +94,8 @@
 (defun magit-status-simplified ()
   (interactive)
   (setq magit-status-sections-hook
-	'(magit-insert-unstaged-changes
+	'(magit-insert-untracked-files
+	  magit-insert-unstaged-changes
 	  magit-insert-staged-changes))
   (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
     (call-interactively 'magit-status))
