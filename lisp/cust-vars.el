@@ -1,3 +1,5 @@
+(set-global-frame-font "Monaco-17")
+
 ;; repo list
 (custom-set-variables
     '(kernel-src-repo-list '("~/src/linux")))

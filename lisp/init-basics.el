@@ -1,9 +1,9 @@
+(require 'init-basics-defs)
+
 ;; skip welcome screen
 (setq inhibit-splash-screen t)
 ;; display column numbers in mode-line
 (column-number-mode 1)
-(set-frame-font "Monaco-17")
-(set-fontset-font "fontset-default" 'han '("蘋芳-繁" . "unicode-bmp"))
 ;; no tool bars
 (tool-bar-mode -1)
 ;; no memu bar
