@@ -16,4 +16,13 @@
 		#'new-frame-set-font))
 )
 
+(defun concat-path (&rest sequence)
+  (cl-reduce
+      (lambda (dir file)
+          (concat (file-name-as-directory dir)
+		  file))
+      sequence
+  )
+)
+
 (provide 'init-basics-defs)

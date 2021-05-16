@@ -22,11 +22,11 @@
 ^Kernel codebase^
 ^^^^^^^^-----------------------------------------------------------------
 "
-  ("k" (bookmarked-repo-do-action "~/linux")
+  ("k" (bookmarked-repo-do-action linux-repo-dir-path)
        "kernel\n")
-  ("i" (bookmarked-repo-do-action "~/linux/include")
+  ("i" (bookmarked-repo-do-action (concat-path linux-repo-dir-path "include"))
        "kernel/include\n")
-  ("d" (bookmarked-repo-do-action "~/linux/Documentation")
+  ("d" (bookmarked-repo-do-action (concat-path linux-repo-dir-path "Documentation"))
        "kernel/Documentation\n")
 
   ("s" hydra-kernel-scheduler-menu/body "scheduler\n")
@@ -40,9 +40,11 @@
 ^Scheduler source files^
 ^^^^^^^^-----------------------------------------------------------------
 "
-  ("s" (bookmarked-repo-do-action "~/linux/kernel/sched")
+  ("s" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
+					       "kernel" "sched"))
        "subsystem folder\n")
-  ("f" (bookmarked-repo-do-action "~/linux/kernel/sched/fair.c")
+  ("f" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
+					       "kernel" "sched" "fair.c"))
        "fcs scheduler\n")
   )
 
@@ -51,11 +53,15 @@
 ^Perf_events source files^
 ^^^^^^^^-----------------------------------------------------------------
 "
-  ("a" (bookmarked-repo-do-action "~/linux/kernel/events/core.c")
+  ("a" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
+					       "kernel" "events" "core.c"))
        "framework layer\n")
-  ("s" (bookmarked-repo-do-action "~/linux/drivers/perf/arm_pmu.c")
+  ("s" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
+					       "drivers" "perf" "arm_pmu.c")
        "ARM family hal layer\n")
-  ("d" (bookmarked-repo-do-action "~/linux/arch/arm64/kernel/perf_event.c")
+  ("d" (bookmarked-repo-do-action (concat-path linux-repo-dir-path
+					       "arch" "arm64"
+					       "kernel" "perf_event.c"))
        "ARMv8 driver\n")
 
   ("q" nil "quit" :color blue)
