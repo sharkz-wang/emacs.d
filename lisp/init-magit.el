@@ -1,5 +1,8 @@
 ;; TODO: load magit only since first time in git repo
 (require-package 'magit)
+(require 'magit-log)
+(require-package 'evil-magit)
+(evil-magit-init)
 
 (custom-set-variables
  '(magit-log-arguments '("-n32" "--decorate")))
@@ -9,9 +12,6 @@
 	  #'magit-display-buffer-fullframe-status-v1)
 ;; explicitly set magit log date format
 (setq magit-log-margin (quote (t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)))
-
-(require-package 'evil-magit)
-(evil-magit-init)
 
 ;; require `cl-lib' to support following snippet
 (require 'cl-lib)
@@ -185,9 +185,6 @@
 (evil-define-key evil-magit-state magit-mode-map
   (kbd "<backtab>") 'magit-section-cycle-show-level-all)
 
-(evil-define-key evil-magit-state magit-mode-map (kbd "SPC s i")
-  'helm-imenu-no-default)
-
 (evil-define-key evil-magit-state magit-mode-map (kbd "SPC g c") 'magit-copy-buffer-revision)
 
 (evil-define-key evil-magit-state magit-mode-map (kbd "SPC b d")
@@ -201,10 +198,6 @@
 	  (lambda ()
 	    (setq-local evil-default-state 'emacs)
 	    ))
-
-(evil-define-key 'normal magit-diff-mode-map
-  (kbd "SPC s s") 'helm-occur
-  )
 
 (defun projectile-git-repo-list ()
   (remove-if-not

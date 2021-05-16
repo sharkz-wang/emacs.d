@@ -1,5 +1,8 @@
 (require 'init-bookmarked-repos)
+
+(require-package 'magit)
 (require-package 'evil-magit)
+(evil-magit-init)
 
 (defhydra hydra-search-menu (:color pink :hint nil :exit t)
   "
