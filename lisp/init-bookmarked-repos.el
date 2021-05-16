@@ -15,6 +15,7 @@
   ("L" (bookmarked-repo-do-action "~/.emacs.d/elpa") "~/.emacs.d/elpa\n")
   ("k" hydra-kernel-repo-menu/body "kernel\n")
 
+  ("b" (bookmarked-repo-do-action ebook-dir-path) "eBooks\n")
   )
 
 (defhydra hydra-kernel-repo-menu (:color pink :exit t)

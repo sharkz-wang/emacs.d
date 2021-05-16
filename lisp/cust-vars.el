@@ -1,5 +1,6 @@
 (set-global-frame-font "Monaco-17")
 
+(setq ebook-dir-path "~/ebooks")
 (setq linux-repo-dir-path "~/linux")
 
 ;; repo list
