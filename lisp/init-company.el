@@ -1,5 +1,6 @@
 (require-package 'company)
 (require-package 'company-fuzzy)
+(require 'init-company-defs)
 
 ;; we use inexpensive backend by default,
 ;; so activate company-mode in all situations
@@ -23,10 +24,19 @@
   ;; prevent <RET> from inserting newlines when in company popup window
   (define-key company-active-map (kbd "RET") 'company-complete-selection)
 
-  ;; like alt+0-9, but now we also allow a more CTS-friendly \+0-9
-  (dotimes (ii 10)
-    (define-key company-active-map
-      (kbd (format "\\ %d" ii)) 'company-complete-number))
+  ;; make tooltip's keystroke marks aligned to left
+  ;; e.g.,
+  ;;     'a company
+  ;;     's company-active-map
+  ;;     ^^
+  (setq company-show-numbers 'left)
+
+  ;; use homerow keystrokes for tooltip completion
+  (init-company-completion-keystrokes
+      ;; homerow keystrokes
+      '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;)
+      ;; we use a more CTS-friendly '+n instead of meta key
+      "'%c")
   )
 
 (require 'company-dabbrev-code)
