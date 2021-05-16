@@ -10,32 +10,46 @@
 ;; TODO: move it elsewhere better
 (setq org-agenda-dir "~/org/agenda")
 
+;; init files ordered by importance
+;; determined by:
+;;     - basic edior usage
+;;     - essentials when init files are broken
+;;     - what I use a lot for development
+;;     - other helpers
+;; foundamentals
 (require 'init-package)
-
 (require 'init-basics)
 (require 'init-appearance)
+;; basic buffer/file selection
 (require 'init-helm)
 (require 'init-ivy)
-(require 'init-project)
-(require 'init-dash)
-(require 'init-magit)
-(require 'init-search)
-(require 'init-company)
+;; for info look-up
 (require 'init-help)
-(require 'init-insert-snippets)
-(require 'init-python)
-(require 'init-c)
+(require 'init-search)
+;; so I could fix things faster
 (require 'init-elisp)
+(require 'init-company)
+;; more info to lookup
 (require 'init-org)
 (require 'init-org-menu)
-(require 'init-dired)
+;; fix things even faster
+(require 'init-insert-snippets)
+(require 'init-project)
+(require 'init-magit)
 (require 'init-ediff)
-;; (require 'init-uml)
+;; advanced settings for my core modes
+(require 'init-c)
+(require 'init-python)
+;; some other settings
+(require 'init-dired)
 (require 'init-ebook)
-;; (require 'init-hex-file)
-;; (require 'init-image)
 (require 'init-kernel-dev)
 (require 'init-misc)
+;; recently unused features
+;;;; (require 'init-dash)
+;;;; (require 'init-uml)
+;;;; (require 'init-hex-file)
+;;;; (require 'init-image)
 
 (require 'cust-vars)
 
