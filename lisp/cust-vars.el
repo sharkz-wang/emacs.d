@@ -1,12 +1,19 @@
+;; repo list
 (custom-set-variables
- '(kernel-src-repo-list
-   '("~/src/linux"))
- '(org-directory "~/org")
- '(org-agenda-dir (expand-file-name "~/org"))
- '(org-snapshot-dir (expand-file-name "~/org/snapshots"))
- '(org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
- '(plantuml-jar-path (expand-file-name "~/plantuml.jar"))
- '(pdf-info-epdfinfo-program "~/epdfinfo")
+    '(kernel-src-repo-list '("~/src/linux")))
+
+;; org-mode settings
+(custom-set-variables
+    '(org-directory "~/org")
+    '(org-agenda-dir (expand-file-name "~/org"))
+    '(org-snapshot-dir (expand-file-name "~/org/snapshots"))
+ )
+
+;; external tools
+(custom-set-variables
+    '(pdf-info-epdfinfo-program "~/epdfinfo")
+    '(plantuml-jar-path (expand-file-name "~/plantuml.jar"))
+    '(org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
  )
 
 (provide 'cust-vars)
