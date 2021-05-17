@@ -76,8 +76,11 @@
     (magit-dispatch-popup)
     ))
 
-(setq magit-status-sections-hook-orig
-      magit-status-sections-hook)
+(eval-after-load "magit"
+    '(progn
+         (setq magit-status-sections-hook-orig
+               magit-status-sections-hook)
+     ))
 
 ;; XXX: by default C-u+`magit-status' shows list of known repos with hard-coded `basename',
 ;;      which was difficult to interpret.
