@@ -16,14 +16,8 @@
     (evil-select-inner-object 'evil-word beg end type count))
   )
 
-(require-package 'undo-fu)
-(eval-after-load 'evil
-  '(progn
-     (global-undo-tree-mode -1)
-     (define-key evil-normal-state-map "u" 'undo-fu-only-undo)
-     (define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
-     ))
-
+(require-package 'undo-tree)
+(global-undo-tree-mode 1)
 ;; bind C-w back in evil emacs state
 (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
 

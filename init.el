@@ -3,6 +3,7 @@
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
 ;; TODO: how to turn off loading of .cust-vars.el
+;; TODO: enlarge `undo-tree-limit'
 
 ;; TODO: move it elsewhere better
 ;; don't grant outdated *.elc files, it's too dangerous
