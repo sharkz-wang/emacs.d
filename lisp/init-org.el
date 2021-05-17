@@ -401,7 +401,7 @@
   (add-hook 'org-capture-mode-hook
 	    (lambda () (evil-emacs-state)))
   
-  (require-package 'org-pdfview)
+  (require-package 'org-pdftools)
 
   (setq org-file-apps
 	'(("\\.gif\\'" . (lambda (file link)

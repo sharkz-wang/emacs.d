@@ -120,8 +120,6 @@
 
 (define-key helm-map (kbd "C-M-j") 'helm-goto-line-ow-forward)
 (define-key helm-map (kbd "C-M-k") 'helm-goto-line-ow-backward)
-(define-key helm-moccur-mode-map (kbd "C-M-j") 'helm-moccur-mode-goto-line-ow-forward)
-(define-key helm-moccur-mode-map (kbd "C-M-k") 'helm-moccur-mode-goto-line-ow-backward)
 
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-o") 'helm-execute-persistent-action)

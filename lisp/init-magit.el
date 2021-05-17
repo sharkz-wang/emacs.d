@@ -1,8 +1,6 @@
 ;; TODO: load magit only since first time in git repo
 (require-package 'magit)
 (require 'magit-log)
-(require-package 'evil-magit)
-(evil-magit-init)
 
 (custom-set-variables
  '(magit-log-arguments '("-n32" "--decorate")))
@@ -28,11 +26,9 @@
      )
   )
 
-(evil-define-key evil-magit-state magit-mode-map "=" 'magit-diff-less-context)
-(define-key magit-log-mode-map (kbd "TAB") 'magit-cycle-margin-style)
-
-(require 'git-gutter-fringe)
 (require-package 'git-gutter)
+(require-package 'fringe-helper)
+(require 'git-gutter-fringe)
 
 (global-git-gutter-mode 1)
 
@@ -160,15 +156,6 @@
   (evil-scroll-line-to-top (line-number-at-pos))
     )
 
-(evil-define-key evil-magit-state magit-mode-map
-  (kbd "C-j") 'magit-section-forward-scroll-to-top)
-(evil-define-key evil-magit-state magit-mode-map
-  (kbd "C-k") 'magit-section-backward-scroll-to-top)
-(evil-define-key evil-magit-state magit-mode-map
-  (kbd "gj") 'magit-section-forward-sibling-scroll-to-top)
-(evil-define-key evil-magit-state magit-mode-map
-  (kbd "gk") 'magit-section-backward-sibling-scroll-to-top)
-
 (setq magit-section-cycle-level 2)
 (defun magit-section-cycle-show-level-all ()
   (interactive)
@@ -181,23 +168,6 @@
       (magit-section-show-level-2-all)
       (setq magit-section-cycle-level 2)
       )))
-
-(evil-define-key evil-magit-state magit-mode-map
-  (kbd "<backtab>") 'magit-section-cycle-show-level-all)
-
-(evil-define-key evil-magit-state magit-mode-map (kbd "SPC g c") 'magit-copy-buffer-revision)
-
-(evil-define-key evil-magit-state magit-mode-map (kbd "SPC b d")
-  '(lambda ()
-     (interactive)
-     (kill-buffer (current-buffer))
-     (if (> (length (window-list)) 1)
-	 (delete-window))))
-
-(add-hook 'magit-popup-mode-hook
-	  (lambda ()
-	    (setq-local evil-default-state 'emacs)
-	    ))
 
 (defun projectile-git-repo-list ()
   (remove-if-not

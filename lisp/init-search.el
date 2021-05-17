@@ -1,8 +1,6 @@
 (require 'init-bookmarked-repos)
 
 (require-package 'magit)
-(require-package 'evil-magit)
-(evil-magit-init)
 
 (defhydra hydra-search-menu (:color pink :hint nil :exit t)
   "
@@ -46,7 +44,6 @@ _b_: all buffers       _d_: current dir        _O_: all buffers outline
 (setq dumb-jump-selector 'helm)
 
 (evil-global-set-key 'normal (kbd "SPC s") 'hydra-search-menu/body)
-(evil-define-key evil-magit-state magit-mode-map (kbd "SPC s") 'hydra-search-menu/body)
 (evil-define-key 'normal magit-diff-mode-map (kbd "SPC s") 'hydra-search-menu/body)
 (evil-define-minor-mode-key 'normal 'dired-mode-map
   (kbd "SPC s") 'hydra-search-menu/body)
