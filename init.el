@@ -21,6 +21,8 @@
 (require 'init-package)
 (require 'init-basics)
 (require 'init-appearance)
+;; TODO: combine it to proper file
+(require 'init-display-menu)
 ;; basic buffer/file selection
 (require 'init-helm)
 (require 'init-ivy)
