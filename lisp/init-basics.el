@@ -20,10 +20,12 @@
 (global-auto-revert-mode 1)
 
 (setq custom-file "~/.emacs.d/.cust-vars.el")
-(when (not (file-exists-p custom-file))
-  (with-temp-buffer (write-file custom-file))
-  )
-(load custom-file)
+;; this auto-generated custom-file things always gets annoying
+;; when debugging lisp codes, let just disable it completely
+;; ;; (when (not (file-exists-p custom-file))
+;; ;;   (with-temp-buffer (write-file custom-file))
+;; ;;   )
+;; ;; (load custom-file)
 
 (setq recentf-max-saved-items 200)
 
