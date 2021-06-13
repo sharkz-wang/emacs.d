@@ -7,15 +7,17 @@
   "
 ^Snippets^           ^Comment^         ^Argument^
 ---------------------------------------------------
-_i_: from menu       _T_: TODO         _a_: append
-_f_: for-loop        _F_: FIXME        _s_: select
-_p_: print           _X_: XXX
+_i_: from menu       _c_: comments...  _a_: append
+_f_: for-loop        _T_: TODO         _s_: select
+_p_: print           _F_: FIXME
+^ ^                  _X_: XXX
 "
   ("i" helm-yas-complete)
 
   ("f" (funcall insert-for-loop))
   ("p" (funcall insert-print))
 
+  ("c" comment-menu/body)
   ("T" (funcall insert-todo-comment))
   ("F" (funcall insert-fixme-comment))
   ("X" (funcall insert-xxx-comment))
@@ -23,7 +25,27 @@ _p_: print           _X_: XXX
   ("a" (funcall append-argument))
   ("s" (funcall insert-argument-select))
 
-  ("c" nil "cancel" :color blue)
+  ("q" nil "cancel" :color blue)
+  )
+
+(defhydra comment-menu (:color pink :hint nil :exit t)
+  "
+^Comments^
+---------------------------------------------------
+_i_: invert line(s)
+_c_: comment line(s)
+_u_: uncomment line(s)
+_y_: copy and comment line(s)
+"
+
+  ;; TODO: insert documented comments by
+  ;;       `srecode-document-insert-comment'
+  ("i" evilnc-invert-comment-line-by-line)
+  ("c" comment-region-or-line)
+  ("u" uncomment-region-or-line)
+  ("y" evilnc-copy-and-comment-lines)
+
+  ("q" nil "cancel" :color blue)
   )
 
 (yas-global-mode 1)
