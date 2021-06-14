@@ -1,5 +1,3 @@
-(require-package 'compile)
-(setq compilation-scroll-output t)
 ;; Set default splitting approach to vertical split
 (setq split-height-threshold nil)
 (setq split-width-threshold 0)
