@@ -4,6 +4,8 @@
 (require-package 'evil)
 
 (require-package 'evil-collection)
+;; this breaks company-mode, let's disable it
+(setq evil-collection-company-use-tng nil)
 (evil-collection-init)
 
 (evil-mode t)
