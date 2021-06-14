@@ -22,6 +22,8 @@
 (global-undo-tree-mode 1)
 ;; bind C-w back in evil emacs state
 (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
+(customize-set-variable 'evil-undo-system 'undo-tree)
+(customize-set-variable 'evil-want-fine-undo t)
 
 ;; both key-bindings "'" and "`" set to `evil-goto-mark' for convenience
 (define-key evil-normal-state-map "'" 'evil-goto-mark)
