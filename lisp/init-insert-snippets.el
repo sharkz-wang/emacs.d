@@ -74,5 +74,6 @@ _y_: copy and comment line(s)
 
 (global-set-key (kbd "C-c i") 'hydra-insert-menu/body)
 (evil-global-set-key 'normal (kbd "SPC i") 'hydra-insert-menu/body)
+(evil-global-set-key 'visual (kbd "SPC i") 'hydra-insert-menu/body)
 
 (provide 'init-insert-snippets)
