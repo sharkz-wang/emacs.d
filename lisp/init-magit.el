@@ -26,39 +26,6 @@
      )
   )
 
-(require-package 'git-gutter)
-(require-package 'fringe-helper)
-(require 'git-gutter-fringe)
-
-(global-git-gutter-mode 1)
-
-;; TODO: move it to init-git.el
-(require-package 'git-gutter)
-
-(global-git-gutter-mode 1)
-
-(setq git-gutter:ask-p nil)
-
-(setq git-gutter:added-sign " + ")
-(setq git-gutter:deleted-sign " - ")
-(setq git-gutter:modified-sign " * ")
-
-(evil-leader/set-key
-  "g.." (lambda ()
-	  (interactive)
-	  (git-gutter:toggle)
-	  (switch-to-last-buffer)
-	  (switch-to-last-buffer)
-	 )
-  "g.s" 'git-gutter:stage-hunk
-  "g.d" 'git-gutter:popup-diff
-  "g.r" 'git-gutter:revert-hunk
-  "g.n" 'git-gutter:next-hunk
-  "g.j" 'git-gutter:next-hunk
-  "g.p" 'git-gutter:previous-hunk
-  "g.k" 'git-gutter:previous-hunk
-  )
-
 (defun helm-magit-dispatch-popup (arg)
   (interactive "P")
   (if (equal current-prefix-arg '(4))

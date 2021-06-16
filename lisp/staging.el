@@ -97,4 +97,6 @@
 ;;      (-contains? --centaur-tabs-unpinned-list name)
 ;;      )))
 
+(require 'init-vcs)
+
 (provide 'staging)
