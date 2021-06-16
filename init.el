@@ -39,6 +39,7 @@
 (require 'init-insert-snippets)
 (require 'init-project)
 (require 'init-magit)
+(require 'init-compile)
 (require 'init-ediff)
 ;; advanced settings for my core modes
 (require 'init-c)
