@@ -5,14 +5,14 @@
   "
 ^Zoom...^
 ---------------------------------
-_+_: zoom in
-_-_: zoom out
+_j_: zoom in
+_k_: zoom out
 _0_: reset zoom
 "
   ;; zoom ...
 
-  ("+" zoom-in)
-  ("-" zoom-out)
+  ("j" zoom-in)
+  ("k" zoom-out)
   ("0" zoom-frm-unzoom)
 
   ("q"   nil "cancel" :color blue)
