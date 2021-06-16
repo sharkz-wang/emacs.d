@@ -1,5 +1,5 @@
 
-(defun epxand-yasnippet-from-keyword (keyword)
+(defun expand-yasnippet-from-keyword (keyword)
   (interactive)
   (indent-according-to-mode)
   (evil-emacs-state)
