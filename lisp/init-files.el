@@ -28,6 +28,10 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   ("c" nil "cancel" :color blue)
   )
 
+;; it's annoying that unmounted directory get removed
+(setq recentf-auto-cleanup 'never)
+(recentf-mode 1)
+
 (defun search-file-in-current-directory ()
     (interactive)
     (let ((default-directory (f-dirname (buffer-file-name))))
