@@ -1,3 +1,4 @@
+(require 'init-insert-snippets-defs)
 
 (defun emacs-lisp-insert-reminder-comment (keyword) (interactive)
        (if (current-line-empty-p)

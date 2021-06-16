@@ -1,3 +1,5 @@
+(require 'init-insert-snippets-defs)
+
 (defun flymake-pylint-init ()
       (let* ((temp-file (flymake-init-create-temp-buffer-copy
 			 'flymake-create-temp-inplace))
