@@ -1,5 +1,6 @@
 (setq-default line-spacing 3)
 (setq show-trailing-whitespace t)
+(setq text-scale-mode-step 1.05)
 
 (add-to-list 'custom-theme-load-path
 	     (expand-file-name "theme" user-emacs-directory))
