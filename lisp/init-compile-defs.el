@@ -3,6 +3,20 @@
 
 (setq compile-commane-list '())
 
+(defun open-compilation-window ()
+    (interactive)
+    (set-window-buffer (split-window-right) (compilation-find-buffer))
+)
+
+(defun delete-compilation-window ()
+    (interactive)
+    (let ((comp-window (get-buffer-window (compilation-find-buffer))))
+        (when comp-window
+          (delete-window (get-buffer-window (compilation-find-buffer))) 
+        )
+    )
+)
+
 (defun set-or-get-register-compile-command (reg)
     (interactive)
     (set-or-get-register-value 'compile-commane-list reg)
