@@ -23,7 +23,7 @@ _e_: edit registers
 ;; use smaller font size for high volumn compilation output
 (add-hook 'compilation-mode-hook 'init-compilation-mode)
 (defun init-compilation-mode ()
-    (text-scale-decrease 4)
+    (text-scale-decrease 8)
 )
 
 (setq compilation-scroll-output t)
