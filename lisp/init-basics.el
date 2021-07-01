@@ -42,13 +42,6 @@
 ;; always use y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; set left margin size and make it take effect now
-(add-hook 'window-configuration-change-hook
-		  (lambda ()
-			(set-window-margins
-			  (car (get-buffer-window-list (current-buffer) nil t))
-			  3)))
-
 ;; make emacs know last opened position of a file
 (if (< emacs-major-version 25)
     (progn
