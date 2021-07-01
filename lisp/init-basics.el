@@ -123,6 +123,7 @@
 
 (evil-leader/set-key
   "ww" 'other-window
+  "wj" 'ace-window
   "wd" 'delete-window
   "wm" 'delete-other-windows
   ;; TODO: fix incorrect font in new frames
