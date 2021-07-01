@@ -141,4 +141,6 @@
 (add-hook 'magit-ediff-quit-hook 'quit-ediff-buffer)
 (add-hook 'ediff-quit-hook 'quit-ediff-buffer)
 
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
+
 (provide 'staging)
