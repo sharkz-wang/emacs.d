@@ -99,4 +99,26 @@
 
 (require 'init-vcs)
 
+(defun init-ediff-buffer ()
+  ;; TODO: make it into single line
+  (zoom-frm-out)
+  (zoom-frm-out)
+  (zoom-frm-out)
+  (zoom-frm-out)
+  (zoom-frm-out)
+  (zoom-frm-out)
+)
+(add-hook 'ediff-startup-hook 'init-ediff-buffer)
+
+(defun quit-ediff-buffer ()
+  (zoom-frm-in)
+  (zoom-frm-in)
+  (zoom-frm-in)
+  (zoom-frm-in)
+  (zoom-frm-in)
+  (zoom-frm-in)
+)
+(add-hook 'magit-ediff-quit-hook 'quit-ediff-buffer)
+(add-hook 'ediff-quit-hook 'quit-ediff-buffer)
+
 (provide 'staging)
