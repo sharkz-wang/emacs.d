@@ -99,6 +99,11 @@
 
 (require 'init-vcs)
 
+(evil-define-minor-mode-key 'normal
+    'ediff-mode-map "j" 'evil-collection-ediff-scroll-down-1)
+(evil-define-minor-mode-key 'normal
+    'ediff-mode-map "k" 'evil-collection-ediff-scroll-up-1)
+
 (defun init-ediff-buffer ()
   ;; TODO: make it into single line
   (zoom-frm-out)
