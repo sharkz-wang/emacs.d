@@ -104,6 +104,11 @@
 (evil-define-minor-mode-key 'normal
     'ediff-mode-map "k" 'evil-collection-ediff-scroll-up-1)
 
+(evil-define-minor-mode-key 'normal
+    'ediff-mode-map (kbd "C-f") 'evil-collection-ediff-scroll-down)
+(evil-define-minor-mode-key 'normal
+    'ediff-mode-map (kbd "C-b") 'evil-collection-ediff-scroll-up)
+
 (defun init-ediff-buffer ()
   ;; TODO: make it into single line
   (zoom-frm-out)
