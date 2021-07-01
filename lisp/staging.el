@@ -112,6 +112,12 @@
   (zoom-frm-out)
   (zoom-frm-out)
   (zoom-frm-out)
+
+  ;; disable tabs, which makes screen crowded
+  (centaur-tabs-mode -1)
+  ;; FIXME: hacky trick to refresh and minimize control panel
+  (ediff-toggle-help)
+  (ediff-toggle-help)
 )
 (add-hook 'ediff-startup-hook 'init-ediff-buffer)
 
@@ -122,6 +128,10 @@
   (zoom-frm-in)
   (zoom-frm-in)
   (zoom-frm-in)
+
+  ;; TODO: enable it selectively
+  ;; restore tabs
+  (centaur-tabs-mode 1)
 )
 (add-hook 'magit-ediff-quit-hook 'quit-ediff-buffer)
 (add-hook 'ediff-quit-hook 'quit-ediff-buffer)
