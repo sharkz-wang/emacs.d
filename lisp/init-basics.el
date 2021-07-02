@@ -19,6 +19,9 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
 
+;; treat underline as part of a word
+(modify-syntax-entry ?_ "w")
+
 (setq custom-file "~/.emacs.d/.cust-vars.el")
 ;; this auto-generated custom-file things always gets annoying
 ;; when debugging lisp codes, let just disable it completely

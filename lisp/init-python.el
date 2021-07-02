@@ -83,8 +83,6 @@ _k_: kill
 (add-hook 'python-mode-hook 'init-python-mode)
 (defun init-python-mode ()
 
-  (modify-syntax-entry ?_ "w")
-
   (require-package 'evil-indent-textobject)
 
   ;; setup major-mode interface functions

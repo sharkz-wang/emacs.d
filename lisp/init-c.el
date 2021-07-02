@@ -1,7 +1,5 @@
 (defun init-cc-handler ()
 
-  (modify-syntax-entry ?_ "w")
-  
   (custom-set-variables
    '(c-basic-offset '8))
   (c-set-style "linux")
