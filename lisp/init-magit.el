@@ -10,6 +10,8 @@
 	  #'magit-display-buffer-fullframe-status-v1)
 ;; explicitly set magit log date format
 (setq magit-log-margin (quote (t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)))
+;; use date for the last time a commit is modified
+(setq magit-log-margin-show-committer-date t)
 
 ;; require `cl-lib' to support following snippet
 (require 'cl-lib)
