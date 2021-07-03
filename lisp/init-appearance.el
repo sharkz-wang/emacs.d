@@ -20,6 +20,13 @@
 ;; disable all loaded themes before load a new theme
 ;; (advice-add 'load-theme :around #'load-theme-advice)
 
+;; override default monokai's brownish color tone in gui emacs
+(custom-set-variables
+    '(monokai-highlight  "#3D3C3D")
+    '(monokai-highlight-line "#3D3C3D")
+    '(monokai-comments "#747474")
+    '(monokai-background "#151515")
+)
 (require-package 'monokai-theme)
 
 (require-package 'poet-theme)
