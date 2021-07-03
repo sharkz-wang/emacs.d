@@ -32,7 +32,7 @@
 ;;;;  2021/06/12: there seemed not a proper way to change following styles
 ;;;;              after loading the package, it only works by restarting emacs
 (setq centaur-tabs-style "bar")
-(setq centaur-tabs-height 26)
+(setq centaur-tabs-height 16)
 ;;;; ended "static" styles
 ;;;; place indicators hinting selected tabs to left side
 (setq centaur-tabs-set-bar 'left)
