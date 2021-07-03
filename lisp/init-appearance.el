@@ -20,6 +20,15 @@
 ;; disable all loaded themes before load a new theme
 ;; (advice-add 'load-theme :around #'load-theme-advice)
 
+(defun override-default-faces (f theme-id &optional no-confirm no-enable &rest args)
+    "My preferred default face settings that overrides any custom themes."
+    ;; use smaller mode line
+    (set-face-attribute 'mode-line nil :height 150)
+)
+;; let's setup a init handler where we override any incoming
+;; themes with our preferred defaults
+(advice-add 'load-theme :after #'override-default-faces)
+
 ;; override default monokai's brownish color tone in gui emacs
 (custom-set-variables
     '(monokai-highlight  "#3D3C3D")
@@ -198,7 +207,8 @@
 (require-package 'doom-modeline)
 (require 'doom-modeline)
 
-(setq doom-modeline-height 25)
+;; as narrow as mode-line's font size
+(setq doom-modeline-height 1)
 (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
 
 (setq doom-modeline-icon t)
