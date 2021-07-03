@@ -25,12 +25,13 @@
     (interactive)
     (setq custom-keystrokes keystrokes)
     (setq company-tooltip-limit (length custom-keystrokes))
-    (custom-set-variables
-        '(company-show-numbers-function
-	  (-partial '--company-show-keystrokes
-		    ;; a whitespace to prevent left margin being
-		    ;; chomped off
-		    (concat " " keybinding-fmt))))
+    (customize-set-variable
+        'company-show-numbers-function
+        (-partial '--company-show-keystrokes
+		  ;; a whitespace to prevent left margin being
+		  ;; chomped off
+		  (concat " " keybinding-fmt))
+    )
     (dotimes (ii company-tooltip-limit)
         (lexical-let ((keystroke (nth ii custom-keystrokes)))
             (define-key company-active-map
