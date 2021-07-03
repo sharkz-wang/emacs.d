@@ -67,7 +67,6 @@
     (turn-on-paper-imitation-theme)))
 
 (load-theme 'monokai t)
-(load-theme 'green-black-org-mode t)
 
 (require-package 'moe-theme)
 (require 'moe-theme)

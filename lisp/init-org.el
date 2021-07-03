@@ -180,6 +180,7 @@
 (defun init-org-handler ()
   
   (modify-syntax-entry ?- "w")
+  (load-theme 'green-black-org-mode t)
 
   (setq org-imenu-depth 10)
 
