@@ -1,4 +1,11 @@
-(set-global-frame-font "Monaco-17")
+;; sorted according to thickness: light -> regular -> bold -> black
+;;     e.g., (set-global-frame-font "Source Code Pro:bold")
+(set-global-frame-font "Ubuntu Mono")
+;; (set-global-frame-font "Source Code Pro")
+;; (set-global-frame-font "Monaco")
+;; (set-global-frame-font "Roboto")
+;; (set-global-frame-font "Press Start 2P")
+(set-face-attribute 'default nil :height 200)
 
 (setq ebook-dir-path "~/ebooks")
 (setq linux-repo-dir-path "~/linux")
