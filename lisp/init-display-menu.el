@@ -1,19 +1,24 @@
 ;; for frame-wide zooming instead of buffer-wide
 (require 'zoom-frm)
+(require 'init-display-defs)
 
 (defhydra hydra-display-menu (:color pink :hint nil)
   "
-^Zoom...^
+^Zoom frame ...^       ^Zoom buffer ...^
 ---------------------------------
-_j_: zoom in
-_k_: zoom out
+_n_: zoom in frame     _j_: zoom in buffer
+_p_: zoom out frame    _k_: zoom out buffer
 _0_: reset zoom
 "
-  ;; zoom ...
+  ;; zoom frame ...
+  ("n" zoom-in)
+  ("p" zoom-out)
 
-  ("j" zoom-in)
-  ("k" zoom-out)
-  ("0" zoom-frm-unzoom)
+  ;; zoom buffer ...
+  ("j" (text-scale-adjust +1))
+  ("k" (text-scale-adjust -1))
+
+  ("0" --reset-all-zoom)
 
   ("q"   nil "cancel" :color blue)
   )
