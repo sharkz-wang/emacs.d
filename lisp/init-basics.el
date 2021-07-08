@@ -19,8 +19,12 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
 
-;; treat underline as part of a word
-(modify-syntax-entry ?_ "w")
+;; common handler setting things in order in all major modes
+(defun init-all-major-mode-hdlr ()
+    ;; treat underline as part of a word
+    (modify-syntax-entry ?_ "w")
+)
+(add-hook 'after-change-major-mode-hook 'init-all-major-mode-hdlr)
 
 (setq custom-file "~/.emacs.d/.cust-vars.el")
 ;; this auto-generated custom-file things always gets annoying
