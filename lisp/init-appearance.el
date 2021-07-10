@@ -232,4 +232,31 @@
 ;; (require-package 'nyan-mode)
 ;; (nyan-mode t)
 
+(global-whitespace-mode t)
+
+(eval-after-load 'whitespace
+    '(progn
+	(setq whitespace-style
+	      '(face                             ;; enable face
+		tab-mark tabs                    ;; indicate all tabs with marks `>>'
+						 ;; whitespace is visually annoying,
+						 ;; so we just enable tabs
+		space-after-tab space-before-tab ;; indicate mixed use of tab/whitespaces
+						 ;; it won't be shown as marks
+		))
+
+	;; face for tab marks `>>'
+	(set-face-attribute 'whitespace-tab nil
+			    :background nil :foreground "gray30" :weight 'light)
+
+	;; faces for warning of mixed tab/whitespace
+	;; I didn't know why these two attributes was not consistent in
+	;; using foreground/background, so I just set all of them
+	(set-face-attribute 'whitespace-space-after-tab nil
+			    :background "gray25" :foreground "gray25" :weight 'light)
+	(set-face-attribute 'whitespace-space-before-tab nil
+			    :background "gray25" :foreground "gray25" :weight 'light)
+    )
+)
+
 (provide 'init-appearance)
