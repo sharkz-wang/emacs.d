@@ -6,6 +6,7 @@
 ;; (set-global-frame-font "Roboto")
 ;; (set-global-frame-font "Press Start 2P")
 (set-face-attribute 'default nil :height 200)
+(setq cwm-centered-window-width 80)
 
 (setq ebook-dir-path "~/ebooks")
 (setq linux-repo-dir-path "~/linux")
