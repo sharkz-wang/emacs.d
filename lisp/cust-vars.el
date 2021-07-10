@@ -5,6 +5,7 @@
 ;; (set-global-frame-font "Monaco")
 ;; (set-global-frame-font "Roboto")
 ;; (set-global-frame-font "Press Start 2P")
+;; (set-global-frame-font "creep")
 (set-face-attribute 'default nil :height 200)
 (setq cwm-centered-window-width 80)
 
