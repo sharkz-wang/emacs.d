@@ -82,6 +82,7 @@
   (helm-refresh))
 
 (define-key helm-map (kbd "C-c C-m") 'helm-toggle-resize-buffer-to-max)
+(define-key helm-map (kbd "M-SPC") 'helm-toggle-visible-mark-forward)
 
 (defun --helm-save-search-session ()
   (interactive)
