@@ -4,6 +4,13 @@
 
 ;; TODO: how to turn off loading of .cust-vars.el
 ;; TODO: enlarge `undo-tree-limit'
+;; TODO: check-in frequently used icons
+;; TODO: better ways to manage customize-group
+;; TODO: backup folder for elpa packages
+;; TODO: python automation server
+;; TODO: pinned buffers
+;; TODO: show current files history when committing code in magit
+;; TODO: company-mode support for elisp
 
 ;; TODO: move it elsewhere better
 ;; don't grant outdated *.elc files, it's too dangerous
