@@ -4,8 +4,8 @@
 (helm-autoresize-mode t)
 
 (custom-set-variables
- '(helm-autoresize-max-height 30)
- '(helm-autoresize-min-height 30))
+ '(helm-autoresize-max-height 50)
+ '(helm-autoresize-min-height 50))
 (setq orig-helm-max-height helm-autoresize-max-height)
 (setq orig-helm-min-height helm-autoresize-min-height)
 (setq curr-helm-max-height helm-autoresize-max-height)
