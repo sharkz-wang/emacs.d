@@ -3,7 +3,7 @@
 (require 'git-gutter-fringe)
 (require-package 'git-gutter)
 
-(defhydra hydra-vcs-menu (:color pink :hint nil)
+(defhydra hydra-vcs-menu (:color pink :hint nil :idle 0.3)
   "
 ^Move^             ^Display^        ^Operations^
 ------------------------------------------------------

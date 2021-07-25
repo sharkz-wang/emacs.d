@@ -3,7 +3,7 @@
 (require-package 'helm-c-yasnippet)
 (require 'init-insert-snippets-defs)
 
-(defhydra hydra-insert-menu (:color pink :hint nil :exit t)
+(defhydra hydra-insert-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Snippets^           ^Comment^         ^Argument^
 ---------------------------------------------------
@@ -28,7 +28,7 @@ _p_: print           _F_: FIXME
   ("q" nil "cancel" :color blue)
   )
 
-(defhydra comment-menu (:color pink :hint nil :exit t)
+(defhydra comment-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Comments^
 ---------------------------------------------------

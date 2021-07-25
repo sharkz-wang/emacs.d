@@ -5,7 +5,7 @@
   (let ((default-directory (file-name-directory path)))
     (funcall bookmarked-repo-action path)))
 
-(defhydra hydra-bookmarked-repo-menu (:color pink :exit t)
+(defhydra hydra-bookmarked-repo-menu (:color pink :exit t :idle 0.3)
   "
 ^Bookmarked locations^
 ^^^^^^^^-----------------------------------------------------------------
@@ -18,7 +18,7 @@
   ("b" (bookmarked-repo-do-action ebook-dir-path) "eBooks\n")
   )
 
-(defhydra hydra-kernel-repo-menu (:color pink :exit t)
+(defhydra hydra-kernel-repo-menu (:color pink :exit t :idle 0.3)
   "
 ^Kernel codebase^
 ^^^^^^^^-----------------------------------------------------------------
@@ -36,7 +36,7 @@
   ("q" nil "quit" :color blue)
   )
 
-(defhydra hydra-kernel-scheduler-menu (:color pink :exit t)
+(defhydra hydra-kernel-scheduler-menu (:color pink :exit t :idle 0.3)
   "
 ^Scheduler source files^
 ^^^^^^^^-----------------------------------------------------------------
@@ -49,7 +49,7 @@
        "fcs scheduler\n")
   )
 
-(defhydra hydra-kernel-perf-events-menu (:color pink :exit t)
+(defhydra hydra-kernel-perf-events-menu (:color pink :exit t :idle 0.3)
   "
 ^Perf_events source files^
 ^^^^^^^^-----------------------------------------------------------------

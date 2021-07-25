@@ -1,6 +1,6 @@
 (require 'help-fns+)
 
-(defhydra hydra-help-menu (:color pink :hint nil :exit t)
+(defhydra hydra-help-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Descriptions...^           ^Man pages...^           ^Info pages...^
 ^^^^^^--------------------------------------------------------------

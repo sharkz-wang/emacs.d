@@ -2,7 +2,7 @@
 
 (require-package 'magit)
 
-(defhydra hydra-search-menu (:color pink :hint nil :exit t)
+(defhydra hydra-search-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Buffers...^           ^Files...^              ^Semantics...^
 ^^^^^-----------------------------------------------------------------

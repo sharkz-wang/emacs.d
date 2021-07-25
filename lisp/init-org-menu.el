@@ -2,7 +2,7 @@
 
 (require 'init-bookmarked-repos)
 
-(defhydra hydra-org-menu (:color pink :hint nil :exit t)
+(defhydra hydra-org-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Agenda...^        ^Capture...^       ^Open...^
 ^^^^^^^^---------------------------------------------------------------------------

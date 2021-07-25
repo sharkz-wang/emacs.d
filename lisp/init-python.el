@@ -6,7 +6,7 @@
 ;; TODO: matplotlib support
 ;; TODO: output of numpy/pandas's data struct output were too long
 
-(defhydra python-main-mode-menu (:color pink :hint nil :exit t)
+(defhydra python-main-mode-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Execute ...^              ^Shell^
 ----------------------------------------------------
@@ -33,7 +33,7 @@ _er_: region or buffer
 (evil-define-key 'visual python-mode-map (kbd ",") 'python-main-mode-menu/body)
 (global-set-key (kbd "C-c ,") 'python-main-mode-menu/body)
 
-(defhydra python-shell-control-menu (:color pink :hint nil :exit t)
+(defhydra python-shell-control-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Operations^               ^Window^
 --------------------------------------------------

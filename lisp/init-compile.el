@@ -1,7 +1,7 @@
 (require-package 'compile)
 (require 'init-compile-defs)
 
-(defhydra compile-menu (:color pink :hint nil :exit t)
+(defhydra compile-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Compile^               ^Jump to...^          ^Compilation window^
 --------------------------------------------------------------------

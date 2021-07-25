@@ -3,7 +3,7 @@
 (require 'init-bookmarked-repos)
 (require 'init-projectile)
 
-(defhydra hydra-file-menu (:color pink :hint nil :exit t)
+(defhydra hydra-file-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Save...^            ^Browse...^                ^Search...^
 ^^^^^^^^--------------------------------------------------------------

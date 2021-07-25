@@ -1,5 +1,5 @@
 
-(defhydra hydra-org-mode-menu (:color pink :hint nil :exit t)
+(defhydra hydra-org-mode-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Operations ...^
 ---------------------------------

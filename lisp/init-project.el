@@ -5,7 +5,7 @@
 
 (require 'init-find-files)
 
-(defhydra hydra-project-menu (:color pink :hint nil :exit t)
+(defhydra hydra-project-menu (:color pink :hint nil :exit t :idle 0.3)
   "
 ^Save...^               ^Browse...^                  ^VCS...^                      ^Search...^        ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
       (call-interactively 'helm-find)
       ))
 
-(defhydra hydra-git-timemachine-menu (:color pink :hint nil)
+(defhydra hydra-git-timemachine-menu (:color pink :hint nil :idle 0.3)
   "
 ^Revision...^              ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------

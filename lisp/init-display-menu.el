@@ -2,7 +2,7 @@
 (require 'zoom-frm)
 (require 'init-display-defs)
 
-(defhydra hydra-display-menu (:color pink :hint nil)
+(defhydra hydra-display-menu (:color pink :hint nil :idle 0.3)
   "
 ^Zoom frame ...^       ^Zoom buffer ...^
 ---------------------------------
