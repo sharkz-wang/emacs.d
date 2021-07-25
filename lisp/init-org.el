@@ -534,4 +534,6 @@
 ;(evil-global-set-key 'normal (kbd "SPC s l") 'helm-occur-and-jump-org-agenda)
 ;(evil-global-set-key 'normal (kbd "SPC s I") 'helm-org-in-buffer-headings)
 
+(require 'init-org-capture)
+
 (provide 'init-org)
