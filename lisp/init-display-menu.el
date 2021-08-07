@@ -18,6 +18,12 @@ _0_: reset zoom
   ("k" (text-scale-adjust +1))
   ("j" (text-scale-adjust -1))
 
+  ;; increase centered-window width
+  ("+" --increase-centered-window-size)
+  ;; don't bother me if I forget to press shift
+  ("=" --increase-centered-window-size)
+  ("-" --decrease-centered-window-size)
+
   ("0" --reset-all-zoom)
 
   ("q"   nil "cancel" :color blue)
