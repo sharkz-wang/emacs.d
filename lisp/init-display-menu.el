@@ -4,10 +4,10 @@
 
 (defhydra hydra-display-menu (:color pink :hint nil :idle 0.3)
   "
-^Zoom frame ...^       ^Zoom buffer ...^
+^Zoom frame ...^       ^Zoom buffer ...^        ^Center area width^
 ---------------------------------
-_n_: zoom in frame     _j_: zoom in buffer
-_p_: zoom out frame    _k_: zoom out buffer
+_n_: zoom in frame     _j_: zoom in buffer      _+_: increase
+_p_: zoom out frame    _k_: zoom out buffer     _-_: decrease
 _0_: reset zoom
 "
   ;; zoom frame ...
