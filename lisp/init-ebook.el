@@ -12,6 +12,12 @@
 (defun init-pdf-tools-handler ()
   (interactive)
 
+  ;; make next/previous-page command start at page top
+  (advice-add 'pdf-view-next-page :before
+	      (lambda (&optional N) (interactive) (image-previous-line (window-vscroll))))
+  (advice-add 'pdf-view-previous-page :before
+	      (lambda (&optional N) (interactive) (image-previous-line (window-vscroll))))
+
   (evil-define-key 'normal pdf-view-mode-map (kbd "j") 'pdf-view-next-line-or-next-page)
   (evil-define-key 'normal pdf-view-mode-map (kbd "k") 'pdf-view-previous-line-or-previous-page)
   (evil-define-key 'normal pdf-view-mode-map (kbd "n") 'pdf-view-next-page)
