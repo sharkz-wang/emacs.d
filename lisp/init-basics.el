@@ -136,6 +136,7 @@
   "wj" 'ace-window
   "wd" 'delete-window
   "wm" 'delete-other-windows
+  "wf" '--split-window-right-and-follow-mode
   ;; TODO: fix incorrect font in new frames
   "wn" 'make-frame
 )

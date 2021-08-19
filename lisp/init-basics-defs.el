@@ -25,4 +25,21 @@
   )
 )
 
+;; by follow-mode-view, we mean entering follow-mode and automatically
+;; open a split-window view because it's sometimes too exhausting to do
+;; it yourself
+(defun --toggle-follow-mode-view ()
+    (interactive)
+    (if (bound-and-true-p follow-mode)
+      (progn
+        (follow-mode -1)
+        (delete-other-windows)
+      )
+      (progn
+        (follow-mode 1)
+        (split-window-right)
+      )
+    )
+)
+
 (provide 'init-basics-defs)
