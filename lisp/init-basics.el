@@ -122,6 +122,15 @@
      (if (> (length (window-list)) 1)
 	 (delete-window))))
 
+;; make split-window functions move cursor to the new window for you
+(advice-add 'split-window-right
+	    :after (lambda (&optional SIZE) (interactive) (other-window 1)))
+(advice-add 'split-window-below
+	    :after (lambda (&optional SIZE) (interactive) (other-window 1)))
+
+(evil-global-set-key 'normal (kbd "SPC w /") 'split-window-right)
+(evil-global-set-key 'normal (kbd "SPC w -") 'split-window-below)
+
 (evil-leader/set-key
   "ww" 'other-window
   "wj" 'ace-window
@@ -129,15 +138,7 @@
   "wm" 'delete-other-windows
   ;; TODO: fix incorrect font in new frames
   "wn" 'make-frame
-  "w-" (lambda ()
-	 (interactive)
-	 (split-window-below)
-	 (other-window 1))
-  )
-(evil-global-set-key 'normal (kbd "SPC w /") (lambda ()
-					       (interactive)
-					       (split-window-right)
-					       (other-window 1)))
+)
 (define-key evil-normal-state-map (kbd "SPC w q") 'quit-window)
 
 (evil-leader/set-key
