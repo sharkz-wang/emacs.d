@@ -55,6 +55,7 @@
 (require 'init-dired)
 (require 'init-ebook)
 (require 'init-kernel-dev)
+(require 'init-external-share-menu)
 (require 'init-misc)
 ;; recently unused features
 ;;;; (require 'init-dash)
