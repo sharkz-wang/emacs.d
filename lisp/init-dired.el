@@ -58,10 +58,12 @@
 (evil-define-key 'normal dired-mode-map "h" 'diredp-up-directory)
 (evil-define-key 'normal dired-mode-map "l" 'quit-window)
 
-(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC w -")
-  (lambda () (interactive) (split-window-below) (other-window 1)))
-(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC w /")
-  (lambda () (interactive) (split-window-right) (other-window 1)))
+(evil-define-minor-mode-key 'normal
+                            'dired-mode-map (kbd "SPC w -")
+                            'split-window-below)
+(evil-define-minor-mode-key 'normal
+                            'dired-mode-map (kbd "SPC w /")
+                            'split-window-right)
 
 (defun helm-dired-recentf-dirs ()
   (interactive)
