@@ -157,4 +157,7 @@
 			;; diff buffers (both staged/unstaged)
 			'(("magit-diff: .*" display-buffer-same-window)))
 
+;; by default, don't display the slow diff view when editing commit message
+(customize-set-variable 'magit-commit-show-diff nil)
+
 (provide 'init-magit)
