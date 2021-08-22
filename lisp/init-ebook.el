@@ -7,6 +7,11 @@
  )
 (setq pdf-info-epdfinfo-program "/opt/local/bin/epdfinfo")
 
+;; white-on-black
+;; (customize-set-variable 'pdf-view-midnight-colors (cons "#F8F8F2" "#151515"))
+;; black-on-gray
+(customize-set-variable 'pdf-view-midnight-colors (cons "#000000" "#D7D7D7"))
+
 (pdf-tools-install)
 
 (defun init-pdf-tools-handler ()
