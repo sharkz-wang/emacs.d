@@ -36,6 +36,14 @@
     '(monokai-comments "#747474")
     '(monokai-background "#151515")
 )
+;; override default org-mode color tone
+(custom-set-faces
+    '(org-block            ((t (:background "#2D2D2D"))))
+    '(org-block-begin-line ((t (:background "#373737" :height 0.7))))
+    '(org-block-end-line   ((t (:background "#373737" :height 0.7))))
+    '(org-table            ((t (:background "#2D2D2D"))))
+    '(org-link             ((t (:foreground "#8070FF"))))
+)
 (require-package 'monokai-theme)
 
 (require-package 'poet-theme)
