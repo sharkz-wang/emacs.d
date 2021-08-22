@@ -152,4 +152,9 @@
 		(mapcar (lambda (dir) (cons dir 0))
 		(projectile-git-repo-list)))))
 
+;; make following buffers always shown in full screen window
+(customize-set-variable 'display-buffer-alist
+			;; diff buffers (both staged/unstaged)
+			'(("magit-diff: .*" display-buffer-same-window)))
+
 (provide 'init-magit)
