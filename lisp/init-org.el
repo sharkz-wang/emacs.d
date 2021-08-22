@@ -223,7 +223,7 @@
 	  ("/" italic)
 	  ("_" underline)
 	  ("~" org-verbatim verbatim)
-	  ("=" (:foreground "red"))
+	  ("=" (:background "blue"))
 	  ("+" (:strike-through t))))
 
   (setq org-startup-indented t
