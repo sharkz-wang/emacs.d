@@ -505,6 +505,8 @@
 	    ))
 
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+;; add plantuml support
+(org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 
 ;; for Linux
 ;; export PKG_CONFIG_PATH
