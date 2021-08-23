@@ -151,4 +151,16 @@
 
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l ?\;))
 
+(require-package 'gumshoe)
+;; package gumshoe's dependency
+(require-package 'consult)
+
+;; FIXME: mode is not supported in per-buffer basis
+(global-gumshoe-mode 1)
+(defun consult-gumshoe-global ()
+    (interactive)
+    (consult-global-mark (ring-elements (oref gumshoe--global-backlog log))))
+
+(evil-leader/set-key "rh" 'consult-gumshoe-global)
+
 (provide 'staging)
