@@ -155,11 +155,40 @@
 ;; package gumshoe's dependency
 (require-package 'consult)
 
-;; FIXME: mode is not supported in per-buffer basis
+(setq gumshoe-ignored-major-modes
+      '(emacs-lisp-mode          ;; elisp buffers
+        org-mode                 ;; org-mode buffers
+        messages-buffer-mode     ;; *Messages*
+        help-mode                ;; *Help*
+        ;; XXX: don't include *scratch*, as there should always
+        ;;      be at least one instance returned or `consult-global-mark'
+        ;;      will list all of them anyway.
+        ;;      scratch buffer was the best for this job.
+        ;; lisp-interaction-mode ;; *scratch*
+        ))
+
+(defun --get-marker-buf-major-mode (marker)
+    (with-current-buffer (marker-buffer marker) major-mode))
+
+(defun --gumshoe-is-major-mode-ignored (maj-mode)
+    (-any? #'identity
+           (mapcar (lambda (maj) (equalp maj-mode maj))
+                   gumshoe-ignored-major-modes))
+)
+
+(defun --get-marker-list-ignored-removed ()
+    (seq-filter (lambda (marker)
+                  (not (--gumshoe-is-major-mode-ignored
+                           (--get-marker-buf-major-mode marker))))
+                (ring-elements (oref gumshoe--global-backlog log)))
+)
+
 (global-gumshoe-mode 1)
 (defun consult-gumshoe-global ()
     (interactive)
-    (consult-global-mark (ring-elements (oref gumshoe--global-backlog log))))
+    (consult-global-mark (--get-marker-list-ignored-removed))
+)
+
 
 (evil-leader/set-key "rh" 'consult-gumshoe-global)
 
