@@ -24,11 +24,24 @@
 	    (setq-local sublimity-attractive-centering-width 130)
 	   ))
 
+(defun --helm-show-kill-ring-short ()
+    (interactive)
+    (customize-set-variable 'helm-kill-ring-max-offset 30)
+    (helm-show-kill-ring)
+)
+
+(defun --helm-show-kill-ring-long ()
+    (interactive)
+    (customize-set-variable 'helm-kill-ring-max-offset 400)
+    (helm-show-kill-ring)
+)
+
 (evil-leader/set-key
   "bb" 'helm-buffers-list
   "rl" 'helm-resume
-  "ry" 'helm-show-kill-ring
-  )
+  "ry" '--helm-show-kill-ring-short
+  "rY" '--helm-show-kill-ring-long
+)
 
 (evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
 
