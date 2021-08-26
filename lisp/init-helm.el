@@ -41,6 +41,7 @@
   "rl" 'helm-resume
   "ry" '--helm-show-kill-ring-short
   "rY" '--helm-show-kill-ring-long
+  "ru" 'undo-tree-visualize
 )
 
 (evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
