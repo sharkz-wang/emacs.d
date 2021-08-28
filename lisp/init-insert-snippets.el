@@ -5,9 +5,9 @@
 
 (defhydra hydra-insert-menu (:color pink :hint nil :exit t :idle 0.3)
   "
-^Snippets^           ^Comment^         ^Argument^
----------------------------------------------------
-_i_: from menu       _c_: comments...  _a_: append
+^Snippets^           ^Comment^         ^Argument^      ^Edit^
+^^^^^^^^-----------------------------------------------------------
+_i_: from menu       _c_: comments...  _a_: append     _r_: replace
 _f_: for-loop        _T_: TODO         _s_: select
 _p_: print           _F_: FIXME
 ^ ^                  _X_: XXX
@@ -24,6 +24,8 @@ _p_: print           _F_: FIXME
 
   ("a" (funcall append-argument))
   ("s" (funcall insert-argument-select))
+
+  ("r" --query-replace-thing-at-point)
 
   ("q" nil "cancel" :color blue)
   )

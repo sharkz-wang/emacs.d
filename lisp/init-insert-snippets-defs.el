@@ -29,4 +29,20 @@
 	  (setq beg (line-beginning-position) end (line-end-position)))
 	(uncomment-region beg end)))
 
+;; simply a handy version of `query-replace' which supports `thing-at-point'
+(defun --query-replace-thing-at-point ()
+    (interactive)
+    (if (thing-at-point 'word)
+      (let* ((from-str (thing-at-point 'word))
+             (to-str   (read-from-minibuffer (format "Query replace %s with: "
+						     from-str)
+                                             from-str)))
+        (save-excursion
+          (beginning-of-buffer)
+          (query-replace from-str to-str))
+      )
+      (call-interactively 'query-replace)
+    )
+)
+
 (provide 'init-insert-snippets-defs)
