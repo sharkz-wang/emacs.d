@@ -21,6 +21,41 @@
     '(org-directory "~/org")
     '(org-agenda-dir (expand-file-name "~/org"))
     '(org-snapshot-dir (expand-file-name "~/org/snapshots"))
+    '(org-agenda-files (list (expand-file-name "~/org/agenda/inbox.org")))
+    '(org-refile-targets '((org-agenda-files :maxlevel . 5)))
+    '(org-capture-templates
+      `(
+	("z" "Quick event"
+	 entry (file+headline ,(concat (file-name-as-directory org-agenda-dir) "quick.org") "Inbox")
+	 "* TODO %?%i"
+	 :prepend t
+	 )
+	("t" "Todo"
+	 entry (file+headline ,(concat (file-name-as-directory org-agenda-dir) "inbox.org") "Inbox")
+	 "* TODO %?%i"
+	 :prepend t
+	 )
+	("c" "Trace code note"
+	 entry (file+headline ,(concat (file-name-as-directory org-agenda-dir) "inbox.org") "Inbox")
+	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC"
+	 )
+	("w" "Work log"
+	 ;; Note: keyword :prepend would not work on plain items
+	 plain (function org-find-inbox-or-marked-entry-prepend)
+	 "%(org-time-stamp '(16) nil)\n%?"
+	 :empty-lines 1
+	 )
+	("e" "Epub note"
+	 plain (function org-find-inbox-or-marked-entry-append)
+	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE"
+	 :empty-lines 1
+	 )
+	("p" "PDF note"
+	 plain (function org-find-inbox-or-marked-entry-append)
+	 "* %?\n[[pdf:%(with-current-buffer (org-capture-get :original-buffer) (pdf-view-buffer-file-name))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (pdf-view-current-page)))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE"
+	 :empty-lines 1
+	 )
+	))
  )
 
 ;; external tools
