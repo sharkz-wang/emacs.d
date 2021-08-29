@@ -17,6 +17,7 @@
 ;; TODO: bookmark-jump and org-capture-last-stored
 ;; TODO: make `helm-find-files' support whitespace delimiter
 ;; TODO: make org-refile compatible to plain type records
+;; TODO: add `package-refresh-contents' into regular flow
 
 ;; TODO: move it elsewhere better
 ;; don't grant outdated *.elc files, it's too dangerous
