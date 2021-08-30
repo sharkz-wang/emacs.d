@@ -192,4 +192,15 @@
 
 (evil-leader/set-key "rh" 'consult-gumshoe-global)
 
+(evil-define-text-object evil-avy-word (count &optional beg end type)
+    "Select a word, with avy."
+    (save-excursion
+      (evil-avy-goto-char)
+      (evil-a-word count beg end type)
+    )
+)
+
+(define-key evil-outer-text-objects-map "j" 'evil-avy-word)
+(define-key evil-inner-text-objects-map "j" 'evil-avy-word)
+
 (provide 'staging)
