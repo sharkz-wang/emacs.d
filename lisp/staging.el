@@ -203,4 +203,22 @@
 (define-key evil-outer-text-objects-map "j" 'evil-avy-word)
 (define-key evil-inner-text-objects-map "j" 'evil-avy-word)
 
+(require-package 'centered-cursor-mode)
+
+;; make magit diff buffers started with ...
+;;     1. cursor moved to the center line
+;;     2. buffer scrolls around the cursor
+;; so we don't have to wait that little jerk crawling
+;; to the last line when reading patch diffs
+(defun --setup-magit ()
+    (centered-cursor-mode 1)
+)
+(defun --advice-magit-diff-setup-buffer (RANGE TYPEARG ARGS FILES &optional LOCKED)
+    ;; this statement is too early in `magit-diff-mode-hook'
+    (move-to-window-line nil)
+)
+
+(advice-add 'magit-diff-setup-buffer :after #'--advice-magit-diff-setup-buffer)
+(add-hook 'magit-diff-mode-hook '--setup-magit)
+
 (provide 'staging)
