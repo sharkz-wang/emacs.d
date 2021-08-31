@@ -221,4 +221,33 @@
 (advice-add 'magit-diff-setup-buffer :after #'--advice-magit-diff-setup-buffer)
 (add-hook 'magit-diff-mode-hook '--setup-magit)
 
+;; number of characters until we place a indicator bar
+(setq display-fill-column-indicator-column 80)
+;; character we used to resemble a bar
+(setq display-fill-column-indicator-character ?|)
+;; face of the indicator bar
+(custom-set-faces '(fill-column-indicator
+		    ((t (:foreground "#2D2D2D")))))
+
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda () (display-fill-column-indicator-mode 1)))
+(add-hook 'python-mode-hook
+	  (lambda () (display-fill-column-indicator-mode 1)))
+(add-hook 'c-mode-hook
+	  (lambda () (display-fill-column-indicator-mode 1)))
+(add-hook 'c++-mode-hook
+	  (lambda () (display-fill-column-indicator-mode 1)))
+(add-hook 'magit-diff-mode-hook
+	  (lambda () (display-fill-column-indicator-mode 1)))
+
+(defun --setup-git-commit-msg-column-indicator ()
+    (display-fill-column-indicator-mode 1)
+    ;; it's recommended to have < 50 character in commit subject
+    ;; so let's place a bar at here
+    (setq-local display-fill-column-indicator-column 50)
+)
+
+(add-hook 'git-commit-setup-hook
+	  '--setup-git-commit-msg-column-indicator)
+
 (provide 'staging)
