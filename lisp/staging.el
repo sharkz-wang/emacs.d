@@ -250,4 +250,7 @@
 (add-hook 'git-commit-setup-hook
 	  '--setup-git-commit-msg-column-indicator)
 
+(require-package 'evil-lion)
+(evil-lion-mode 1)
+
 (provide 'staging)
