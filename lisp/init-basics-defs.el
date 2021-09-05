@@ -33,11 +33,16 @@
     (if (bound-and-true-p follow-mode)
       (progn
         (follow-mode -1)
+	;; TODO: make it save to original value
+	(centered-window-mode 1)
         (delete-other-windows)
+	(centered-cursor-mode -1)
       )
       (progn
         (follow-mode 1)
+	(centered-window-mode -1)
         (split-window-right)
+	(centered-cursor-mode 1)
       )
     )
 )
