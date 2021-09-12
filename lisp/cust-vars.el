@@ -36,9 +36,16 @@
 	 :prepend t
 	 )
 	("c" "Trace code note"
-	 entry (file+headline ,(concat (file-name-as-directory org-agenda-dir) "inbox.org") "Inbox")
-	 "* %?\n[file:%F::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (line-number-at-pos (car (evil-visual-range))())))]\n#+BEGIN_SRC c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_SRC"
-	 )
+	 entry
+	 (file+headline ,(concat (file-name-as-directory org-agenda-dir)
+				 "inbox.org")
+			"Inbox")
+	 ,(concat "* %?\n"
+		  "[file:%F::%(--org-capture-get-file-line-num)]\n"
+		  "#+BEGIN_SRC %(--org-capture-get-buffer-babel-lang)\n"
+		  "%(--org-capture-get-region-code-fragment)\n"
+		  "#+END_SRC")
+	)
 	("w" "Work log"
 	 ;; Note: keyword :prepend would not work on plain items
 	 plain (function org-find-inbox-or-marked-entry-prepend)

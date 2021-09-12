@@ -1,3 +1,4 @@
+(require 'init-org-capture-defs)
 (require 'org)
 
 (defcustom org-snapshot-dir "~/org/snapshots"
