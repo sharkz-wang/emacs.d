@@ -22,6 +22,8 @@
                            (buffer-substring-no-properties
                                (region-beginning) (region-end))
                            (thing-at-point 'line))))
+        ;; no need to keep mark once we finish capturing
+        (deactivate-mark)
         (format "%s\n%s%s%s...%s%s\n%s"
                 (save-excursion
                   (beginning-of-defun)
