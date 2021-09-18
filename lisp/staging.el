@@ -247,6 +247,9 @@
     ;; it's recommended to have < 50 character in commit subject
     ;; so let's place a bar at here
     (setq-local display-fill-column-indicator-column 50)
+    ;; we use a lot of apostroph "'" in commit messages, which happen
+    ;; to be my favorite company leader key... let's turn if off!
+    (company-mode -1)
 )
 
 (add-hook 'git-commit-setup-hook
