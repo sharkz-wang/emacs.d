@@ -90,6 +90,8 @@
 ;;      (-contains? --centaur-tabs-unpinned-list name)
 ;;      )))
 
+(require-package 'org-sidebar)
+
 (define-key evil-normal-state-map
             (kbd "SPC \\")
             (lambda () (interactive) (org-sidebar-tree-toggle-buffer "inbox.org")))
