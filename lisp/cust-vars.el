@@ -75,7 +75,6 @@
 
 ;; external tools
 (custom-set-variables
-    '(pdf-info-epdfinfo-program "~/epdfinfo")
     '(plantuml-jar-path (expand-file-name "~/plantuml.jar"))
     '(org-plantuml-jar-path (expand-file-name "~/plantuml.jar"))
  )

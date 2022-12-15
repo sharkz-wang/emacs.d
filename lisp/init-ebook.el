@@ -5,7 +5,15 @@
  '(pdf-view-resize-factor 1.05)
  '(pdf-view-midnight-colors '("#F6F7EF" . "#0d0d0d" ))
  )
-(setq pdf-info-epdfinfo-program "/opt/local/bin/epdfinfo")
+
+;; set `pdf-info-epdfinfo-program' to bin/epdfinfo relative to
+;; the package dir of 'pdf-tools
+;; e.g., ~/.emacs.d/elpa/pdf-tools-20220522.13/bin/epdfinfo
+(setq pdf-info-epdfinfo-program
+      (concat-path (package-desc-dir
+		    (nth 1 (assq 'pdf-tools package-alist)))
+		   "bin" "epdfinfo"))
+(make-directory (file-name-directory pdf-info-epdfinfo-program) t)
 
 ;; white-on-black
 ;; (customize-set-variable 'pdf-view-midnight-colors (cons "#F8F8F2" "#151515"))
