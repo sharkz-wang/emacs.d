@@ -17,8 +17,6 @@
 
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
-(require 'helm-config)
-
 (add-hook 'helm-major-mode-hook
 	  (lambda ()
 	    (setq-local sublimity-attractive-centering-width 130)
