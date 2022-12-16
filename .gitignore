@@ -1,6 +1,10 @@
 # Compiled
 *.elc
 
+# Git
+*.swp
+*.rej
+
 # Packaging
 .cask
 
@@ -17,9 +21,13 @@ projectile.cache
 smex-items
 nov-places
 transient/
+persp/
 docsets/
 url/
 eln-cache/
+
+.hl-save
+.ido.last
 
 # Auto-generated customization vars
 .cust-vars.el
