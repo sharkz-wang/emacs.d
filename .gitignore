@@ -19,6 +19,7 @@ nov-places
 transient/
 docsets/
 url/
+eln-cache/
 
 # Auto-generated customization vars
 .cust-vars.el
