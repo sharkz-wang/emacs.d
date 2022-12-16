@@ -19,6 +19,12 @@
 ;; content to reflect what's on-disk.
 (global-auto-revert-mode 1)
 
+;; suppress the annoying warning bombing from async native-comp
+;; e.g., "Warning (comp): ld: warning: -undefined dynamic_lookup
+;;        may not work with chained fixups Disable showing Disable
+;;        logging"
+(setq native-comp-async-report-warnings-errors nil)
+
 ;; common handler setting things in order in all major modes
 (defun init-all-major-mode-hdlr ()
     ;; treat underline as part of a word
