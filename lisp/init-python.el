@@ -10,7 +10,7 @@
   "
 ^Execute ...^              ^Shell^
 ----------------------------------------------------
-_ep_: paragraph	           _s_: shell control ...
+_ep_: paragraph            _s_: shell control ...
 _ee_: expression
 _ek_: until cursor
 _ej_: from cursor
