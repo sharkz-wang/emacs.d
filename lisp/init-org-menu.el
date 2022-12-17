@@ -1,20 +1,24 @@
 (require-package 'hydra)
 
+(require 'init-org-image-menu)
 (require 'init-bookmarked-repos)
 
 (defhydra hydra-org-menu (:color pink :hint nil :exit t :idle 0.3)
   "
-^Agenda...^        ^Capture...^       ^Open...^
+^Agenda...^        ^Capture...^       ^Image^         ^Open...^
 ^^^^^^^^---------------------------------------------------------------------------
-_a_: agenda        _c_: cauture       _oo_: inbox
-^^^^                                  _oq_: quick events
-^^^^                                  _oc_: cheatsheet
+_a_: agenda        _c_: cauture       _z_: resize     _oo_: inbox
+^^^^                                                  _oq_: quick events
+^^^^                                                  _oc_: cheatsheet
 "
   ;; agenda ...
   ("a" org-agenda)
 
   ;; capture ...
   ("c" org-capture-force-horizontal)
+
+  ;; image ...
+  ("z" hydra-org-image-menu/body)
 
   ;; open ...
   ("oo" (find-file (concat (file-name-as-directory org-agenda-dir) "inbox.org")))
