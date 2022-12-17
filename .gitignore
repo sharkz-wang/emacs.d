@@ -26,6 +26,8 @@ docsets/
 url/
 eln-cache/
 
+elpa*/
+
 .hl-save
 .ido.last
 
