@@ -11,10 +11,10 @@ fi
 
 mkdir -p elpa
 
-TMPF=$(mktemp)
-ag --nofilename --nonumber require-package ./lisp --ignore=lisp/init-package.el | \
-        ag -v defun | \
-	ag -v '^;;' | \
+TMPF=./install.list
+grep -E --no-filename "\(require-package '.*?\)" -R ./lisp --exclude='./lisp/.*' --exclude='lisp/init-package.el' | \
+	grep -v defun | \
+	grep -v '^;;' | \
 	cat lisp/init-package.el - >${TMPF}
 
 # this command eats ctrl-c, make early return explicit
