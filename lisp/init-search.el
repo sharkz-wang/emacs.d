@@ -36,7 +36,7 @@ _b_: all buffers       _d_: current dir        _O_: all buffers outline
 
 (defun helm-do-ag-curr-dir ()
   (interactive)
-  (helm-do-ag (f-dirname (buffer-file-name)))
+  (helm-do-ag default-directory)
   )
 
 (require-package 'dumb-jump)
