@@ -8,7 +8,7 @@
 ^Agenda...^        ^Capture...^       ^Image^         ^Open...^
 ^^^^^^^^---------------------------------------------------------------------------
 _a_: agenda        _c_: cauture       _z_: resize     _oo_: inbox
-^^^^                                                  _oq_: quick events
+^^^^^^                                                _oq_: quick events
 ^^^^                                                  _oc_: cheatsheet
 "
   ;; agenda ...
