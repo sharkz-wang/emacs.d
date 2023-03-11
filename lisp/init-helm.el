@@ -138,6 +138,10 @@
 (define-key helm-find-files-map (kbd "C-o") 'helm-execute-persistent-action)
 (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
 (define-key helm-find-files-map (kbd "C-l") 'helm-find-files-down-last-level)
+(define-key helm-find-files-map (kbd "M-s") 'helm-ff-run-grep-ag)
+(define-key helm-find-files-map (kbd "M-d") 'helm-ff-run-delete-file)
+(define-key helm-find-files-map (kbd "M-/") 'helm-ff-run-fd)
+(define-key helm-find-files-map (kbd "M-D") 'helm-ff-run-marked-files-in-dired)
 
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "C-o") 'helm-execute-persistent-action)
