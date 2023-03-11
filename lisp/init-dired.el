@@ -56,7 +56,14 @@
 
 (evil-define-key 'normal dired-mode-map "/" 'helm-occur)
 (evil-define-key 'normal dired-mode-map "h" 'diredp-up-directory)
-(evil-define-key 'normal dired-mode-map "l" 'quit-window)
+(evil-define-key 'normal dired-mode-map "q" 'quit-all-dired-window)
+
+(defun quit-all-dired-window () (interactive)
+  (mapcar (lambda (buffer)
+	    (with-current-buffer buffer
+		(when (eq major-mode 'dired-mode) (bury-buffer))))
+	  (buffer-list))
+)
 
 (evil-define-minor-mode-key 'normal
                             'dired-mode-map (kbd "SPC w -")

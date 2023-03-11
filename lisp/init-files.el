@@ -17,12 +17,12 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   ("s" save-buffer)
   ;; browse ...
   ("f" helm-find-files)
-  ("D" dired-curr-dir)
+  ("d" dired-curr-dir)
   ("r" helm-recentf)
   ("b" helm-bookmarks)
   ("m" (hydra-bookmarked-repo-menu-action 'helm-find-files-in-dir))
   ;; search ...
-  ("d" search-file-in-current-directory)
+  ("D" search-file-in-current-directory)
   ("/" (hydra-bookmarked-repo-menu-action 'search-file-in-directory))
 
   ("c" nil "cancel" :color blue)
@@ -72,7 +72,7 @@ _s_: current buffer  _f_: current dir          _d_: current dir
 
 (defun dired-curr-dir (arg)
   (interactive "P")
-  (dired (f-dirname (buffer-file-name)))
+  (dired default-directory)
   )
 
 (evil-global-set-key 'normal (kbd "SPC f") 'hydra-file-menu/body)
