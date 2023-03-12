@@ -211,6 +211,29 @@
 (evil-global-set-key 'normal (kbd "C-M-o") 'evil-jump-backward)
 (evil-global-set-key 'normal (kbd "C-M-i") 'evil-jump-forward)
 
+;; saving evil marks to save file ~/.emacs.d/.evil-marks and
+;; restore them in next session
+(require 'save-sexp)
+
+(defun --save-markers-alist (&rest args)
+  (save-sexp-save-setq (expand-file-name ".evil-marks"
+					 user-emacs-directory)
+		       'evil-global-markers-alist)
+  )
+
+;; setting up advice-function/hook
+;;;; after any new mark registered
+(advice-add 'evil-set-marker-local-global :after
+	    #'--save-markers-alist)
+;;;; after marks cleared
+(advice-add 'clear-evil-global-markers-alist :after
+	    #'--save-markers-alist)
+;;;; before exiting emacs
+(add-hook 'kill-emacs-hook '--save-markers-alist)
+
+;; restore save file of evil marks
+(load (expand-file-name ".evil-marks" user-emacs-directory))
+
 (defun curr-line-remove-trailing-whitespace ()
   (interactive)
   (save-excursion
