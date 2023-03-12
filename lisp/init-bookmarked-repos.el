@@ -30,7 +30,8 @@
        "kernel/include\n")
   ("d" (bookmarked-repo-do-action (concat-path linux-repo-dir-path "Documentation"))
        "kernel/Documentation\n")
-
+  ("t" (bookmarked-repo-do-action (concat-path linux-repo-dir-path "include/trace/events"))
+       "tracepoints\n")
   ("s" hydra-kernel-scheduler-menu/body "scheduler\n")
   ("p" hydra-kernel-perf-events-menu/body "perf_events\n")
 
