@@ -160,4 +160,7 @@
 ;; by default, don't display the slow diff view when editing commit message
 (customize-set-variable 'magit-commit-show-diff nil)
 
+(evil-define-key 'normal magit-diff-mode-map (kbd "m") 'evil-set-marker-local-global)
+(evil-define-key 'normal magit-diff-mode-map (kbd "'") 'evil-goto-global-mark-line)
+
 (provide 'init-magit)
