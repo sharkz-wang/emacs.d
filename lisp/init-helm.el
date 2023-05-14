@@ -42,7 +42,7 @@
   "ru" 'undo-tree-visualize
 )
 
-(evil-global-set-key 'normal (kbd "SPC RET") 'helm-buffers-list)
+(evil-global-set-key 'normal (kbd "SPC RET") 'projectile-switch-to-buffer)
 
 (require 'cl-lib)
 ;; a `helm-imenu' variation that won't take `thing-at-point' as default input

@@ -7,18 +7,18 @@
 
 (defhydra hydra-project-menu (:color pink :hint nil :exit t :idle 0.3)
   "
-^Save...^               ^Browse...^                  ^VCS...^                      ^Search...^        ^Operate...^
+^Save...^               ^Browse...^                          ^VCS...^                      ^Search...^        ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------
-_s_: project buffers    _f_: current project         _gss_: brief status           _o_: other file    _K_: kill project buffers
-^^                      _d_: dwim current project    _gsm_: brief status on bookmarks ^^              _/_: keyword
-^^                      _b_: project buffers         _gSS_: full status
-^^                      _D_: project dirs            _gSM_: full status on bookmarks
-^^                      _p_: other projects          _gg_:  magit menu
-^^                      _r_: recent files            _gm_:  magit menu on bookmarks
-^^                      _m_: project in bookmarks    _gb_:  git blame
-^^^^                                                 _gfu_: diff current file
-^^^^                                                 _gfh_: current file's history
-^^^^                                                 _gt_:  git timemachine
+_s_: project buffers    _f_: current project                 _gss_: brief status           _o_: other file    _K_: kill project buffers
+^^                      _d_: dwim current project            _gsm_: brief status on bookmarks ^^              _/_: keyword
+^^                      _b_: project buffers                 _gSS_: full status
+^^                      _D_: project dirs                    _gSM_: full status on bookmarks
+^^                      _p_: other projects                  _gg_:  magit menu
+^^                      _r_: recent files                    _gm_:  magit menu on bookmarks
+^^                      _m_: project in bookmarks            _gb_:  git blame
+^^                      _TAB_: buffer in prev project        _gfu_: diff current file
+^^                      _`_: buffer in prev prev porject     _gfh_: current file's history
+^^^^                                                         _gt_:  git timemachine
 "
   ;; save ...
   ("s" projectile-save-project-buffers)
@@ -30,6 +30,8 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
   ("p" helm-projectile-switch-project)
   ("r" helm-projectile-recentf)
   ("m" (hydra-bookmarked-repo-menu-action 'search-file-in-project))
+  ("TAB" projectile-switch-to-prev-project)
+  ("`" projectile-switch-to-prev-prev-project)
   ;; vcs ...
   ("gss" magit-status-simplified)
   ("gsm" (hydra-bookmarked-repo-menu-action 'magit-status-simplified-on-path))
@@ -61,6 +63,26 @@ _s_: project buffers    _f_: current project         _gss_: brief status        
     (let ((default-directory (projectile-project-root dir)))
       (call-interactively 'helm-find)
       ))
+
+(defun projectile-switch-to-prev-project ()
+  (interactive)
+  (switch-to-buffer
+   (car (projectile-project-buffers
+         (projectile-acquire-root
+          (car (projectile-relevant-open-projects))
+          )))
+   )
+  )
+
+(defun projectile-switch-to-prev-prev-project ()
+  (interactive)
+  (switch-to-buffer
+   (car (projectile-project-buffers
+         (projectile-acquire-root
+          (nth 1 (projectile-relevant-open-projects))
+          )))
+   )
+  )
 
 (defhydra hydra-git-timemachine-menu (:color pink :hint nil :idle 0.3)
   "

@@ -101,7 +101,7 @@
      (kill-buffer (current-buffer))
      (if (> (length (window-list)) 1)
 	 (delete-window))))
-(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC RET") 'helm-buffers-list)
+(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC RET") 'projectile-switch-to-buffer)
 
 (add-hook 'dired-mode-hook
 	  (lambda ()
