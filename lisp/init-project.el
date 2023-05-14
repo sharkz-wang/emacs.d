@@ -27,7 +27,7 @@ _s_: project buffers    _f_: current project                 _gss_: brief status
   ("d" projectile-find-file-dwim)
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
-  ("p" helm-projectile-switch-project)
+  ("p" projectile-switch-project)
   ("r" helm-projectile-recentf)
   ("m" (hydra-bookmarked-repo-menu-action 'search-file-in-project))
   ("TAB" projectile-switch-to-prev-project)
