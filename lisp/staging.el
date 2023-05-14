@@ -18,7 +18,7 @@
                 'centaur-tabs-select-visible-tab)
 )
 
-(define-key evil-normal-state-map (kbd "SPC t <tab>") '--centaur-tabs-switch-to-previous-group)
+(define-key evil-normal-state-map (kbd "SPC t TAB") '--centaur-tabs-switch-to-previous-group)
 (define-key evil-normal-state-map (kbd "SPC t `") '--centaur-tabs-switch-to-group-before-last-group)
 
 ;; tabs styles: shapes/colors/indicators
