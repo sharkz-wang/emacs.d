@@ -9,9 +9,9 @@
   "
 ^Save...^               ^Browse...^                          ^VCS...^                      ^Search...^        ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------
-_s_: project buffers    _f_: current project                 _gss_: brief status           _o_: other file    _K_: kill project buffers
-^^                      _d_: dwim current project            _gsm_: brief status on bookmarks ^^              _/_: keyword
-^^                      _b_: project buffers                 _gSS_: full status
+_a_: register project   _f_: current project                 _gss_: brief status           _o_: other file    _K_: kill project buffers
+_k_: remove project     _d_: dwim current project            _gsm_: brief status on bookmarks ^^              _/_: keyword
+_s_: project buffers    _b_: project buffers                 _gSS_: full status
 ^^                      _D_: project dirs                    _gSM_: full status on bookmarks
 ^^                      _p_: other projects                  _gg_:  magit menu
 ^^                      _r_: recent files                    _gm_:  magit menu on bookmarks
@@ -21,6 +21,8 @@ _s_: project buffers    _f_: current project                 _gss_: brief status
 ^^^^                                                         _gt_:  git timemachine
 "
   ;; save ...
+  ("a" projectile-add-current-project)
+  ("k" projectile-remove-known-project)
   ("s" projectile-save-project-buffers)
   ;; browse ...
   ("f" find-file-in-project-prompt)
@@ -51,6 +53,12 @@ _s_: project buffers    _f_: current project                 _gss_: brief status
 
   ("c" nil "cancel" :color blue)
   )
+
+(defun projectile-add-current-project ()
+    (interactive)
+    (projectile-add-known-project default-directory)
+    (message "Directory `%s' added into known projects."
+	     default-directory))
 
 (defun search-file-in-current-project ()
     (interactive)
