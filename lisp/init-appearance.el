@@ -217,7 +217,11 @@
 
 ;; as narrow as mode-line's font size
 (setq doom-modeline-height 1)
-(setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+;; e.g. from upstream's comments:
+;;     'relative-from-project => emacs/lisp/comint.el
+;;     'relative-to-project => lisp/comint.el
+(customize-set-variable 'doom-modeline-buffer-file-name-style
+			'truncate-with-project)
 
 (setq doom-modeline-icon t)
 (setq doom-modeline-major-mode-icon t)
