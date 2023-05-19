@@ -216,10 +216,15 @@
 (require 'save-sexp)
 
 (defun --save-markers-alist (&rest args)
-  (save-sexp-save-setq (expand-file-name ".evil-marks"
-					 user-emacs-directory)
-		       'evil-global-markers-alist)
-  )
+  (let ((buf (find-file-noselect
+	      (expand-file-name
+	       ".evil-marks" user-emacs-directory))))
+    ;; XXX: using `save-sexp-save-setq' with file name as first
+    ;;      arg causes other buffers drop to fundamental-mode.
+    ;;      root cause is unknown.
+    (save-sexp-save-setq buf 'evil-global-markers-alist)
+    (with-current-buffer buf (save-buffer)))
+)
 
 ;; setting up advice-function/hook
 ;;;; after any new mark registered
