@@ -39,4 +39,30 @@
 
 (org-add-link-type "kernel-src" 'kernel-src-link-open)
 
+(setq org-link-named-repos '())
+
+(defun org-link-open-named-repo (path)
+    (message (format "%s" (split-string path ":")))
+    ;; format: [repo:REPO_NAME:REL_PATH:LINE_NUM_OR_FUNC_NAME]
+    ;; e.g.,   [repo:linux:kernel/sched/fair.c:6489]
+    (let* ((str-list              (split-string path ":"))
+           (repo-name             (nth 0 str-list))
+           (rel-path              (nth 1 str-list))
+           (line-num-or-func-name (nth 2 str-list))
+           (repo-base-path (cdr (assoc repo-name org-link-named-repos))))
+      (message (format "%s" repo-base-path))
+      (find-file (concat (file-name-as-directory repo-base-path) rel-path))
+      (if (= 0 (string-to-number line-num-or-func-name))
+	  (progn
+	    (goto-char (point-min))
+	    (dumb-jump-go nil nil line-num-or-func-name))
+	  (progn
+	    (goto-char (point-min))
+	    (forward-line (1- (string-to-number line-num-or-func-name))))
+	  )
+    )
+)
+
+(org-add-link-type "repo" 'org-link-open-named-repo)
+
 (provide 'init-kernel-dev)

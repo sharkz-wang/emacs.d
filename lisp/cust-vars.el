@@ -16,6 +16,10 @@
 (custom-set-variables
     '(kernel-src-repo-list '("~/src/linux")))
 
+(setq org-link-named-repos
+      (list (cons "linux"
+		  (expand-file-name "~/src/linux"))))
+
 ;; org-mode settings
 (custom-set-variables
     '(org-directory "~/org")
