@@ -241,4 +241,16 @@
 (require-package 'evil-lion)
 (evil-lion-mode 1)
 
+;; run external program asynchronously
+;; e.g., (terminal-run-command-async "ls")
+;;       (terminal-run-command-async "vim" (buffer-file-name))
+(defun osx-terminal-run-command-async (&rest args)
+  (apply 'start-process
+	 (append
+	  (quote "iTerm2" "*iTerm2*"
+		 (expand-file-name "script/osx_run.sh"
+				   user-emacs-directory))
+	  args))
+)
+
 (provide 'staging)
