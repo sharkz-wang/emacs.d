@@ -501,6 +501,18 @@
 ;(evil-global-set-key 'normal (kbd "SPC s l") 'helm-occur-and-jump-org-agenda)
 ;(evil-global-set-key 'normal (kbd "SPC s I") 'helm-org-in-buffer-headings)
 
+(require-package 'org-sidebar)
+
+(defun org-sidebar-tree-toggle-buffer (buffer-or-name)
+  (interactive)
+  (find-file-noselect (format "%s/inbox.org" org-agenda-dir))
+  (with-current-buffer "inbox.org"
+    (org-sidebar-tree-toggle))
+  (select-window (car (window-at-side-list
+		       (selected-frame) 'left)))
+  (bury-buffer (get-buffer "<tree>inbox.org"))
+)
+
 (require 'init-org-capture)
 
 (provide 'init-org)

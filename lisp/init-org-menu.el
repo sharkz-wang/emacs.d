@@ -7,7 +7,8 @@
   "
 ^Agenda...^        ^Capture...^       ^Image^         ^Open...^
 ^^^^^^^^---------------------------------------------------------------------------
-_a_: agenda        _c_: cauture       _z_: resize     _oo_: inbox
+_a_: agenda        _c_: cauture       _z_: resize     _TAB_: inbox sidebar
+^^^^^^                                                _oo_: inbox
 ^^^^^^                                                _oq_: quick events
 ^^^^                                                  _oc_: cheatsheet
 "
@@ -21,6 +22,7 @@ _a_: agenda        _c_: cauture       _z_: resize     _oo_: inbox
   ("z" hydra-org-image-menu/body)
 
   ;; open ...
+  ("TAB" (org-sidebar-tree-toggle-buffer))
   ("oo" (find-file (concat (file-name-as-directory org-agenda-dir) "inbox.org")))
   ("oq" (find-file (concat (file-name-as-directory org-agenda-dir) "quick.org")))
   ("oc" (find-file (concat (file-name-as-directory org-directory) "cheatsheet.org")))

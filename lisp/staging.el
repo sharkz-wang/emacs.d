@@ -90,23 +90,6 @@
 ;;      (-contains? --centaur-tabs-unpinned-list name)
 ;;      )))
 
-(require-package 'org-sidebar)
-
-(define-key evil-normal-state-map
-            (kbd "SPC \\")
-            (lambda () (interactive) (org-sidebar-tree-toggle-buffer "inbox.org")))
-
-(defun org-sidebar-tree-toggle-buffer (buffer-or-name)
-    (interactive)
-    (with-current-buffer buffer-or-name (org-sidebar-tree-toggle))
-    ;; FIXME: hacky trick to force redrawing screen
-    (switch-to-last-buffer)
-    (switch-to-last-buffer)
-)
-
-(find-file "~/org/agenda/inbox.org")
-(org-sidebar-tree-toggle-buffer "inbox.org")
-
 (require 'init-vcs)
 
 (evil-define-minor-mode-key 'normal
