@@ -4,15 +4,16 @@
 
 (defhydra hydra-search-menu (:color pink :hint nil :exit t :idle 0.3)
   "
-^Buffers...^           ^Files...^              ^Semantics...^
-^^^^^-----------------------------------------------------------------
-_s_: current buffer    _f_: browse             _o_: outline
-_b_: all buffers       _d_: current dir        _O_: all buffers outline
-^^                     _m_: bookmarked dir     _j_: dumb-jump
-^^                     _/_: current project
+^Buffers...^                        ^Files...^                  ^Semantics...^
+^^^^^------------------------------------------------------------------------
+_s_: current buffer                 _f_: browse                 _o_: outline
+_S_: current buffer at point        _d_: current dir            _O_: all buffers outline
+_b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
+^^                                  _/_: current project
 "
   ;; buffers
   ("s" helm-occur)
+  ("S" (with-mini-buffer-input--word-at-point #'helm-occur))
   ("b" helm-do-ag-buffers)
   ;; files
   ("f" helm-do-ag)
@@ -25,6 +26,16 @@ _b_: all buffers       _d_: current dir        _O_: all buffers outline
   ("j" dumb-jump-go)
 
   ("c" nil "cancel" :color blue)
+  )
+
+(defun with-mini-buffer-input--word-at-point (func)
+  (with-mini-buffer-input (or (word-at-point t) "") func)
+  )
+
+(defun with-mini-buffer-input (default-string func)
+  (minibuffer-with-setup-hook
+      (lambda () (insert (format "%s" default-string)))
+    (call-interactively func))
   )
 
 (defun helm-do-ag-dir-or-file (path)
