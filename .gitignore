@@ -31,6 +31,8 @@ elpa*/
 .hl-save
 .ido.last
 
+.evil-marks
+
 # Auto-generated customization vars
 .cust-vars.el
 
