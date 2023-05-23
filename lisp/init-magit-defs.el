@@ -12,4 +12,18 @@
         (line-number-at-pos))
 )
 
+(defun magit-quick-stash-all ()
+  (interactive)
+
+  ;; save all buffers before stashing
+  (projectile-save-project-buffers)
+
+  (magit-log-head '("--decorate" "-n5"))
+  ;; don't make subsequent calls instantly take over magit-log buffer
+  (sit-for 1)
+  (magit-run-git-with-editor "commit" "--all"
+			     "-m" "wip: stash commit")
+  (magit-log-head '("--decorate" "-n5"))
+)
+
 (provide 'init-magit-defs)

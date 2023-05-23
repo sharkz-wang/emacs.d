@@ -40,6 +40,7 @@ _s_: project buffers    _b_: project buffers                 _gSS_: full status
   ("gSS" magit-status-full)
   ("gSM" (hydra-bookmarked-repo-menu-action 'magit-status-full-on-path))
   ("gg" magit-dispatch)
+  ("gc" magit-quick-stash-all)
   ("gm" (hydra-bookmarked-repo-menu-action 'magit-dispatch-on-path))
   ("gb" magit-blame)
   ("gfh" magit-log-buffer-file)
