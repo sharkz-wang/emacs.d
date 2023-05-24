@@ -103,13 +103,17 @@
     'ediff-mode-map (kbd "C-b") 'evil-collection-ediff-scroll-up)
 
 (defun init-ediff-buffer ()
-  ;; TODO: make it into single line
-  (zoom-frm-out)
-  (zoom-frm-out)
-  (zoom-frm-out)
-  (zoom-frm-out)
-  (zoom-frm-out)
-  (zoom-frm-out)
+  (when (display-graphic-p)
+    (progn
+      ;; TODO: make it into single line
+      (zoom-frm-out)
+      (zoom-frm-out)
+      (zoom-frm-out)
+      (zoom-frm-out)
+      (zoom-frm-out)
+      (zoom-frm-out)
+      )
+    )
 
   ;; disable tabs, which makes screen crowded
   (centaur-tabs-mode -1)
@@ -120,12 +124,16 @@
 (add-hook 'ediff-startup-hook 'init-ediff-buffer)
 
 (defun quit-ediff-buffer ()
-  (zoom-frm-in)
-  (zoom-frm-in)
-  (zoom-frm-in)
-  (zoom-frm-in)
-  (zoom-frm-in)
-  (zoom-frm-in)
+  (when (display-graphic-p)
+    (progn
+      (zoom-frm-in)
+      (zoom-frm-in)
+      (zoom-frm-in)
+      (zoom-frm-in)
+      (zoom-frm-in)
+      (zoom-frm-in)
+      )
+    )
 
   ;; TODO: enable it selectively
   ;; restore tabs
