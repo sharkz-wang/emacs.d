@@ -2,6 +2,7 @@
 (require-package 'magit)
 (require 'magit-log)
 
+;; default arguments for magit-log
 (custom-set-variables
  '(magit-log-arguments '("-n32" "--decorate")))
 
