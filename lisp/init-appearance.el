@@ -2,6 +2,29 @@
 (setq show-trailing-whitespace t)
 (setq text-scale-mode-step 1.05)
 
+;; setup window divider character for splitted window
+;; default character ?| gives you an ugly dashed line in terminal mode
+(defun --set-window-divider-character ()
+  (let ((display-table (or (window-display-table)
+			   buffer-display-table
+			   standard-display-table)))
+    (set-display-table-slot display-table 5 ?│)
+    (set-window-display-table (selected-window) display-table)))
+
+(add-hook 'window-configuration-change-hook
+	  '--set-window-divider-character)
+(set-face-foreground 'vertical-border "#808080")
+
+;; tty mode does not support window dividers for vertical windows.
+;; using a slightly brighter mode-line to make
+;; multi-window view less chaotic.
+(set-face-attribute 'mode-line nil
+		    :background "#555555" :foreground "#F8F8F0"
+		    :weight 'light)
+(set-face-attribute 'mode-line-inactive nil
+		    :background "#383838" :foreground "#F8F8F0"
+		    :weight 'light)
+
 (add-to-list 'custom-theme-load-path
 	     (expand-file-name "theme" user-emacs-directory))
 
