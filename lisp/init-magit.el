@@ -14,6 +14,11 @@
 ;; use date for the last time a commit is modified
 (setq magit-log-margin-show-committer-date t)
 
+;; customize ediff merge view into 3-col layout
+(setq ediff-show-ancestor t)
+(advice-add 'ediff-setup-windows-plain-merge :after
+	    '--plain-merge-window-setup-3-col-layout)
+
 ;; require `cl-lib' to support following snippet
 (require 'cl-lib)
 (eval-after-load "projectile"
