@@ -65,6 +65,9 @@
    (--map (cons it it)
           (magit-list-repos)))
 
+(defun --magit-get-section-count ()
+  (length (oref magit-root-section children)))
+
 (defun magit-status-simplified ()
   (interactive)
   (setq magit-status-sections-hook
@@ -74,7 +77,8 @@
   (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
     (call-interactively 'magit-status))
   (beginning-of-buffer)
-  (magit-section-forward)
+  (when (> (--magit-get-section-count) 0)
+    (magit-section-forward))
  )
 
 (defun magit-status-full ()
