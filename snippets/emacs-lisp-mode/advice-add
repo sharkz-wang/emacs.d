@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: advice-add
+# key: advice-add
+# --
+
+(advice-add '${1:OLDFUN} :after #'${2:FUNCTION})
