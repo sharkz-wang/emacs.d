@@ -31,8 +31,12 @@
 (setq centaur-tabs-set-bar 'left)
 
 ;;;; enabled icons on tabs (and not grayed-out)
-(setq centaur-tabs-set-icons t)
-(setq centaur-tabs-plain-icons nil)
+(if (display-graphic-p)
+    (progn
+      (setq centaur-tabs-set-icons t)
+      (setq centaur-tabs-plain-icons t))
+  (progn
+    (setq centaur-tabs-set-icons nil)))
 
 ;; buttons on tabs
 (setq centaur-tabs-set-close-button t)
