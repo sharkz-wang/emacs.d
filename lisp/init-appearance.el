@@ -246,9 +246,14 @@
 (customize-set-variable 'doom-modeline-buffer-file-name-style
 			'truncate-with-project)
 
-(setq doom-modeline-icon t)
-(setq doom-modeline-major-mode-icon t)
-(setq doom-modeline-major-mode-color-icon t)
+(if (display-graphic-p)
+    (progn
+      (setq doom-modeline-icon t)
+      (setq doom-modeline-major-mode-icon t)
+      (setq doom-modeline-major-mode-color-icon t))
+  (progn
+    (setq doom-modeline-icon nil)
+    (setq doom-modeline-major-mode-icon nil)))
 
 (setq doom-modeline-minor-modes nil)
 
