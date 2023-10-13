@@ -44,6 +44,9 @@ _s_: current buffer  _f_: current dir          _d_: current dir
       (call-interactively 'helm-find)
       ))
 
+;; I want bookmarks to be sorted in LIFO
+(setq bookmark-sort-flag nil)
+
 (setq ffip-use-rust-fd t)
 (setq ffip-rust-fd-extra-opts "--no-ignore --hidden")
 (setq ffip-match-path-instead-of-filename t)
