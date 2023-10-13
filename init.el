@@ -33,6 +33,7 @@
 ;;     - other helpers
 ;; foundamentals
 (require 'init-package)
+
 (require 'init-basics)
 (require 'init-appearance)
 ;; TODO: combine it to proper file
