@@ -140,8 +140,7 @@
 								     (pdf-outline-follow-link)
 								     (delete-other-windows)
 								     ;; hacky trick to force redrawing window
-								     (pdf-view-shrink 1)
-								     (pdf-view-enlarge 1)))
+								     (pdf-view-goto-page (pdf-view-current-page))))
   (evil-define-key 'normal pdf-outline-buffer-mode-map (kbd "TAB") 'outline-toggle-children)
   (evil-define-key 'normal pdf-outline-buffer-mode-map (kbd "q") 'quit-window)
   (evil-define-key 'normal pdf-outline-buffer-mode-map (kbd "gk") 'outline-backward-same-level)
