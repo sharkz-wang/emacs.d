@@ -20,8 +20,8 @@
 ;; black-on-gray
 (customize-set-variable 'pdf-view-midnight-colors (cons "#000000" "#D7D7D7"))
 
-;; already have it? don't run it again
-(or (file-exists-p pdf-info-epdfinfo-program) (pdf-tools-install t))
+;; pdf-tools-install needs to be called to make pdf-view-mode working
+(pdf-tools-install t)
 
 (defun init-pdf-tools-handler ()
   (interactive)
