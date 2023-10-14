@@ -1,11 +1,5 @@
 (require-package 'pdf-tools)
 
-(custom-set-variables
- '(pdf-tools-handle-upgrades nil)
- '(pdf-view-resize-factor 1.05)
- '(pdf-view-midnight-colors '("#F6F7EF" . "#0d0d0d" ))
- )
-
 ;; set `pdf-info-epdfinfo-program' to bin/epdfinfo relative to
 ;; the package dir of 'pdf-tools
 ;; e.g., ~/.emacs.d/elpa/pdf-tools-20220522.13/bin/epdfinfo
@@ -25,6 +19,14 @@
 
 (defun init-pdf-tools-handler ()
   (interactive)
+
+  (custom-set-variables
+   '(pdf-tools-handle-upgrades nil)
+   '(pdf-view-resize-factor 1.05)
+   '(pdf-view-midnight-colors '("#FEFEFE" . "#0d0d0d" ))
+   )
+
+  (pdf-view-midnight-minor-mode)
 
   ;; make next/previous-page command start at page top
   (advice-add 'pdf-view-next-page :before
