@@ -12,6 +12,8 @@ _s_: current buffer  _f_: current dir          _d_: current dir
 ^^                   _r_: recent files
 ^^                   _b_: bookmarks
 ^^                   _m_: bookmarked repos
+^^                   _o_: in terminal
+^^                   _g_: in terminal tig
 "
   ;; save ...
   ("s" save-buffer)
@@ -21,6 +23,8 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   ("r" helm-recentf)
   ("b" helm-bookmarks)
   ("m" (hydra-bookmarked-repo-menu-action 'helm-find-files-in-dir))
+  ("o" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a"))
+  ("g" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a" "tig"))
   ;; search ...
   ("D" search-file-in-current-directory)
   ("/" (hydra-bookmarked-repo-menu-action 'search-file-in-directory))
