@@ -34,10 +34,9 @@
   (advice-add 'pdf-view-previous-page :before
 	      (lambda (&optional N) (interactive) (image-previous-line (window-vscroll))))
 
-  (evil-define-key 'normal pdf-view-mode-map (kbd "j") 'pdf-view-next-line-or-next-page)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "k") 'pdf-view-previous-line-or-previous-page)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "n") 'pdf-view-next-page)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "p") 'pdf-view-previous-page)
+  ;; (evil-define-key 'normal pdf-view-mode-map (kbd "n") 'pdf-view-next-page)
+  ;; (evil-define-key 'normal pdf-view-mode-map (kbd "p") 'pdf-view-previous-page)
+
   (evil-define-key 'normal pdf-view-mode-map (kbd "l") (lambda ()
 							 (interactive)
 							 (image-forward-hscroll 3)))
@@ -46,8 +45,6 @@
 							 (image-backward-hscroll 3)))
   (evil-define-key 'normal pdf-view-mode-map (kbd "d") 'pdf-view-scroll-up-or-next-page)
   (evil-define-key 'normal pdf-view-mode-map (kbd "u") 'pdf-view-scroll-down-or-previous-page)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "H") 'image-bob)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "L") 'image-eob)
   (evil-define-key 'normal pdf-view-mode-map (kbd "g g") (lambda ()
 							   (interactive)
 							   (pdf-view-first-page)
