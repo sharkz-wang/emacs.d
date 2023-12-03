@@ -23,4 +23,10 @@ re-downloaded in order to locate PACKAGE."
         (package-refresh-contents)
         (require-package package min-version t)))))
 
+(require-package 'benchmark-init)
+
+(customize-set-variable 'benchmark-init/list-sort-key '("total ms" . t))
+(benchmark-init/activate)
+(add-hook 'after-change-major-mode-hook 'benchmark-init/deactivate)
+
 (provide 'init-package)
