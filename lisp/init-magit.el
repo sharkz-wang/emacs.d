@@ -178,4 +178,7 @@
 (evil-define-key 'normal
   magit-status-mode-map (kbd "'") 'evil-goto-global-mark-line)
 
+(define-key git-rebase-mode-map (kbd "C-J") 'git-rebase-move-line-down)
+(define-key git-rebase-mode-map (kbd "C-K") 'git-rebase-move-line-up)
+
 (provide 'init-magit)
