@@ -109,7 +109,6 @@
   (magit-status-full))
 
 (evil-leader/set-key
-  "gr" 'magit-diff-toggle-refine-hunk
   "g$" 'magit-process-buffer
   "g4" 'magit-process-buffer
   )
