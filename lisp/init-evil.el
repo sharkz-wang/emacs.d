@@ -207,6 +207,10 @@
 
 (evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
 (evil-global-set-key 'normal "'" 'evil-goto-global-mark-line)
+;; I don't like the base bahavior where only capital letters
+;; get treated as global markers
+;; Let's override it
+(advice-add 'evil-global-marker-p :override (lambda (char) t))
 
 (evil-global-set-key 'normal (kbd "C-M-o") 'evil-jump-backward)
 (evil-global-set-key 'normal (kbd "C-M-i") 'evil-jump-forward)
