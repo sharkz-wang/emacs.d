@@ -12,7 +12,7 @@ _b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
 ^^                                  _/_: current project
 "
   ;; buffers
-  ("s" helm-occur)
+  ("s" occur-dwim)
   ("S" (with-mini-buffer-input--word-at-point #'helm-occur))
   ("b" helm-do-ag-buffers)
   ;; files
@@ -49,6 +49,13 @@ _b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
   (interactive)
   (helm-do-ag default-directory)
   )
+
+(defun occur-dwim ()
+  (interactive)
+  (if (eq major-mode 'pdf-view-mode)
+    (call-interactively 'pdf-occur)
+    (helm-occur))
+)
 
 (require-package 'dumb-jump)
 (dumb-jump-mode)
