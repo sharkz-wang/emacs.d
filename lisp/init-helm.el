@@ -152,6 +152,9 @@
 
 (evil-define-key 'normal helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump)
 (evil-define-key 'normal helm-ag-mode-map (kbd "q") 'quit-window)
+;; note: evil-delete* family was remapped to 'ignore by eivl-colletion
+;;       with a deeply rooted fashion.
+;;       I won't bother to remap it at this moment.
 
 (add-hook 'helm-ag-mode-hook
 	  (lambda ()
