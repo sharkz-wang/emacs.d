@@ -17,11 +17,21 @@ int main (void) {
 ")
      ))
 
+(defun c-insert-print ()
+  (interactive)
+    (expand-yasnippet-from-keyword "printf"))
+(defun c-insert-for-loop ()
+  (interactive)
+    (expand-yasnippet-from-keyword "for"))
+
 (defun init-cc-handler ()
 
   (custom-set-variables
    '(c-basic-offset '8))
   (c-set-style "linux")
+
+  (setq insert-print 'c-insert-print)
+  (setq insert-for-loop 'c-insert-for-loop)
 
   (require 'init-semantic)
   (require 'init-gtags)
