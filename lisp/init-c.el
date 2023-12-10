@@ -1,3 +1,22 @@
+(require 'test-c)
+
+(eval-after-load 'test-c
+  '(progn
+     ;; update the default command to use clang
+     (setq test-c-default-compile-command "clang -Wall $src -o $exe")
+     ;; print error code after running
+     (setq test-c-default-run-command "$exe ; echo $?")
+     ;; use simpler skeleton
+     (setq test-c-default-code "
+#include <stdio.h>
+
+int main (void) {
+
+        return 0;
+}
+")
+     ))
+
 (defun init-cc-handler ()
 
   (custom-set-variables
