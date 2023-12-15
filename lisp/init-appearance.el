@@ -46,7 +46,7 @@
 (defun override-default-faces (f theme-id &optional no-confirm no-enable &rest args)
     "My preferred default face settings that overrides any custom themes."
     ;; use smaller mode line
-    (set-face-attribute 'mode-line nil :height 150)
+    (set-face-attribute 'mode-line nil :height 210)
 )
 ;; let's setup a init handler where we override any incoming
 ;; themes with our preferred defaults
