@@ -79,23 +79,26 @@
 							 (outline-show-all)
 							 (pdf-outline-move-to-current-page)))
   (evil-define-key 'normal pdf-view-mode-map (kbd "i") 'pdf-view-goto-page)
-  (evil-define-key 'normal pdf-view-mode-map (kbd "=") (lambda ()
-							 (interactive)
-							 (pdf-view-enlarge pdf-view-resize-factor)
-							 (image-forward-hscroll 1)
-							 (image-backward-hscroll 1)
-							 ))
   (evil-define-key 'normal pdf-view-mode-map (kbd "+") (lambda ()
 							 (interactive)
 							 (pdf-view-enlarge pdf-view-resize-factor)
-							 (image-forward-hscroll 1)
-							 (image-backward-hscroll 1)
+							 (setq cwm-centered-window-width
+							       (window--size-to-pixel
+								(get-buffer-window) (car (pdf-view-image-size)) t))
+							 ))
+  (evil-define-key 'normal pdf-view-mode-map (kbd "=") (lambda ()
+							 (interactive)
+							 (pdf-view-enlarge pdf-view-resize-factor)
+							 (setq cwm-centered-window-width
+							       (window--size-to-pixel
+								(get-buffer-window) (car (pdf-view-image-size)) t))
 							 ))
   (evil-define-key 'normal pdf-view-mode-map (kbd "-") (lambda ()
 							 (interactive)
 							 (pdf-view-shrink pdf-view-resize-factor)
-							 (image-backward-hscroll 1)
-							 (image-forward-hscroll 1)
+							 (setq cwm-centered-window-width
+							       (window--size-to-pixel
+								(get-buffer-window) (car (pdf-view-image-size)) t))
 							 ))
 
   (defun set-pdf-view-display-size-to-window-factor (factor)
