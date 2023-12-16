@@ -12,7 +12,7 @@
 ;; white-on-black
 ;; (customize-set-variable 'pdf-view-midnight-colors (cons "#F8F8F2" "#151515"))
 ;; black-on-gray
-(customize-set-variable 'pdf-view-midnight-colors (cons "#000000" "#D7D7D7"))
+;; (customize-set-variable 'pdf-view-midnight-colors (cons "#000000" "#D7D7D7"))
 
 ;; pdf-tools-install needs to be called to make pdf-view-mode working
 (pdf-tools-install t)
@@ -34,8 +34,8 @@
   (advice-add 'pdf-view-previous-page :before
 	      (lambda (&optional N) (interactive) (image-previous-line (window-vscroll))))
 
-  ;; (evil-define-key 'normal pdf-view-mode-map (kbd "n") 'pdf-view-next-page)
-  ;; (evil-define-key 'normal pdf-view-mode-map (kbd "p") 'pdf-view-previous-page)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "n") 'pdf-view-next-page)
+  (evil-define-key 'normal pdf-view-mode-map (kbd "p") 'pdf-view-previous-page)
 
   (evil-define-key 'normal pdf-view-mode-map (kbd "l") (lambda ()
 							 (interactive)
