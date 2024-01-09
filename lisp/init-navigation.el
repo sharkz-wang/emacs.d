@@ -3,6 +3,7 @@
 (evil-leader/set-key
   "j" 'avy-goto-char
   )
+(define-key evil-normal-state-map (kbd "\\") 'evil-avy-goto-char)
 
 (require-package 'ace-window)
 
