@@ -28,6 +28,7 @@
 (add-to-list 'custom-theme-load-path
 	     (expand-file-name "theme" user-emacs-directory))
 
+;; maximize gui screen on start-up
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (defun disable-all-themes ()
