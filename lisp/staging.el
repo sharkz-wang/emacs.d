@@ -221,7 +221,7 @@
 ;; number of characters until we place a indicator bar
 (setq display-fill-column-indicator-column 80)
 ;; character we used to resemble a bar
-(setq display-fill-column-indicator-character ?|)
+(setq display-fill-column-indicator-character ?│)
 ;; face of the indicator bar
 (custom-set-faces '(fill-column-indicator
 		    ((t (:foreground "#2D2D2D")))))
