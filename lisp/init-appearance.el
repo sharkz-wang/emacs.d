@@ -11,8 +11,21 @@
     (set-display-table-slot display-table 5 ?│)
     (set-window-display-table (selected-window) display-table)))
 
-(add-hook 'window-configuration-change-hook
-	  '--set-window-divider-character)
+;; Somewhere in the emacs bootstrap sequence,
+;; the following line of code choose a premature candidate of ...
+;;     (or (window-display-table)
+;;         buffer-display-table
+;;         standard-display-table)))
+;; , leaving all whitespaces displayed as dots that won't go away
+;; unless you trigger an refresh by, for example, splitting windows.
+;;
+;; Simply adding the same setup function to `window-setup-hook' does
+;; not tame this mess, you have to hook the setup function
+;; only after `window-setup-hook' is fired.
+(add-hook 'window-setup-hook
+	  (lambda ()
+	    (add-hook 'window-configuration-change-hook
+		      '--set-window-divider-character)))
 (set-face-foreground 'vertical-border "#808080")
 
 ;; tty mode does not support window dividers for vertical windows.
