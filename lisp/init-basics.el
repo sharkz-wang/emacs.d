@@ -150,10 +150,24 @@
 )
 (define-key evil-normal-state-map (kbd "SPC w q") 'quit-window)
 
-(evil-leader/set-key
-  "4" 'evil-end-of-line
-  "5" 'evil-jump-item
-  )
+;; vim's $/% alternatives to reduce pressure on your pinky fingers
+(define-key evil-normal-state-map   (kbd "SPC 4") 'evil-end-of-line)
+(define-key evil-visual-state-map   (kbd "SPC 4") 'evil-end-of-line)
+(define-key evil-operator-state-map (kbd "SPC 4") 'evil-end-of-line)
+
+(define-key evil-normal-state-map   (kbd "SPC 5") 'evil-jump-item)
+(define-key evil-visual-state-map   (kbd "SPC 5") 'evil-jump-item)
+(define-key evil-operator-state-map (kbd "SPC 5") 'evil-jump-item)
+
+;; making it easier to eye-tracking page-up/page-down
+(advice-add #'evil-scroll-up
+	    :after (lambda (COUNT) (recenter)))
+(advice-add #'evil-scroll-down
+	    :after (lambda (COUNT) (recenter)))
+(advice-add #'evil-scroll-page-up
+	    :after (lambda (COUNT) (evil-window-middle)))
+(advice-add #'evil-scroll-page-down
+	    :after (lambda (COUNT) (evil-window-middle)))
 
 (evil-leader/set-key
   "nf" 'narrow-to-defun
@@ -168,19 +182,6 @@
 (define-key evil-normal-state-map (kbd "SPC i t") 'load-theme)
 
 (define-key evil-normal-state-map (kbd "SPC i z") 'zone-rainbow)
-
-(evil-global-set-key 'normal (kbd "C-f") (lambda () (interactive)
-					   (evil-scroll-page-down 1)
-					   (evil-window-middle)))
-(evil-global-set-key 'normal (kbd "C-b") (lambda () (interactive)
-					   (evil-scroll-page-up 1)
-					   (evil-window-middle)))
-(evil-global-set-key 'normal (kbd "C-d") (lambda () (interactive)
-					   (evil-window-bottom)
-					   (recenter)))
-(evil-global-set-key 'normal (kbd "C-u") (lambda () (interactive)
-					   (evil-window-top)
-					   (recenter)))
 
 (evil-global-set-key 'normal (kbd "z m") 'evil-scroll-line-to-center)
 (evil-global-set-key 'normal (kbd "z z") (lambda () (interactive)
