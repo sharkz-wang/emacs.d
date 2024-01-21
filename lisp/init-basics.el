@@ -14,6 +14,13 @@
  )
 ;; no blinking cursor
 (blink-cursor-mode -1)
+
+;; force cursor not to jump to center when acrossing screen bounaries
+(setq scroll-margin 1
+      scroll-conservatively 0
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01)
+
 ;; whenever an external process changes a file underneath emacs, and there
 ;; was no unsaved changes in the corresponding buffer, just revert its
 ;; content to reflect what's on-disk.
