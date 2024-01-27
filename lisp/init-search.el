@@ -15,13 +15,16 @@ _b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
   ("s" occur-dwim)
   ("S" (with-mini-buffer-input--word-at-point #'helm-occur))
   ("b" helm-do-ag-buffers)
+  ("B" (with-mini-buffer-input--word-at-point #'helm-do-ag-buffers))
   ;; files
   ("f" helm-do-ag)
   ("d" helm-do-ag-curr-dir)
+  ("D" (with-mini-buffer-input--word-at-point #'helm-do-ag-curr-dir))
   ("m" (hydra-bookmarked-repo-menu-action 'helm-do-ag-dir-or-file))
   ("/" helm-projectile-ag)
+  ("?" (with-mini-buffer-input--word-at-point #'helm-projectile-ag))
   ;; semantics
-  ("o" helm-imenu-no-default)
+  ("o" helm-semantic-or-imenu)
   ("O" helm-imenu-in-all-buffers-no-default)
   ("j" dumb-jump-go)
 
