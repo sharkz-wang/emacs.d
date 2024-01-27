@@ -36,6 +36,9 @@
 (defun init-all-major-mode-hdlr ()
     ;; treat underline as part of a word
     (modify-syntax-entry ?_ "w")
+    (centered-cursor-mode 1)
+    ;; make cursor stay at center even at tail boundary
+    (setq ccm-recenter-at-end-of-file t)
 )
 (add-hook 'after-change-major-mode-hook 'init-all-major-mode-hdlr)
 
@@ -73,6 +76,9 @@
 (setq save-place-file (expand-file-name ".saveplace" user-emacs-directory))
 
 (require 'init-evil)
+
+(define-key evil-normal-state-map
+		(kbd "SPC t c") 'global-centered-cursor-mode)
 
 (defun switch-to-last-buffer ()
   "Switch to previously open buffer.
