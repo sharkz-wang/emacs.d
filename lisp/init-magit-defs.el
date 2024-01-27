@@ -74,4 +74,14 @@
 	    ediff-window-Ancestor (get-buffer-window buf-Ancestor)))
     ))
 
+(defun magit-open-known-project()
+  (interactive)
+  (let ((default-directory
+	 (expand-file-name
+	  (helm :sources
+		(helm-build-sync-source "Select project:"
+		  :candidates (projectile-relevant-known-projects))))))
+    (call-interactively 'magit-status-simplified))
+  )
+
 (provide 'init-magit-defs)

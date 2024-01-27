@@ -46,6 +46,7 @@ _s_: project buffers    _b_: project buffers                 _gSS_: full status
   ("gfh" magit-log-buffer-file)
   ("gfu" magit-diff-buffer-file)
   ("gt" git-timemachine)
+  ("gp" magit-open-known-project)
   ;; search ...
   ("o" helm-projectile-find-other-file)
   ("/" helm-projectile-ag)
