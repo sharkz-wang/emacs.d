@@ -146,71 +146,17 @@
 						  (evil-scroll-line-up 1)
 						  ))
 
-(setq evil-global-markers-alist '())
-
-(defun clear-evil-global-markers-alist ()
-  (interactive)
-  (setq evil-global-markers-alist '())
-  (message "All global markers deleted"))
-(evil-global-set-key 'normal (kbd "SPC m c") 'clear-evil-global-markers-alist)
-
-(defun evil-set-marker-local-global (char &optional pos advance)
-  (interactive (list (read-char)))
-  (evil-set-marker char)
-  (evil-add-to-alist
-   'evil-global-markers-alist
-   char
-   (if (buffer-file-name)
-       (list 'file (buffer-file-name) (point))
-     (if (eq major-mode 'nov-mode)
-	 (progn
-	   (nov-save-place char nov-documents-index (point))
-	   (list 'epub (buffer-name) 0))
-       (list 'buffer (buffer-name) (point))))))
-
-(defun get-global-mark (char)
-  (cdr-safe
-   (assq char
-	 (default-value
-	   'evil-global-markers-alist))))
-
-(defun evil-goto-global-mark-line (char &optional noerror)
-  "Go to the line of the marker specified by CHAR."
-  (interactive (list (read-char)))
-  (let ((mark (get-global-mark char)))
-    (if (not (equalp mark nil))
-	(let ((type (car mark))
-	      (name (nth 1 mark))
-	      (pos (nth 2 mark)))
-	  (progn
-	    (if (equalp (car mark) 'file)
-		(progn
-		  (find-file name)
-		  (goto-char pos))
-	      (if (equalp (car mark) 'epub)
-		  (progn
-		    (let ((nov-documents-index (cdr (car (nov-saved-place char))))
-			  (pos (cdr (car (cdr (nov-saved-place char))))))
-		      (message name)
-		      (switch-to-buffer name)
-		      (nov-render-document)
-		      (goto-char pos)))
-		(progn
-		  (if (get-buffer name)
-		      (progn
-			(switch-to-buffer name)
-			(goto-char pos))
-		    (message
-		     (format "Buffer `%s' does not exist" (nth 1 mark)))
-		    ))))))
-      (progn (message (format "Mark `%c' undefined" char))))))
-
-(evil-global-set-key 'normal "m" 'evil-set-marker-local-global)
-(evil-global-set-key 'normal "'" 'evil-goto-global-mark-line)
 ;; I don't like the base bahavior where only capital letters
 ;; get treated as global markers
 ;; Let's override it
 (advice-add 'evil-global-marker-p :override (lambda (char) t))
+
+(setq evil-markers-alist-orig evil-markers-alist)
+(defun clear-evil-markers-alist ()
+  (interactive)
+  (setq-default evil-markers-alist evil-markers-alist-orig)
+  (message "All markers deleted"))
+(evil-global-set-key 'normal (kbd "SPC m c") 'clear-evil-markers-alist)
 
 (evil-global-set-key 'normal (kbd "C-M-o") 'evil-jump-backward)
 (evil-global-set-key 'normal (kbd "C-M-i") 'evil-jump-forward)
@@ -219,29 +165,29 @@
 ;; restore them in next session
 (require 'save-sexp)
 
-(defun --save-markers-alist (&rest args)
-  (let ((buf (find-file-noselect
-	      (expand-file-name
-	       ".evil-marks" user-emacs-directory))))
-    ;; XXX: using `save-sexp-save-setq' with file name as first
-    ;;      arg causes other buffers drop to fundamental-mode.
-    ;;      root cause is unknown.
-    (save-sexp-save-setq buf 'evil-global-markers-alist)
-    (with-current-buffer buf (save-buffer)))
-)
+;; (defun --save-markers-alist (&rest args)
+;;   (let ((buf (find-file-noselect
+;; 	      (expand-file-name
+;; 	       ".evil-marks" user-emacs-directory))))
+;;     ;; XXX: using `save-sexp-save-setq' with file name as first
+;;     ;;      arg causes other buffers drop to fundamental-mode.
+;;     ;;      root cause is unknown.
+;;     (save-sexp-save-setq buf 'evil-markers-alist)
+;;     (with-current-buffer buf (save-buffer)))
+;; )
 
-;; setting up advice-function/hook
-;;;; after any new mark registered
-(advice-add 'evil-set-marker-local-global :after
-	    #'--save-markers-alist)
-;;;; after marks cleared
-(advice-add 'clear-evil-global-markers-alist :after
-	    #'--save-markers-alist)
-;;;; before exiting emacs
-(add-hook 'kill-emacs-hook '--save-markers-alist)
+;; ;; ;; setting up advice-function/hook
+;; ;;;; after any new mark registered
+;; (advice-add 'evil-set-marker-local-global :after
+;; 	    #'--save-markers-alist)
+;; ;;;; after marks cleared
+;; (advice-add 'clear-evil-global-markers-alist :after
+;; 	    #'--save-markers-alist)
+;; ;;;; before exiting emacs
+;; (add-hook 'kill-emacs-hook '--save-markers-alist)
 
-;; restore save file of evil marks
-(load (expand-file-name ".evil-marks" user-emacs-directory))
+;; ;; restore save file of evil marks
+;; (load (expand-file-name ".evil-marks" user-emacs-directory))
 
 (defun curr-line-remove-trailing-whitespace ()
   (interactive)
