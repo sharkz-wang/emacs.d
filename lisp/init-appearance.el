@@ -245,6 +245,10 @@
 (require-package 'highlight-parentheses)
 (global-highlight-parentheses-mode 1)
 
+;; disable inverse video of parentheses highlight, which makes
+;; make cursor brighter than hinted paren
+(set-face-attribute 'show-paren-match nil :inverse-video nil)
+
 (require-package 'all-the-icons)
 (require 'all-the-icons)
 ;; (all-the-icons-install-fonts)
