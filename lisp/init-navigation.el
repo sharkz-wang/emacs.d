@@ -1,7 +1,7 @@
 (require-package 'avy)
 
 (evil-leader/set-key
-  "j" 'avy-goto-char
+  "j" 'evil-avy-goto-char-2
   )
 (define-key evil-normal-state-map (kbd "\\") 'evil-avy-goto-char)
 
