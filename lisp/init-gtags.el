@@ -85,13 +85,14 @@
   (let* ((tag-location (or helm-gtags--real-tag-location
 			   helm-gtags--tag-location))
 	 (tagroot tag-location)
-	 (label (helm-gtags--read-gtagslabel))
+	 (label "default")
 	 (default-directory tagroot)
 	 (label-opt (helm-gtags--label-option label)))
     (delete-gtags-tags)
     ;; code ported from `helm-gtags--find-tag-simple'
     (message "gtags is generating tags....")
-    (unless (zerop (process-file "gtags" nil nil nil "-q" label-opt))
+    (if (zerop (process-file "gtags" nil nil nil "-q" label-opt))
+      (message "gtags is generating tags.... done")
       (error "Failed: 'gtags -q %s'" label-opt)))
   )
 
