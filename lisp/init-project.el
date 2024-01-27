@@ -9,16 +9,16 @@
   "
 ^Save...^               ^Browse...^                          ^VCS...^                      ^Search...^        ^Operate...^
 ^^^^^^^^^--------------------------------------------------------------------------------------------------------------
-_a_: register project   _f_: current project                 _gss_: brief status           _o_: other file    _K_: kill project buffers
+_a_: register project   _f_: current project                 _gss_: brief status           _o_: other file    _x_: kill project buffers
 _k_: remove project     _d_: dwim current project            _gsm_: brief status on bookmarks ^^              _/_: keyword
 _s_: project buffers    _b_: project buffers                 _gSS_: full status
-^^                      _D_: project dirs                    _gSM_: full status on bookmarks
-^^                      _p_: other projects                  _gg_:  magit menu
+^^                      _p_: switch to open project          _gSM_: full status on bookmarks
+^^                      _P_: other projects                  _gg_:  magit menu
 ^^                      _r_: recent files                    _gm_:  magit menu on bookmarks
 ^^                      _m_: project in bookmarks            _gb_:  git blame
 ^^                      _TAB_: buffer in prev project        _gfu_: diff current file
 ^^                      _`_: buffer in prev prev porject     _gfh_: current file's history
-^^^^                                                         _gt_:  git timemachine
+^^^^                    _D_: project dirs                    _gt_:  git timemachine
 "
   ;; save ...
   ("a" projectile-add-current-project)
@@ -29,7 +29,8 @@ _s_: project buffers    _b_: project buffers                 _gSS_: full status
   ("d" projectile-find-file-dwim)
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
-  ("p" projectile-switch-project)
+  ("p" --switch-to-open-project-buffer)
+  ("P" projectile-switch-project)
   ("r" helm-projectile-recentf)
   ("m" (hydra-bookmarked-repo-menu-action 'search-file-in-project))
   ("TAB" projectile-switch-to-prev-project)
@@ -51,7 +52,7 @@ _s_: project buffers    _b_: project buffers                 _gSS_: full status
   ("o" helm-projectile-find-other-file)
   ("/" helm-projectile-ag)
   ;; operate ...
-  ("K" projectile-kill-buffers)
+  ("x" projectile-kill-buffers)
 
   ("c" nil "cancel" :color blue)
   )
@@ -117,6 +118,12 @@ _p_: previous revision     _b_: blame
   (hydra-git-timemachine-menu/body)
   (git-timemachine)
   )
+
+(defun --switch-to-open-project-buffer ()
+  (interactive)
+  (let ((projectile-switch-project-action 'helm-projectile-switch-to-buffer))
+    (projectile-switch-open-project)
+    ))
 
 (evil-global-set-key 'normal (kbd "SPC p") 'hydra-project-menu/body)
 (evil-define-minor-mode-key 'normal 'dired-mode-map
