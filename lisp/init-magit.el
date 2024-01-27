@@ -100,13 +100,13 @@
 
 (defun magit-status-simplified-on-path (path)
   (interactive)
-  (dired path)
-  (magit-status-simplified))
+  (let ((default-directory path))
+    (magit-status-simplified)))
 
 (defun magit-status-full-on-path (path)
   (interactive)
-  (dired path)
-  (magit-status-full))
+  (let ((default-directory path))
+    (magit-status-full)))
 
 (evil-leader/set-key
   "g$" 'magit-process-buffer
