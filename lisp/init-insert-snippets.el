@@ -8,7 +8,7 @@
 ^Snippets^           ^Comment^         ^Argument^      ^Edit^
 ^^^^^^^^-----------------------------------------------------------
 _i_: from menu       _c_: comments...  _a_: append     _r_: replace
-_f_: for-loop        _T_: TODO         _s_: select
+_f_: for-loop        _t_: TODO         _s_: select
 _p_: print           _F_: FIXME
 ^ ^                  _X_: XXX
 "
@@ -18,7 +18,7 @@ _p_: print           _F_: FIXME
   ("p" (funcall insert-print))
 
   ("c" comment-menu/body)
-  ("T" (funcall insert-todo-comment))
+  ("t" (funcall insert-todo-comment))
   ("F" (funcall insert-fixme-comment))
   ("X" (funcall insert-xxx-comment))
 
