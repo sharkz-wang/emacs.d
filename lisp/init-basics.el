@@ -123,12 +123,12 @@
 	   (buffer-list)))))
 
 (evil-leader/set-key
-  "u" 'universal-argument
-  "SPC" 'smex
-  "x" 'smex
+  "u"   'universal-argument
+  "SPC" 'helm-M-x
+  "x"   'helm-M-x
   "TAB" 'switch-to-last-buffer
-  "`" 'switch-to-buffer-before-last-buffer
-  "qq" 'save-buffers-kill-terminal
+  "`"   'switch-to-buffer-before-last-buffer
+  "qq"  'save-buffers-kill-terminal
   )
 (define-key evil-normal-state-map (kbd "SPC TAB") 'switch-to-last-buffer)
 
@@ -209,28 +209,6 @@
 							 -1))))
 
 (require 'init-navigation)
-
-;; settings for smex
-(require-package 'ido)
-(ido-mode t)
-(setq ido-save-directory-list-file (expand-file-name ".ido.last" user-emacs-directory))
-(setq ido-enable-flex-matching t)
-(setq ido-use-filename-at-point 'guess)
-(setq ido-show-dot-for-dired t)
-
-(require-package 'smex)
-(add-hook 'ido-setup-hook
-		  (lambda ()
-			(add-to-list 'load-path (expand-file-name ".smex-items" user-emacs-directory))
-
-			(define-key ido-completion-map (kbd "C-j") 'ido-next-match)
-			(define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-			(define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
-			(define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
-			))
-
-(global-set-key (kbd "M-x") 'helm-M-x)
-;; end settings for smex
 
 (evil-define-key 'normal Info-mode-map
   "gg" 'evil-goto-first-line
