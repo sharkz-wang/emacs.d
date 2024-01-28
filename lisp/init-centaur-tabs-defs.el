@@ -39,4 +39,4 @@
     (interactive)
     (centaur-tabs-switch-group (--nth-recent-centaur-tabs-groups 2)))
 
-(provide 'centaur-tabs-defs)
+(provide 'init-centaur-tabs-defs)

@@ -64,6 +64,7 @@
 (require 'init-dired)
 (require 'init-kernel-dev)
 (require 'init-external-share-menu)
+(require 'init-centaur-tabs)
 (require 'init-misc)
 
 (require 'cust-vars)
