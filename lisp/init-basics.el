@@ -32,6 +32,8 @@
 ;;        logging"
 (setq native-comp-async-report-warnings-errors nil)
 
+(require-package 'centered-cursor-mode)
+
 ;; common handler setting things in order in all major modes
 (defun init-all-major-mode-hdlr ()
     ;; treat underline as part of a word

@@ -200,8 +200,6 @@
 (define-key evil-outer-text-objects-map "j" 'evil-avy-word)
 (define-key evil-inner-text-objects-map "j" 'evil-avy-word)
 
-(require-package 'centered-cursor-mode)
-
 ;; make magit diff buffers started with ...
 ;;     1. cursor moved to the center line
 ;;     2. buffer scrolls around the cursor
