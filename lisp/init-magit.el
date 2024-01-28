@@ -9,6 +9,12 @@
 ;; set magit popup windows default to full-screen
 (setq magit-display-buffer-function
 	  #'magit-display-buffer-fullframe-status-v1)
+;; make magit diff buffers always shown in full screen window
+(add-to-list 'display-buffer-alist
+	     ;; diff buffers (both staged/unstaged)
+	     '("magit-diff: .*" display-buffer-same-window)
+	     t)
+
 ;; explicitly set magit log date format
 (setq magit-log-margin (quote (t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)))
 ;; use date for the last time a commit is modified
@@ -160,12 +166,6 @@
   '(progn (setq magit-repository-directories
 		(mapcar (lambda (dir) (cons dir 0))
 		(projectile-git-repo-list)))))
-
-;; make following buffers always shown in full screen window
-(add-to-list 'display-buffer-alist
-	     ;; diff buffers (both staged/unstaged)
-	     '(("magit-diff: .*" display-buffer-same-window))
-	     t)
 
 ;; by default, don't display the slow diff view when editing commit message
 (customize-set-variable 'magit-commit-show-diff nil)
