@@ -2,6 +2,7 @@
 (add-to-list 'load-path (expand-file-name "packages" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
+;; TODO: a modern custvar management system
 ;; TODO: how to turn off loading of .cust-vars.el
 ;; TODO: enlarge `undo-tree-limit'
 ;; TODO: check-in frequently used icons
