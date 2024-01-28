@@ -9,6 +9,12 @@
 ;; disable annoying default minibuffer texts when
 ;; your cursor happens to be an url
 (setq helm-find-files-ignore-thing-at-point t)
+;; stop helm from photobombing whole frame
+;; when fired in splitted screen
+(add-to-list 'display-buffer-alist
+             '("\\*helm" (display-buffer-at-bottom))
+	     t)
+(setq helm-display-function #'display-buffer)
 
 (custom-set-variables
  '(helm-autoresize-max-height 50)

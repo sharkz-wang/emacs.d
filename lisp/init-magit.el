@@ -162,9 +162,10 @@
 		(projectile-git-repo-list)))))
 
 ;; make following buffers always shown in full screen window
-(customize-set-variable 'display-buffer-alist
-			;; diff buffers (both staged/unstaged)
-			'(("magit-diff: .*" display-buffer-same-window)))
+(add-to-list 'display-buffer-alist
+	     ;; diff buffers (both staged/unstaged)
+	     '(("magit-diff: .*" display-buffer-same-window))
+	     t)
 
 ;; by default, don't display the slow diff view when editing commit message
 (customize-set-variable 'magit-commit-show-diff nil)
