@@ -180,5 +180,7 @@
   magit-status-mode-map (kbd "'") 'evil-goto-global-mark-line)
 (evil-define-key 'normal
   magit-diff-mode-map (kbd "SPC g r") 'magit-diff-toggle-refine-hunk)
+(evil-define-key 'normal
+  magit-status-mode-map (kbd "SPC g r") 'magit-diff-toggle-refine-hunk)
 
 (provide 'init-magit)
