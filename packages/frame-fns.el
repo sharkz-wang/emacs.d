@@ -80,7 +80,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (when (< emacs-major-version 21) (require 'cl)))
+(eval-when-compile (when (< emacs-major-version 21) (require 'cl-lib)))
  ;; dolist, push
 (require 'avoid nil t) ;; mouse-avoidance-point-position
 

@@ -26,7 +26,7 @@
      (setq magit-repository-directories
 	   (mapcar (lambda (dir)
 		     (substring dir 0 -1))
-		   (remove-if-not
+		   (cl-remove-if-not
 		    (lambda (project)
 		      (file-directory-p (concat project "/.git")))
 		    (projectile-relevant-known-projects))))
@@ -151,7 +151,7 @@
       )))
 
 (defun projectile-git-repo-list ()
-  (remove-if-not
+  (cl-remove-if-not
    (lambda (project)
      (file-directory-p (concat project "/.git/")))
    (projectile-relevant-known-projects)))

@@ -604,7 +604,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ;; case, incf (plus, for Emacs 20: dolist, dotimes)
+(eval-when-compile (require 'cl-lib)) ;; case, incf (plus, for Emacs 20: dolist, dotimes)
 (require 'frame-fns) ;; frame-geom-value-cons, frame-geom-value-numeric, frames-on, get-frame-name,
                      ;; get-a-frame, read-frame
 (require 'strings nil t) ;; (no error if not found) read-buffer

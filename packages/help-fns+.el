@@ -433,7 +433,7 @@
 (when (or (> emacs-major-version 23)  (and (= emacs-major-version 23)  (> emacs-minor-version 1)))
   (require 'info)) ;; Info-virtual-files
 
-(eval-when-compile (require 'cl)) ;; case
+(eval-when-compile (require 'cl-lib)) ;; case
 
 (unless (require 'cl-lib nil t) ;; gentemp - Emacs 24+
   (require 'cl))                ;; Emacs < 24

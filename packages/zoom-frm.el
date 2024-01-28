@@ -230,7 +230,7 @@
 ;;
 ;;; Code:
 
-(eval-when-compile (require 'cl)) ;; case
+(eval-when-compile (require 'cl-lib)) ;; case
 
 (require 'frame-cmds) ;; enlarge-font
 

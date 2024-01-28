@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 
 ;; helper functions for defining custom tooltip completion
 ;; keystrokes (M+n in stock company-mode setting)
@@ -22,24 +23,24 @@
       (--keystroke-to-number keystroke custom-keystrokes)))
 
 (defun init-company-completion-keystrokes (keystrokes keybinding-fmt)
-    (interactive)
-    (setq custom-keystrokes keystrokes)
-    (setq company-tooltip-limit (length custom-keystrokes))
-    (customize-set-variable
-        'company-show-numbers-function
-        (-partial '--company-show-keystrokes
-		  ;; a whitespace to prevent left margin being
-		  ;; chomped off
-		  (concat " " keybinding-fmt))
-    )
-    (dotimes (ii company-tooltip-limit)
-        (lexical-let ((keystroke (nth ii custom-keystrokes)))
-            (define-key company-active-map
-        	              (kbd (format keybinding-fmt keystroke))
-        		      (lambda ()
-				  (interactive)
-				  (company-homerow-complete-number keystroke)))))
-)
+  (interactive)
+  (setq custom-keystrokes keystrokes)
+  (setq company-tooltip-limit (length custom-keystrokes))
+  (customize-set-variable
+   'company-show-numbers-function
+   (-partial '--company-show-keystrokes
+	     ;; a whitespace to prevent left margin being
+	     ;; chomped off
+	     (concat " " keybinding-fmt))
+   )
+  (dotimes (ii company-tooltip-limit)
+    (let ((keystroke (nth ii custom-keystrokes)))
+      (define-key company-active-map
+		  (kbd (format keybinding-fmt keystroke))
+		  (lambda ()
+		    (interactive)
+		    (company-homerow-complete-number keystroke)))))
+  )
 ;; end of helper functions for custom keystrokes
 
 (provide 'init-company-defs)
