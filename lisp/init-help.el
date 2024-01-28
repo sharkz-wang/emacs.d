@@ -1,4 +1,4 @@
-(require 'help-fns+)
+(require-package 'help-fns+)
 
 (defhydra hydra-help-menu (:color pink :hint nil :exit t :idle 0.3)
   "

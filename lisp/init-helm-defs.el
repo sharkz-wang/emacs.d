@@ -1,4 +1,4 @@
-(require 'cl-lib)
+(require-package 'cl-lib)
 
 (defun --helm-show-kill-ring-short ()
     (interactive)

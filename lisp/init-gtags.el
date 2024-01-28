@@ -7,7 +7,7 @@
 ;; 3) Copy /usr/local/share/gtags/gtags.conf to ~/.globalrc
 ;; 4) Update ~/.globalrc: change pigments-parser.la and exuberant-ctags.la to *.so and correct their path
 ;; 5) Build tags by running `gtags --gtagslabel=pygments`
-(require 'helm-gtags)
+(require-package 'helm-gtags)
 (add-hook 'dired-mode-hook 'helm-gtags-mode)
 (add-hook 'eshell-mode-hook 'helm-gtags-mode)
 (add-hook 'c-mode-hook 'helm-gtags-mode)

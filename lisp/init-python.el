@@ -55,9 +55,6 @@ _k_: kill
   ("q" nil "cancel" :color blue)
   )
 
-(add-to-list 'package-archives
-	     '("elpy" . "https://jorgenschaefer.github.io/packages/"))
-
 ;; dependency python packages: jedi flake8 importmagic autopep8
 (require-package 'elpy)
 ;; automatically turn on elpy-mode in *future* python buffers

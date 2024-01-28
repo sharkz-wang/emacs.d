@@ -20,7 +20,7 @@
 	    '--plain-merge-window-setup-3-col-layout)
 
 ;; require `cl-lib' to support following snippet
-(require 'cl-lib)
+(require-package 'cl-lib)
 (eval-after-load "projectile"
   '(progn
      (setq magit-repository-directories

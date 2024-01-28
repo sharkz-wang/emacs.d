@@ -163,7 +163,7 @@
 
 ;; saving evil marks to save file ~/.emacs.d/.evil-marks and
 ;; restore them in next session
-(require 'save-sexp)
+(require-package 'save-sexp)
 
 ;; (defun --save-markers-alist (&rest args)
 ;;   (let ((buf (find-file-noselect

@@ -1,4 +1,4 @@
-(require 'test-c)
+(require-package 'test-c)
 
 (eval-after-load 'test-c
   '(progn

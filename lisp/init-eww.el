@@ -1,4 +1,4 @@
-(require 'eww)
+(require-package 'eww)
 
 ;; use font-enabled layouts
 (setq shr-use-fonts nil)

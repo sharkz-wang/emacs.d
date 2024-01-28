@@ -85,7 +85,7 @@
 
 (require-package 'poet-theme)
 
-(require 'hide-mode-line)
+(require-package 'hide-mode-line)
 (require 'org-pretty-table)
 
 (setq is-paper-imitation-theme nil)
@@ -130,7 +130,6 @@
 (load-theme 'monokai t)
 
 (require-package 'moe-theme)
-(require 'moe-theme)
 
 (require-package 'solarized-theme)
 (require-package 'dracula-theme)
@@ -159,7 +158,6 @@
 (global-hl-line-mode)
 
 (require-package 'linum-relative)
-(require 'linum-relative)
 
 ;; set linum default to relative mode by
 ;; setting `linum-format' to literal `linum-relative'.
@@ -250,11 +248,9 @@
 (set-face-attribute 'show-paren-match nil :inverse-video nil)
 
 (require-package 'all-the-icons)
-(require 'all-the-icons)
 ;; (all-the-icons-install-fonts)
 
 (require-package 'doom-modeline)
-(require 'doom-modeline)
 
 ;; as narrow as mode-line's font size
 (setq doom-modeline-height 1)

@@ -3,7 +3,6 @@
 (require-package 'hydra)
 
 (require-package 'org-download)
-(require 'org-download)
 
 (defhydra hydra-org-image-menu (:color pink :hint nil :exit nil :idle 0.3)
 "

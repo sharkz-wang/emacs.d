@@ -6,6 +6,7 @@
 *.rej
 
 # Packaging
+straight/
 .cask
 
 # Config files

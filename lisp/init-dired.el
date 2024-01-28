@@ -1,6 +1,6 @@
 (require 'dired)
 (require 'dired-x)
-(require 'dired+)
+(require-package 'dired+)
 
 (setq dired-dwim-target t)
 
