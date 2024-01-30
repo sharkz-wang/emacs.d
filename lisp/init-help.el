@@ -59,6 +59,11 @@ _dK_: keymap
   (call-interactively 'man)
   (other-window 1))
 
+(add-to-list 'display-buffer-alist
+             '("\\*Help\\*" (display-buffer-at-bottom)
+	       (window-height . 15))
+	     t)
+
 (evil-global-set-key 'normal (kbd "SPC h") 'hydra-help-menu/body)
 ;; additional key-binding for minibuffers
 (global-set-key (kbd "C-c h d k") 'describe-key-and-switch-to-window)
