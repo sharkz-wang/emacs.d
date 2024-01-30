@@ -277,4 +277,10 @@
 	    (evil-define-key 'normal ibuffer-mode-map (kbd "s r") 'ibuffer-do-sort-by-recency)
 	    ))
 
+(defun switch-to-message-buffer ()
+  (interactive)
+  (switch-to-buffer "*Messages*"))
+
+(evil-global-set-key 'normal (kbd "SPC b M") 'switch-to-message-buffer)
+
 (provide 'init-basics)
