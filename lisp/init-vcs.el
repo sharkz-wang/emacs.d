@@ -46,6 +46,10 @@ _k_: previous                       _s_: stage
 				 (change . "*") (unknown . "?")
 				 (ignored . "i")))
 
+;; make diff-hl refresh margins after magit operations
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+(add-hook 'magit-post-stage-hook 'diff-hl-magit-post-refresh)
+
 ;; FIXME: find a better keybinding
 (evil-global-set-key 'normal (kbd "SPC g .") 'hydra-vcs-menu/body)
 
