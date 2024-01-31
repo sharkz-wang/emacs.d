@@ -81,78 +81,15 @@
     '(org-table            ((t (:background "#2D2D2D"))))
     '(org-link             ((t (:foreground "#8070FF"))))
 )
-(require-package 'monokai-theme)
 
-(require-package 'poet-theme)
+(require-package 'monokai-theme)
 
 (require-package 'hide-mode-line)
 (require 'org-pretty-table)
 
-(setq is-paper-imitation-theme nil)
-
-(defun turn-on-paper-imitation-theme ()
-  (interactive)
-  (disable-all-themes)
-
-  (load-theme 'etbembo t)
-  (load-theme 'spacemacs-light t)
-  (enable-theme 'etbembo)
-
-  (text-scale-set -7)
-
-  (setq is-paper-imitation-theme t)
-  )
-
-(defun turn-off-paper-imitation-theme ()
-  (interactive)
-
-  (disable-all-themes)
-  (load-theme 'monokai t)
-  (load-theme 'gray-on-black t)
-  (set-frame-font "Monaco-17")
-
-  (toggle-truncate-lines 1)
-  (variable-pitch-mode -1)
-  (global-hl-line-mode 1)
-  (hide-mode-line-mode -1)
-
-  (text-scale-set 0)
-
-  (setq is-paper-imitation-theme nil)
-  )
-
-(defun toggle-paper-imitation-theme ()
-  (interactive)
-  (if is-paper-imitation-theme
-    (turn-off-paper-imitation-theme)
-    (turn-on-paper-imitation-theme)))
-
 (load-theme 'monokai t)
-
-(require-package 'moe-theme)
-
-(require-package 'solarized-theme)
 (require-package 'dracula-theme)
-(require-package 'ujelly-theme)
-
 (require-package 'zone-rainbow)
-
-(require-package 'dashboard)
-(setq dashboard-startup-banner 'logo)
-(setq dashboard-items '(agenda
-			(recents  . 10)
-			(projects . 10)
-			(bookmarks . 10)
-			))
-(setq show-week-agenda-p t)
-
-;; (dashboard-setup-startup-hook)
-;; 1. needs a hook that invoked right after dashboard buffer inited
-;; 2. dashboard-next-section not working through elisp
-;; (add-hook 'after-init-hook (lambda ()
-				 ;; (with-current-buffer "*dashboard*"
-				 ;; (next-line 10))
-				 ;; ))
 
 (require-package 'hl-anything)
 (global-hl-line-mode)
@@ -173,9 +110,6 @@
 ;; disable inverse video of parentheses highlight, which makes
 ;; make cursor brighter than hinted paren
 (set-face-attribute 'show-paren-match nil :inverse-video nil)
-
-(require-package 'all-the-icons)
-;; (all-the-icons-install-fonts)
 
 (require-package 'doom-modeline)
 
@@ -209,9 +143,6 @@
 
 (require-package 'centered-window)
 (centered-window-mode)
-
-;; (require-package 'nyan-mode)
-;; (nyan-mode t)
 
 (global-whitespace-mode t)
 
