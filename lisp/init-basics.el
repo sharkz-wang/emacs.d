@@ -137,11 +137,10 @@
 (require 'init-files)
 
 (define-key evil-normal-state-map (kbd "SPC b d")
-  '(lambda ()
-     (interactive)
-     (kill-buffer (current-buffer))
-     (if (> (length (window-list)) 1)
-	 (delete-window))))
+	    (lambda () (interactive)
+	      (kill-buffer (current-buffer))
+	      (if (> (length (window-list)) 1)
+		  (delete-window))))
 
 ;; make split-window functions move cursor to the new window for you
 (advice-add 'split-window-right
@@ -203,12 +202,12 @@
 					   (evil-scroll-line-to-center (line-number-at-pos))
 					   (evil-scroll-line-down (/ (window-total-height) 5))))
 
-(define-key evil-normal-state-map (kbd "B") '(lambda () (interactive)
-					       (message (substring
-							 (shell-command-to-string
-							  "git rev-parse --abbrev-ref HEAD")
-							 0
-							 -1))))
+(define-key evil-normal-state-map (kbd "B") (lambda () (interactive)
+					      (message (substring
+							(shell-command-to-string
+							 "git rev-parse --abbrev-ref HEAD")
+							0
+							-1))))
 
 (require 'init-navigation)
 

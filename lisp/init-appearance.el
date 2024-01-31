@@ -228,7 +228,7 @@
 
 	;; face for tab marks `>>'
 	(set-face-attribute 'whitespace-tab nil
-			    :background nil :foreground "gray30" :weight 'light)
+			    :background 'unspecified :foreground "gray30" :weight 'light)
 
 	;; faces for warning of mixed tab/whitespace
 	;; I didn't know why these two attributes was not consistent in
