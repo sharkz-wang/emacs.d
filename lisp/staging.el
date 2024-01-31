@@ -169,6 +169,8 @@
 	  args))
 )
 
+(load "hierarchy.el")
 (require-package 'call-graph)
 (define-key evil-normal-state-map (kbd "SPC g c") 'call-graph)
+
 (provide 'staging)
