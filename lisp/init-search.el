@@ -55,9 +55,7 @@ _b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
 
 (defun occur-dwim ()
   (interactive)
-  (if (eq major-mode 'pdf-view-mode)
-    (call-interactively 'pdf-occur)
-    (helm-occur))
+  (helm-occur)
 )
 
 (require-package 'dumb-jump)

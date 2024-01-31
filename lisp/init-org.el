@@ -367,67 +367,9 @@
   (add-hook 'org-capture-mode-hook
 	    (lambda () (evil-emacs-state)))
   
-  (require-package 'org-pdftools)
-
   (setq org-file-apps
-	'(("\\.gif\\'" . (lambda (file link)
-			   (let ((my-image (create-image file))
-				 (tmpbuf (get-buffer-create "*gif-preview*")))
-			     (switch-to-buffer tmpbuf)
-			     (erase-buffer)
-			     (insert-image my-image)
-			     (image-animate my-image))))
-	  ("\\.org\\'" . (lambda (file link)
-			    (find-file file)
-			    ))
-	  ("\\.pdf\\'" . (lambda (file link)
-			   (org-pdfview-open link)))
-	  (auto-mode . emacs)
-	  )
-	)
-
-  (defun epub-link-open (path)
-    (let* ((fname (car (split-string path "::")))
-	   (epub-buf (car (seq-filter
-			   (lambda (buffer)
-			     (with-current-buffer buffer
-			       (string= nov-file-name fname))) (buffer-list)))))
-      (if epub-buf
-	  (switch-to-buffer epub-buf)
-	(find-file fname)))
-    (let
-	((fname (car (split-string path "::")))
-	 (nov-documents-index (string-to-number (car (cdr (split-string path "::")))))
-	 (pos (string-to-number (car (cdr (cdr (split-string path "::")))))))
-      (nov-render-document)
-      (goto-char pos)
-      ))
-
-  (org-add-link-type "epub" 'epub-link-open)
-
-  (defun pdf-link-open (path)
-    (let* ((fname (car (split-string path "::")))
-	   (pdf-buf (car (seq-filter
-			  (lambda (buffer)
-			    (with-current-buffer buffer
-			      (string= (pdf-view-buffer-file-name) fname))) (buffer-list)))))
-      (if pdf-buf
-	  (switch-to-buffer pdf-buf)
-	(find-file fname)))
-    (let
-	((fname (car (split-string path "::")))
-	 (pdf-page (string-to-number (car (cdr (split-string path "::")))))
-	 (pos (string-to-number (car (cdr (cdr (split-string path "::")))))))
-      (pdf-view-goto-page pdf-page)
-      (set-window-vscroll nil pos)))
-
-  (org-add-link-type "pdf" 'pdf-link-open)
-
-  (defun google-search-link-open (path)
-    (browser-google-search path)
-    )
-
-  (org-add-link-type "google" 'google-search-link-open)
+	'(("\\.org\\'" . (lambda (file link) (find-file file)))
+	  (auto-mode . emacs)))
   )
 
 (eval-after-load 'org

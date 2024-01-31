@@ -68,13 +68,7 @@
 	 (function org-find-inbox-or-marked-entry-append)
 	 "* %?\n[[epub:%(with-current-buffer (org-capture-get :original-buffer) nov-file-name)::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string nov-documents-index))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE"
 	 :empty-lines 1
-	 )
-	("p" "PDF note"
-	 plain (function org-find-inbox-or-marked-entry-append)
-	 "* %?\n[[pdf:%(with-current-buffer (org-capture-get :original-buffer) (pdf-view-buffer-file-name))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (pdf-view-current-page)))::%(with-current-buffer (org-capture-get :original-buffer) (number-to-string (point)))]]\n#+BEGIN_QUOTE c\n%(with-current-buffer (org-capture-get :original-buffer) (substring (call-interactively 'org-visual-content) 0 -1))\n#+END_QUOTE"
-	 :empty-lines 1
-	 )
-	))
+	 )))
  )
 
 ;; external tools
