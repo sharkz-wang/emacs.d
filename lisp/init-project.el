@@ -1,24 +1,22 @@
 (require-package 'hydra)
-(require-package 'git-timemachine)
-(require-package 'magit)
 (require 'dired)
 
 (require 'init-find-files)
 
 (defhydra hydra-project-menu (:color pink :hint nil :exit t :idle 0.3)
   "
-^Save...^               ^Browse...^                          ^VCS...^                      ^Search...^        ^Operate...^
-^^^^^^^^^--------------------------------------------------------------------------------------------------------------
-_a_: register project   _f_: current project                 _gss_: brief status           _o_: other file    _x_: kill project buffers
-_k_: remove project     _d_: dwim current project            _gsm_: brief status on bookmarks ^^              _/_: keyword
-_s_: project buffers    _b_: project buffers                 _gSS_: full status
-^^                      _p_: switch to open project          _gSM_: full status on bookmarks
-^^                      _P_: other projects                  _gg_:  magit menu
-^^                      _r_: recent files                    _gm_:  magit menu on bookmarks
-^^                      _m_: project in bookmarks            _gb_:  git blame
-^^                      _TAB_: buffer in prev project        _gfu_: diff current file
-^^                      _`_: buffer in prev prev porject     _gfh_: current file's history
-^^^^                    _D_: project dirs                    _gt_:  git timemachine
+^Save...^               ^Browse...^                        ^Search...^        ^Operate...^
+^^^^^^^^^------------------------------------------------------------------------------
+_a_: register project   _f_: current project               _o_: other file    _x_: kill project buffers
+_k_: remove project     _d_: dwim current project                             _/_: keyword
+_s_: project buffers    _b_: project buffer
+^^                      _p_: switch to open project
+^^                      _P_: other projects
+^^                      _r_: recent files
+^^                      _m_: project in bookmarks
+^^                      _TAB_: buffer in prev project
+^^                      _`_: buffer in prev prev porject
+^^^^                    _D_: project dirs
 "
   ;; save ...
   ("a" projectile-add-current-project)
@@ -35,19 +33,6 @@ _s_: project buffers    _b_: project buffers                 _gSS_: full status
   ("m" (hydra-bookmarked-repo-menu-action 'search-file-in-project))
   ("TAB" projectile-switch-to-prev-project)
   ("`" projectile-switch-to-prev-prev-project)
-  ;; vcs ...
-  ("gss" magit-status-simplified)
-  ("gsm" (hydra-bookmarked-repo-menu-action 'magit-status-simplified-on-path))
-  ("gSS" magit-status-full)
-  ("gSM" (hydra-bookmarked-repo-menu-action 'magit-status-full-on-path))
-  ("gg" magit-dispatch)
-  ("gc" magit-quick-stash-all)
-  ("gm" (hydra-bookmarked-repo-menu-action 'magit-dispatch-on-path))
-  ("gb" magit-blame)
-  ("gfh" magit-log-buffer-file)
-  ("gfu" magit-diff-buffer-file)
-  ("gt" git-timemachine)
-  ("gp" magit-open-known-project)
   ;; search ...
   ("o" helm-projectile-find-other-file)
   ("/" helm-projectile-ag)

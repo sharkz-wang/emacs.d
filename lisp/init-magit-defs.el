@@ -1,4 +1,11 @@
 
+;; XXX: by default C-u+`magit-status' shows list of known repos with hard-coded `basename',
+;;      which was difficult to interpret.
+;;      here we did the trick to show full path, by overriding
+;;      the function `magit-repos-alist'.
+(defun magit-repos-alist-full-path ()
+   (--map (cons it it) (magit-list-repos)))
+
 (defun git-get-file-location-info ()
   "Returns current file's ...
        '(full revision hash,
@@ -11,6 +18,17 @@
                             (projectile-project-root))
         (line-number-at-pos))
 )
+
+(defun magit-status-simplified-on-path (path)
+  (interactive)
+  (let ((default-directory path))
+    (magit-status-simplified)))
+
+(defun projectile-git-repo-list ()
+  (cl-remove-if-not
+   (lambda (project)
+     (file-directory-p (concat project "/.git/")))
+   (projectile-relevant-known-projects)))
 
 (defun magit-quick-stash-all ()
   (interactive)
@@ -25,6 +43,34 @@
 			     "-m" "wip: stash commit")
   (magit-log-head '("--decorate" "-n5"))
 )
+
+(defun --magit-get-section-count ()
+  (length (oref magit-root-section children)))
+
+(defun magit-status-simplified ()
+  (interactive)
+  (setq magit-status-sections-hook
+	'(magit-insert-untracked-files
+	  magit-insert-unstaged-changes
+	  magit-insert-staged-changes))
+  (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
+    (call-interactively 'magit-status))
+  (beginning-of-buffer)
+  (when (> (--magit-get-section-count) 0)
+    (magit-section-forward))
+ )
+
+(defun magit-status-full ()
+  (interactive)
+  (setq magit-status-sections-hook
+	magit-status-sections-hook-orig)
+  (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
+    (call-interactively 'magit-status))
+  (beginning-of-buffer)
+  (magit-section-forward)
+  (magit-section-forward)
+  (magit-section-forward)
+ )
 
 (defun --plain-merge-window-setup-3-col-layout (buf-A buf-B buf-C
 						      control-buffer)
