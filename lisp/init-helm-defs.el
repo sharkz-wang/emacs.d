@@ -34,8 +34,8 @@
 
 (defun helm-toggle-resize-buffer-to-max ()
   (interactive)
-  (if (and (equalp curr-helm-max-height orig-helm-max-height)
-	   (equalp curr-helm-min-height orig-helm-min-height))
+  (if (and (cl-equalp curr-helm-max-height orig-helm-max-height)
+	   (cl-equalp curr-helm-min-height orig-helm-min-height))
       (progn
 	;; XXX: 90 was the max valid number
 	(setq curr-helm-max-height 90)

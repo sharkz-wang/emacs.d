@@ -73,7 +73,7 @@
 
 (defun --gumshoe-is-major-mode-ignored (maj-mode)
     (-any? #'identity
-           (mapcar (lambda (maj) (equalp maj-mode maj))
+           (mapcar (lambda (maj) (cl-equalp maj-mode maj))
                    gumshoe-ignored-major-modes))
 )
 
