@@ -32,6 +32,9 @@
 ;;        logging"
 (setq native-comp-async-report-warnings-errors nil)
 
+(require-package 'which-key)
+(which-key-mode)
+
 (require-package 'centered-cursor-mode)
 
 ;; common handler setting things in order in all major modes
