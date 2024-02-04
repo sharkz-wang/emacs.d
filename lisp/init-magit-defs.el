@@ -91,10 +91,10 @@
     ;; start splitting up windows
     ;;
     ;; |          |                      |          |
-    ;; | buffer-A | buffer C (for merge) | buffer B |
+    ;; | buffer-A | buffer ancestor      | buffer B |
     ;; |          |                      |          |
     ;; |          +----------------------+          |
-    ;; |          | buffer ancestor      |          |
+    ;; |          | buffer C (for merge) |          |
     ;; |          |                      |          |
 
     (switch-to-buffer buf-A)
@@ -106,7 +106,9 @@
 
     (when (and ediff-show-ancestor buf-Ancestor)
       (select-window (get-buffer-window buf-C))
-      (split-window-vertically) (switch-to-buffer buf-Ancestor))
+      (switch-to-buffer buf-Ancestor)
+      (split-window-vertically)
+      (switch-to-buffer buf-C))
     ;; end window setup
 
     ;; reset control buffer state, these two lines are mandatory
