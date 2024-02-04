@@ -17,8 +17,8 @@
 (setq helm-display-function #'display-buffer)
 
 (custom-set-variables
- '(helm-autoresize-max-height 50)
- '(helm-autoresize-min-height 50))
+ '(helm-autoresize-max-height 40)
+ '(helm-autoresize-min-height 20))
 
 (setq orig-helm-max-height helm-autoresize-max-height)
 (setq orig-helm-min-height helm-autoresize-min-height)
