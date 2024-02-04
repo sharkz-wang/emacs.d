@@ -119,7 +119,7 @@
 ;;     'relative-from-project => emacs/lisp/comint.el
 ;;     'relative-to-project => lisp/comint.el
 (customize-set-variable 'doom-modeline-buffer-file-name-style
-			'truncate-with-project)
+			'relative-from-project)
 
 (if (display-graphic-p)
     (progn
