@@ -167,4 +167,20 @@
 	  args))
 )
 
+(evil-global-set-key 'normal (kbd "SPC w [") 'evil-window-top-left)
+(evil-global-set-key 'normal (kbd "SPC w ]") 'evil-window-bottom-right)
+
+(evil-global-set-key 'normal (kbd "SPC w h") 'evil-window-left)
+(evil-global-set-key 'normal (kbd "SPC w l") 'evil-window-right)
+(evil-global-set-key 'normal (kbd "SPC w j") 'evil-window-down)
+(evil-global-set-key 'normal (kbd "SPC w k") 'evil-window-up)
+
+(evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w [") 'evil-window-top-left)
+(evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w ]") 'evil-window-bottom-right)
+
+(evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w h") 'evil-window-left)
+(evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w l") 'evil-window-right)
+(evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w j") 'evil-window-down)
+(evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w k") 'evil-window-up)
+
 (provide 'staging)
