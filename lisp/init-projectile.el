@@ -4,6 +4,9 @@
 (helm-projectile-on)
 (projectile-mode)
 
+(setq projectile-project-root-files
+      '("GTAGS" "TAGS" "cscope.out" ".projectile"))
+
 (setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching nil)
 (setq projectile-completion-system 'helm)
