@@ -167,6 +167,13 @@
 	  args))
 )
 
+(defun y-or-y-you-dont-have-to-type-p (func &rest args)
+  (if (and (eq major-mode 'ediff-mode)
+	   (or (string-equal (nth 0 args) "You’ve previously copied diff region 1 to buffer C.  Confirm? ")
+	    (string-equal (nth 0 args) "Quit this Ediff session? ")))
+      t (apply func args)))
+(advice-add 'y-or-n-p :around #'y-or-y-you-dont-have-to-type-p)
+
 (evil-global-set-key 'normal (kbd "SPC w [") 'evil-window-top-left)
 (evil-global-set-key 'normal (kbd "SPC w ]") 'evil-window-bottom-right)
 
