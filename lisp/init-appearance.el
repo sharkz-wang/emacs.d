@@ -130,14 +130,15 @@
     (setq doom-modeline-icon nil)
     (setq doom-modeline-major-mode-icon nil)))
 
-(setq doom-modeline-minor-modes nil)
+;; yes I like it simpler
+(with-eval-after-load "doom-modeline"
+  (doom-modeline-def-modeline 'main
+  '(buffer-info buffer-position) '()))
 
-(setq doom-modeline-persp-name t)
-(setq doom-modeline-github nil)
-(setq doom-modeline-version t)
+(setq doom-modeline-position-column-line-format '("%l"))
+(setq doom-modeline-total-line-number t)
 
 (doom-modeline-mode 1)
-(display-time-mode 1)
 
 (require-package 'form-feed)
 
