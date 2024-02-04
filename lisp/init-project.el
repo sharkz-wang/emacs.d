@@ -23,7 +23,7 @@ _s_: project buffers    _b_: project buffer
   ("k" projectile-remove-known-project)
   ("s" projectile-save-project-buffers)
   ;; browse ...
-  ("f" find-file-in-project-prompt)
+  ("f" projectile-find-file)
   ("d" projectile-find-file-dwim)
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
