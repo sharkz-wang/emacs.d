@@ -190,4 +190,8 @@
 (evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w j") 'evil-window-down)
 (evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w k") 'evil-window-up)
 
+(defun auto-save-bookmarks (&rest r)
+  (bookmark-save))
+(advice-add 'bookmark-set :after #'auto-save-bookmarks)
+
 (provide 'staging)
