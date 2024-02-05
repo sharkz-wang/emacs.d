@@ -15,6 +15,9 @@
 (add-hook 'python-mode-hook 'helm-gtags-mode)
 (add-hook 'asm-mode-hook 'helm-gtags-mode)
 
+(defun push-current-mark (&rest r)
+     (push-mark))
+
 (add-hook
  'helm-gtags-mode-hook
  (lambda ()
@@ -34,6 +37,16 @@
    (define-key evil-normal-state-map (kbd "SPC d t") 'helm-gtags-find-tag)
    (define-key evil-normal-state-map (kbd "SPC d 2 d") 'helm-gtags-dwim-new-horizontal-split)
    (define-key evil-normal-state-map (kbd "SPC d 3 d") 'helm-gtags-dwim-new-vertical-split)
+
+   (advice-add 'helm-gtags-dwim :before #'push-current-mark)
+   (advice-add 'helm-gtags-select :before #'push-current-mark)
+   (advice-add 'helm-gtags-find-pattern :before #'push-current-mark)
+   (advice-add 'helm-gtags-find-files :before #'push-current-mark)
+   (advice-add 'helm-gtags-find-rtag :before #'push-current-mark)
+   (advice-add 'helm-gtags-find-symbol :before #'push-current-mark)
+   (advice-add 'helm-gtags-find-tag :before #'push-current-mark)
+   (advice-add 'helm-gtags-dwim-new-horizontal-split :before #'push-current-mark)
+   (advice-add 'helm-gtags-dwim-new-vertical-split :before #'push-current-mark)
    ))
 
 (provide 'init-gtags)
