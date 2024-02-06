@@ -16,6 +16,9 @@
 	     t)
 (setq helm-display-function #'display-buffer)
 
+;; hide noise results
+(setq helm-ff-skip-boring-files t)
+
 (custom-set-variables
  '(helm-autoresize-max-height 40)
  '(helm-autoresize-min-height 20))
