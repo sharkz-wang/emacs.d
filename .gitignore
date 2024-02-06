@@ -34,6 +34,8 @@ elpa*/
 
 .evil-marks
 
+.cache
+
 # Auto-generated customization vars
 .cust-vars.el
 
