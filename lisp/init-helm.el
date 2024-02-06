@@ -95,9 +95,17 @@
 
 (eval-after-load 'helm-ag
   '(progn
+
      (add-to-list
       'helm-ag--actions (cons "Yank line" '--do-helm-ag-copy-line)
       t)
+
+     (define-key helm-ag-map (kbd "C-n") 'helm-ag--next-file)
+     (define-key helm-ag-map (kbd "C-p") 'helm-ag--previous-file)
+     (define-key helm-ag-map (kbd "C-c b") #'helm-ag--run-save-buffer)
+     (define-key helm-ag-map (kbd "C-c e") #'helm-ag-edit)
+     (define-key helm-ag-map (kbd "C-h") 'helm-ag--up-one-level)
+
      (define-key helm-ag-map (kbd "C-c y") '--helm-ag-copy-line)
      ))
 

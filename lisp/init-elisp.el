@@ -25,7 +25,7 @@ _eb_: buffer
 (evil-define-key 'visual emacs-lisp-mode-map (kbd ",") 'emacs-lisp-main-mode-menu/body)
 (global-set-key (kbd "C-c ,") 'emacs-lisp-main-mode-menu/body)
 
-(evil-global-set-key 'normal (kbd "SPC t d") 'toggle-debug-on-error)
+(evil-global-set-key 'normal (kbd "SPC t D") 'toggle-debug-on-error)
 
 (add-hook 'emacs-lisp-mode-hook 'init-emacs-lisp-mode)
 (defun init-emacs-lisp-mode ()
