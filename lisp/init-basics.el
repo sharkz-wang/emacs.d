@@ -12,6 +12,9 @@
 (when (not (equal window-system nil))
     (scroll-bar-mode -1)
  )
+;; enable mouse support in terminal
+(unless (display-graphic-p)
+  (xterm-mouse-mode 1))
 ;; no blinking cursor
 (blink-cursor-mode -1)
 
