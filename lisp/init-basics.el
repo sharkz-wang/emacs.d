@@ -238,10 +238,6 @@
 ;; TODO: move to init-edit
 (require-package 'multiple-cursors)
 
-(evil-leader/set-key
-  ",i" 'mc/edit-lines
-  )
-
 (defun browser-google-search (query)
   (interactive)
   (browse-url (format
