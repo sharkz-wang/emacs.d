@@ -44,6 +44,9 @@
 ;; tab styles: displayed texts
 (centaur-tabs-change-fonts "Monaco" 150)
 (setq centaur-tabs-label-fixed-length 16)
+;; exclude helper buffers
+(add-to-list 'centaur-tabs-excluded-prefixes "magit-diff: ")
+(add-to-list 'centaur-tabs-excluded-prefixes "magit-process: ")
 ;; end appearance settings
 
 (define-key evil-normal-state-map (kbd "SPC t j") 'centaur-tabs-forward)
