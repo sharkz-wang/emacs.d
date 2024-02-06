@@ -186,6 +186,9 @@
 (advice-add #'evil-scroll-page-down
 	    :after (lambda (COUNT) (evil-window-middle)))
 
+;; make pressing C-c C-c more pinky-friendly
+(evil-global-set-key 'normal (kbd "SPC , ,") (kbd "C-c C-c"))
+
 (evil-leader/set-key
   "nf" 'narrow-to-defun
   "nr" 'narrow-to-region
