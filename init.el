@@ -49,6 +49,7 @@
 (require 'init-c)
 (require 'init-python)
 ;; some other settings
+(require 'init-treemacs)
 (require 'init-dired)
 (require 'init-kernel-dev)
 (require 'init-external-share-menu)
