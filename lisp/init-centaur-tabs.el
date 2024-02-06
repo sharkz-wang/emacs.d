@@ -52,6 +52,9 @@
 (define-key evil-normal-state-map (kbd "SPC t j") 'centaur-tabs-forward)
 (define-key evil-normal-state-map (kbd "SPC t k")  'centaur-tabs-backward)
 
+(define-key evil-normal-state-map (kbd "SPC t n") 'centaur-tabs-move-current-tab-to-right)
+(define-key evil-normal-state-map (kbd "SPC t p")  'centaur-tabs-move-current-tab-to-left)
+
 (define-key evil-normal-state-map (kbd "<C-tab>") 'centaur-tabs-forward)
 (define-key evil-normal-state-map (kbd "<C-S-tab>") 'centaur-tabs-backward)
 
