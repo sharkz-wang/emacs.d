@@ -3,24 +3,12 @@
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
 ;; TODO: a modern custvar management system
-;; TODO: how to turn off loading of .cust-vars.el
-;; TODO: enlarge `undo-tree-limit'
-;; TODO: check-in frequently used icons
-;; TODO: better ways to manage customize-group
-;; TODO: backup folder for elpa packages
-;; TODO: python automation server
-;; TODO: pinned buffers
 ;; TODO: show current files history when committing code in magit
 ;; TODO: company-mode support for elisp
-;; TODO: using undo/redo as hook to run script
 ;; TODO: magit: remove trailing white space automatically
 ;; TODO: add magit-file-dispatch and other dispatch funcs into hydra-menu
 ;; TODO: bookmark-jump and org-capture-last-stored
-;; TODO: make `helm-find-files' support whitespace delimiter
-;; TODO: make org-refile compatible to plain type records
-;; TODO: add `package-refresh-contents' into regular flow
 
-;; TODO: move it elsewhere better
 ;; don't grant outdated *.elc files, it's too dangerous
 (setq load-prefer-newer t)
 ;; TODO: move it elsewhere better
