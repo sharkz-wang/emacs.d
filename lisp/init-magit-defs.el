@@ -64,14 +64,28 @@
 (defun magit-status-full ()
   (interactive)
   (setq magit-status-sections-hook
-	magit-status-sections-hook-orig)
+	'(magit-insert-status-headers
+	  magit-insert-unpushed-to-pushremote
+	  magit-insert-unpushed-to-upstream-or-recent
+	  magit-insert-unpulled-from-pushremote
+	  magit-insert-unpulled-from-upstream
+	  magit-insert-merge-log
+	  magit-insert-rebase-sequence
+	  magit-insert-am-sequence
+	  magit-insert-sequencer-sequence
+	  magit-insert-unstaged-changes
+	  magit-insert-staged-changes
+	  magit-insert-untracked-files
+	  ))
   (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
     (call-interactively 'magit-status))
   (beginning-of-buffer)
   (magit-section-forward)
   (magit-section-forward)
   (magit-section-forward)
- )
+  (magit-section-forward)
+  (magit-section-forward)
+  )
 
 (defun --plain-merge-window-setup-3-col-layout (buf-A buf-B buf-C
 						      control-buffer)

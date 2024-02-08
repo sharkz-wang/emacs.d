@@ -26,7 +26,8 @@ _j_: next          _d_: diff        _r_: revert
   "
 ^VCS...^
 --------------------------------
-_s_:  brief statuss
+_s_:  brief status
+_S_:  full status
 _g_:  magit menu
 _b_:  git blame
 _fu_: diff current file
