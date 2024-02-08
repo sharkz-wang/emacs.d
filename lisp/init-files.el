@@ -1,6 +1,6 @@
 (require-package 'hydra)
 
-(require 'init-bookmarked-repos)
+(require 'init-teleport)
 (require 'init-projectile)
 
 (defhydra hydra-file-menu (:color pink :hint nil :exit t :idle 0.3)
@@ -8,10 +8,10 @@
 ^Save...^            ^Browse...^                ^Search...^
 ^^^^^^^^--------------------------------------------------------------
 _s_: current buffer  _f_: current dir          _d_: current dir
-^^                   _D_: dired current dir    _/_: bookmarked repos
+^^                   _D_: dired current dir    _/_: teleport
 ^^                   _r_: recent files
 ^^                   _b_: bookmarks
-^^                   _m_: bookmarked repos
+^^                   _m_: teleport
 ^^                   _o_: in terminal
 ^^                   _g_: in terminal tig
 "
@@ -22,12 +22,12 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   ("d" dired-curr-dir)
   ("r" helm-recentf)
   ("b" helm-bookmarks)
-  ("m" (hydra-bookmarked-repo-menu-action 'helm-find-files-in-dir))
+  ("m" (teleport-invoke 'helm-find-files-in-dir))
   ("o" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a"))
   ("g" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a" "tig"))
   ;; search ...
   ("D" search-file-in-current-directory)
-  ("/" (hydra-bookmarked-repo-menu-action 'search-file-in-directory))
+  ("/" (teleport-invoke 'search-file-in-directory))
 
   ("c" nil "cancel" :color blue)
   )

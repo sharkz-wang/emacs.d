@@ -13,7 +13,7 @@ _s_: project buffers    _b_: project buffer
 ^^                      _p_: switch to open project
 ^^                      _P_: other projects
 ^^                      _r_: recent files
-^^                      _m_: project in bookmarks
+^^                      _m_: project in teleport
 ^^                      _TAB_: buffer in prev project
 ^^                      _`_: buffer in prev prev porject
 ^^^^                    _D_: project dirs
@@ -30,7 +30,7 @@ _s_: project buffers    _b_: project buffer
   ("p" --switch-to-open-project-buffer)
   ("P" projectile-switch-project)
   ("r" helm-projectile-recentf)
-  ("m" (hydra-bookmarked-repo-menu-action 'search-file-in-project))
+  ("m" (teleport-invoke 'search-file-in-project))
   ("TAB" projectile-switch-to-prev-project)
   ("`" projectile-switch-to-prev-prev-project)
   ;; search ...

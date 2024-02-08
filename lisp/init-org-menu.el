@@ -1,7 +1,7 @@
 (require-package 'hydra)
 
 (require 'init-org-image-menu)
-(require 'init-bookmarked-repos)
+(require 'init-teleport)
 
 (defhydra hydra-org-menu (:color pink :hint nil :exit t :idle 0.3)
   "

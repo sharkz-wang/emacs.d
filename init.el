@@ -49,6 +49,7 @@
 (require 'init-c)
 (require 'init-python)
 ;; some other settings
+(require 'init-teleport)
 (require 'init-treemacs)
 (require 'init-dired)
 (require 'init-kernel-dev)

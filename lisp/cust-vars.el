@@ -10,7 +10,7 @@
 (setq cwm-centered-window-width 100)
 
 (setq ebook-dir-path "~/ebooks")
-(setq linux-repo-dir-path "~/linux")
+(setq kernel-src-repo-dir "~/linux")
 
 ;; repo list
 (custom-set-variables

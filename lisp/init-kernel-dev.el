@@ -16,4 +16,11 @@
 				  :candidates kernel-src-repo-list)))
   )
 
+(define-key teleport-map "kk"
+	    (lambda () (interactive) (teleport-do-action kernel-src-repo-dir)))
+(define-key teleport-map "ki"
+	    (lambda () (interactive) (teleport-do-action (concat-path kernel-src-repo-dir "include"))))
+(define-key teleport-map "kd"
+	    (lambda () (interactive) (teleport-do-action (concat-path kernel-src-repo-dir "Documentation"))))
+
 (provide 'init-kernel-dev)

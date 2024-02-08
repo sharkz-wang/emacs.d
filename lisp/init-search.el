@@ -1,4 +1,4 @@
-(require 'init-bookmarked-repos)
+(require 'init-teleport)
 
 (require-package 'magit)
 
@@ -8,7 +8,7 @@
 ^^^^^------------------------------------------------------------------------
 _s_: current buffer                 _f_: browse                 _o_: outline
 _S_: current buffer at point        _d_: current dir            _O_: all buffers outline
-_b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
+_b_: all buffers                    _m_: teleport               _j_: dumb-jump
 ^^                                  _/_: current project
 "
   ;; buffers
@@ -20,7 +20,7 @@ _b_: all buffers                    _m_: bookmarked dir         _j_: dumb-jump
   ("f" helm-do-ag)
   ("d" helm-do-ag-curr-dir)
   ("D" (with-mini-buffer-input--word-at-point #'helm-do-ag-curr-dir))
-  ("m" (hydra-bookmarked-repo-menu-action 'helm-do-ag-dir-or-file))
+  ("m" (teleport-invoke 'helm-do-ag-dir-or-file))
   ("/" helm-projectile-ag)
   ("?" (with-mini-buffer-input--word-at-point #'helm-projectile-ag))
   ;; semantics
