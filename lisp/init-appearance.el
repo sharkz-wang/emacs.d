@@ -133,7 +133,7 @@
 ;; yes I like it simpler
 (with-eval-after-load "doom-modeline"
   (doom-modeline-def-modeline 'main
-  '(buffer-info buffer-position) '()))
+  '(persp-name buffer-info buffer-position) '()))
 
 (setq doom-modeline-position-column-line-format '("%l"))
 (setq doom-modeline-total-line-number t)
