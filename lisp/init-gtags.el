@@ -33,8 +33,7 @@
    (define-key evil-normal-state-map (kbd "SPC d p") 'helm-gtags-find-pattern)
    (define-key evil-normal-state-map (kbd "SPC d f") 'helm-gtags-find-files)
    (define-key evil-normal-state-map (kbd "SPC d r") 'helm-gtags-find-rtag)
-   (define-key evil-normal-state-map (kbd "SPC d s") 'helm-gtags-find-symbol)
-   (define-key evil-normal-state-map (kbd "SPC d t") 'helm-gtags-find-tag)
+   (define-key evil-normal-state-map (kbd "SPC d s") 'helm-gtags-find-tag)
    (define-key evil-normal-state-map (kbd "SPC d 2 d") 'helm-gtags-dwim-new-horizontal-split)
    (define-key evil-normal-state-map (kbd "SPC d 3 d") 'helm-gtags-dwim-new-vertical-split)
 

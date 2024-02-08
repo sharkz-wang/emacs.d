@@ -40,11 +40,6 @@
 	  (file-name-as-directory (f-dirname (buffer-file-name)))
 	  "fig")))
 
-(evil-leader/set-key
-  "ds" 'dired-snapshot-dir
-  "df" 'dired-fig-dir
-  )
-
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
 
