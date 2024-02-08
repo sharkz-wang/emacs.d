@@ -1,6 +1,6 @@
 ;; sorted according to thickness: light -> regular -> bold -> black
 ;;     e.g., (set-global-frame-font "Source Code Pro:bold")
-(set-global-frame-font "Ubuntu Mono")
+;; (set-global-frame-font "Ubuntu Mono")
 ;; (set-global-frame-font "Source Code Pro")
 ;; (set-global-frame-font "Monaco")
 ;; (set-global-frame-font "Roboto")
