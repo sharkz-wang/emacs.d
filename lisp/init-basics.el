@@ -201,7 +201,7 @@
 
 ;; cursor motion in wrapped lines
 
-(define-key evil-normal-state-map (kbd "SPC i w") 'toggle-truncate-lines)
+(define-key evil-normal-state-map (kbd "SPC t L") 'toggle-truncate-lines)
 (define-key evil-normal-state-map (kbd "SPC i t") 'load-theme)
 
 (define-key evil-normal-state-map (kbd "SPC i z") 'zone-rainbow)
