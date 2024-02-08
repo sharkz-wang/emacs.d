@@ -42,3 +42,6 @@ elpa*/
 # Backup files
 *~
 \#*#
+
+# Customization file
+lisp/cust-vars.el
