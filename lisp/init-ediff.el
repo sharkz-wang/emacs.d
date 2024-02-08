@@ -90,7 +90,6 @@
 (add-hook 'ediff-before-setup-hook
 	  (lambda ()
 	    (setq orig-mode-line-format mode-line-format)
-	    (message "hello: %s" mode-line-format)
 	    ))
 
 (provide 'init-ediff)
