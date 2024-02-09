@@ -159,8 +159,6 @@
 
 (evil-leader/set-key
   "ww" 'other-window
-  "wj" 'ns-next-frame
-  "wk" 'ns-prev-frame
   "wd" 'delete-window
   "wm" 'delete-other-windows
   "w|" '--toggle-follow-mode-view
