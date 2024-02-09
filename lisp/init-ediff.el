@@ -52,21 +52,21 @@
 			'ediff-copy-triplet-to-C)
 
 	    (set-face-attribute 'ediff-current-diff-A nil
-				:background "#004151" :weight 'heavy)
+				:background "#004151")
 	    (set-face-attribute 'ediff-current-diff-B nil
-				:background "#004151" :weight 'heavy)
+				:background "#004151")
 	    (set-face-attribute 'ediff-current-diff-C nil
-				:background "#004151" :weight 'heavy)
+				:background "#004151")
 	    (set-face-attribute 'ediff-current-diff-Ancestor nil
-				:background "#004151" :weight 'heavy)
+				:background "#004151")
 	    (set-face-attribute 'ediff-fine-diff-A nil
-				:background "#53201A" :weight 'heavy)
+				:background "#53201A")
 	    (set-face-attribute 'ediff-fine-diff-B nil
-				:background "#53201A" :weight 'heavy)
+				:background "#53201A")
 	    (set-face-attribute 'ediff-fine-diff-C nil
-				:background "#53201A" :weight 'heavy)
+				:background "#53201A")
 	    (set-face-attribute 'ediff-fine-diff-Ancestor nil
-				:background "#53201A" :weight 'heavy)
+				:background "#53201A")
 	    ))
 
 (defun --force-restore-mode-line (func &rest args)

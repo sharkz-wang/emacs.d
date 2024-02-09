@@ -100,7 +100,7 @@
 ;; setup highlight face
 (custom-set-faces
  '(line-number-current-line ((t :inherit hl-spotlight
-				:foreground "#FF8700" :weight heavy))))
+				:foreground "#FF8700"))))
 
 (evil-global-set-key 'normal (kbd "SPC t l") 'global-display-line-numbers-mode)
 

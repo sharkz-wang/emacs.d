@@ -113,19 +113,19 @@ _._:  diff hightlight menu
 
 (custom-set-faces
  '(diff-hl-margin-insert ((t :inherit line-number
-			     :foreground "#A6E22E" :weight heavy))))
+			     :foreground "#A6E22E"))))
 (custom-set-faces
  '(diff-hl-margin-delete ((t :inherit line-number
-			     :foreground "#FF8700" :weight heavy))))
+			     :foreground "#FF8700"))))
 (custom-set-faces
  '(diff-hl-margin-change ((t :inherit line-number
-			     :foreground "#66D9EF" :weight heavy))))
+			     :foreground "#66D9EF"))))
 (custom-set-faces
  '(diff-hl-margin-ignored ((t :inherit line-number
-			     :foreground "#747474" :weight heavy))))
+			     :foreground "#747474"))))
 (custom-set-faces
  '(diff-hl-margin-unknown ((t :inherit line-number
-			     :foreground "#747474" :weight heavy))))
+			     :foreground "#747474"))))
 
 (customize-set-variable
  'diff-hl-margin-symbols-alist '((insert . "+") (delete . "-")
