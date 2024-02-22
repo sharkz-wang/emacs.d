@@ -17,15 +17,18 @@ int main (void) {
 ")
      ))
 
+;; XXX: temporarily move load statement out of `init-cc-handler',
+;;      which causes redundant load every time opening a c file
+;; FIXME: (require-package 'hierarchy) does not work, why?
+(load "hierarchy.el")
+(require-package 'call-graph)
+
 (defun init-cc-handler ()
 
   (require 'init-company)
   (require 'init-gtags)
   (require 'init-semantic)
 
-  ;; XXX: (require-package 'hierarchy) does not work, why?
-  (load "hierarchy.el")
-  (require-package 'call-graph)
 
   (c-set-style "linux")
   (custom-set-variables '(c-basic-offset '8))
