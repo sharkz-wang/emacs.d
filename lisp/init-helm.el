@@ -73,7 +73,9 @@
 (define-key helm-find-files-map (kbd "M-K") 'helm-toggle-visible-mark-backward)
 
 (define-key helm-find-files-map (kbd "C-c r p") '--helm-show-kill-ring-short)
-(define-key helm-find-files-map (kbd "C-c /") 'helm-ff-run-fd)
+;; FIXME: I don't use `helm-ff-run-fd' as it does not support multiple
+;;        arguments
+(define-key helm-find-files-map (kbd "C-c /") 'helm-ff-run-find-sh-command)
 (define-key helm-find-files-map (kbd "C-c s") 'helm-ff-run-grep-ag)
 
 (define-key helm-map (kbd "C-c C-m") 'helm-toggle-resize-buffer-to-max)
