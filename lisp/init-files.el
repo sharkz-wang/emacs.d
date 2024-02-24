@@ -13,6 +13,7 @@ _s_: current buffer  _f_: current dir          _d_: current dir
 ^^                   _b_: bookmarks
 ^^                   _m_: teleport
 ^^                   _o_: in terminal
+^^                   _O_: in terminal in other window
 ^^                   _g_: in terminal tig
 "
   ;; save ...
@@ -24,6 +25,7 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   ("b" helm-bookmarks)
   ("m" (teleport-invoke 'helm-find-files-in-dir))
   ("o" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a"))
+  ("O" (start-process "new-proc" "proc-buffer" "tmux" "split-window" "-l" "60%"))
   ("g" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a" "tig"))
   ;; search ...
   ("D" search-file-in-current-directory)
