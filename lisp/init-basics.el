@@ -42,6 +42,8 @@
 
 ;; common handler setting things in order in all major modes
 (defun init-all-major-mode-hdlr ()
+    ;; enable truncate-lines-mode (no line wrapping) by default
+    (--enable-truncate-lines)
     ;; treat underline as part of a word
     (modify-syntax-entry ?_ "w")
     (centered-cursor-mode 1)

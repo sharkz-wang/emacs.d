@@ -2,6 +2,14 @@
 ;; TODO: defcustom it
 (setq global-frame-font nil)
 
+(defun --do-nothing (&rest args))
+
+(defun --enable-truncate-lines ()
+  (interactive)
+  (setq truncate-partial-width-windows nil)
+  (cl-letf (((symbol-function 'message) '--do-nothing))
+    (toggle-truncate-lines 1)))
+
 (defun new-frame-set-font (new-frame)
     (select-frame new-frame)
     (set-frame-font global-frame-font))
