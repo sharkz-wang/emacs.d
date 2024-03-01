@@ -65,6 +65,7 @@
 
 (keymap-unset helm-find-files-map "C-c h")
 (keymap-unset helm-find-files-map "C-c /")
+(keymap-unset helm-find-files-map "C-c ?")
 (keymap-unset helm-find-files-map "C-c r")
 
 (define-key helm-find-files-map (kbd "C-h") 'helm-find-files-up-one-level)
@@ -75,7 +76,13 @@
 (define-key helm-find-files-map (kbd "C-c r p") '--helm-show-kill-ring-short)
 ;; FIXME: I don't use `helm-ff-run-fd' as it does not support multiple
 ;;        arguments
-(define-key helm-find-files-map (kbd "C-c /") 'helm-ff-run-find-sh-command)
+(define-key helm-find-files-map (kbd "C-c ?") 'helm-ff-run-find-sh-command)
+
+(add-to-list
+ 'helm-find-files-actions
+ (cons "Open magit here" '--helm-projectile-find-file-here) t)
+(define-key helm-find-files-map (kbd "C-c /") '--do-helm-projectile-find-file-here)
+
 (define-key helm-find-files-map (kbd "C-c s") 'helm-ff-run-grep-ag)
 
 (define-key helm-map (kbd "C-c C-m") 'helm-toggle-resize-buffer-to-max)

@@ -87,7 +87,13 @@
   (magit-status-simplified-on-path
    (file-name-parent-directory candidate)))
 
-(helm-make-command-from-action
-  --do-helm-open-magit-here "Not documented." '--helm-open-magit-here)
+(helm-make-command-from-action --do-helm-open-magit-here
+  "Not documented." '--helm-open-magit-here)
+
+(defun --helm-projectile-find-file-here (candidate)
+  (helm-projectile-find-file (file-name-parent-directory candidate)))
+
+(helm-make-command-from-action --do-helm-projectile-find-file-here
+  "Not documented." '--helm-projectile-find-file-here)
 
 (provide 'init-helm-defs)
