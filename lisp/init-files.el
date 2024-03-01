@@ -20,6 +20,7 @@ _s_: current buffer  _f_: current dir          _d_: current dir
   ("s" save-buffer)
   ;; browse ...
   ("f" helm-find-files)
+  ("y" yank-buffer-file-name)
   ("d" dired-curr-dir)
   ("r" helm-recentf)
   ("b" helm-bookmarks)
@@ -37,6 +38,11 @@ _s_: current buffer  _f_: current dir          _d_: current dir
 ;; it's annoying that unmounted directory get removed
 (setq recentf-auto-cleanup 'never)
 (recentf-mode 1)
+
+(defun yank-buffer-file-name ()
+  (interactive)
+  (kill-new buffer-file-name)
+  (message "copy file name `%s'." buffer-file-name))
 
 (defun search-file-in-current-directory ()
     (interactive)
