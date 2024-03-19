@@ -1,6 +1,7 @@
 (require-package 'persp-mode)
 
 (persp-mode 1)
+(setq persp-auto-resume-time -1)
 
 (evil-global-set-key 'normal (kbd "SPC a j") 'persp-next)
 (evil-global-set-key 'normal (kbd "SPC a k") 'persp-prev)
