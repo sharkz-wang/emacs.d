@@ -1,4 +1,5 @@
 (require 'init-teleport)
+(require 'init-search-defs)
 
 (require-package 'magit)
 
@@ -66,5 +67,7 @@ _b_: all buffers                    _m_: teleport               _j_: dumb-jump
 (evil-define-key 'normal magit-diff-mode-map (kbd "SPC s") 'hydra-search-menu/body)
 (evil-define-minor-mode-key 'normal 'dired-mode-map
   (kbd "SPC s") 'hydra-search-menu/body)
+
+(advice-add 'dumb-jump-go :before #'push-current-mark)
 
 (provide 'init-search)

@@ -1,6 +1,9 @@
 (require-package 'ggtags)
 (require-package 'helm-gtags)
 
+(require 'init-search-defs)
+(require 'init-gtags-defs)
+
 ;; Making GNU Global support more languages
 ;; 1) Install Exuberant Ctags
 ;; 2) Run `pip install pygments`
@@ -14,9 +17,6 @@
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
 (add-hook 'python-mode-hook 'helm-gtags-mode)
 (add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-(defun push-current-mark (&rest r)
-     (push-mark))
 
 (add-hook
  'helm-gtags-mode-hook
