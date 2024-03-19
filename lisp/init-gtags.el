@@ -28,14 +28,17 @@
 	 helm-gtags-pulse-at-cursor t
 	 helm-gtags-suggested-key-mapping t)
 
-   (define-key evil-normal-state-map (kbd "SPC d S") 'helm-gtags-select)
-   (define-key evil-normal-state-map (kbd "SPC d d") 'helm-gtags-dwim)
-   (define-key evil-normal-state-map (kbd "SPC d p") 'helm-gtags-find-pattern)
-   (define-key evil-normal-state-map (kbd "SPC d f") 'helm-gtags-find-files)
-   (define-key evil-normal-state-map (kbd "SPC d r") 'helm-gtags-find-rtag)
-   (define-key evil-normal-state-map (kbd "SPC d s") 'helm-gtags-find-tag)
-   (define-key evil-normal-state-map (kbd "SPC d 2 d") 'helm-gtags-dwim-new-horizontal-split)
-   (define-key evil-normal-state-map (kbd "SPC d 3 d") 'helm-gtags-dwim-new-vertical-split)
+   (evil-define-key 'normal (kbd "SPC d R") 'rebuild-gtags-tags)
+
+   (evil-define-key 'normal (kbd "SPC d S") 'helm-gtags-select)
+   (evil-define-key 'normal (kbd "SPC d d") 'helm-gtags-dwim)
+   (evil-define-key 'normal (kbd "SPC d j") 'helm-gtags-dwim)
+   (evil-define-key 'normal (kbd "SPC d p") 'helm-gtags-find-pattern)
+   (evil-define-key 'normal (kbd "SPC d f") 'helm-gtags-find-files)
+   (evil-define-key 'normal (kbd "SPC d r") 'helm-gtags-find-rtag)
+   (evil-define-key 'normal (kbd "SPC d s") 'helm-gtags-find-tag)
+   (evil-define-key 'normal (kbd "SPC d 2 d") 'helm-gtags-dwim-new-horizontal-split)
+   (evil-define-key 'normal (kbd "SPC d 3 d") 'helm-gtags-dwim-new-vertical-split)
 
    (advice-add 'helm-gtags-dwim :before #'push-current-mark)
    (advice-add 'helm-gtags-select :before #'push-current-mark)
