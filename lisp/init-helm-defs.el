@@ -91,7 +91,10 @@
   "Not documented." '--helm-open-magit-here)
 
 (defun --helm-projectile-find-file-here (candidate)
-  (helm-projectile-find-file (file-name-parent-directory candidate)))
+  ;; XXX: don't use `helm-projectile-find-file', it pops annoying
+  ;;      message about clearing up recentf list
+  (let ((default-directory candidate))
+      (projectile-find-file)))
 
 (helm-make-command-from-action --do-helm-projectile-find-file-here
   "Not documented." '--helm-projectile-find-file-here)
