@@ -16,7 +16,7 @@ _s_: project buffers    _b_: project buffer
 ^^                      _m_: project in teleport
 ^^                      _TAB_: buffer in prev project
 ^^                      _`_: buffer in prev prev porject
-^^^^                    _D_: project dirs
+^^                      _D_: project dirs
 "
   ;; save ...
   ("a" projectile-add-current-project)
