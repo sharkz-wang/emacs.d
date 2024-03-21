@@ -61,6 +61,18 @@
     (magit-section-forward))
  )
 
+(defun magit-status-merge-progress ()
+  (interactive)
+  (setq magit-status-sections-hook
+	'(magit-insert-merge-log
+	  magit-insert-rebase-sequence
+	  magit-insert-am-sequence
+	  magit-insert-sequencer-sequence
+	  ))
+  (cl-letf (((symbol-function 'magit-repos-alist) 'magit-repos-alist-full-path))
+    (call-interactively 'magit-status))
+  )
+
 (defun magit-status-full ()
   (interactive)
   (setq magit-status-sections-hook
@@ -86,6 +98,22 @@
   (magit-section-forward)
   (magit-section-forward)
   )
+
+(setq ediff-show-status t)
+
+;; TODO: bind it onto key-map
+(defun --ediff-toggle-show-merge-status ()
+  (interactive)
+  (if ediff-show-status
+      (progn
+	(setq ediff-show-status nil)
+	(ediff-recenter)
+	(message "Status buffer is hidden"))
+    (progn
+      (setq ediff-show-status t)
+      (ediff-recenter)
+      (message "Showing ancestor buffer"))
+    ))
 
 (defun --plain-merge-window-setup-3-col-layout (buf-A buf-B buf-C
 						      control-buffer)
@@ -117,6 +145,11 @@
 
     ;; make 3 columns equally size
     (balance-windows)
+
+    (when ediff-show-status
+      (select-window (get-buffer-window buf-A))
+      (split-window-vertically)
+      (magit-status-merge-progress))
 
     (when (and ediff-show-ancestor buf-Ancestor)
       (select-window (get-buffer-window buf-C))

@@ -63,7 +63,7 @@ _._:  diff hightlight menu
 
 ;; set magit popup windows default to full-screen
 (setq magit-display-buffer-function
-	  #'magit-display-buffer-fullframe-status-v1)
+      #'magit-display-buffer-same-window-except-diff-v1)
 ;; make magit diff buffers always shown in full screen window
 (add-to-list 'display-buffer-alist
 	     ;; diff buffers (both staged/unstaged)
