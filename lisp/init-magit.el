@@ -27,7 +27,7 @@ _j_: next          _d_: diff        _r_: revert
 ^VCS...^                        ^Magit...^
 -----------------------------------------------------
 _s_:  brief status              _l_: log head
-_S_:  full status               _d_: diff unstaged
+_a_:  full status               _d_: diff unstaged
 _g_:  magit menu                _D_: diff staged
 _b_:  git blame                 _r_: rebase
 _fu_: diff current file
@@ -38,7 +38,7 @@ _._:  diff hightlight menu
 "
   ;; vcs ...
   ("s" magit-status-simplified)
-  ("S" magit-status-full)
+  ("a" magit-status-full)
   ("g" magit-dispatch)
   ("c" magit-quick-stash-all)
   ("b" magit-blame)
