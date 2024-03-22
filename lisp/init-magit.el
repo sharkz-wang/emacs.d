@@ -24,13 +24,13 @@ _j_: next          _d_: diff        _r_: revert
 
 (defhydra hydra-magit-menu (:color pink :hint nil :exit t :idle 0.3)
   "
-^VCS...^                        ^Magit...^
------------------------------------------------------
-_s_:  brief status              _l_: log head
+^VCS...^                        ^Magit...^              ^Quick...^
+----------------------------------------------------------------------
+_s_:  brief status              _l_: log head           _S_: stash all
 _a_:  full status               _d_: diff unstaged
 _g_:  magit menu                _D_: diff staged
 _b_:  git blame                 _r_: rebase
-_fu_: diff current file
+_fu_: diff current file         _R_: reflog
 _fh_: current file's history
 _t_:  git timemachine
 _$_:  magit-process-buffer
@@ -50,9 +50,12 @@ _._:  diff hightlight menu
   ("." hydra-vcs-menu/body)
 
   ("l" magit-log-head)
-  ("r" magit-rebase-interactive)
   ("d" magit-diff-unstaged)
   ("D" magit-diff-staged)
+  ("r" magit-rebase-interactive)
+  ("R" magit-reflog-head)
+
+  ("S" magit-quick-stash-all)
 
   ("c" nil "cancel" :color blue)
   )
