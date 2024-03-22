@@ -64,7 +64,8 @@
 (defun magit-status-merge-progress ()
   (interactive)
   (setq magit-status-sections-hook
-	'(magit-insert-merge-log
+	'(magit-insert-unpushed-to-upstream
+	  magit-insert-merge-log
 	  magit-insert-rebase-sequence
 	  magit-insert-am-sequence
 	  magit-insert-sequencer-sequence
@@ -101,7 +102,6 @@
 
 (setq ediff-show-status t)
 
-;; TODO: bind it onto key-map
 (defun --ediff-toggle-show-merge-status ()
   (interactive)
   (if ediff-show-status
@@ -132,12 +132,13 @@
 
     ;; start splitting up windows
     ;;
-    ;; |          |                      |          |
-    ;; | buffer-A | buffer ancestor      | buffer B |
-    ;; |          |                      |          |
-    ;; |          +----------------------+          |
-    ;; |          | buffer C (for merge) |          |
-    ;; |          |                      |          |
+    ;; |                |                      |                |
+    ;; |   buffer-A     |   buffer ancestor    |    buffer B    |
+    ;; |                |                      |                |
+    ;; |                +----------------------+                |
+    ;; +----------------+   buffer C           |                |
+    ;; |  merge status  |   (for merge)        |                |
+    ;; |                |                      |                |
 
     (switch-to-buffer buf-A)
     (split-window-horizontally) (switch-to-buffer buf-C)
@@ -149,7 +150,8 @@
     (when ediff-show-status
       (select-window (get-buffer-window buf-A))
       (split-window-vertically)
-      (magit-status-merge-progress))
+      (magit-status-merge-progress)
+      (window-resize (selected-window) (- (/ (window-height) 2))))
 
     (when (and ediff-show-ancestor buf-Ancestor)
       (select-window (get-buffer-window buf-C))

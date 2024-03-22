@@ -46,6 +46,8 @@
 
 (add-hook 'ediff-keymap-setup-hook
 	  (lambda ()
+	    (define-key ediff-mode-map (kbd "TAB")
+			#'--ediff-toggle-show-merge-status)
 	    (define-key ediff-mode-map (kbd "A")
 			'ediff-copy-ancestor-to-C)
 	    (define-key ediff-mode-map (kbd "\\")
