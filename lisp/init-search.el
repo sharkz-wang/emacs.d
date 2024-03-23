@@ -68,6 +68,6 @@ _b_: all buffers                    _m_: teleport               _j_: dumb-jump
 (evil-define-minor-mode-key 'normal 'dired-mode-map
   (kbd "SPC s") 'hydra-search-menu/body)
 
-(advice-add 'dumb-jump-go :before #'push-current-mark)
+(evil-add-command-properties #'dumb-jump-go :jump t)
 
 (provide 'init-search)

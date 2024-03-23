@@ -97,6 +97,11 @@
 (evil-define-key 'normal helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump)
 (evil-define-key 'normal helm-ag-mode-map (kbd "q") 'quit-window)
 
+(evil-add-command-properties #'helm-ag-mode-jump :jump t)
+(evil-add-command-properties #'helm-maybe-exit-minibuffer :jump t)
+(evil-add-command-properties #'helm-ff-RET :jump t)
+(evil-add-command-properties #'magit-diff-visit-file :jump t)
+
 (add-hook 'helm-ag-mode-hook
 	  (lambda ()
 	    (interactive)

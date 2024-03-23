@@ -163,4 +163,8 @@ _._:  diff hightlight menu
 (evil-define-minor-mode-key 'normal 'dired-mode-map
   (kbd "SPC g") 'hydra-magit-menu/body)
 
+
+(evil-add-command-properties #'diff-hl-next-hunk :jump t)
+(evil-add-command-properties #'diff-hl-previous-hunk :jump t)
+
 (provide 'init-magit)
