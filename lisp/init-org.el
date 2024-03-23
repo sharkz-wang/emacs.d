@@ -312,6 +312,7 @@
       )
 
   (evil-define-key 'normal org-mode-map
+    "q"  'quit-window
     "gk" 'org-back-to-heading-or-backward-heading-same-level
     "gj" 'org-forward-heading-same-level
     "gh" 'outline-up-heading
