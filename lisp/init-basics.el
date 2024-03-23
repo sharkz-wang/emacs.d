@@ -18,6 +18,10 @@
 ;; no blinking cursor
 (blink-cursor-mode -1)
 
+(require-package 'centered-cursor-mode)
+;; make cursor stay at center even at tail boundary
+(global-centered-cursor-mode 1)
+
 ;; force cursor not to jump to center when acrossing screen bounaries
 (setq scroll-margin 1
       scroll-conservatively 0
@@ -38,16 +42,12 @@
 (require-package 'which-key)
 (which-key-mode)
 
-(require-package 'centered-cursor-mode)
-
 ;; common handler setting things in order in all major modes
 (defun init-all-major-mode-hdlr ()
     ;; enable truncate-lines-mode (no line wrapping) by default
     (--enable-truncate-lines)
     ;; treat underline as part of a word
     (modify-syntax-entry ?_ "w")
-    (centered-cursor-mode 1)
-    ;; make cursor stay at center even at tail boundary
     (setq ccm-recenter-at-end-of-file t)
 )
 (add-hook 'after-change-major-mode-hook 'init-all-major-mode-hdlr)
