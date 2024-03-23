@@ -76,14 +76,18 @@
 
   (apply func args)
 
-  (ediff-with-current-buffer ediff-buffer-A
-    (setq mode-line-format orig-mode-line-format))
-  (ediff-with-current-buffer ediff-buffer-B
-    (setq mode-line-format orig-mode-line-format))
-  (ediff-with-current-buffer ediff-buffer-C
-    (setq mode-line-format orig-mode-line-format))
-  (ediff-with-current-buffer ediff-ancestor-buffer
-    (setq mode-line-format orig-mode-line-format))
+  (when (bufferp ediff-buffer-A)
+      (ediff-with-current-buffer ediff-buffer-A
+	(setq mode-line-format orig-mode-line-format)))
+  (when (bufferp ediff-buffer-B)
+      (ediff-with-current-buffer ediff-buffer-B
+	(setq mode-line-format orig-mode-line-format)))
+  (when (bufferp ediff-buffer-C)
+      (ediff-with-current-buffer ediff-buffer-C
+	(setq mode-line-format orig-mode-line-format)))
+  (when (bufferp ediff-ancestor-buffer)
+      (ediff-with-current-buffer ediff-ancestor-buffer
+	(setq mode-line-format orig-mode-line-format)))
   )
 
 (advice-add 'ediff-refresh-mode-lines :around
