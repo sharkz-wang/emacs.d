@@ -57,8 +57,8 @@
 (define-key helm-map (kbd "C-o") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-u") 'kill-whole-line)
 
-(define-key helm-map (kbd "M-P") 'helm-goto-line-ow-forward)
-(define-key helm-map (kbd "M-N") 'helm-goto-line-ow-backward)
+(define-key helm-map (kbd "M-N") 'helm-goto-line-ow-forward)
+(define-key helm-map (kbd "M-P") 'helm-goto-line-ow-backward)
 
 (define-key helm-map (kbd "C-c C-c") 'helm-select-action)
 (define-key helm-map (kbd "C-c h d k") 'describe-key-and-switch-to-window)
