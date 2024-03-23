@@ -11,7 +11,7 @@ _a_: register project   _f_: current project               _o_: other file    _x
 _k_: remove project     _d_: dwim current project                             _/_: keyword
 _s_: project buffers    _b_: project buffer
 ^^                      _p_: switch to open project
-^^                      _P_: other projects
+^^                      _l_: other projects
 ^^                      _r_: recent files
 ^^                      _m_: project in teleport
 ^^                      _TAB_: buffer in prev project
@@ -23,12 +23,12 @@ _s_: project buffers    _b_: project buffer
   ("k" projectile-remove-known-project)
   ("s" projectile-save-project-buffers)
   ;; browse ...
-  ("f" projectile-find-file)
+  ("f" helm-projectile-find-file)
   ("d" projectile-find-file-dwim)
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
   ("p" --switch-to-open-project-buffer)
-  ("P" projectile-switch-project)
+  ("l" projectile-switch-project)
   ("r" helm-projectile-recentf)
   ("m" (teleport-invoke 'search-file-in-project))
   ("TAB" projectile-switch-to-prev-project)
