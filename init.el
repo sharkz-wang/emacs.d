@@ -46,6 +46,7 @@
 (require 'init-compile)
 (require 'init-ediff)
 ;; advanced settings for my core modes
+(require 'init-gtags)
 (require 'init-c)
 (require 'init-python)
 ;; some other settings

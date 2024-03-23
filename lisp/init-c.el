@@ -26,14 +26,10 @@ int main (void) {
 (defun init-cc-handler ()
 
   (require 'init-company)
-  (require 'init-gtags)
   (require 'init-semantic)
-
 
   (c-set-style "linux")
   (custom-set-variables '(c-basic-offset '8))
-
-  (helm-gtags-mode 1)
 
   (setq insert-print 'c-insert-print)
   (setq insert-for-loop 'c-insert-for-loop)
