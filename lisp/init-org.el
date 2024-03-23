@@ -373,7 +373,8 @@
 
 (add-hook 'org-mode-hook
 	  (lambda ()
-	    (text-scale-decrease 1)
+	    (when (display-graphic-p)
+		(text-scale-decrease 1))
 	    (company-mode -1)))
 
 (add-hook 'org-agenda-mode-hook
