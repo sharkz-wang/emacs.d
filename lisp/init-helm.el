@@ -36,6 +36,7 @@
 (evil-leader/set-key
   "bb" 'helm-buffers-list
   "rl" 'helm-resume
+  "rL" '--helm-resume-select
   "ry" '--helm-show-kill-ring-short
   "rY" '--helm-show-kill-ring-long
   "rP" '--helm-show-kill-ring-short

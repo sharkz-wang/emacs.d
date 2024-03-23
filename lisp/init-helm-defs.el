@@ -10,6 +10,12 @@
     (customize-set-variable 'helm-kill-ring-max-offset 400)
     (helm-show-kill-ring))
 
+(defun --helm-resume-select ()
+  (interactive)
+  (let ((current-prefix-arg 4))
+    (call-interactively 'helm-resume)
+    ))
+
 ;; a `helm-imenu' variation that won't take `thing-at-point' as default input
 (defun helm-imenu-no-default ()
   (interactive)
@@ -48,16 +54,19 @@
   (setq helm-autoresize-min-height curr-helm-min-height)
   (helm-refresh))
 
+(setq --helm-minibuffer-content "")
 (defun --helm-save-search-session ()
   (interactive)
-  (let* ((buf-name (helm-buffer-get))
-	 (new-buf-name (helm-buffers-rename-buffer buf-name)))
-    (setq helm-buffers (append helm-buffers (list new-buf-name)))
+  (let ((new-buf-name (format "%s: %s"
+			      (s-replace "*" "" (helm-buffer-get))
+			      --helm-minibuffer-content)))
+    (add-to-list 'helm-buffers (list new-buf-name))
     )
   )
 
 (defun helm-save-search-session ()
   (interactive)
+  (setq --helm-minibuffer-content (minibuffer-contents-no-properties))
   (helm-run-after-quit '--helm-save-search-session)
   )
 
