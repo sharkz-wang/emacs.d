@@ -10,6 +10,10 @@
 
 (evil-mode t)
 
+;; don't including newline when hitting $ in visual-mode, which is
+;; fucking annoying
+(setq evil-v$-excludes-newline t)
+
 ;; made `diw' not to delete newlines
 (evil-define-text-object evil-inner-word (count &optional beg end type)
   "Select inner word."
