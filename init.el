@@ -58,6 +58,8 @@
 (require 'init-external-share-menu)
 (require 'init-centaur-tabs)
 (require 'init-misc)
+;; some advance language features
+;; (require 'init-python-advanced)
 
 (require 'cust-vars)
 
