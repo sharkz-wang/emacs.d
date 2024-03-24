@@ -29,7 +29,7 @@
     '(org-refile-targets '((org-agenda-files :maxlevel . 5)))
     '(org-capture-templates
       `(
-	("z" "Quick event"
+	("a" "Quick event"
 	 entry
 	 (file+headline ,(concat (file-name-as-directory org-agenda-dir)
 				 "quick.org")
