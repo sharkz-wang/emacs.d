@@ -194,4 +194,8 @@
   (bookmark-save))
 (advice-add 'bookmark-set :after #'auto-save-bookmarks)
 
+;; TODO: move it to init-teleport.el
+(define-key teleport-map "d"
+	    (lambda () (interactive) (teleport-do-action "~/documents")))
+
 (provide 'staging)
