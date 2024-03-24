@@ -94,6 +94,17 @@
  t)
 (define-key helm-find-files-map (kbd "C-c g") '--do-helm-open-magit-here)
 
+(let ((kmap (alist-get 'keymap helm-source-projectile-files-list))
+      (action-list (alist-get 'action helm-source-projectile-files-list)))
+  ;; XXX: value of 'action in alist `helm-source-projectile-files-list'
+  ;;      was bound upon init, need to dig it out, append, and insert
+  ;;      back to alist
+  (setf (alist-get 'action helm-source-projectile-files-list)
+	(add-to-list
+	 'action-list
+	 (cons "Open magit here" '--helm-open-magit-here) t))
+  (define-key kmap (kbd "C-c g") '--do-helm-open-magit-here))
+
 (evil-define-key 'normal helm-ag-mode-map (kbd "RET") 'helm-ag-mode-jump)
 (evil-define-key 'normal helm-ag-mode-map (kbd "q") 'quit-window)
 
