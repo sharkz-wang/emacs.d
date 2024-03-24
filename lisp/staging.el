@@ -198,4 +198,9 @@
 (define-key teleport-map "d"
 	    (lambda () (interactive) (teleport-do-action "~/documents")))
 
+(custom-set-faces
+ '(magit-diff-revision-summary-highlight ((t :foreground "#FFFFFF"))))
+(custom-set-faces
+ '(magit-diff-revision-summary ((t :foreground "#FFFFFF"))))
+
 (provide 'staging)
