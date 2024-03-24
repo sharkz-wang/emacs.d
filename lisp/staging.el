@@ -203,4 +203,15 @@
 (custom-set-faces
  '(magit-diff-revision-summary ((t :foreground "#FFFFFF"))))
 
+
+(defun --display-staged-file-history ()
+  (interactive)
+  (split-window-right)
+  (magit-log-head (append '("--decorate" "-n20" "--")
+			  (magit-staged-files)))
+  (other-window 1))
+
+;; display auxilary commit history for staged files
+(advice-add 'magit-commit-diff :after '--display-staged-file-history)
+
 (provide 'staging)
