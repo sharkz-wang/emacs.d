@@ -26,15 +26,14 @@ _j_: next          _d_: diff        _r_: revert
   "
 ^VCS...^                        ^Magit...^              ^Quick...^
 ----------------------------------------------------------------------
-_s_:  brief status              _l_: log head           _S_: stash all
-_a_:  full status               _d_: diff unstaged
-_g_:  magit menu                _D_: diff staged
-_b_:  git blame                 _r_: rebase
-_fu_: diff current file         _R_: reflog
-_fh_: current file's history
-_t_:  git timemachine
-_$_:  magit-process-buffer
-_._:  diff hightlight menu
+_s_: brief status              _l_: log head           _S_: stash all
+_a_: full status               _d_: diff unstaged
+_g_: magit menu                _D_: diff staged
+_b_: git blame                 _r_: rebase
+_f_: file dispatch             _R_: reflog
+_t_: git timemachine
+_$_: magit-process-buffer
+_._: diff hightlight menu
 "
   ;; vcs ...
   ("s" magit-status-simplified)
@@ -42,8 +41,7 @@ _._:  diff hightlight menu
   ("g" magit-dispatch)
   ("c" magit-quick-stash-all)
   ("b" magit-blame)
-  ("fh" magit-log-buffer-file)
-  ("fu" magit-diff-buffer-file)
+  ("f" magit-file-dispatch)
   ("t" git-timemachine)
   ("$" magit-process-buffer)
   ("p" magit-open-known-project)
