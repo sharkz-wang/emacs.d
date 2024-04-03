@@ -138,8 +138,8 @@
   "x"   'helm-M-x
   "TAB" 'switch-to-last-buffer
   "`"   'switch-to-buffer-before-last-buffer
-  "qq"  'save-buffers-kill-terminal
   )
+(define-key evil-normal-state-map (kbd "SPC q q") 'save-buffers-kill-terminal)
 (define-key evil-normal-state-map (kbd "SPC TAB") 'switch-to-last-buffer)
 
 (require 'init-files)
