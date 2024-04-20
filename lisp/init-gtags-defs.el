@@ -44,4 +44,22 @@
       (error "Failed: 'gtags -q %s'" label-opt)))
   )
 
+;; modified and overridden from `helm-gtags--find-tag-simple' in
+;; helm-gtags/helm-gtags.el
+(defun helm-gtags--find-tag-simple ()
+  "Not documented."
+  (or (getenv "GTAGSROOT")
+      (locate-dominating-file default-directory "GTAGS")
+      (if (not (yes-or-no-p "File GTAGS not found. Run 'gtags'? "))
+	  (user-error "Abort")
+	(let* ((tagroot (read-directory-name
+			 "Root Directory: " (projectile-project-root)))
+	       (label (helm-gtags--read-gtagslabel))
+	       (default-directory tagroot))
+	  (message "gtags is generating tags....")
+	  (let ((label-opt (helm-gtags--label-option label)))
+	    (unless (zerop (process-file "gtags" nil nil nil "-q" label-opt))
+	      (error "Failed: 'gtags -q %s'" label-opt)))
+	  tagroot))))
+
 (provide 'init-gtags-defs)
