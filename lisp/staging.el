@@ -190,6 +190,11 @@
 (evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w j") 'evil-window-down)
 (evil-define-minor-mode-key 'normal 'ediff-mode-map (kbd "SPC w k") 'evil-window-up)
 
+(evil-define-minor-mode-key 'normal 'magit-mode-map (kbd "SPC w h") 'evil-window-left)
+(evil-define-minor-mode-key 'normal 'magit-mode-map (kbd "SPC w l") 'evil-window-right)
+(evil-define-minor-mode-key 'normal 'magit-mode-map (kbd "SPC w j") 'evil-window-down)
+(evil-define-minor-mode-key 'normal 'magit-mode-map (kbd "SPC w k") 'evil-window-up)
+
 (defun auto-save-bookmarks (&rest r)
   (bookmark-save))
 (advice-add 'bookmark-set :after #'auto-save-bookmarks)
