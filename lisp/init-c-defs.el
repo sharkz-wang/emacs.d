@@ -6,6 +6,16 @@
   (interactive)
     (expand-yasnippet-from-keyword "for"))
 
+(defun c-insert-todo-comment ()
+  (interactive)
+  (expand-yasnippet-from-keyword "todo"))
+(defun c-insert-fixme-comment ()
+  (interactive)
+  (expand-yasnippet-from-keyword "fixme"))
+(defun c-insert-xxx-comment ()
+  (interactive)
+  (expand-yasnippet-from-keyword "xxx"))
+
 ;; auto indenting and pairing curly brace
 (defun c-mode-insert-lcurly ()
   (interactive)
@@ -63,3 +73,5 @@
 			      :candidates '(change-c-style
 					    change-c-offset
 					    toggle-indent-tabs-mode))))))))
+
+(provide 'init-c-defs)
