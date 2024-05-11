@@ -219,4 +219,13 @@
 ;; display auxilary commit history for staged files
 (advice-add 'magit-commit-diff :after '--display-staged-file-history)
 
+(defun --postprocess-doom-modeline-buffer-name (s)
+  (cond
+   ((string-prefix-p (expand-file-name "~") (buffer-file-name))
+    (concat "home:  " s))
+   (t s)))
+
+(advice-add 'doom-modeline--buffer-file-name
+	    :filter-return '--postprocess-doom-modeline-buffer-name)
+
 (provide 'staging)
