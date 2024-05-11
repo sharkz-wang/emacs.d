@@ -7,13 +7,13 @@
   "
 ^Agenda...^        ^Capture...^       ^Image^         ^Open...^
 ^^^^^^^^---------------------------------------------------------------------------
-_a_: agenda        _c_: cauture       _z_: resize     _TAB_: inbox sidebar
-^^^^^^                                                _oo_: inbox
-^^^^^^                                                _oq_: quick events
-^^^^                                                  _oc_: cheatsheet
+_q_: agenda        _c_: cauture       _z_: resize     _TAB_: inbox sidebar
+^^^^^^                                                _a_: quick events
+^^^^^^                                                _i_: inbox
+^^^^^^                                                _oc_: cheatsheet
 "
   ;; agenda ...
-  ("a" org-agenda)
+  ("q" org-agenda)
 
   ;; capture ...
   ("c" org-capture-force-horizontal)
@@ -23,8 +23,8 @@ _a_: agenda        _c_: cauture       _z_: resize     _TAB_: inbox sidebar
 
   ;; open ...
   ("TAB" (org-sidebar-tree-toggle-buffer))
-  ("oo" (find-file (concat (file-name-as-directory org-agenda-dir) "inbox.org")))
-  ("oq" (find-file (concat (file-name-as-directory org-agenda-dir) "quick.org")))
+  ("a" (find-file (concat (file-name-as-directory org-agenda-dir) "quick.org")))
+  ("i" (find-file (concat (file-name-as-directory org-agenda-dir) "inbox.org")))
   ("oc" (find-file (concat (file-name-as-directory org-directory) "cheatsheet.org")))
   )
 
