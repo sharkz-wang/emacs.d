@@ -23,6 +23,8 @@
 (helm-make-command-from-action helm-bookmark-run-rename
   "Rename bookmark" 'helm-bookmark-rename)
 
+(define-key teleport-map "D"
+	    (lambda () (interactive) (teleport-do-action "~/.dotfiles")))
 (define-key teleport-map "e"
 	    (lambda () (interactive) (teleport-do-action "~/.emacs.d/init.el")))
 (define-key teleport-map "l"
