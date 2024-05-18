@@ -145,6 +145,10 @@
 (require-package 'centered-window)
 (centered-window-mode)
 
+;; kills the annoying flicker after you exiting helm and
+;; cebtered-window-mode tries to recenter your screen
+(add-hook 'window-configuration-change-hook 'recenter)
+
 (global-whitespace-mode t)
 
 (eval-after-load 'whitespace
