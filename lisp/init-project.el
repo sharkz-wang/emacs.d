@@ -28,9 +28,10 @@ _s_: project buffers    _b_: project buffer
   ("b" projectile-switch-to-buffer)
   ("D" projectile-find-dir)
   ("p" --switch-to-open-project-buffer)
-  ("l" projectile-switch-project)
+  ("l" --switch-to-open-project-buffer)
+  ("L" projectile-switch-project)
   ("r" helm-projectile-recentf)
-  ("m" (teleport-invoke 'search-file-in-project))
+  ("m" (teleport-invoke 'projectile-switch-to-portal))
   ("TAB" projectile-switch-to-prev-project)
   ("`" projectile-switch-to-prev-prev-project)
   ;; search ...
@@ -68,6 +69,17 @@ _s_: project buffers    _b_: project buffer
           (car (projectile-relevant-open-projects))
           )))
    )
+  )
+
+(defun projectile-switch-to-portal (dir)
+  (interactive)
+  (let ((target-buffer
+	 (car (projectile-project-buffers
+	       (projectile-project-root dir)))))
+    (if target-buffer
+	(switch-to-buffer target-buffer)
+      (projectile-switch-project-by-name (projectile-project-root dir))
+      ))
   )
 
 (defun projectile-switch-to-prev-prev-project ()
