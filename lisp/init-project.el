@@ -78,7 +78,11 @@ _s_: project buffers    _b_: project buffer
 	       (projectile-project-root dir)))))
     (if target-buffer
 	(switch-to-buffer target-buffer)
-      (projectile-switch-project-by-name (projectile-project-root dir))
+      (cl-letf ((repo-root (projectile-project-root dir))
+		((symbol-function 'projectile-project-root)
+		 #'(lambda (&optional ARG) repo-root)))
+	(helm-projectile-recentf))
+
       ))
   )
 
