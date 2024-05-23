@@ -126,6 +126,20 @@ _p_: previous revision     _b_: blame
     (projectile-switch-open-project)
     ))
 
+(defun --filter-magit-buffers (buf-list)
+  (seq-filter
+   (lambda (buf-name)
+     (with-current-buffer buf-name
+       ;; exclude buffer names start with magit ...
+       (not (string-match "^magit.*" (format "%s" major-mode)))))
+   buf-list))
+
+;; exclude annoying magit buffers when retrieving projectile buffers,
+;; e.g., `helm-projectile-switch-to-buffer'
+(advice-add #'projectile-project-buffer-names
+	    :filter-return '--filter-magit-buffers)
+
+
 (evil-global-set-key 'normal (kbd "SPC p") 'hydra-project-menu/body)
 (evil-define-minor-mode-key 'normal 'dired-mode-map
   (kbd "SPC p") 'hydra-project-menu/body)
