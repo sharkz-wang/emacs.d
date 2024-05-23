@@ -228,4 +228,19 @@
 (advice-add 'doom-modeline--buffer-file-name
 	    :filter-return '--postprocess-doom-modeline-buffer-name)
 
+;; XXX: dirty way to force `helm-do-ag-buffers' to be limited to
+;;      opened buffers in current project
+(defun helm-ag--file-visited-buffers ()
+  "Not documented."
+  (let ((bufs (cl-loop for buf in
+		       (mapcar (lambda (bname) (get-buffer bname))
+			       (projectile-project-buffer-names))
+		       when (buffer-file-name buf)
+		       collect it)))
+    (if (not helm-ag-ignore-buffer-patterns)
+	bufs
+      (cl-loop for buf in bufs
+	       when (helm-ag--search-buffer-p buf)
+	       collect buf))))
+
 (provide 'staging)
