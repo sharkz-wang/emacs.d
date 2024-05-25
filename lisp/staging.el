@@ -243,4 +243,13 @@
 	       when (helm-ag--search-buffer-p buf)
 	       collect buf))))
 
+(defun --restore-pos-after-evil-cmd (func &rest r)
+  (let ((prev-pos (point)))
+    (apply func r) (goto-char prev-pos))
+  )
+
+(advice-add 'evil-yank :around '--restore-pos-after-evil-cmd)
+(advice-add 'evil-indent :around '--restore-pos-after-evil-cmd)
+(advice-add 'evil-visual-char :around '--restore-pos-after-evil-cmd)
+
 (provide 'staging)
