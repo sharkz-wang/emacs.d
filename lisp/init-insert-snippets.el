@@ -52,7 +52,7 @@ _y_: copy and comment line(s)
 
 (yas-global-mode 1)
 ;; enter `evil-insert-state' right after snippets are inserted
-(advice-add 'helm-yas-complete :after #'evil-insert-state)
+(advice-add 'helm-yas-complete :around #'--evil-insert-state-after-yas-complete)
 
 ;; insert snippets by generic semantics
 (setq-default insert-for-loop 'nil)

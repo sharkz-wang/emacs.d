@@ -45,4 +45,11 @@
     )
 )
 
+(defun --evil-insert-state-after-yas-complete (func &rest r)
+  ;; don't do anything if `helm-yas-complete' was aborted by C-g
+  (when (apply func r)
+    (evil-insert-state)
+    )
+  )
+
 (provide 'init-insert-snippets-defs)
