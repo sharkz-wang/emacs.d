@@ -8,6 +8,7 @@
   ;; setup major-mode interface functions
   (setq insert-for-loop 'python-insert-for-loop)
   (setq insert-print 'python-insert-print)
+  (setq insert-debug 'python-insert-debug)
 
   (setq insert-todo-comment 'python-insert-ptyhon-todo-comment)
   (setq insert-fixme-comment 'python-insert-ptyhon-fixme-comment)

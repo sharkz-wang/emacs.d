@@ -10,12 +10,13 @@
 _i_: from menu       _c_: comments...  _a_: append     _r_: replace
 _f_: for-loop        _t_: TODO         _s_: select
 _p_: print           _F_: FIXME
-^ ^                  _X_: XXX
+_d_: debug           _X_: XXX
 "
   ("i" helm-yas-complete)
 
   ("f" (funcall insert-for-loop))
   ("p" (funcall insert-print))
+  ("d" (funcall insert-debug))
 
   ("c" comment-menu/body)
   ("t" (funcall insert-todo-comment))
@@ -59,6 +60,8 @@ _y_: copy and comment line(s)
 (make-variable-buffer-local 'insert-for-loop)
 (setq-default insert-print 'nil)
 (make-variable-buffer-local 'insert-print)
+(setq-default insert-debug 'nil)
+(make-variable-buffer-local 'insert-debug)
 
 ;; insert common comments
 (setq-default insert-todo-comment 'nil)

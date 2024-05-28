@@ -2,6 +2,10 @@
   (interactive)
     (expand-yasnippet-from-keyword "printf"))
 
+(defun c-insert-debug ()
+  (interactive)
+    (expand-yasnippet-from-keyword "debug"))
+
 (defun c-insert-for-loop ()
   (interactive)
     (expand-yasnippet-from-keyword "for"))

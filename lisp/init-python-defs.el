@@ -27,6 +27,10 @@
   (interactive)
     (expand-yasnippet-from-keyword "print"))
 
+(defun python-insert-debug ()
+  (interactive)
+    (expand-yasnippet-from-keyword "debug"))
+
 (defun python-insert-ptyhon-todo-comment ()
   (interactive) (python-insert-reminder-comment "TODO"))
 

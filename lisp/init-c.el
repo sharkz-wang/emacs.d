@@ -33,6 +33,7 @@ int main (void) {
   (custom-set-variables '(c-basic-offset '8))
 
   (setq insert-print         'c-insert-print)
+  (setq insert-debug         'c-insert-debug)
   (setq insert-for-loop      'c-insert-for-loop)
   (setq insert-todo-comment  'c-insert-todo-comment)
   (setq insert-fixme-comment 'c-insert-fixme-comment)
