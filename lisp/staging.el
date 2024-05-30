@@ -252,4 +252,25 @@
 (advice-add 'evil-indent :around '--restore-pos-after-evil-cmd)
 (advice-add 'evil-visual-char :around '--restore-pos-after-evil-cmd)
 
+;; TODO: FIXME: ugly global variable
+(setq restore-cursor-pos nil)
+
+(defun --restore-cursor-settings ()
+  (interactive)
+  ;; TODO: FIXME: not considering original mode state
+  (global-centered-cursor-mode 1)
+  (goto-char restore-cursor-pos)
+  (define-key evil-normal-state-map "q" 'evil-record-macro)
+  )
+
+(defun --start-virtual-cursor ()
+  (interactive)
+  (global-centered-cursor-mode 0)
+  (setq restore-cursor-pos (point))
+  (evil-avy-goto-char)
+  (define-key evil-normal-state-map "q" '--restore-cursor-settings)
+  )
+
+(define-key evil-normal-state-map (kbd "SPC j") '--start-virtual-cursor)
+
 (provide 'staging)
