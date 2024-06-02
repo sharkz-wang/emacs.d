@@ -271,9 +271,9 @@
 
 (defun --start-virtual-cursor ()
   (interactive)
+  (setq restore-cursor-pos (point))
   (evil-avy-goto-char)
   (global-centered-cursor-mode 0)
-  (setq restore-cursor-pos (point))
   (pulse-momentary-highlight-one-line (point))
   (set-face-attribute 'hl-line nil :background "#4D4C4D")
   (define-key evil-normal-state-map "q" '--restore-cursor-settings)
