@@ -260,14 +260,18 @@
   ;; TODO: FIXME: not considering original mode state
   (global-centered-cursor-mode 1)
   (goto-char restore-cursor-pos)
+  (set-face-attribute 'hl-line nil :background "#000000")
+  (pulse-momentary-highlight-one-line (point))
   (define-key evil-normal-state-map "q" 'evil-record-macro)
   )
 
 (defun --start-virtual-cursor ()
   (interactive)
+  (evil-avy-goto-char)
   (global-centered-cursor-mode 0)
   (setq restore-cursor-pos (point))
-  (evil-avy-goto-char)
+  (pulse-momentary-highlight-one-line (point))
+  (set-face-attribute 'hl-line nil :background "#4D4C4D")
   (define-key evil-normal-state-map "q" '--restore-cursor-settings)
   )
 
