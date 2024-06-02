@@ -9,7 +9,7 @@
                    (format "Value for for register ?%c: " reg)
 		   (--matched-register seq reg))))
         (set seq
-             (delete-if (lambda (x) (equal (car x) "c")) (symbol-value seq)))
+             (cl-remove-if (lambda (x) (equal (car x) "c")) (symbol-value seq)))
         (add-to-list seq
                      (cons reg val))
 	val
