@@ -20,6 +20,21 @@
   (interactive)
   (expand-yasnippet-from-keyword "xxx"))
 
+(defun c-insert-new-arg ()
+  (interactive)
+  (search-forward ")")
+  (left-char)
+  (insert ", ")
+  (evil-insert-state))
+
+(defun c-avy-insert-new-arg ()
+  (interactive)
+  (avy-goto-char-in-line ?,)
+  (right-char)
+  (insert " ,")
+  (left-char)
+  (evil-insert-state))
+
 ;; auto indenting and pairing curly brace
 (defun c-mode-insert-lcurly ()
   (interactive)

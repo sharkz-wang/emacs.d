@@ -39,6 +39,9 @@ int main (void) {
   (setq insert-todo-comment  'c-insert-todo-comment)
   (setq insert-fixme-comment 'c-insert-fixme-comment)
   (setq insert-xxx-comment   'c-insert-xxx-comment)
+
+  (setq append-argument 'c-insert-new-arg)
+  (setq insert-argument-select 'c-avy-insert-new-arg)
  
   (define-key evil-normal-state-map (kbd "SPC d c") 'call-graph)
   
