@@ -116,6 +116,7 @@
   "br" 'rename-buffer
   "bs" (lambda () (interactive) (switch-to-buffer "*scratch*"))
   "bq" 'bury-buffer
+  "DEL" 'bury-buffer
   )
 
 (evil-leader/set-key
