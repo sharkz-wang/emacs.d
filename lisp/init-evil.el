@@ -49,6 +49,9 @@
 (require-package 'evil-surround)
 (global-evil-surround-mode t)
 
+(evil-define-key 'operator evil-surround-mode-map "S" 'evil-surround-edit)
+(evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+
 (require-package 'evil-snipe)
 ;; turn off annoying highlight when matches found
 (setq evil-snipe-enable-highlight nil)
