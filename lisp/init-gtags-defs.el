@@ -46,7 +46,7 @@
 
 ;; modified and overridden from `helm-gtags--find-tag-simple' in
 ;; helm-gtags/helm-gtags.el
-(defun helm-gtags--find-tag-simple ()
+(defun --helm-gtags--find-tag-simple-force-project-root ()
   "Not documented."
   (or (getenv "GTAGSROOT")
       (locate-dominating-file default-directory "GTAGS")

@@ -41,4 +41,8 @@
 (evil-add-command-properties #'helm-gtags-dwim-new-horizontal-split :jump t)
 (evil-add-command-properties #'helm-gtags-dwim-new-vertical-split :jump t)
 
+(advice-add 'helm-gtags--find-tag-simple
+	    :override
+	    #'--helm-gtags--find-tag-simple-force-project-root)
+
 (provide 'init-gtags)
