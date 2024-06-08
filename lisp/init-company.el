@@ -59,7 +59,7 @@
 (setq company-transformers '(company-sort-by-occurrence))
 ;; when use `company-sort-by-occurrence', sort according
 ;; candidate's relative distance to cursor's position
-(setq company-occurrence-weight-function #'company-occurrence-prefer-any-closest)
+(setq company-occurrence-weight-function #'company-occurrence-prefer-closest-above)
 
 ;; company-fuzzy part
 ;; note: company-flx does not support dabbrev now
