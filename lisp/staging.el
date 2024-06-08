@@ -294,4 +294,8 @@
 (set-face-attribute 'show-paren-match nil
 		    :background monokai-orange :foreground monokai-foreground)
 
+(advice-add 'make-frame :after
+	#'(lambda (&rest args) (interactive)
+	    (pulse-momentary-highlight-one-line (point))))
+
 (provide 'staging)
