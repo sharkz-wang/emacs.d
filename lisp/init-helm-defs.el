@@ -108,4 +108,11 @@
 (helm-make-command-from-action --do-helm-projectile-find-file-here
   "Not documented." '--helm-projectile-find-file-here)
 
+(defun --projectile-find-files-ag (candidate)
+  (helm-do-ag (file-name-parent-directory candidate)))
+
+(helm-make-command-from-action helm-projectile-ff-run-grep-ag
+    "Run grep AG action from `helm-source-find-files'."
+  '--projectile-find-files-ag)
+
 (provide 'init-helm-defs)
