@@ -290,4 +290,8 @@
 
 (define-key evil-normal-state-map (kbd "SPC j") '--start-virtual-cursor)
 
+(set-face-attribute 'region nil :background monokai-gray)
+(set-face-attribute 'show-paren-match nil
+		    :background monokai-orange :foreground monokai-foreground)
+
 (provide 'staging)
