@@ -38,6 +38,8 @@ _s_: current buffer  _f_: current dir            _d_: current dir
 
 ;; it's annoying that unmounted directory get removed
 (setq recentf-auto-cleanup 'never)
+(add-hook 'find-file-hook (lambda () (recentf-save-list)))
+
 (recentf-mode 1)
 
 (defun yank-buffer-file-name ()
