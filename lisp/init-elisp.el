@@ -21,9 +21,9 @@ _eb_: buffer
   ("q" nil "cancel" :color blue)
   )
 
-(evil-define-key 'normal emacs-lisp-mode-map (kbd ",") 'emacs-lisp-main-mode-menu/body)
-(evil-define-key 'visual emacs-lisp-mode-map (kbd ",") 'emacs-lisp-main-mode-menu/body)
-(global-set-key (kbd "C-c ,") 'emacs-lisp-main-mode-menu/body)
+(evil-define-key 'normal emacs-lisp-mode-map (kbd "\\") 'emacs-lisp-main-mode-menu/body)
+(evil-define-key 'visual emacs-lisp-mode-map (kbd "\\") 'emacs-lisp-main-mode-menu/body)
+(global-set-key (kbd "C-c \\") 'emacs-lisp-main-mode-menu/body)
 
 (evil-global-set-key 'normal (kbd "SPC t D") 'toggle-debug-on-error)
 
