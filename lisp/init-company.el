@@ -61,6 +61,21 @@
 ;; candidate's relative distance to cursor's position
 (setq company-occurrence-weight-function #'company-occurrence-prefer-closest-above)
 
+;; force dabbrev-code to match substring completion
+;;;; check `completion-styles-alist' for all completion styles
+;;;; NOTE: partial-completion is NOT substring
+(customize-set-variable 'company-dabbrev-code-completion-styles '(flex))
+(customize-set-variable 'completion-styles '(flex))
+
+;;;; dabbrev-code have a built-in prefix-matching mindset
+;;;;
+;;;; XXX: hacky way to override dabbrev-code's internal api and force
+;;;;      it to pass all candidate to `company-fuzzy-mode'
+(defun company-dabbrev-code--make-regexp (prefix)
+  "\\_<\\([a-zA-Z]\\|\\s_\\)\\(\\sw\\|\\s_\\)*\\_>")
+;; end forcing substring completion
+
+;; TODO: company-dabbrev-code-other-buffers
 ;; company-fuzzy part
 ;; note: company-flx does not support dabbrev now
 (global-company-fuzzy-mode 1)
