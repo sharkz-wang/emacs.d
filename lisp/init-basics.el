@@ -125,6 +125,8 @@
   "er" 'eval-region
   )
 
+(advice-add 'eval-region :after #'(lambda (&rest args) (deactivate-mark)))
+
 (defun switch-to-buffer-before-last-buffer ()
   (interactive)
   (switch-to-buffer
