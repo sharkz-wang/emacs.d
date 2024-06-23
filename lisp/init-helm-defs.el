@@ -93,8 +93,7 @@
   )
 
 (defun --helm-open-magit-here (candidate)
-  (magit-status-simplified-on-path
-   (file-name-parent-directory candidate)))
+  (magit-status-simplified-on-path candidate))
 
 (helm-make-command-from-action --do-helm-open-magit-here
   "Not documented." '--helm-open-magit-here)
