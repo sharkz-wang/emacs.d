@@ -298,4 +298,6 @@
 	#'(lambda (&rest args) (interactive)
 	    (pulse-momentary-highlight-one-line (point))))
 
+(server-start)
+
 (provide 'staging)
