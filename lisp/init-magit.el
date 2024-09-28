@@ -155,6 +155,9 @@ _._: diff hightlight menu
   magit-status-mode-map (kbd "'") 'evil-goto-global-mark-line)
 
 (evil-define-key 'normal
+  magit-status-mode-map (kbd "s") 'magit-stage)
+
+(evil-define-key 'normal
   magit-mode-map (kbd "SPC m r") 'magit-diff-toggle-refine-hunk)
 
 (evil-global-set-key 'normal (kbd "SPC g") 'hydra-magit-menu/body)
