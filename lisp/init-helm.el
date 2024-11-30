@@ -146,4 +146,10 @@
      (define-key helm-ag-map (kbd "C-c y") '--helm-ag-copy-line)
      ))
 
+
+(define-key helm-occur-map (kbd "C-c y") '--helm-occur-copy-line)
+(add-to-list
+      'helm-occur-actions (cons "Yank line" '--do-helm-occur-copy-line)
+      t)
+
 (provide 'init-helm)

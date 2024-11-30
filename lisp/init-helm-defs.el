@@ -75,6 +75,19 @@
   (helm-next-line)
   (helm-execute-persistent-action))
 
+(defun --do-helm-occur-copy-line (candidate)
+  ;; candidate format: line number (e.g., 151)
+  (save-excursion
+    (goto-line candidate)
+    (copy-region-as-kill (line-beginning-position) (line-end-position))) 
+  )
+
+(defun --helm-occur-copy-line ()
+  (interactive)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action #'--do-helm-occur-copy-line))
+  )
+
 (defun helm-goto-line-ow-backward ()
   (interactive)
   (helm-previous-line)
