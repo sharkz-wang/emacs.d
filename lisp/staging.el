@@ -298,6 +298,10 @@
 	#'(lambda (&rest args) (interactive)
 	    (pulse-momentary-highlight-one-line (point))))
 
+(require-package 'smartparens)
+(smartparens-mode 1)
+(smartparens-strict-mode 1)
+
 (defun hint-by-fill-column-indicator (&rest r)
   (interactive)
   (let* (face (face-foreground 'fill-column-indicator)
