@@ -2,6 +2,11 @@
 (add-to-list 'load-path (expand-file-name "packages" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
+;; TODO: BROKEN: (kbd "s") in visual state in magit-status-mode
+;; TODO: exclude newline when executing `viw'
+;; TODO: yasnippet for print statement in c, but with line number
+;; TODO: visual hint when there's multiple frames
+;; TODO: where to put custom yasnippets?
 ;; TODO: a modern custvar management system
 ;; TODO: show current files history when committing code in magit
 ;; TODO: company-mode support for elisp
