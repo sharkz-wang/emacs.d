@@ -1,0 +1,4 @@
+# key: debug
+# name: debug
+# --
+fprintf(stderr, "debug-1.0: %${1:d}\n", ${2:});

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: common-headers
+# key: common-headers
+# --
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
