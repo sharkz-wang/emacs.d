@@ -46,7 +46,10 @@ int main (void) {
   (define-key evil-normal-state-map (kbd "SPC d c") 'call-graph)
   
   (define-key c-mode-base-map "{" 'c-mode-insert-lcurly)
-  (define-key c-mode-base-map (kbd "SPC m s") 'c-style-selector)
+  (evil-define-key 'normal c-mode-base-map (kbd "SPC m s") 'c-style-selector)
+  (evil-define-key 'normal c-mode-base-map (kbd "SPC m t") 'test-c)
+  (evil-define-key 'normal test-c-mode-map (kbd "SPC c c") 'test-c)
+  (evil-define-key 'normal test-c-mode-map (kbd "SPC f s") 'ignore)
   )
 
 (add-hook 'c-mode-hook 'init-cc-handler)
