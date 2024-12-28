@@ -127,4 +127,9 @@
     "Run grep AG action from `helm-source-find-files'."
   '--projectile-find-files-ag)
 
+;; XXX: override original `helm-find-files-ag', which shows only
+;;      file name without relative path dirname
+(defun helm-find-files-ag (_candidate)
+  (helm-do-ag helm-ff-default-directory helm-current-prefix-arg))
+
 (provide 'init-helm-defs)
