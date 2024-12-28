@@ -57,6 +57,7 @@
 (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-o") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-u") 'kill-whole-line)
+(define-key helm-map (kbd "C-h") 'helm-find-files-up-one-level)
 
 (define-key helm-map (kbd "M-N") 'helm-goto-line-ow-forward)
 (define-key helm-map (kbd "M-P") 'helm-goto-line-ow-backward)
@@ -140,6 +141,7 @@
      (define-key helm-ag-map (kbd "C-n") 'helm-ag--next-file)
      (define-key helm-ag-map (kbd "C-p") 'helm-ag--previous-file)
      (define-key helm-ag-map (kbd "C-c b") #'helm-ag--run-save-buffer)
+     (define-key helm-do-ag-map (kbd "C-c b") #'helm-ag--run-save-buffer)
      (define-key helm-ag-map (kbd "C-c e") #'helm-ag-edit)
      (define-key helm-ag-map (kbd "C-h") 'helm-ag--up-one-level)
 
