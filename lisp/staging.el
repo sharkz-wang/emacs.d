@@ -121,7 +121,7 @@
 (add-hook 'magit-diff-mode-hook '--setup-magit)
 
 ;; number of characters until we place a indicator bar
-(setq-default display-fill-column-indicator-column 100)
+(setq-default display-fill-column-indicator-column 120)
 ;; character we used to resemble a bar
 (setq display-fill-column-indicator-character ?│)
 ;; face of the indicator bar
