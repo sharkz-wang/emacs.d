@@ -298,6 +298,23 @@
 	#'(lambda (&rest args) (interactive)
 	    (pulse-momentary-highlight-one-line (point))))
 
+(defun hint-by-fill-column-indicator (&rest r)
+  (interactive)
+  (let* (face (face-foreground 'fill-column-indicator)
+	      (start (color-name-to-rgb "#5D5D5D"))
+	      (stop (color-name-to-rgb (face-background 'default)))
+	      (colors (mapcar (lambda (l) (color-rgb-to-hex (nth 0 l) (nth 1 l) (nth 2 l) 2))
+			      (color-gradient start stop pulse-iterations))))
+    (mapc
+     (lambda (color)
+       (set-face-foreground 'fill-column-indicator color)
+       (redisplay)
+       (sit-for 0.01)) colors)
+    (set-face-foreground 'fill-column-indicator "#2D2D2D")
+    ))
+
+(advice-add 'save-buffer :after #'hint-by-fill-column-indicator)
+
 (server-start)
 
 (provide 'staging)
