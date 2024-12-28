@@ -19,6 +19,10 @@
 ;; TODO: move it elsewhere better
 (setq org-agenda-dir "~/org/agenda")
 
+;; support for copying whole buffer to xclip,
+;; useful for pasting code onto leetcode
+(setq tweak-enable-xclip-support nil)
+
 ;; init files ordered by importance
 ;; determined by:
 ;;     - basic edior usage

@@ -232,6 +232,22 @@
 (advice-add 'doom-modeline--buffer-file-name
 	    :filter-return '--postprocess-doom-modeline-buffer-name)
 
+(when tweak-enable-xclip-support
+  (defun --copy-whole-file-to-clipbpard ()
+    (interactive)
+    (let ((x-select-enable-clipboard t))
+      (xclip-mode 1)
+      (with-current-buffer (current-buffer)
+	(copy-region-as-kill (buffer-end -1) (buffer-end 1)))
+      (xclip-mode 0)
+      ))
+
+  (setq x-select-enable-clipboard t)
+  (evil-global-set-key 'normal (kbd "SPC y f") '--copy-whole-file-to-clipbpard)
+
+  (require-package 'xclip)
+)
+
 ;; XXX: dirty way to force `helm-do-ag-buffers' to be limited to
 ;;      opened buffers in current project
 (defun helm-ag--file-visited-buffers ()
