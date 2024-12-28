@@ -23,6 +23,9 @@
 ;; useful for pasting code onto leetcode
 (setq tweak-enable-xclip-support nil)
 
+;; enable turning on server by default
+(setq tweak-enable-server nil)
+
 ;; init files ordered by importance
 ;; determined by:
 ;;     - basic edior usage

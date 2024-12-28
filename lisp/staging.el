@@ -335,6 +335,9 @@
 
 (advice-add 'save-buffer :after #'hint-by-fill-column-indicator)
 
-(server-start)
+
+(when tweak-enable-server
+  (server-start)
+  )
 
 (provide 'staging)
