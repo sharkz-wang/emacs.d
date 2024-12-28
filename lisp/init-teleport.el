@@ -30,4 +30,27 @@
 (define-key teleport-map "l"
 	    (lambda () (interactive) (teleport-do-action "~/.emacs.d/lisp")))
 
+(define-key teleport-map "1"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "2"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "3"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "4"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "5"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "6"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "7"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "8"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "9"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "0"
+	    (lambda () (interactive) (teleport-do-action "~/")))
+(define-key teleport-map "="
+	    (lambda () (interactive) (teleport-do-action "~/")))
+
 (provide 'init-teleport)
