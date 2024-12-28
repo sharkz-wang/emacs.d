@@ -160,6 +160,9 @@ _._: diff hightlight menu
 (evil-define-key 'normal
   magit-mode-map (kbd "SPC m r") 'magit-diff-toggle-refine-hunk)
 
+(evil-define-key 'normal
+  magit-log-mode-map (kbd "TAB") 'magit-diff-show-or-scroll-up)
+
 (evil-global-set-key 'normal (kbd "SPC g") 'hydra-magit-menu/body)
 (evil-define-minor-mode-key 'normal 'dired-mode-map
   (kbd "SPC g") 'hydra-magit-menu/body)
