@@ -171,7 +171,7 @@
 	      ))
 
   (setq org-superstar-headline-bullets-list
-	'("" "○" "⬝" "⬞" "⇥" "⇒" "⇛" "·"))
+	'("" "○"  "·" "·" "·" "·" "·" "·"))
   ;; reusing last entry in bullet list is good enough
   (setq org-superstar-cycle-headline-bullets nil)
 
