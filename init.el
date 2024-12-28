@@ -55,6 +55,7 @@
 (require 'init-treemacs)
 (require 'init-dired)
 (require 'init-kernel-dev)
+(provide 'init-aosp)
 (require 'init-external-share-menu)
 (require 'init-centaur-tabs)
 (require 'init-misc)
