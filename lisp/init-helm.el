@@ -154,4 +154,9 @@
       'helm-occur-actions (cons "Yank line" '--do-helm-occur-copy-line)
       t)
 
+(add-to-list
+ 'helm-type-buffer-actions (cons "Open magit here" '--helm-type-buffer-open-magit-here)
+ t)
+(define-key helm-buffer-map (kbd "C-c g") '--do-helm-type-buffer-open-magit-here)
+
 (provide 'init-helm)

@@ -132,4 +132,11 @@
 (defun helm-find-files-ag (_candidate)
   (helm-do-ag helm-ff-default-directory helm-current-prefix-arg))
 
+(defun --helm-type-buffer-open-magit-here (candidate)
+  (magit-status-simplified-on-path (buffer-file-name candidate))
+  )
+
+(helm-make-command-from-action --do-helm-type-buffer-open-magit-here
+  "Not documented." '--helm-type-buffer-open-magit-here)
+
 (provide 'init-helm-defs)
