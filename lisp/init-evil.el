@@ -23,6 +23,8 @@
   )
 
 (require-package 'undo-tree)
+;; prevent undo-tree temp files (.*.~undo-tree~) from scattering all over the place
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 (global-undo-tree-mode 1)
 ;; bind C-w back in evil emacs state
 (define-key evil-emacs-state-map (kbd "C-w") 'evil-delete-backward-word)
