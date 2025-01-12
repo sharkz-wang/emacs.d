@@ -170,6 +170,7 @@
   "w\\" '--toggle-follow-mode-view
   ;; TODO: fix incorrect font in new frames
   "wn" 'make-frame
+  "wK" 'delete-frame
 )
 (define-key evil-normal-state-map (kbd "SPC w q") 'quit-window)
 
