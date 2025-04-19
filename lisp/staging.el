@@ -272,16 +272,6 @@
 (advice-add 'evil-indent :around '--restore-pos-after-evil-cmd)
 
 ;; TODO: FIXME: ugly global variable
-(setq visual-start-pos nil)
-
-(advice-add 'evil-visual-char :before
-	    #'(lambda (&rest args) (interactive) (setq visual-start-pos (point))))
-(advice-add 'evil-visual-line :before
-	    #'(lambda (&rest args) (interactive) (setq visual-start-pos (point))))
-(add-hook 'evil-visual-state-exit-hook
-	  #'(lambda () (interactive) (goto-char visual-start-pos)))
-
-;; TODO: FIXME: ugly global variable
 (setq restore-cursor-pos nil)
 
 (defun --restore-cursor-settings ()
