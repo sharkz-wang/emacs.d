@@ -1,5 +1,3 @@
-(require-package 'org)
-
 (defun --org-capture-get-file-line-num ()
     (with-current-buffer (org-capture-get :original-buffer)
       (if (region-active-p)
