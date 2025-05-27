@@ -5,6 +5,9 @@
 ;; Quick options for debugging
 ;; (setq straight-log t)
 
+;; Quick maintenance for package versions
+;; (straight-freeze-versions)
+
 ;; TODO: BROKEN: (kbd "s") in visual state in magit-status-mode
 ;; TODO: exclude newline when executing `viw'
 ;; TODO: yasnippet for print statement in c, but with line number
