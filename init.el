@@ -2,6 +2,9 @@
 (add-to-list 'load-path (expand-file-name "packages" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "emacswiki" user-emacs-directory))
 
+;; Quick options for debugging
+;; (setq straight-log t)
+
 ;; TODO: BROKEN: (kbd "s") in visual state in magit-status-mode
 ;; TODO: exclude newline when executing `viw'
 ;; TODO: yasnippet for print statement in c, but with line number
