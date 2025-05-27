@@ -6,7 +6,12 @@
 ;; (setq straight-log t)
 
 ;; Quick maintenance for package versions
-;; (straight-freeze-versions)
+;;;; Before updating
+;;;; (straight-freeze-versions)
+;;;; Update
+;;;; (straight-pull-all)
+;;;; Roll-back
+;;;; (straight-thaw-versions)
 
 ;; TODO: BROKEN: (kbd "s") in visual state in magit-status-mode
 ;; TODO: exclude newline when executing `viw'
