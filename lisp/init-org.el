@@ -1,4 +1,6 @@
 (require 'init-org-capture-defs)
+;; use faster github mirror instead of savannah one
+(straight-register-package '(org :type git :repo "https://github.com/bzg/org-mode" :depth 1))
 (require-package 'org)
 
 (defcustom org-snapshot-dir "~/org/snapshots"
