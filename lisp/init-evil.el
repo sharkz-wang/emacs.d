@@ -70,6 +70,8 @@
 
 ;; fix conflict with Magit according to user manual
 (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+;; evil-surround shadows my useful 's' keybinding for staging hunks
+(add-hook 'magit-mode-hook 'turn-off-evil-surround-mode)
 
 (require-package 'evil-matchit)
 (global-evil-matchit-mode t)
