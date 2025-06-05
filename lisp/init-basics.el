@@ -147,11 +147,7 @@
 
 (require 'init-files)
 
-(define-key evil-normal-state-map (kbd "SPC b d")
-	    (lambda () (interactive)
-	      (kill-buffer (current-buffer))
-	      (if (> (length (window-list)) 1)
-		  (delete-window))))
+(define-key evil-normal-state-map (kbd "SPC b d") 'kill-current-buffer)
 
 ;; make split-window functions move cursor to the new window for you
 (advice-add 'split-window-right

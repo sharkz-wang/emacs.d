@@ -95,12 +95,7 @@
 (evil-define-key 'normal dired-mode-map "M" 'dired-mark)
 (evil-define-key 'normal dired-mode-map "." 'dired-omit-mode)
 
-(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC b d")
-  '(lambda ()
-     (interactive)
-     (kill-buffer (current-buffer))
-     (if (> (length (window-list)) 1)
-	 (delete-window))))
+(evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC b d") 'kill-current-buffer)
 (evil-define-minor-mode-key 'normal 'dired-mode-map (kbd "SPC RET") 'projectile-switch-to-buffer)
 
 (add-hook 'dired-mode-hook
