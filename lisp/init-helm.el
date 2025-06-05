@@ -74,6 +74,9 @@
 (define-key helm-find-files-map (kbd "C-l") 'helm-find-files-down-last-level)
 (define-key helm-find-files-map (kbd "M-J") 'helm-toggle-visible-mark-forward)
 (define-key helm-find-files-map (kbd "M-K") 'helm-toggle-visible-mark-backward)
+;; M-backspace remap to up-one-level
+(define-key helm-find-files-map (kbd "M-DEL") 'helm-find-files-up-one-level)
+(define-key helm-find-files-map (kbd "C-c p") 'evil-paste-from-register)
 
 (define-key helm-find-files-map (kbd "C-c r p") '--helm-show-kill-ring-short)
 ;; FIXME: I don't use `helm-ff-run-fd' as it does not support multiple
@@ -146,6 +149,7 @@
      (define-key helm-ag-map (kbd "C-h") 'helm-ag--up-one-level)
 
      (define-key helm-ag-map (kbd "C-c y") '--helm-ag-copy-line)
+     (define-key helm-ag-map (kbd "C-c p") 'evil-paste-from-register)
      ))
 
 
