@@ -20,6 +20,8 @@
 	    (lambda () (interactive) (teleport-do-action "~/.emacs.d/init.el")))
 (define-key teleport-map "l"
 	    (lambda () (interactive) (teleport-do-action "~/.emacs.d/lisp")))
+(define-key teleport-map "p"
+	    (lambda () (interactive) (teleport-do-action "~/.emacs.d/lisp/init-teleport.el")))
 (define-key helm-bookmark-map (kbd "C-c E") 'bookmark-edit-annotation)
 (define-key helm-bookmark-map (kbd "C-c e") 'helm-bookmark-run-rename)
 

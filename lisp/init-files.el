@@ -25,7 +25,7 @@ _s_: current buffer  _f_: current dir            _d_: current dir
   ("d" dired-curr-dir)
   ("r" helm-recentf)
   ("b" helm-bookmarks)
-  ("m" (teleport-invoke 'helm-find-files-in-dir))
+  ("m" (teleport-invoke 'helm-open-target))
   ("o" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a"))
   ("O" (start-process "new-proc" "proc-buffer" "tmux" "split-window" "-l" "60%"))
   ("g" (start-process "new-proc" "proc-buffer" "tmux" "new-window" "-a" "tig"))
@@ -79,14 +79,14 @@ _s_: current buffer  _f_: current dir            _d_: current dir
     (ffip-find-files fn nil)
     ))
 
-(defun helm-find-files-in-dir (dir)
+(defun helm-open-target (path)
   (interactive)
   ;; XXX: trailing slash in path matters in `helm-file-files'
-  (let ((default-directory
-	  (if (file-directory-p dir)
-	      (file-name-as-directory dir) dir)))
-    (helm-find-files nil)
-  ))
+  (if (file-directory-p path)
+      (let ((default-directory (file-name-as-directory path)))
+	(helm-find-files nil))
+    (find-file path))
+  )
 
 (defun dired-curr-dir (arg)
   (interactive "P")
