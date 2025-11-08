@@ -4,10 +4,10 @@
 
 (defhydra hydra-display-menu (:color pink :hint nil :idle 0.3)
   "
-^Zoom frame ...^       ^Zoom buffer ...^        ^Center area width^
+^Zoom frame ...^       ^Zoom buffer ...^
 ---------------------------------
-_n_: zoom in frame     _j_: zoom in buffer      _+_: increase
-_p_: zoom out frame    _k_: zoom out buffer     _-_: decrease
+_n_: zoom in frame     _j_: zoom in buffer
+_p_: zoom out frame    _k_: zoom out buffer
 _0_: reset zoom
 "
   ;; zoom frame ...
@@ -17,12 +17,6 @@ _0_: reset zoom
   ;; zoom buffer ...
   ("k" (text-scale-adjust +1))
   ("j" (text-scale-adjust -1))
-
-  ;; increase centered-window width
-  ("+" --increase-centered-window-size)
-  ;; don't bother me if I forget to press shift
-  ("=" --increase-centered-window-size)
-  ("-" --decrease-centered-window-size)
 
   ("0" --reset-all-zoom)
 
