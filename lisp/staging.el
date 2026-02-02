@@ -203,10 +203,6 @@
   (bookmark-save))
 (advice-add 'bookmark-set :after #'auto-save-bookmarks)
 
-;; TODO: move it to init-teleport.el
-(define-key teleport-map "d"
-	    (lambda () (interactive) (teleport-do-action "~/documents")))
-
 (custom-set-faces
  '(magit-diff-revision-summary-highlight ((t :foreground "#FFFFFF"))))
 (custom-set-faces
