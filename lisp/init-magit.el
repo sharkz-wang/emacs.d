@@ -16,8 +16,8 @@ _j_: next          _d_: diff        _r_: revert
   ("j" diff-hl-next-hunk)
   ("k" diff-hl-previous-hunk)
   ("d" diff-hl-show-hunk)
-  ("s" diff-hl-stage-current-hunk)
-  ("r" diff-hl-revert-hunk)
+  ("s" diff-hl-stage-current-hunk :exit t)
+  ("r" diff-hl-revert-hunk :exit t)
 
   ("q"   nil "cancel" :color blue)
 )
