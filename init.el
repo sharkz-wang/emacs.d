@@ -38,7 +38,7 @@
 (setq tweak-enable-xclip-support nil)
 
 ;; enable turning on server by default
-(setq tweak-enable-server nil)
+(setq tweak-enable-server t)
 
 ;; init files ordered by importance
 ;; determined by:
