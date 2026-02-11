@@ -1,4 +1,5 @@
 (require 'init-c-defs)
+(require 'init-my-citre-peek-mode)
 (require-package 'test-c)
 
 (eval-after-load 'test-c
