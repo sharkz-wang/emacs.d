@@ -325,4 +325,7 @@
 (when (and tweak-enable-server (not (server-running-p)))
   (server-start))
 
+(straight-use-package
+ '(claude-code-ide :type git :host github :repo "manzaltu/claude-code-ide.el"))
+
 (provide 'staging)
