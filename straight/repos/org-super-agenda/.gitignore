@@ -1,0 +1,8 @@
+/.cask
+*.elc
+*~
+.#*
+/sandbox/
+/.sandbox/
+/worktree/
+/NOTES.org

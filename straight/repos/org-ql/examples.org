@@ -1,0 +1,257 @@
+#+TITLE: org-ql examples
+
+* Contents
+:PROPERTIES:
+:TOC:      :include siblings :ignore this
+:END:
+:CONTENTS:
+- [[#custom-predicates][Custom predicates]]
+- [[#agenda-like-view][Agenda-like view]]
+- [[#entries-from-the-past-week][Entries from the past week]]
+- [[#find-entries-matching-a-certain-custom_id][Find entries matching a certain CUSTOM_ID]]
+- [[#listing-bills-coming-due][Listing bills coming due]]
+- [[#music-database][Music database]]
+- [[#return-org-elements][Return Org elements]]
+- [[#set-tags-on-certain-entries][Set tags on certain entries]]
+- [[#show-entries-with-recent-timestamps][Show entries with recent timestamps]]
+- [[#stuck-projects-block-agenda][Stuck projects block agenda]]
+- [[#subproject-and-subtask-queries][Subproject and subtask queries]]
+- [[#task-list-for-files-in-subdirectories][Task list for files in subdirectories]]
+:END:
+
+* Custom predicates
+
++ [[file:examples/defpred.org][Custom predicate tutorial]]
+
+* Agenda-like view
+
+Show an agenda-like view, similar to a "traditional" Org Agenda with Log Mode turned on.
+
+#+BEGIN_SRC elisp
+  (org-ql-search (org-agenda-files)
+    '(or (and (not (done))
+              (or (habit)
+                  (deadline auto)
+                  (scheduled :to today)
+                  (ts-active :on today)))
+         (closed :on today))
+    :sort '(todo priority date))
+#+END_SRC
+
+Another example, showing grouping with [[https://github.com/alphapapa/org-super-agenda][org-super-agenda]]:
+
+#+BEGIN_SRC elisp
+  (org-ql-search "~/src/emacs/org-super-agenda/test/test.org"
+    '(and (or (ts-active :on today)
+              (deadline auto)
+              (scheduled :to today))
+          (not (done)))
+    :title "My Agenda View"
+    ;; The `org-super-agenda-groups' setting is used automatically when set, or it
+    ;; may be overriden by specifying it here:
+    :super-groups '((:name "Bills"
+                           :tag "bills")
+                    (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+                           :order 7)
+                    (:name "Personal"
+                           :habit t
+                           :tag "personal"
+                           :order 3)
+                    (:todo "WAITING"
+                           :order 6)
+                    (:priority "A" :order 1)
+                    (:priority "B" :order 2)
+                    (:priority "C" :order 2)))
+#+END_SRC
+
+Which displays this buffer:
+
+[[images/screenshot.png]]
+
+* Entries from the past week
+
+Show entries that have any timestamp within the past week.  Group by date using =org-super-agenda= with the =:auto-ts= group.
+
+#+BEGIN_SRC elisp
+  (org-ql-search (org-agenda-files)
+    '(ts :from -7 :to today)
+    :title "Recent Items"
+    :sort '(todo priority date)
+    :super-groups '((:auto-ts t)))
+#+END_SRC
+
+* Find entries matching a certain =CUSTOM_ID=
+
+Since queries can contain both built-in =org-ql= predicate expressions and arbitrary expressions, they can be combined in useful ways.  This example uses the built-in =property= predicate to quickly locate entries that have the =CUSTOM_ID= property set, and then compares the value of that property to the string =issue=.
+
+#+BEGIN_SRC elisp
+  (org-ql-query
+    :select #'org-get-heading
+    :from "~/org/tickets.org"
+    :where '(and (property "CUSTOM_ID")
+                 (string-match "issue" (org-entry-get (point) "CUSTOM_ID"))))
+#+END_SRC
+
+Using the =property= predicate as the first clause of the two clauses joined with =and= allows =org-ql= to optimize the query by searching through the buffer directly to entries that set the =CUSTOM_ID= property, which is much faster than testing every entry in a buffer.  Also, If the query were only the =string-match= call, it would signal an error on entries that didn't have the property set, because =org-entry-get= would return nil.
+
+* Listing bills coming due
+
+This uses the example in the readme file, but maps across the elements returned by ~org-ql~ to present a simple list of titles and deadlines.
+
+#+BEGIN_SRC elisp
+  (org-ql-query
+    :select '(list (substring-no-properties (org-get-heading t t))
+                   (org-entry-get (point) "DEADLINE"))
+    :from (org-agenda-files)
+    :where '(and (not (done))
+                 (tags "bills")
+                 (deadline auto))
+    :order-by 'deadline)
+  ;;=> (("Electric bill" "<2018-08-23 Thu +1m>")
+  ;; ("Rent" "<2018-09-01 Sat +1m>"))
+#+END_SRC
+
+This could also be put in a script, which could use desktop notifications to remind of bills coming due: [[examples/org-bills-due.el][org-bills-due.el]].
+
+* Music database
+
+  If you kept a database of music in an Org file, you could run a query like this to find tracks composed by Chopin that do not have their key recorded in the database.
+
+#+BEGIN_SRC elisp
+  (org-ql-search "~/org/music.org"
+    '(and (property "genre" "classical")
+          (property "composer" "Chopin")
+          (not (property "key"))))
+#+END_SRC
+
+* Return Org elements
+
+Return a list of Org entry elements in the file =~/org/main.org= which have the =SOMEDAY= to-do keyword, are tagged =Emacs=, and have priority B or higher.  =org-ql= is the macro version of =org-ql-select=; it does not require quoting the query sexp.
+
+#+BEGIN_SRC elisp
+  (org-ql "~/org/main.org"
+    (and (todo "SOMEDAY")
+         (tags "Emacs")
+         (priority >= "B")))
+  ;;=> ((headline (:raw-value "org-board" :begin 1220270 :end 1220403 ...)) ...)
+#+END_SRC
+
+* Set tags on certain entries
+
+Set the tag =Emacs= on every entry in the inbox file that mentions =Emacs=.  The bare-string query ="Emacs"= is equivalent to ~(regexp "Emacs")~.
+
+#+BEGIN_SRC elisp
+  (org-ql-select "~/org/inbox.org"
+    "Emacs"
+    :action '(org-toggle-tag "Emacs" 'on))
+#+END_SRC
+
+* Show entries with recent timestamps
+
+You can also access these views with the command ~org-ql-view~.
+
+#+BEGIN_SRC elisp
+  ;; Show entries with any timestamp from last 7 days:
+  (org-ql-view-recent-items 7)
+
+  ;; Show entries clocked in last 30 days:
+  (org-ql-view-recent-items 30 'clocked)
+
+  ;; Show entries closed in last 30 days:
+  (org-ql-view-recent-items 30 'closed)
+#+END_SRC
+
+* Stuck projects block agenda
+
+Reddit user =emptymatrix= [[https://www.reddit.com/r/emacs/comments/cnrt2d/orgqlblock_integrates_orgql_into_org_agenda/ewtqez8/][shared]] this example of replacing a traditional =org-stuck-projects= view like:
+
+#+BEGIN_SRC elisp
+  (setq org-stuck-projects
+        '("+@project/-DONE" ("NEXT") nil "SCHEDULED:"))
+#+END_SRC
+
+With this =org-ql-block= agenda view, like:
+
+#+BEGIN_SRC elisp
+  (setq org-agenda-custom-commands
+        '(("s" "Stuck Projects"
+           ((org-ql-block '(and (tags "@project")
+                                (not (done))
+                                (not (descendants (todo "NEXT")))
+                                (not (descendants (scheduled))))
+                          ((org-ql-block-header "Stuck Projects")))))))
+#+END_SRC
+
+* Subproject and subtask queries
+
+#+BEGIN_SRC elisp
+  ;; Search for subprojects.
+  (org-ql-search (org-agenda-files)
+    '(and (todo "PROJECT")
+          (ancestors (todo "PROJECT"))))
+
+  ;; Search for all subtasks of projects, grouped by parent heading.
+  (org-ql-search (org-agenda-files)
+    '(and (todo)
+          (ancestors (todo "PROJECT")))
+    :super-groups '((:auto-parent t)))
+
+  ;; Search for direct top-level tasks of projects.
+  (org-ql-search (org-agenda-files)
+    '(and (todo)
+          (parent (todo "PROJECT")))
+    :super-groups '((:auto-parent t)))
+#+END_SRC
+
+Of course, all of those presume using a =PROJECT= keyword to define projects. If one defines a project as any task which has an ancestor task, one could use queries like:
+
+#+BEGIN_SRC elisp
+  ;; Search for all subtasks of top-level projects, grouped by parent heading.
+  (org-ql-search (org-agenda-files)
+    '(and (todo)
+          (ancestors
+           (and (todo)
+                (not (parent)))))
+    :super-groups '((:auto-parent t)))
+
+  ;; Search for all subtasks of all projects, including subprojects, grouped by project.
+  (org-ql-search (org-agenda-files)
+    '(and (todo)
+          (ancestors (todo)))
+    :super-groups '((:auto-parent t)))
+#+END_SRC
+
+Other interesting queries:
+
+#+BEGIN_SRC elisp
+  ;; Subtasks of upcoming deadline items.
+  (org-ql-search (org-agenda-files)
+    '(and (todo)
+          (ancestors
+           (and (not (done))
+                (deadline auto))))
+    :super-groups '((:auto-parent t)))
+
+  ;; TODO items whose ancestor is already DONE, and should therefore be
+  ;; either marked DONE or CANCELLED.
+  (org-ql-search (org-agenda-files)
+    '(and (todo)
+          (ancestors (done)))
+    :super-groups '((:auto-parent t)))
+#+END_SRC
+
+* Task list for files in subdirectories
+
+[[images/org-ql-search-snippet.png]]
+
+* COMMENT Code                                                     :noexport:
+:PROPERTIES:
+:TOC:      :ignore (this descendants)
+:END:
+
+** File-local variables
+
+# Local Variables:
+# eval: (require 'org-make-toc)
+# before-save-hook: org-make-toc
+# End:

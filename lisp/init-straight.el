@@ -21,6 +21,6 @@
 (defun --require-package (package)
   (straight-use-package package))
 
-(setq straight-vc-git-default-clone-depth '(1 single-branch))
+(setq straight-profiles '((nil . "default.el")))
 
 (provide 'init-straight)

@@ -1,0 +1,11 @@
+*.elc
+.#*
+/scratch.el
+.cask
+/sandbox/
+/.sandbox/
+/scratch.org
+/scratch/
+/worktrees/
+/worktree/
+/NOTES.org

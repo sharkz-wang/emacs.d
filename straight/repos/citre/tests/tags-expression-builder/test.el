@@ -1,0 +1,134 @@
+;;; Filter builder
+
+(ert-deftest test-filter-eq ()
+  "Test filter builder for eq matches."
+  (should (equal (citre-readtags-filter "hi" "hi" 'eq)
+                 '(and (eq? "hi" "hi"))))
+  (should (equal (citre-readtags-filter "HI" 'name 'eq t)
+                 '(and $name (eq? "hi" (downcase $name))))))
+
+(ert-deftest test-filter-prefix ()
+  "Test filter builder for prefix matches."
+  (should (equal (citre-readtags-filter 'name "hi" 'prefix)
+                 '(and $name (prefix? $name "hi"))))
+  (should (equal (citre-readtags-filter 'name "HI" 'prefix t)
+                 '(and $name (prefix? (downcase $name) "hi")))))
+
+(ert-deftest test-filter-suffix ()
+  "Test filter builder for suffix matches."
+  (should (equal (citre-readtags-filter 'input "py" 'suffix)
+                 '(and $input (suffix? $input "py"))))
+  (should (equal (citre-readtags-filter 'input 'language 'suffix t)
+                 '(and $language $input (suffix? (downcase $input)
+                                                 (downcase $language))))))
+
+(ert-deftest test-filter-substr ()
+  "Test filter builder for substr matches."
+  (should (equal (citre-readtags-filter 'input "module" 'substr)
+                 '(and $input (substr? $input "module"))))
+  (should (equal (citre-readtags-filter 'input "MODULE" 'substr t)
+                 '(and $input (substr? (downcase $input) "module")))))
+
+(ert-deftest test-filter-regexp ()
+  "Test filter builder for regexp matches."
+  (should (equal (citre-readtags-filter 'name "^f.*point$" 'regexp)
+                 '(and $name ((string->regexp "^f.*point$" :case-fold false)
+                              $name))))
+  (should (equal (citre-readtags-filter 'name "^f.*point$" 'regexp t)
+                 '(and $name ((string->regexp "^f.*point$" :case-fold true)
+                              $name)))))
+
+(ert-deftest test-filter-csv-contain ()
+  "Test filter builder for csv-contain matches."
+  (should (equal (citre-readtags-filter 'extras "reference" 'csv-contain)
+                 '(and $extras ((string->regexp "(^|,) ?(reference)(,|$)"
+                                                :case-fold false)
+                                $extras))))
+  (should (equal (citre-readtags-filter 'extras "reference" 'csv-contain t)
+                 '(and $extras ((string->regexp "(^|,) ?(reference)(,|$)"
+                                                :case-fold true)
+                                $extras)))))
+
+(ert-deftest test-filter-invert&keep-missing ()
+  "Test the INVERT and KEEP-MISSING arg in `citre-readtags-filter'."
+  (should (equal (citre-readtags-filter 'name "hi" 'prefix nil t)
+                 '(and $name (not (prefix? $name "hi")))))
+  (should (equal (citre-readtags-filter 'name "hi" 'prefix nil nil t)
+                 '(or (not $name) (prefix? $name "hi"))))
+  (should (equal (citre-readtags-filter 'name "hi" 'prefix nil t t)
+                 '(or (not $name) (not (prefix? $name "hi"))))))
+
+(ert-deftest test-filter-field-exist ()
+  "Test `citre-readtags-filter-field-exist'."
+  (should (equal (citre-readtags-filter-field-exist 'pattern) '$pattern))
+  (should (equal (citre-readtags-filter-field-exist 'pattern t)
+                 '(not $pattern))))
+
+(ert-deftest test-filter-lang ()
+  "Test `citre-readtags-filter-lang'."
+  (should (equal (citre-readtags-filter-lang "Lisp")
+                 '(or (and $language (eq? $language "Lisp"))
+                      (and $input ((string->regexp "\\.(lsp|lisp|l|clisp|cl)$"
+                                                   :case-fold false)
+                                   $input))))))
+
+(ert-deftest test-filter-kind ()
+  "Test `citre-readtags-filter-kind'."
+  (should (equal (citre-readtags-filter-kind "function")
+                 '(and $kind ((string->regexp "^(function|f)$"
+                                              :case-fold false)
+                              $kind))))
+  (should (equal (citre-readtags-filter-kind "function" t)
+                 '(or (not $kind) ((string->regexp "^(function|f)$"
+                                                   :case-fold false)
+                                   $kind)))))
+
+(ert-deftest test-filter-input ()
+  "Test `citre-readtags-filter-input'."
+  (should (equal (citre-readtags-filter-input
+                  "/path/to/test.el" (expand-test-file))
+                 '(or (and $input (eq? $input "/path/to/test.el"))
+                      (and $input (eq? $input "test.el"))
+                      (and $input ((string->regexp "(^|/)..?/test\\.el$"
+                                                   :case-fold false)
+                                   $input)))))
+  (should (equal (citre-readtags-filter-input
+                  "/path/not/in/cwd/to/test.el" (expand-test-file))
+                 '(or (and $input (eq? $input "/path/not/in/cwd/to/test.el"))
+                      (and $input ((string->regexp "(^|/)..?/test\\.el$"
+                                                   :case-fold false)
+                                   $input))))))
+
+;;; Sorter builder
+
+(ert-deftest test-sorter ()
+  "Test `citre-readtags-sorter'."
+  (should (equal (citre-readtags-sorter 'input)
+                 '(<or> (if (and $input &input) (<> $input &input) 0))))
+  (should (equal (citre-readtags-sorter '(field input +))
+                 '(<or> (if (and $input &input) (<> $input &input) 0))))
+  (should (equal (citre-readtags-sorter '(field input -))
+                 '(<or> (if (and $input &input) (<> &input $input) 0))))
+  (should (equal (citre-readtags-sorter '(length name +))
+                 '(<or> (if (and $name &name)
+                            (<> (length $name) (length &name))
+                          0))))
+  (should (equal (citre-readtags-sorter '(length name -))
+                 '(<or> (if (and $name &name)
+                            (<> (length &name) (length $name))
+                          0))))
+  (should (equal (citre-readtags-sorter '(expr (valid sorter expr)))
+                 '(<or> (valid sorter expr))))
+  (should (equal (citre-readtags-sorter
+                  `(filter ,(citre-readtags-filter 'name "hi" 'eq) +))
+                 '(<or> (<> (if (and $name (eq\? $name "hi")) -1 1)
+                            (if (and &name (eq\? &name "hi")) -1 1)))))
+  (should (equal (citre-readtags-sorter
+                  `(filter ,(citre-readtags-filter 'name "hi" 'eq) -))
+                 '(<or> (<> (if (and $name (eq\? $name "hi")) 1 -1)
+                            (if (and &name (eq\? &name "hi")) 1 -1)))))
+  (should (equal (citre-readtags-sorter 'input '(length name +))
+                 '(<or> (if (and $input &input) (<> $input &input) 0)
+                        (if (and $name &name)
+                            (<> (length $name) (length &name))
+                          0)))))

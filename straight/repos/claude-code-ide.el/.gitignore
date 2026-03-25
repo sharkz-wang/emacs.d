@@ -1,0 +1,8 @@
+*.elc
+*~
+\#*\#
+.elpa
+.cask
+dist/
+*.log
+.DS_Store

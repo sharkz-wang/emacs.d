@@ -1,0 +1,44 @@
+= centered-cursor-mode.el
+An emacs minor mode for smooth scrolling
+
+Makes the cursor stay vertically in a defined position (usually centered) while scrolling. So instead of moving the cursor up and down it moves the page like a pager.
+
+The vertical position can be customized.
+
+The code is still in development (see link:TODO.adoc[todo list]).
+
+Also see the development branch link:https://github.com/andre-r/centered-cursor-mode.el/tree/dev[] which contains several changes. It is faster and has better customization. But it lacks one feature for now: because of performance issues, at the end of the buffer the cursor it is still recentered, so that the text does not align with the end of the window.
+
+== Usage
+
+To install using https://github.com/jwiegley/use-package[`use-package`]:
+
+[,lisp]
+----
+(use-package centered-cursor-mode
+  :demand
+  :config
+  ;; Optional, enables centered-cursor-mode in all buffers.
+  (global-centered-cursor-mode))
+----
+
+You can activate in a single buffer:
+
+`M-x centered-cursor-mode`
+
+or enable globally:
+
+`M-x global-centered-cursor-mode`
+
+Customizable variables begin with `ccm-`.
+
+== Technical
+
+If recentering is triggered after some sort of mouse interaction and you don't
+expect it to, this might indicate an incompatibility with some other mode you
+are using. A quick way to figure out what commands are actually triggered when
+you interact with the mouse is to use `command-log-mode` which will show you a
+stream of the command history as the commands are being evaluated.
+
+If any of the commands triggered on mouse interaction is not included in
+`ccm-ignored-commands`, you have found the cause.

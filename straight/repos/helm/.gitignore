@@ -1,0 +1,4 @@
+*.elc
+TAGS
+/helm-autoloads.el
+/helm-core-autoloads.el

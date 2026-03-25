@@ -1,0 +1,92 @@
+name: CI
+
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jcs090218/setup-emacs@master
+        with:
+          version: 30.1
+
+      - uses: actions/checkout@v4
+
+      - name: Print emacs version
+        run: |
+          emacs --version
+
+      - name: Format and whitespace check
+        run: |
+          # Make copies of all files to check for changes
+          for file in *.el; do
+            cp "$file" "$file.orig"
+          done
+
+          # Run the combined format and clean script
+          ./scripts/format-and-clean.sh *.el
+
+          # Check if any files changed
+          CHANGED=0
+          for file in *.el; do
+            if ! diff -q "$file.orig" "$file" > /dev/null; then
+              echo "Error: $file is not properly formatted or has trailing whitespace"
+              echo "Differences:"
+              diff -u "$file.orig" "$file"
+              CHANGED=1
+            fi
+            rm "$file.orig"
+          done
+
+          exit $CHANGED
+
+  compile-and-test:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        emacs-version:
+          - 28.1
+          - 29.4
+          - 30.1
+        experimental: [false]
+        include:
+          - os: ubuntu-latest
+            emacs-version: snapshot
+            experimental: true
+          - os: macos-latest
+            emacs-version: snapshot
+            experimental: true
+
+    steps:
+      - uses: jcs090218/setup-emacs@master
+        with:
+          version: ${{ matrix.emacs-version }}
+
+      - uses: actions/checkout@v4
+
+      - name: Print emacs version
+        run: |
+          emacs --version
+
+      - name: Run compile and test checks
+        run: |
+          ./scripts/compile-and-test.sh --with-native-compile
+
+  # This job is used for branch protection rules
+  # It passes only when all required jobs pass
+  ci-pass:
+    if: always()
+    needs: [format-check, compile-and-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether all required jobs succeeded
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}

@@ -1,0 +1,1086 @@
+#+TITLE: ts.el notes
+
+* Plans
+:PROPERTIES:
+:ID:       2e19b304-f54b-455f-b9fe-ad5be5b31086
+:END:
+
++  Timestamp library, making it easy to work with timestamps and dates in Emacs.
++  Using ~defstructs~
+     -  Define accessors with macros
+          +  Accessors store precomputed data for later access (e.g. if day-of-week is not yet computed, store it in the struct and return it)
++  Store timestamps as either Emacs internal time values or as Unix timestamps
+     -  Need to benchmark which is faster to work with, format, decode, increment, etc.  Unix timestamps would be simpler to deal with, but maybe slower...?
++  Accessors should be named unambiguously
+     -  e.g. ~dow~ for day-of-week, ~dom~ for day-of-month, rather than ~day~, which could be either
+          +  And maybe ~dow-num~ or ~dow-name~ to be even clearer
+
+* Tasks
+
+** TODO [#A] Export Info manual from readme
+
+** TODO [#A] Mention hash tables
+
+#+BEGIN_SRC elisp
+  ;; NOTE: ts structs don't (sometimes? or always?) compare properly
+  ;; with default hash tables, e.g. this code:
+
+  ;; (let* ((ts-a #s(ts nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil 1572670800.0))
+  ;; (ts-b #s(ts nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil 1572584400.0)))
+  ;; (list :equal (equal ts-a ts-b)
+  ;; :sxhash-equal (equal (sxhash ts-a) (sxhash ts-b)))) ;;=> (:equal nil :sxhash-equal t)
+
+  ;; So we must use the "contents-hash" table as described in the Elisp manual.
+  (define-hash-table-test 'contents-hash 'equal 'sxhash-equal)
+#+END_SRC
+
+** TODO Use [[info:elisp#Defining%20Functions][define-inline]] instead of ~defsubst~
+
+** TODO Ensure timezones are handled properly
+
+Unix timestamps, by definition, are in UTC.  We need to ensure that timezones are handled properly when creating timestamps, so that e.g. a timestamp in a non-UTC timezone is converted to UTC when calling ~ts-parse~.
+
+** TODO Address feedback from [[https://www.reddit.com/r/emacs/comments/a4igm5/rfc_tsel_emacs_datetime_library/][Reddit post]]
+
+Chris Wellons gave a lot of good feedback.
+
+** TODO Emacs 27.1 changes
+
+From the =NEWS= file:
+
+#+BEGIN_EXAMPLE
+  ,** Time values
+
+  +++
+  ,*** New function time 'time-convert' converts Lisp time values
+  to Lisp timestamps of various forms, including a new timestamp form
+  (TICKS . HZ) where TICKS is an integer and HZ a positive integer
+  denoting a clock frequency.
+
+  +++
+  ,*** Although the default timestamp format is still '(HI LO US PS)',
+  it is planned to change in a future Emacs version, to exploit bignums.
+  The documentation has been updated to mention that the timestamp
+  format may change and that programs should use functions like
+  'format-time-string', 'decode-time', and 'time-convert' rather than
+  probing the innards of a timestamp directly, or creating a timestamp
+  by hand.
+
+  +++
+  ,*** 'encode-time' supports a new API '(encode-time TIME)'.
+  The old 'encode-time' API is still supported.
+
+  +++
+  ,*** A new package to parse ISO 8601 time, date, durations and
+  intervals has been added.  The main function to use is
+  'iso8601-parse', but there's also 'iso8601-parse-date',
+  'iso8601-parse-time', 'iso8601-parse-duration' and
+  'iso8601-parse-interval'.  All these functions return decoded time
+  structures, except the final one, which returns three of them (start,
+  end and duration).
+
+  +++
+  ,*** 'time-add', 'time-subtract', and 'time-less-p' now accept
+  infinities and NaNs too, and propagate them or return nil like
+  floating-point operators do.
+
+  +++
+  ,*** New function 'time-equal-p' compares time values for equality.
+
+  +++
+  ,*** 'format-time-string' supports a new conversion specifier flag '+'
+  that acts like the '0' flag but also puts a '+' before nonnegative
+  years containing more than four digits.  This is for compatibility
+  with POSIX.1-2017.
+
+  +++
+  ,*** To access (or alter) the elements a decoded time value, the
+  'decoded-time-second', 'decoded-time-minute', 'decoded-time-hour',
+  'decoded-time-day', 'decoded-time-month', 'decoded-time-year',
+  'decoded-time-weekday', 'decoded-time-dst' and 'decoded-time-zone'
+  accessors can be used.
+
+  ,*** The new functions 'date-days-in-month' (which will say how many
+  days there are in a month in a specific year), 'date-ordinal-to-time'
+  (that computes the date of an ordinal day), 'decoded-time-add' for
+  doing computations on a decoded time structure), 'make-decoded-time'
+  (for making a decoded time structure with only the given keywords
+  filled out), and 'encoded-time-set-defaults' (which fills in nil
+  elements as if it's midnight January 1st, 1970) have been added.
+#+END_EXAMPLE
+
+Some of those may be useful.
+
+** TODO Address feedback from Paul Eggert
+
+He was kind enough to post some [[https://lists.gnu.org/archive/html/emacs-devel/2019-08/msg00407.html][feedback]] on the =emacs-devel= list:
+
+#+BEGIN_QUOTE
+I looked briefly at it, and don't see any compatibility issues - not that I understand all the code, which depends on packages I don't use.
+
+The code's comments say that format-time-string is too slow. What performance issues did you run into? At any rate I think you'll find that this:
+
+  (string-to-number (format-time-string "%Y" (ts-unix struct)))
+
+is more efficient written this way:
+
+  (nth 5 (decode-time (ts-unix struct)))
+
+and I expect you can speed up the code further by caching the entire result of decode-time instead of calling format-time-string for each component.
+
+Also, the timestamp functions in Emacs 27 should simplify ts.el, once you can assume Emacs 27. For example, in Emacs 27 you can do something like this:
+
+  (decoded-time-add X (make-decoded-time :year 10))
+
+to add 10 years to a broken-down timestamp X.
+
+One more thing: ts.el's extensive use of float-time is fine for calendrical applications but has limited resolution (2**-22 s or about 2e-7 s for today's timestamps) and so would be problematic for apps requiring higher-resolution timestamps.
+#+END_QUOTE
+
+* Ideas
+
+** Inc/dec until
+
+Something like this, but easier to use:
+
+#+BEGIN_SRC elisp
+  (cl-loop with ts = (ts-now)
+           while (not (= (ts-dow ts) 6))
+           do (ts-decf (ts-day ts))
+           finally return (ts-format ts))
+  ;;=> "2019-07-27 18:15:12 -0500"
+
+  (cl-loop with ts = (ts-dec 'day 1 (ts-now))
+           while (not (= (ts-dow ts) 0))
+           do (ts-decf (ts-day ts))
+           finally return (ts-format ts))
+  ;;=> "2019-07-21 18:15:17 -0500"
+#+END_SRC
+
+* Tools
+
+** Reset all struct accessors
+
+#+BEGIN_SRC elisp :results none
+  (cl-loop for (name . opts) in (cl-struct-slot-info 'ts)
+           for accessor = (intern (concat "ts-" (symbol-name name)))
+           for aliases = (--map (intern (concat "ts-" (symbol-name it)))
+                                (plist-get (cdr opts) :aliases))
+           for cmacro = (intern (concat "ts-" (symbol-name name) "--cmacro")) 
+           do (unintern accessor)
+           do (--each aliases
+                (unintern it))
+           do (unintern cmacro))
+#+END_SRC
+
+* Benchmarking
+
+** Emacs internal time values vs. Unix timestamps
+
+#+BEGIN_SRC elisp :results silent
+  (cl-defstruct ts
+    hour minute second
+    dom dow doe
+    moy
+    year
+    tz
+    internal unix)
+#+END_SRC
+
+*** Formatting
+
+#+BEGIN_SRC elisp
+  (let ((format "%Y-%m-%d %H:%M:%S"))
+    (bench-multi :times 100000
+      :forms (("Unix timestamp" (format-time-string format 1544311232))
+              ("Internal time" (format-time-string format '(23564 20962 864324 108000))))))
+#+END_SRC
+
+#+RESULTS:
+| Form           | x faster than next |     Total runtime | # of GCs |   Total GC runtime |
+|----------------+--------------------+-------------------+----------+--------------------|
+| Internal time  | 1.00               |       4.846531505 |        5 | 1.1269977660000006 |
+| Unix timestamp | slowest            | 4.851822707999999 |        5 | 1.1267304740000004 |
+
+No difference when formatting.
+
+*** Getting current time
+
+#+BEGIN_SRC elisp
+  (bench-multi :times 100000
+    :forms (("Unix timestamp" (float-time))
+            ("Internal time" (current-time))))
+#+END_SRC
+
+#+RESULTS:
+| Form           | x faster than next |        Total runtime | # of GCs | Total GC runtime |
+|----------------+--------------------+----------------------+----------+------------------|
+| Unix timestamp | 1.12               | 0.008584705999999998 |        0 |              0.0 |
+| Internal time  | slowest            |          0.009583258 |        0 |              0.0 |
+
+Getting the current time as a Unix timestamp is slightly faster.  The docs for ~float-time~ warn that it's floating point and that ~current-time~ should be used if precision is needed.  I don't think that's important for us.
+
+** ~org-fix-decoded-time~ vs. ~ts-~ setters
+
+*** With filling
+
+#+BEGIN_SRC elisp
+  (let* ((s "mon 9 dec 2018")
+         (parsed (parse-time-string s)))
+    (bench-multi :times 1000
+      :ensure-equal t
+      :forms (("org-fix-decoded-time" (ts-fill (make-ts :unix (float-time (apply #'encode-time (org-fix-decoded-time parsed))))))
+              ("cl-loop nth" (ts-fill (make-ts :unix (float-time (apply #'encode-time (cl-loop for i from 0 to 5
+                                                                                               when (null (nth i parsed))
+                                                                                               do (setf (nth i parsed) 0)
+                                                                                               finally return parsed))))))
+              ("cl-loop elt" (ts-fill (make-ts :unix (float-time (apply #'encode-time (cl-loop for i from 0 to 5
+                                                                                               when (null (elt parsed i))
+                                                                                               do (setf (elt parsed i) 0)
+                                                                                               finally return parsed))))))
+              ("ts- accessors" (-let* (((S M H d m Y) parsed))
+                                 (ts-fill (ts-update (make-ts :second (or S 0) :minute (or M 0) :hour (or H 0)
+                                                              :dom (or d 0) :moy (or m 0) :year (or Y 0))))))
+              )))
+#+END_SRC
+
+#+RESULTS:
+| Form                 | x faster than next |      Total runtime | # of GCs |    Total GC runtime |
+|----------------------+--------------------+--------------------+----------+---------------------|
+| ts- accessors        |               2.11 | 0.6814406310000001 |        0 |                 0.0 |
+| org-fix-decoded-time |               1.00 |         1.43786147 |        1 | 0.40317458900000247 |
+| cl-loop nth          |               1.01 | 1.4420543490000002 |        1 | 0.40715375199999926 |
+| cl-loop elt          |            slowest | 1.4522118320000001 |        1 | 0.41347589399998697 |
+
+*** Just returning unix time
+
+#+BEGIN_SRC elisp
+  (let* ((s "mon 9 dec 2018"))
+    (bench-multi :times 1000
+      :ensure-equal t
+      :forms (("org-fix-decoded-time" (ts-unix (make-ts :unix (float-time (apply #'encode-time (org-fix-decoded-time (parse-time-string s)))))))
+              ("cl-loop nth" (ts-unix (make-ts :unix (float-time (apply #'encode-time (cl-loop with parsed = (parse-time-string s)
+                                                                                               for i from 0 to 5
+                                                                                               when (null (nth i parsed))
+                                                                                               do (setf (nth i parsed) 0)
+                                                                                               finally return parsed))))))
+              ("cl-loop elt" (ts-unix (make-ts :unix (float-time (apply #'encode-time (cl-loop with parsed = (parse-time-string s)
+                                                                                               for i from 0 to 5
+                                                                                               when (null (elt parsed i))
+                                                                                               do (setf (elt parsed i) 0)
+                                                                                               finally return parsed))))))
+              ("ts- accessors" (-let* ((parsed (parse-time-string s))
+                                       ((S M H d m Y) parsed))
+                                 (ts-unix (ts-update (make-ts :second (or S 0) :minute (or M 0) :hour (or H 0)
+                                                              :dom (or d 0) :moy (or m 0) :year (or Y 0))))))
+              ("ts-parse" (ts-unix (ts-parse s)))
+              ("ts-parse-defsubst" (ts-unix (ts-parse-defsubst s)))
+              ("ts-parse-macro" (ts-unix (ts-parse-macro s))))))
+#+END_SRC
+
+#+RESULTS:
+| Form                 | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|----------------------+--------------------+---------------+----------+------------------|
+| ts-parse-macro       |               1.00 |   0.028634316 |        0 |              0.0 |
+| ts-parse-defsubst    |               1.01 |    0.02869171 |        0 |              0.0 |
+| cl-loop nth          |               1.00 |   0.029103046 |        0 |              0.0 |
+| cl-loop elt          |               1.04 |   0.029246385 |        0 |              0.0 |
+| org-fix-decoded-time |               1.00 |   0.030463535 |        0 |              0.0 |
+| ts- accessors        |               1.09 |   0.030527408 |        0 |              0.0 |
+| ts-parse             |            slowest |   0.033408084 |        0 |              0.0 |
+
+Funcall overhead is noticeable.  We could provide the macro or defsubst in addition to the function, so users in tight loops could avoid funcall overhead.
+
+*** As ~ts-parse~
+
+#+BEGIN_SRC elisp
+  (let* ((s "mon 9 dec 2018"))
+    (bench-multi :times 1000
+      :forms (("ts-parse" (ts-parse s))
+              ("ts-parse ts-unix" (ts-unix (ts-parse s))))))
+#+END_SRC
+
+#+RESULTS:
+| Form             | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|------------------+--------------------+---------------+----------+------------------|
+| ts-parse         | 1.02               |   0.031561369 |        0 |              0.0 |
+| ts-parse ts-unix | slowest            |   0.032193442 |        0 |              0.0 |
+
+** Accessor dispatch vs. ~(string-to-number (format-time-string...~
+
+#+BEGIN_SRC elisp
+  (let* ((ts (ts-now))
+         (unix (ts-unix ts)))
+    (ts-fill ts)
+    (bench-multi :times 1000
+      :ensure-equal t
+      :forms (("Accessor dispatch" (ts-year ts))
+              ("(string-to-number (format-time-string..." (string-to-number (format-time-string "%Y" unix))))))
+#+END_SRC
+
+#+RESULTS:
+| Form                                     | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|------------------------------------------+--------------------+---------------+----------+------------------|
+| Accessor dispatch                        | 93.17              |   0.000514627 |        0 |              0.0 |
+| (string-to-number (format-time-string... | slowest            |   0.047949907 |        0 |              0.0 |
+
+** Filling all fields at once with ~(split-string (format-time-string...~
+
+#+BEGIN_SRC elisp
+  (let ((a (ts-now))
+        (b (ts-now)))
+    (bench-multi :times 1000
+      :ensure-equal t
+      :forms (("Filling just year" (ts-year a))
+              ("Filling all fields" (ts-year (cl-loop with vals = (split-string (format-time-string "%H\f%M\f%S\f%d\f%m\f%Y\f%w\f%a\f%A\f%j\f%V\f%b\f%B\f%Z\f%z" (ts-unix b)) "\f")
+                                                      for f in '(:hour :minute :second
+                                                                       :dom :moy :year
+                                                                       :dow :day :day-full
+                                                                       :doy :woy
+                                                                       :mon :month
+                                                                       :tz-abbr :tz-offset)
+                                                      for i from 0
+                                                      for val = (nth i vals)
+                                                      for val = (or (ignore-errors (string-to-number val))
+                                                                    val)
+                                                      append (list f val) into data
+                                                      finally return (apply #' make-ts data)))))))
+#+END_SRC
+
+#+RESULTS:
+| Form               | x faster than next |         Total runtime | # of GCs | Total GC runtime |
+|--------------------+--------------------+-----------------------+----------+------------------|
+| Filling just year  | 111.27             | 0.0005753919999999999 |        0 |              0.0 |
+| Filling all fields | slowest            |   0.06402511300000001 |        0 |              0.0 |
+
+#+BEGIN_SRC elisp
+  (let ((a (ts-now))
+        (b (ts-now))
+        (c (ts-now)))
+    (bench-multi :times 1000
+      :ensure-equal t
+      :forms (("Filling just year" (ts-year a))
+              ("Filling all fields with ts-fill" (ts-year (ts-fill b)))
+              ("Filling all fields" (ts-year (cl-loop with vals = (split-string (format-time-string "%H\f%M\f%S\f%d\f%m\f%Y\f%w\f%a\f%A\f%j\f%V\f%b\f%B\f%Z\f%z" (ts-unix c)) "\f")
+                                                      for f in '(:hour :minute :second
+                                                                       :dom :moy :year
+                                                                       :dow :day :day-full
+                                                                       :doy :woy
+                                                                       :mon :month
+                                                                       :tz-abbr :tz-offset)
+                                                      for i from 0
+                                                      for val = (nth i vals)
+                                                      for val = (or (ignore-errors (string-to-number val))
+                                                                    val)
+                                                      append (list f val) into data
+                                                      finally return (apply #' make-ts data)))))))
+#+END_SRC
+
+#+RESULTS:
+| Form                            | x faster than next |       Total runtime | # of GCs | Total GC runtime |
+|---------------------------------+--------------------+---------------------+----------+------------------|
+| Filling just year               |              26.19 |         0.000578383 |        0 |              0.0 |
+| Filling all fields with ts-fill |               4.26 |         0.015147096 |        0 |              0.0 |
+| Filling all fields              |            slowest | 0.06453187299999999 |        0 |              0.0 |
+
+#+BEGIN_SRC elisp
+  (let ((unix (ts-unix (ts-now))))
+    (bench-multi :times 1000
+      :ensure-equal t
+      :forms (("format-time-string for each field"
+               (cl-loop for c in '("%H" "%M" "%S" "%d" "%m" "%Y" "%w" "%a" "%A" "%j" "%V" "%b" "%B" "%Z" "%z")
+                        collect (format-time-string c unix)))
+              ("format-time-string once" (split-string (format-time-string "%H\f%M\f%S\f%d\f%m\f%Y\f%w\f%a\f%A\f%j\f%V\f%b\f%B\f%Z\f%z" unix) "\f")))))
+#+END_SRC
+
+#+RESULTS:
+| Form                              | x faster than next |        Total runtime | # of GCs | Total GC runtime |
+|-----------------------------------+--------------------+----------------------+----------+------------------|
+| format-time-string once           | 8.72               | 0.035605714999999996 |        0 |              0.0 |
+| format-time-string for each field | slowest            |  0.31055773799999997 |        0 |              0.0 |
+
+#+BEGIN_SRC elisp
+  (let* ((unix (ts-unix (ts-now)))
+         (constructors '("%H" "%M" "%S" "%d" "%m" "%Y" "%w" "%a" "%A" "%j" "%V" "%b" "%B" "%Z" "%z"))
+         (results (cl-loop for i from 0 to (length constructors)
+                           collect (progn
+                                     (garbage-collect)
+                                     (let* ((fields (-slice constructors 0 i))
+                                            (multi-string (s-join "\f" fields))
+                                            (multi-calls (car (benchmark-run-compiled 1000
+                                                                (cl-loop for field in fields
+                                                                         collect (format-time-string field unix)))))
+                                            (multi-field (car (benchmark-run-compiled 1000
+                                                                (split-string (format-time-string multi-string unix)))))
+                                            (difference (format "%.04f" (- multi-field multi-calls ))))
+                                       (list (1+ i)
+                                             (format "%.04f" multi-calls)
+                                             (format "%.04f" multi-field)
+                                             difference
+                                             (format "%.04f" (/ multi-calls
+                                                         multi-field)))))))
+         (table (list '("Fields" "Multiple calls" "One call" "Difference" "x faster")
+                      'hline)))
+    (append table results))
+
+#+END_SRC
+
+#+RESULTS:
+| Fields | Multiple calls | One call | Difference | x faster |
+|--------+----------------+----------+------------+----------|
+|      1 |         0.0001 |   0.0215 |     0.0214 |   0.0043 |
+|      2 |         0.0217 |   0.0231 |     0.0014 |   0.9385 |
+|      3 |         0.0428 |   0.0249 |    -0.0180 |   1.7223 |
+|      4 |         0.0639 |   0.0256 |    -0.0384 |   2.5004 |
+|      5 |         0.0848 |   0.0264 |    -0.0585 |   3.2179 |
+|      6 |         0.1059 |   0.0271 |    -0.0788 |   3.9039 |
+|      7 |         0.1269 |   0.0282 |    -0.0988 |   4.5074 |
+|      8 |         0.1479 |   0.0290 |    -0.1189 |   5.1008 |
+|      9 |         0.1693 |   0.0301 |    -0.1392 |   5.6169 |
+|     10 |         0.1904 |   0.0310 |    -0.1594 |   6.1446 |
+|     11 |         0.2113 |   0.0318 |    -0.1795 |   6.6403 |
+|     12 |         0.2326 |   0.0329 |    -0.1997 |   7.0796 |
+|     13 |         0.2537 |   0.0338 |    -0.2199 |   7.5002 |
+|     14 |         0.2749 |   0.0349 |    -0.2400 |   7.8714 |
+|     15 |         0.2958 |   0.0357 |    -0.2601 |   8.2849 |
+|     16 |         0.3169 |   0.0368 |    -0.2802 |   8.6213 |
+
+** Old ~ts-fill~ vs new ~ts-fill~
+
+Including struct and macro/function definitions because the code may change in the future.
+
+*NOTE*: Something weird happens when evaluating these macro-defining, function-defining blocks in Org.  After running them, the functions aren't even defined in Emacs.  I don't understand how that's possible.  So some of the results are...weird.  Anyway, when I manually eval the macros and functions outside of the source block, and then run the benchmark part only, the results show that the "new" and ~defun~-based functions are much faster.
+
+This code just changes the number of times ~format-time-string~ is called:
+
+#+BEGIN_SRC elisp
+  (unintern 'ts-fill)
+  (unintern 'ts-fill2)
+
+  (ts-defstruct ts
+    (hour nil
+          :accessor-init (string-to-number (format-time-string "%H" (ts-unix struct)))
+          :aliases (H)
+          :constructor "%H"
+          :type integer)
+    (minute nil
+            :accessor-init (string-to-number (format-time-string "%M" (ts-unix struct)))
+            :aliases (min M)
+            :constructor "%M"
+            :type integer)
+    (second nil
+            :accessor-init (string-to-number (format-time-string "%S" (ts-unix struct)))
+            :aliases (sec S)
+            :constructor "%S"
+            :type integer)
+    (dom nil
+         :accessor-init (string-to-number (format-time-string "%d" (ts-unix struct)))
+         :aliases (d)
+         :constructor "%d"
+         :type integer)
+    (moy nil
+         :accessor-init (string-to-number (format-time-string "%m" (ts-unix struct)))
+         :aliases (m month-of-year)
+         :constructor "%m"
+         :type integer)
+    (year nil
+          :accessor-init (string-to-number (format-time-string "%Y" (ts-unix struct)))
+          :aliases (Y)
+          :constructor "%Y"
+          :type integer)
+
+    (dow nil
+         :accessor-init (string-to-number (format-time-string "%w" (ts-unix struct)))
+         :aliases (day-of-week)
+         :constructor "%w"
+         :type integer)
+    (day nil
+         :accessor-init (format-time-string "%a" (ts-unix struct))
+         :aliases (day-abbr)
+         :constructor "%a")
+    (day-full nil
+              :accessor-init (format-time-string "%A" (ts-unix struct))
+              :aliases (day-name)
+              :constructor "%A")
+    ;; (doe nil
+    ;;      :accessor-init (days-between (format-time-string "%Y-%m-%d 00:00:00" (ts-unix struct))
+    ;;                                   "1970-01-01 00:00:00")
+    ;;      :aliases (day-of-epoch))
+    (doy nil
+         :accessor-init (string-to-number (format-time-string "%j" (ts-unix struct)))
+         :aliases (day-of-year)
+         :constructor "%j"
+         :type integer)
+
+    (woy nil
+         :accessor-init (string-to-number (format-time-string "%V" (ts-unix struct)))
+         :aliases (week week-of-year)
+         :constructor "%V"
+         :type integer)
+
+    (mon nil
+         :accessor-init (format-time-string "%b" (ts-unix struct))
+         :aliases (month-abbr)
+         :constructor "%b")
+    (month nil
+           :accessor-init (format-time-string "%B" (ts-unix struct))
+           :aliases (month-name)
+           :constructor "%B")
+
+    (tz-abbr nil
+             :accessor-init (format-time-string "%Z" (ts-unix struct))
+             :constructor "%Z")
+    (tz-offset nil
+               :accessor-init (format-time-string "%z" (ts-unix struct))
+               :constructor "%z")
+    ;; MAYBE: Add tz-offset-minutes
+
+    (internal nil
+              :accessor-init (apply #'encode-time (decode-time (ts-unix struct))))
+    (unix nil
+          :accessor-init (pcase-let* (((cl-struct ts second minute hour dom moy year) cl-x))
+                           (if (and second minute hour dom moy year)
+                               (float-time (encode-time second minute hour dom moy year))
+                             (float-time)))))
+
+  (defmacro ts-define-fill ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let ((slots (->> (cl-struct-slot-info 'ts)
+                      (-map #'car)
+                      (--select (not (member it '(unix internal cl-tag-slot)))))))
+      `(defun ts-fill (ts &optional force)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+  If FORCE is non-nil, update already-filled slots."
+         (when force
+           ,@(cl-loop for slot in slots
+                      for accessor = (intern (concat "ts-" (symbol-name slot)))
+                      collect `(setf (,accessor ts) nil)))
+         ,@(cl-loop for slot in slots
+                    for accessor = (intern (concat "ts-" (symbol-name slot)))
+                    collect `(,accessor ts))
+         ts)))
+  (ts-define-fill)
+
+  (defmacro ts-define-fill2 ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let* ((slots (->> (cl-struct-slot-info 'ts)
+                       (--select (and (not (member (car it) '(unix internal cl-tag-slot)))
+                                      (plist-get (cddr it) :constructor)))
+
+                       (--map (list (intern (concat ":" (symbol-name (car it))))
+                                    (cddr it)))))
+           (keywords (-map #'first slots))
+           (constructors (->> slots
+                              (--map (plist-get (cadr it) :constructor))
+                              -non-nil))
+           (types (--map (plist-get (cadr it) :type) slots))
+           (format-string (s-join "\f" constructors)))
+      `(defun ts-fill2 (ts)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+  If FORCE is non-nil, update already-filled slots."
+         (let* ((time-values (split-string (format-time-string ,format-string (ts-unix ts)) "\f"))
+                (args (cl-loop for type in ',types
+                               for tv in time-values
+                               for keyword in ',keywords
+                               append (list keyword (pcase type
+                                                      ('integer (string-to-number tv))
+                                                      (_ tv))))))
+           (apply #'make-ts :unix (ts-unix ts) args)))))
+  (ts-define-fill2)
+
+  (bench-multi :times 1000
+    :ensure-equal t
+    :forms (("old" (ts-fill (make-ts :unix 1544410412.2087605)))
+            ("new" (ts-fill2 (make-ts :unix 1544410412.2087605)))))
+
+#+END_SRC
+
+#+RESULTS:
+| Form | x faster than next | Total runtime | # of GCs |    Total GC runtime |
+|------+--------------------+---------------+----------+---------------------|
+| new  | 5.85               |   0.153482234 |        0 |                 0.0 |
+| old  | slowest            |   0.897823082 |        1 | 0.25289141199999676 |
+
+This compares both ways defined with ~defun~.  The ~cl-defmethod~ dispatch overhead is /very/ significant:
+
+#+BEGIN_SRC elisp
+  (unintern 'ts-fill)
+  (unintern 'ts-fill2)
+
+  (ts-defstruct ts
+    (hour nil
+          :accessor-init (string-to-number (format-time-string "%H" (ts-unix struct)))
+          :aliases (H)
+          :constructor "%H"
+          :type integer)
+    (minute nil
+            :accessor-init (string-to-number (format-time-string "%M" (ts-unix struct)))
+            :aliases (min M)
+            :constructor "%M"
+            :type integer)
+    (second nil
+            :accessor-init (string-to-number (format-time-string "%S" (ts-unix struct)))
+            :aliases (sec S)
+            :constructor "%S"
+            :type integer)
+    (dom nil
+         :accessor-init (string-to-number (format-time-string "%d" (ts-unix struct)))
+         :aliases (d)
+         :constructor "%d"
+         :type integer)
+    (moy nil
+         :accessor-init (string-to-number (format-time-string "%m" (ts-unix struct)))
+         :aliases (m month-of-year)
+         :constructor "%m"
+         :type integer)
+    (year nil
+          :accessor-init (string-to-number (format-time-string "%Y" (ts-unix struct)))
+          :aliases (Y)
+          :constructor "%Y"
+          :type integer)
+
+    (dow nil
+         :accessor-init (string-to-number (format-time-string "%w" (ts-unix struct)))
+         :aliases (day-of-week)
+         :constructor "%w"
+         :type integer)
+    (day nil
+         :accessor-init (format-time-string "%a" (ts-unix struct))
+         :aliases (day-abbr)
+         :constructor "%a")
+    (day-full nil
+              :accessor-init (format-time-string "%A" (ts-unix struct))
+              :aliases (day-name)
+              :constructor "%A")
+    ;; (doe nil
+    ;;      :accessor-init (days-between (format-time-string "%Y-%m-%d 00:00:00" (ts-unix struct))
+    ;;                                   "1970-01-01 00:00:00")
+    ;;      :aliases (day-of-epoch))
+    (doy nil
+         :accessor-init (string-to-number (format-time-string "%j" (ts-unix struct)))
+         :aliases (day-of-year)
+         :constructor "%j"
+         :type integer)
+
+    (woy nil
+         :accessor-init (string-to-number (format-time-string "%V" (ts-unix struct)))
+         :aliases (week week-of-year)
+         :constructor "%V"
+         :type integer)
+
+    (mon nil
+         :accessor-init (format-time-string "%b" (ts-unix struct))
+         :aliases (month-abbr)
+         :constructor "%b")
+    (month nil
+           :accessor-init (format-time-string "%B" (ts-unix struct))
+           :aliases (month-name)
+           :constructor "%B")
+
+    (tz-abbr nil
+             :accessor-init (format-time-string "%Z" (ts-unix struct))
+             :constructor "%Z")
+    (tz-offset nil
+               :accessor-init (format-time-string "%z" (ts-unix struct))
+               :constructor "%z")
+    ;; MAYBE: Add tz-offset-minutes
+
+    (internal nil
+              :accessor-init (apply #'encode-time (decode-time (ts-unix struct))))
+    (unix nil
+          :accessor-init (pcase-let* (((cl-struct ts second minute hour dom moy year) cl-x))
+                           (if (and second minute hour dom moy year)
+                               (float-time (encode-time second minute hour dom moy year))
+                             (float-time)))))
+
+  (defmacro ts-define-fill ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let ((slots (->> (cl-struct-slot-info 'ts)
+                      (-map #'car)
+                      (--select (not (member it '(unix internal cl-tag-slot)))))))
+      `(cl-defmethod ts-fill ((ts ts) &optional force)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+    If FORCE is non-nil, update already-filled slots."
+         (when force
+           ,@(cl-loop for slot in slots
+                      for accessor = (intern (concat "ts-" (symbol-name slot)))
+                      collect `(setf (,accessor ts) nil)))
+         ,@(cl-loop for slot in slots
+                    for accessor = (intern (concat "ts-" (symbol-name slot)))
+                    collect `(,accessor ts))
+         ts)))
+  (ts-define-fill)
+
+  (defmacro ts-define-fill2 ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let* ((slots (->> (cl-struct-slot-info 'ts)
+                       (--select (and (not (member (car it) '(unix internal cl-tag-slot)))
+                                      (plist-get (cddr it) :constructor)))
+
+                       (--map (list (intern (concat ":" (symbol-name (car it))))
+                                    (cddr it)))))
+           (keywords (-map #'first slots))
+           (constructors (->> slots
+                              (--map (plist-get (cadr it) :constructor))
+                              -non-nil))
+           (types (--map (plist-get (cadr it) :type) slots))
+           (format-string (s-join "\f" constructors)))
+      `(defun ts-fill2 (ts)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+  If FORCE is non-nil, update already-filled slots."
+         (let* ((time-values (split-string (format-time-string ,format-string (ts-unix ts)) "\f"))
+                (args (cl-loop for type in ',types
+                               for tv in time-values
+                               for keyword in ',keywords
+                               append (list keyword (pcase type
+                                                      ('integer (string-to-number tv))
+                                                      (_ tv))))))
+           (apply #'make-ts :unix (ts-unix ts) args)))))
+  (ts-define-fill2)
+
+  (bench-multi :times 1000
+    :ensure-equal t
+    :forms (("old" (ts-fill (make-ts :unix 1544410412.2087605)))
+            ("new" (ts-fill2 (make-ts :unix 1544410412.2087605)))))
+#+END_SRC
+
+#+RESULTS:
+| Form | x faster than next |       Total runtime | # of GCs | Total GC runtime |
+|------+--------------------+---------------------+----------+------------------|
+| new  | 2.51               | 0.15029577900000002 |        0 |              0.0 |
+| old  | slowest            |         0.377474529 |        0 |              0.0 |
+
+** Comparing ~defun~ and ~cl-defmethod~
+
+#+BEGIN_SRC elisp
+  (unintern 'ts-fill-method)
+  (defmacro ts-define-fill-method ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let ((slots (->> (cl-struct-slot-info 'ts)
+                      (-map #'car)
+                      (--select (not (member it '(unix internal cl-tag-slot)))))))
+      `(cl-defmethod ts-fill-method ((ts ts) &optional force)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+   If FORCE is non-nil, update already-filled slots."
+         (when force
+           ,@(cl-loop for slot in slots
+                      for accessor = (intern (concat "ts-" (symbol-name slot)))
+                      collect `(setf (,accessor ts) nil)))
+         ,@(cl-loop for slot in slots
+                    for accessor = (intern (concat "ts-" (symbol-name slot)))
+                    collect `(,accessor ts))
+         ts)))
+  (ts-define-fill-method)
+
+  (unintern 'ts-fill-defun)
+  (defmacro ts-define-fill-defun ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let ((slots (->> (cl-struct-slot-info 'ts)
+                      (-map #'car)
+                      (--select (not (member it '(unix internal cl-tag-slot)))))))
+      `(defun ts-fill-defun (ts &optional force)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+   If FORCE is non-nil, update already-filled slots."
+         (when force
+           ,@(cl-loop for slot in slots
+                      for accessor = (intern (concat "ts-" (symbol-name slot)))
+                      collect `(setf (,accessor ts) nil)))
+         ,@(cl-loop for slot in slots
+                    for accessor = (intern (concat "ts-" (symbol-name slot)))
+                    collect `(,accessor ts))
+         ts)))
+  (ts-define-fill-defun)
+
+  (bench-multi :times 10
+    :ensure-equal t
+    :forms (("cl-defmethod" (ts-fill-method (make-ts :unix 1544410412.2087605)))
+            ("defun" (ts-fill-defun (make-ts :unix 1544410412.2087605)))))
+#+END_SRC
+
+#+RESULTS:
+| Form         | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|--------------+--------------------+---------------+----------+------------------|
+| cl-defmethod | 1.71               |    0.00389861 |        0 |              0.0 |
+| defun        | slowest            |   0.006647152 |        0 |              0.0 |
+
+With byte-compilation:
+
+#+BEGIN_SRC elisp
+  (unintern 'ts-fill-method)
+  (defmacro ts-define-fill-method ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let ((slots (->> (cl-struct-slot-info 'ts)
+                      (-map #'car)
+                      (--select (not (member it '(unix internal cl-tag-slot)))))))
+      `(cl-defmethod ts-fill-method ((ts ts) &optional force)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+   If FORCE is non-nil, update already-filled slots."
+         (when force
+           ,@(cl-loop for slot in slots
+                      for accessor = (intern (concat "ts-" (symbol-name slot)))
+                      collect `(setf (,accessor ts) nil)))
+         ,@(cl-loop for slot in slots
+                    for accessor = (intern (concat "ts-" (symbol-name slot)))
+                    collect `(,accessor ts))
+         ts)))
+  (byte-compile (ts-define-fill-method))
+
+  (unintern 'ts-fill-defun)
+  (defmacro ts-define-fill-defun ()
+    "Define `ts-fill' method that fills all applicable slots of `ts' object from its `unix' slot."
+    (let ((slots (->> (cl-struct-slot-info 'ts)
+                      (-map #'car)
+                      (--select (not (member it '(unix internal cl-tag-slot)))))))
+      `(defun ts-fill-defun (ts &optional force)
+         "Fill all slots of timestamp TS from Unix timestamp and return TS.
+   If FORCE is non-nil, update already-filled slots."
+         (when force
+           ,@(cl-loop for slot in slots
+                      for accessor = (intern (concat "ts-" (symbol-name slot)))
+                      collect `(setf (,accessor ts) nil)))
+         ,@(cl-loop for slot in slots
+                    for accessor = (intern (concat "ts-" (symbol-name slot)))
+                    collect `(,accessor ts))
+         ts)))
+  (byte-compile (ts-define-fill-defun))
+
+  (bench-multi :times 10
+    :ensure-equal t
+    :forms (("cl-defmethod" (ts-fill-method (make-ts :unix 1544410412.2087605)))
+            ("defun" (ts-fill-defun (make-ts :unix 1544410412.2087605)))))
+#+END_SRC
+
+#+RESULTS:
+| Form         | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|--------------+--------------------+---------------+----------+------------------|
+| defun        | 1.07               |   0.003677682 |        0 |              0.0 |
+| cl-defmethod | slowest            |   0.003933501 |        0 |              0.0 |
+
+This seems to show that ~cl-defmethod~ may be faster when not byte-compiled, but ~defun~ is faster when byte-compiled...?
+
+** ~ts-incf~ vs. ~ts-incf*~
+
+~ts-incf*~ uses ~cl-struct-slot-value~ to make access slightly easier by only having to specify the slot instead of calling the accessor.  It's nice to see that performance is identical!
+
+#+BEGIN_SRC elisp
+  (bench-multi :times 1000
+    :ensure-equal t
+    :forms (("ts-incf" (let ((ts (ts-now)))
+                         (ts-incf (ts-dom ts) 5)
+                         (ts-format nil ts)))
+            ("ts-incf*" (let ((ts (ts-now)))
+                          (ts-incf (ts-dom ts) 5)
+                          (ts-format nil ts)))))
+#+END_SRC
+
+#+RESULTS:
+| Form     | x faster than next |       Total runtime | # of GCs | Total GC runtime |
+|----------+--------------------+---------------------+----------+------------------|
+| ts-incf  | 1.00               |         0.119002497 |        0 |              0.0 |
+| ts-incf* | slowest            | 0.11907886200000001 |        0 |              0.0 |
+
+** Making a new ts vs. blanking fields
+
+Interestingly, not only is making a new ts faster, but it causes less GC!
+
+#+BEGIN_SRC elisp
+  (let* ((a (ts-now)))
+    (bench-multi :times 100000
+      :ensure-equal t
+      :forms (("New" (let ((ts (copy-ts a)))
+                       (setq ts (ts-fill ts))
+                       (make-ts :unix (ts-unix ts))))
+              ("Blanking" (let ((ts (copy-ts a)))
+                            (setq ts (ts-fill ts))
+                            (ts-reset ts))))))
+#+END_SRC
+
+#+RESULTS:
+| Form     | x faster than next | Total runtime | # of GCs |  Total GC runtime |
+|----------+--------------------+---------------+----------+-------------------|
+| New      | 1.16               |  16.022026285 |       37 |  7.72851086399999 |
+| Blanking | slowest            |  18.664577402 |       42 | 8.754392806999988 |
+
+** ~ts-inc~ vs. ~ts-incf~ vs. ~cl-incf~ vs...
+
+~ts-inc~ does more work than ~cl-incf~, so it should be slower.  But with ~cl-incf~ we have to call ~ts-fill~ and ~ts-update~ manually.
+
+Note: We call ~ts-format~ to ensure that each form is returning the same thing, because e.g. ~ts-inc~ returns the timestamp, while ~ts-incf~ returns the new slot value.
+
+#+BEGIN_SRC elisp
+  (let ((ts (ts-now)))
+    (bench-multi :times 1000 :ensure-equal t
+      :forms (("ts-inc" (->> (copy-ts ts)
+                             (ts-inc 'hour 72)
+                             (ts-inc 'minute 10)
+                             (ts-format nil)))
+              ("ts-incf" (let ((ts (copy-ts ts)))
+                           (ts-incf (ts-hour ts) 72)
+                           (ts-incf (ts-minute ts) 10)
+                           (ts-format nil ts)))
+              ("cl-incf" (let ((ts (copy-ts ts)))
+                           (setq ts (ts-fill ts))
+                           (cl-incf (ts-hour ts) 72)
+                           (cl-incf (ts-minute ts) 10)
+                           (setq ts (ts-update ts))
+                           (ts-format nil ts)))
+              ("ts-adjust" (let ((ts (copy-ts ts)))
+                             (ts-format nil (ts-adjust 'hour 72 'minute 10 ts))))
+              ("ts-adjustf" (let ((ts (copy-ts ts)))
+                              (ts-format nil (ts-adjustf ts 'hour 72 'minute 10))))
+              ("manually-expanded ts-adjustf w/accessors"
+               (let ((ts (ts-fill (copy-ts ts))) )
+                 (cl-incf (ts-hour ts) 72)
+                 (cl-incf (ts-minute ts) 10)
+                 (setq ts (ts-update ts))
+                 (ts-format nil ts)))
+              ("manually-expanded ts-adjustf w/cl-struct-slot-value"
+               (let ((ts (copy-ts ts)))
+                 (ts-format nil (let ((g3706 (ts-fill ts)))
+                                  (cl-incf (cl-struct-slot-value 'ts 'hour g3706) 72)
+                                  (cl-incf (cl-struct-slot-value 'ts 'minute g3706) 10)
+                                  (setf ts (make-ts :unix (ts-unix (ts-update g3706)))))))))))
+#+END_SRC
+
+#+RESULTS:
+| Form                                                | x faster than next |       Total runtime | # of GCs | Total GC runtime |
+|-----------------------------------------------------+--------------------+---------------------+----------+------------------|
+| ts-adjustf                                          |               1.00 |         0.118524905 |        0 |              0.0 |
+| cl-incf                                             |               1.00 |         0.118892374 |        0 |              0.0 |
+| manually-expanded ts-adjustf w/accessors            |               1.08 |         0.118896395 |        0 |              0.0 |
+| manually-expanded ts-adjustf w/cl-struct-slot-value |               1.11 |         0.127937998 |        0 |              0.0 |
+| ts-adjust                                           |               1.47 | 0.14162766400000001 |        0 |              0.0 |
+| ts-incf                                             |               1.00 |         0.208026902 |        0 |              0.0 |
+| ts-inc                                              |            slowest |         0.208248724 |        0 |              0.0 |
+
+~cl-struct-slot-value~ seems a bit slower than calling accessors.  I understand why this is so in non-byte-compiled code, but it's defined with ~define-inline~, and its comments say that the byte-compiler resolves the array positions at compile time, so it seems like it ought to be just as fast as calling the accessors.
+
+** ~ts-adjust~ vs ~ts-inc~ vs ~ts-adjustf~ for only one adjustment
+
+#+BEGIN_SRC elisp
+  (let ((ts (ts-now)))
+    (bench-multi :times 1000 :ensure-equal t
+      :forms (("ts-inc" (->> (copy-ts ts)
+                             (ts-inc 'hour 72)
+                             (ts-format nil)))
+              ("ts-adjust" (let ((ts (copy-ts ts)))
+                             (ts-format nil (ts-adjust 'hour 72 ts))))
+              ("ts-adjustf" (let ((ts (copy-ts ts)))
+                              (ts-adjustf ts 'hour 72)
+                              (ts-format nil ts))))))
+#+END_SRC
+
+#+RESULTS:
+| Form       | x faster than next |       Total runtime | # of GCs | Total GC runtime |
+|------------+--------------------+---------------------+----------+------------------|
+| ts-adjustf |               1.10 |         0.115363916 |        0 |              0.0 |
+| ts-inc     |               1.06 |           0.1265937 |        0 |              0.0 |
+| ts-adjust  |            slowest | 0.13443148200000002 |        0 |              0.0 |
+
+** Getting quotient and remainder
+
+#+BEGIN_SRC elisp
+  (let ((divisor 31536000)
+        (a 1544930832)
+        (b 15103636150))
+    (bench-multi :times 100000 :ensure-equal t
+      :forms (("Divide and multiply" (let* ((orig-value a)
+                                            (new-value (/ orig-value divisor)))
+                                       (- orig-value (* new-value divisor))))
+              ("Divide and mod" (let* ((orig-value a)
+                                       (new-value (/ orig-value divisor)))
+                                  (% orig-value divisor))))))
+#+END_SRC
+
+#+RESULTS:
+| Form                | x faster than next |        Total runtime | # of GCs | Total GC runtime |
+|---------------------+--------------------+----------------------+----------+------------------|
+| Divide and mod      | 1.15               | 0.020987126999999998 |        0 |              0.0 |
+| Divide and multiply | slowest            |          0.024083734 |        0 |              0.0 |
+
+#+BEGIN_SRC elisp
+  (let*((a 1544930832)
+        (b 15103636150)
+        (diff (- a b)))
+    (bench-multi :times 1000 :ensure-equal t
+      :forms (("ts-human-duration" (ts-human-duration diff))
+              ("ts-human-duration-mod" (ts-human-duration-mod diff)))))
+#+END_SRC
+
+#+RESULTS:
+| Form                  | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|-----------------------+--------------------+---------------+----------+------------------|
+| ts-human-duration-mod | 1.06               |   0.010433296 |        0 |              0.0 |
+| ts-human-duration     | slowest            |   0.011053253 |        0 |              0.0 |
+
+So it's slightly faster to use ~%~ than to calculate the remainder manually.
+
+** ~ts-format~ vs. ~ts-format2~
+
+The new one allows more flexible arguments, but may be slower.  Let's find out:
+
+#+BEGIN_SRC elisp
+  (let ((now (ts-now)))
+    (bench-multi-lexical :times 10000
+      :forms (("ts-format" (list (ts-format nil now)
+                                 (ts-format "%Y" now)
+                                 (ts-format "%Y")
+                                 (ts-format nil now)
+                                 (ts-format nil)))
+              ("ts-format2" (list (ts-format2 now)
+                                  (ts-format2 "%Y" now)
+                                  (ts-format2 "%Y")
+                                  (ts-format2 nil now)
+                                  (ts-format2))))))
+#+END_SRC
+
+#+RESULTS:
+| Form       | x faster than next | Total runtime | # of GCs | Total GC runtime |
+|------------+--------------------+---------------+----------+------------------|
+| ts-format  | 1.03               |      1.158207 |        0 |                0 |
+| ts-format2 | slowest            |      1.191369 |        0 |                0 |
+
+It seems to be 2-3% slower, which is about 0.03 seconds across 10,000 iterations.  Should be fine.  Let's do it.
+
+* Examples
+
+More code examples.
+
+** ts-week-span function
+
+#+BEGIN_SRC elisp
+  (defun ts-week-span (ts)
+    "Return a cons (BEG-TS . END-TS) spanning the week containing timestamp TS."
+    (let* (
+           ;; We start by calculating the offsets for the beginning and
+           ;; ending timestamps using the current day of the week. Note
+           ;; that the `ts-dow' slot uses the "%w" format specifier, which
+           ;; counts from Sunday to Saturday as a number from 0 to 6.
+           (adjust-beg-day (- (ts-dow ts)))
+           (adjust-end-day (- 6 (ts-dow ts)))
+           ;; Make beginning/end timestamps based on `ts', with adjusted
+           ;; day and hour/minute/second values. These functions return
+           ;; new timestamps, so `ts' is unchanged.
+           (beg (thread-last ts
+                  ;; `ts-adjust' makes relative adjustments to timestamps.
+                  (ts-adjust 'day adjust-beg-day)
+                  ;; `ts-apply' applies absolute values to timestamps.
+                  (ts-apply :hour 0 :minute 0 :second 0)))
+           (end (thread-last ts
+                  (ts-adjust 'day adjust-end-day)
+                  (ts-apply :hour 23 :minute 59 :second 59))))
+      (cons beg end)))
+
+  (-let* (;; Bind the default format string for `ts-format', so the
+          ;; results are easy to understand.
+          (ts-default-format "%a, %Y-%m-%d %H:%M:%S %z")
+          ((beg . end) (ts-week-span (make-ts :unix 0))))
+    ;; Finally, format the timestamps.
+    (list :epoch-week-beg (ts-format beg)
+          :epoch-week-end (ts-format end)))
+
+  ;; This produces:
+
+  ;;=> (:epoch-week-beg "Sun, 1969-12-28 00:00:00 -0600"
+  ;;    :epoch-week-end "Sat, 1970-01-03 23:59:59 -0600")
+#+END_SRC

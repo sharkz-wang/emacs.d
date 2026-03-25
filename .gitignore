@@ -5,8 +5,15 @@
 *.swp
 *.rej
 
-# Packaging
-straight/
+# ignore straight's build folders
+straight/build-cache.el
+straight/build
+straight/modified
+
+# do not ignore straight's installed packages
+!straight/repos
+!straight/versions
+
 .cask
 
 # Config files

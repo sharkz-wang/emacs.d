@@ -1,0 +1,56 @@
+* org-sticky-header
+
+[[https://melpa.org/#/org-sticky-header][file:https://melpa.org/packages/org-sticky-header-badge.svg]] [[https://stable.melpa.org/#/org-sticky-header][file:https://stable.melpa.org/packages/org-sticky-header-badge.svg]]
+
+This package displays in the header-line the Org heading for the node that's at the top of the window.  This way, if the heading for the text at the top of the window is beyond the top of the window, you don't forget which heading the text belongs to.  The display can be customized to show just the heading, the full outline path, or the full outline path in reverse.
+
+Here's a screenshot showing the reversed-path setting:
+
+[[screenshot.gif]]
+
+* Installation and Usage
+
+Install from MELPA and run =org-sticky-header-mode=.
+
+To install manually, put this file in your =load-path=, =(require 'org-sticky-header)= in your init file, and run =org-sticky-header-mode=.
+
+You'll probably want to add =org-sticky-header-mode= to your =org-mode-hook= too.
+
+If =org-startup-indented= is enabled, the =org-sticky-header-prefix= will be automatically set to match the =org-indent-mode= prefixes; otherwise you may wish to customize it.
+
+* Changelog
+
+** 1.1
+
+*Added*
++  Clicking on header line jumps to heading in the buffer.  (Thanks to [[https://github.com/technician77][technician77]] for suggesting.)
++  Optionally display to-do keyword and priority of headings (enabled by default).
+
+*Changed*
++  Default path separator strings changed to =❯= and =❮=.
+
+*Fixed*
++  Error message was displayed when point was before first heading or in an empty document.  (Thanks to [[https://github.com/kaushalmodi][Kaushal Modi]].)
++  Use ~string-width~ instead of ~length~ where appropriate.
+
+** 1.0.1
+
+*Fixed*
++  Avoid infinite loop when buffer is narrowed to a region without a parent heading.  (See [[https://github.com/alphapapa/org-sticky-header/issues/8][#8]].  Thanks to [[https://github.com/chasberry][Charles C. Berry]].)
+
+** 1.0.0
+
+First tagged release.
+
+* Credits
+
++  Thanks to Steve Purcell and Syohei YOSHIDA for their tireless work curating MELPA.
++  Thanks to Carsten Dominik for inventing Org, and for his contributions to this package.
++  Thanks to Eric S. Fraga for his valuable feedback.
++  Thanks to [[https://github.com/kaushalmodi][Kaushal Modi]] for his feedback and help.
++  Thanks to [[https://github.com/angrybacon][Mathieu Marques]] for his feedback and persistent bug-hunting.
++  Thanks to [[https://github.com/aaronjensen][Aaron Jensen]] for his help tracking down a bug in [[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=26586][Emacs]] and in [[https://github.com/alphapapa/org-sticky-header/pull/7][this package]].
+
+* License
+
+GPLv3 or any later version.
