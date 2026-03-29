@@ -11,6 +11,9 @@
     (set-display-table-slot display-table 5 ?│)
     (set-window-display-table (selected-window) display-table)))
 
+;; make vertical split line more beautiful
+(set-display-table-slot standard-display-table 'vertical-border (make-glyph-code ?│))
+
 ;; Somewhere in the emacs bootstrap sequence,
 ;; the following line of code choose a premature candidate of ...
 ;;     (or (window-display-table)
