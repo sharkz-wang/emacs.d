@@ -86,6 +86,7 @@
 (require 'init-centaur-tabs)
 (require 'init-misc)
 ;; some advance language features
+(require 'init-claude-code)
 ;; (require 'init-python-advanced)
 
 (require 'cust-vars)
