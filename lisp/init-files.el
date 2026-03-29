@@ -20,6 +20,7 @@ _s_: current buffer  _f_: current dir            _d_: current dir
   ;; save ...
   ("s" save-buffer)
   ;; browse ...
+  ("a" my-reload-whole-file)
   ("f" helm-find-files)
   ("y" yank-buffer-file-name)
   ("d" dired-curr-dir)
@@ -65,6 +66,15 @@ _s_: current buffer  _f_: current dir            _d_: current dir
 (setq ffip-use-rust-fd t)
 (setq ffip-rust-fd-extra-opts "--no-ignore --hidden")
 (setq ffip-match-path-instead-of-filename t)
+
+;; TODO: this function only serves one itch: code sinnpet inserted by claude code
+;;       breaks rendering of syntaxt highlighting
+;;       remove it if oneday I found a solution
+(defun my-reload-whole-file ()
+  (interactive)
+  (let ((file (buffer-file-name)))
+    (save-buffer)
+    (kill-buffer (current-buffer)) (find-file file)))
 
 (defun my-find-file-in-project-prompt ()
   (interactive)
